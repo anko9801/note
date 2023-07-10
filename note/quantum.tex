@@ -1,0 +1,1343 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{量子力学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{量子力学の基礎}
+TODO: 実験的背景: 電子線を用いた二重スリット実験など
+\begin{definition}
+  すべての粒子は波動性を持つ。
+\end{definition}
+
+\begin{definition}
+  波動方程式を満たす関数 $\psi(\rr, t)\in C^1(\CC)$ を粒子の場とし、これを波動関数 (wave function) という。また $\rho(\rr, t) = |\psi(\rr, t)|^2$ を粒子の確率密度 (probability density) と解釈し、この規格化条件を満たすように波動関数を定義する。
+  \begin{align}
+    \int\rho(\rr, t)\dd{\rr} = 1
+  \end{align}
+\end{definition}
+光子や電子の性質から粒子の性質と対応付ける。
+\begin{definition}[ド・ブロイの関係式]
+  光子と同様に任意の粒子は次のような関係式が成り立つとする。
+  \begin{align}
+    E & = \hbar\omega, \qquad p = \hbar k
+  \end{align}
+  また質量 $m$ の粒子の持つ力学的エネルギーは運動エネルギーとポテンシャルエネルギーの和で与えられる。
+  \begin{align}
+    E & = \frac{p^2}{2m} + V(\rr)
+  \end{align}
+\end{definition}
+\begin{theorem}[Schrödinger の方程式]
+  このとき波動関数 $\psi(\rr, t)$ について次の関係式が成り立つ。
+  \begin{align}
+    i\hbar\pdv{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  波動関数は波動方程式を満たすので次のように書ける。
+  \begin{align}
+    \frac{k^2}{\omega^2}\pdv[2]{\psi(\rr, t)}{t} & = \nabla^2\psi(\rr, t)
+  \end{align}
+  このときダランベールの解より $|\kk|^2 = k^2$ を満たす $\kk$ を用いて波動関数は $f(\kk\vdot\rr - \omega t)$ の重ね合わせとなる。ここでは特に次の関数となると考える。
+  \begin{align}
+    \psi(\rr, t) & = \int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk}
+  \end{align}
+  よって波動方程式は次のようになる。
+  \begin{align}
+    -k^2\psi(\rr, t)          & = \nabla^2\psi(\rr, t)                                                      \\
+    k^2 = \frac{p^2}{\hbar^2} & = \frac{2m}{\hbar^2}(E - V(\rr)) = \frac{2m}{\hbar^2}(\hbar\omega - V(\rr)) \\
+    \hbar\omega\psi(\rr, t)   & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)                    \\
+    i\hbar\pdv{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+  \end{align}
+\end{proof}
+\begin{theorem}
+  粒子の確率密度について連続の方程式を満たす。
+  \begin{align}
+    \pdv{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  確率密度の時間微分を考えると
+  \begin{align}
+    \pdv{t}\rho(\rr, t) & = \psi^*(\rr, t)\qty(\pdv{t}\psi(\rr, t)) + \qty(\pdv{t}\psi^*(\rr, t))\psi(\rr, t)                                                                                                      \\
+                        & = \psi^*(\rr, t)\qty(-\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)) + \qty(\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\psi(\rr, t) \\
+                        & = \frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\nabla^2\psi(\rr, t) - \nabla^2\psi^*(\rr, t)\psi(\rr, t))                                                                                         \\
+                        & = \frac{i\hbar}{2m}\vnabla\vdot\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
+  \end{align}
+  より確率の流れ $\bm{j}(\rr, t)$ を次のように解釈する。
+  \begin{align}
+    \bm{j}(\rr, t) & := -\frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
+  \end{align}
+  これより連続の方程式を満たす。
+  \begin{align}
+    \pdv{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
+  \end{align}
+\end{proof}
+\begin{theorem}
+  粒子の全存在確率は保存する。
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \dv{t}\int\rho(\rr, t)\dd{V} & = -\int\vnabla\vdot\bm{j}(\rr, t)\dd{V} = -\lim_{|\rr|\to\infty}\int\bm{j}(\rr, t)\vdot\bm{n}\dd{S} = 0
+  \end{align}
+\end{proof}
+\begin{definition}
+  物理量 $F$ に対する期待値を次のように定義する。
+  \begin{align}
+    \ev{F} & := \int\psi^*(\rr, t)F\psi(\rr, t)\dd{\rr}
+  \end{align}
+\end{definition}
+\begin{theorem}
+  このとき以下の物理量の期待値は次のようになる。
+  \begin{align}
+    \ev{\rr} = \ev{\rr}, \qquad \ev{\pp} = \ev{-i\hbar\vnabla}, \qquad m\dv[2]{\ev{\rr}}{t} = - \ev{\vnabla V(\rr, t)}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \ev{\rr} & = \int\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr} = \int\rr\rho(\rr, t)\dd{\rr}
+  \end{align}
+  \begin{align}
+    \ev{\pp} & = m\dv{\ev{\rr}}{t} = m\dv{t}\int\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                                                                                       \\
+             & = m\int\qty(\psi^*(\rr, t)\rr\pdv{t}\psi(\rr, t) + \pdv{t}\psi^*(\rr, t)\rr\psi(\rr, t))\dd{\rr}                                                                                                             \\
+             & = -m\int\psi^*(\rr, t)\rr\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)\dd{\rr} + m\int\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr} \\
+             & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\nabla^2\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                      \\
+             & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\psi^*(\rr, t)(\nabla^2\rr\psi(\rr, t))\dd{\rr}                                                                    \\
+             & = -i\hbar\int\psi^*(\rr, t)\vnabla\psi(\rr, t)\dd{\rr}                                                                                                                                                       \\
+             & = \ev{-i\hbar\vnabla}
+  \end{align}
+  \begin{align}
+    m\dv[2]{\ev{\rr}}{t} & = \dv{\ev{\pp}}{t} = -i\hbar\dv{t}\int\psi^*(\rr, t)\vnabla\psi(\rr, t)\dd{\rr}                                                                                                                  \\
+                         & = -\int\psi^*(\rr, t)\vnabla\qty(i\hbar\pdv{t}\psi(\rr, t))\dd{\rr} + \int\qty(-i\hbar\pdv{t}\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                          \\
+                         & = -\int\psi^*(\rr, t)\vnabla\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t))\dd{\rr} + \int\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} \\
+                         & = \frac{\hbar^2}{2m}\int\psi^*(\rr, t)\vnabla\qty(\nabla^2\psi(\rr, t))\dd{\rr} - \int\psi^*(\rr, t)\vnabla\qty(V(\rr)\psi(\rr, t))\dd{\rr}                                                      \\
+                         & - \frac{\hbar^2}{2m}\int\qty(\nabla^2\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} + \int\qty(V(\rr)\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                      \\
+                         & = - \int\psi^*(\rr, t)\vnabla V(\rr, t)\psi(\rr, t)\dd{\rr}                                                                                                                                      \\
+                         & = - \ev{\vnabla V(\rr, t)}
+  \end{align}
+\end{proof}
+
+このようなことから物理量に対して演算子を定義する。
+\begin{definition}
+  位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、ハミルトニアン $\hat{H}$ を次のように定義する。
+  \begin{align}
+    \hat{\rr} := \rr, \qquad \hat{\pp} := -i\hbar\vnabla, \qquad \hat{H} := \frac{\hat{\pp}^2}{2m} + V(\hat{\rr}, t)
+  \end{align}
+  ただし任意の演算子はエルミート演算子であるとする。
+  \begin{align}
+    \int\phi^*(\rr, t)\hat{F}\psi(\rr, t)\dd{\rr} = \int(\hat{F}\phi(\rr, t))^*\psi(\rr, t)\dd{\rr}
+  \end{align}
+  これより期待値は実数である。
+  \begin{align}
+    \hat{H}\psi(\rr) = E\psi(\rr)
+  \end{align}
+\end{definition}
+
+\begin{definition}[固有関数、固有値]
+  次のように演算子 $\hat{F}$ に対して定数倍を除いて波動関数が変化しないとき、波動関数 $\psi_f(\rr, t)$ を演算子 $\hat{F}$ の固有関数、定数 $f$ を固有値と呼ぶ。
+  \begin{align}
+    \hat{F}\psi_f(\rr, t) & = f\psi_f(\rr, t)
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  エルミート演算子 $\hat{F}$ において異なる固有値 $f, f'$ を持つ固有関数 $\psi_f(\rr, t), \psi_{f'}(\rr, t)$ は直交する。
+\end{theorem}
+\begin{proof}
+  エルミート演算子の性質より
+  \begin{align}
+    \int\psi_{f'}^*(\rr, t)\hat{F}\psi_f(\rr, t)  & = \int\qty(\hat{F}\psi_{f'}(\rr, t))^*\psi_f(\rr, t) \\
+    f\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)        & = f'\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)            \\
+    (f - f')\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t) & = 0                                                  \\
+    \int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)         & = 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}[不確定性原理]
+  ある波動関数においてある2つの物理量の標準偏差の積は一定値以上である。
+  \begin{align}
+    \Delta r_i\Delta p_j \geq \frac{\hbar}{2}\delta_{ij}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  波動関数が次のような関数のとき
+  \begin{align}
+    \Psi(\rr, t) & := (is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))\psi(\rr, t)
+  \end{align}
+
+  \begin{align}
+    \int|\Psi(\rr, t)|^2\dd{\rr} & = \int\Psi^*(\rr, t)\Psi(\rr, t)\dd{\rr}                                                                                                                                                                                               \\
+                                 & = \int(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})\psi(\rr, t))^*(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})\psi(\rr, t))\dd{\rr}                                                                 \\
+                                 & = \int\psi^*(\rr, t)(-is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))\psi(\rr, t)\dd{\rr}                                                                \\
+                                 & = \int\psi^*(\rr, t)(s^2(\hat{r}_i - \ev{\hat{r}_i})^2 - is(\hat{r}_i - \ev{\hat{r}_i})(\hat{p}_j - \ev{\hat{p}_j}) + is(\hat{p}_j - \ev{\hat{p}_j})(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})^2)\psi(\rr, t)\dd{\rr} \\
+                                 & = s^2\ev{(\hat{r}_i - \ev{\hat{r}_i})^2} + s\hbar\delta_{ij} + \ev{(\hat{p}_j - \ev{\hat{p}_j})^2}                                                                                                                                     \\
+                                 & = s^2\Delta r_i^2 + s\hbar\delta_{ij} + \Delta p_j^2                                                                                                                                                                                   \\
+                                 & = \qty(s + \frac{\hbar\delta_{ij}}{2\Delta r_i^2})^2\Delta r_i^2 - \frac{\hbar^2\delta_{ij}}{4\Delta r_i^2} + \Delta p_j^2 \geq 0                                                                                                      \\
+  \end{align}
+  $s = \frac{\hbar\delta_{ij}}{2\Delta r_i^2}$ と代入すると
+  \begin{align}
+    \Delta r_i\Delta p_j \geq \frac{\hbar}{2}\delta_{ij}
+  \end{align}
+\end{proof}
+
+\section{時間に依存しないポテンシャル}
+ここではポテンシャルが時間に依存せず、シュレーディンガー方程式が時間に依存しないときを考える。時間成分について波動関数は $\psi(\rr, t) = \varphi(\rr)e^{-i\omega t}$ と分けられるからシュレーディンガー方程式は次のように書ける。
+\begin{align}
+  \hbar\omega\varphi(\rr) & = \qty(-\frac{\hbar^2}{2m}\vnabla^2 + V(\rr))\varphi(\rr) \\
+  \hat{H}\varphi(\rr)     & = E\varphi(\rr)
+\end{align}
+
+\subsection{有限ポテンシャル}
+ポテンシャルが有限のとき
+\begin{align}
+  \lim_{\epsilon\to +0}\vnabla\psi(\rr, t)|_{\rr_0}^{\rr_0 + \epsilon} & = \lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}\nabla^2\psi(\rr, t)                        \\
+                                                                       & = -\frac{2m}{\hbar^2}\lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}(E - V(\rr))\psi(\rr, t) \\
+                                                                       & \to 0
+\end{align}
+ポテンシャルが空間反転対称性をもつとき
+\begin{align}
+  E\varphi(-\rr) & = \qty(-\frac{\hbar^2}{2m}(-\nabla)^2 + V(-\rr))\varphi(-\rr) \\
+                 & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\varphi(-\rr)
+\end{align}
+より $\varphi(\rr), \varphi(-\rr)$ は解となる。線形従属、線形独立のときを考えると偶関数または奇関数としても一般性は失われない。
+
+\subsection{平面波}
+ポテンシャルが全くないとき平面波となる。
+\begin{proposition}
+  ポテンシャルがないときを考える。
+  \begin{align}
+    V(x) = 0
+  \end{align}
+  このとき波数 $\kk$ の波動関数は次のようになる。
+  \begin{align}
+    \psi_{\kk}(\rr, t) & = \frac{e^{i(\kk\vdot\rr - \omega_{\kk}t)}}{(2\pi)^{3/2}} \qquad \qty(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+  \end{align}
+\end{proposition}
+\begin{proof}
+  このとき波数 $\kk$ の波動関数は次のようになる。
+  \begin{align}
+    \psi_{\kk}(\rr, t) & = Ce^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \qty(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+  \end{align}
+  一辺の長さ $L$ の箱の中に閉じ込めるという周期境界条件を考える。
+  \begin{align}
+    \psi(\rr, t) = \psi(\rr + L\bm{e}_i, t) \iff e^{ik_iL} = 1 \iff k_i = \frac{2\pi n_i}{L} \qquad (n_i\in\ZZ)
+  \end{align}
+  また規格化条件より次のようになる。
+  \begin{align}
+    \int|\psi_{\kk}(\rr, t)|^2\dd{\rr} = |C|^2L^3 = 1 \iff |C| & = \frac{1}{L^{3/2}}
+  \end{align}
+  また正規直交関係式より
+  \begin{align}
+    \int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dd{\rr} & = \delta_{\kk\kk'}
+  \end{align}
+  一辺の長さが無限大の箱を考えるときディラックのデルタ関数を用いると
+  \begin{align}
+    \lim_{L\to\infty}\int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dd{\rr} & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\lim_{L\to\infty}\int e^{i(\kk - \kk')\vdot\rr}\dd{\rr}                                            \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}\lim_{L\to\infty}\int_{-L/2}^{L/2} e^{i(k_i - k_i')r_i}\dd{r_i}                     \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}\lim_{L\to\infty}\frac{e^{i(k_i - k_i')L/2} - e^{-i(k_i - k_i')L/2}}{i(k_i - k_i')} \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}2\pi\lim_{L\to\infty}\frac{\sin((k_i - k_i')L/2)}{\pi(k_i - k_i')}                  \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}2\pi\delta(k_i - k_i')                                                              \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}(2\pi)^3\delta(\kk - \kk')                                                                         \\
+                                                                         & = e^{-i(\omega_{\kk} - \omega_{\kk'})t}\delta(\kk - \kk') \qquad \qty(\because |C| = \frac{1}{(2\pi)^{3/2}})                                   \\
+                                                                         & = \delta(\kk - \kk')
+  \end{align}
+\end{proof}
+
+
+\subsection{剛体壁ポテンシャル}
+\begin{proposition}
+  中心から距離 $L$ 以降には粒子が入れないような 1 次元ポテンシャルを考える。
+  \begin{align}
+    V(x) & = \begin{cases}
+               + \infty & (|x| > L) \\
+               0        & (|x| < L)
+             \end{cases}
+  \end{align}
+  このとき固有関数、固有エネルギーは次のようになる。
+  \begin{align}
+    \varphi_n(x) & = \begin{dcases}
+                       \frac{1}{\sqrt{L}}\cos(\frac{n\pi}{2L}x) & (n = 1,3,5,\ldots) \\
+                       \frac{1}{\sqrt{L}}\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
+                     \end{dcases} \\
+    E_n          & = \frac{\hbar^2}{2m}\qty(\frac{n\pi}{2L})^2
+  \end{align}
+\end{proposition}
+\begin{proof}
+  $|x| > L$ においてポテンシャルの深さが無限大となるので粒子は侵入出来ない為に波動関数はゼロとなる。また $|x| < L$ においては次の微分方程式となる。
+  \begin{align}
+    -\frac{\hbar^2}{2m}\dv[2]{x}\varphi(x) & = E\varphi(x) & (|x| < L)
+  \end{align}
+  これより波動関数の解は次のようになる。
+  \begin{align}
+    \varphi(x) & = \begin{dcases}
+                     0                    & (|x| > L) \\
+                     Ae^{ikx} + Be^{-ikx} & (|x| < L)
+                   \end{dcases} \\
+    E          & = \frac{\hbar^2k^2}{2m} > 0
+  \end{align}
+  波動関数は連続的につながっていなければならないので
+  \begin{align}
+    \varphi(\pm L) = 0 & \iff \begin{cases}
+                                Ae^{ikL} + Be^{-ikL} = 0 \\
+                                Ae^{-ikL} + Be^{ikL} = 0
+                              \end{cases}  \\
+                       & \iff \begin{cases}
+                                Ae^{2ikL} + B = 0 \\
+                                Ae^{-2ikL} + B = 0
+                              \end{cases}         \\
+                       & \iff \begin{cases}
+                                Ae^{2ikL} + B = 0 \\
+                                Ae^{-2ikL} - Ae^{2ikL} = 0
+                              \end{cases} \\
+                       & \iff \begin{cases}
+                                B = -Ae^{2ikL} \\
+                                A(e^{4ikL} - 1) = 0
+                              \end{cases}
+  \end{align}
+  ここで $A = B = 0$ となる解は意味を成さないので排除すると次のように $k$ が離散化される。
+  \begin{align}
+    e^{4ikL} = 1 & \iff k = \frac{n\pi}{2L} \qquad (n = 1,2,\cdots)
+  \end{align}
+  これより波動関数は次のようになる。
+  \begin{align}
+    B = - Ae^{in\pi}                                                & = \begin{cases}
+                                                                          +A & (n = 1,3,5,\ldots) \\
+                                                                          -A & (n = 2,4,6,\ldots)
+                                                                        \end{cases}                        \\
+    \varphi_n(x) = Ae^{i\frac{n\pi}{2L}x} + Be^{-i\frac{n\pi}{2L}x} & = \begin{dcases}
+                                                                          2A\cos(\frac{n\pi}{2L}x)  & (n = 1,3,5,\ldots) \\
+                                                                          2Ai\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
+                                                                        \end{dcases}
+  \end{align}
+  最後に $A$ を規格化条件
+  \begin{align}
+    \int_{-\infty}^\infty |\varphi_n(x)|^2 = \int_{-L}^L |\varphi_n(x)|^2 = (2A)^2L = 1
+  \end{align}
+  より決定すると、固有関数とエネルギー固有値は
+  \begin{align}
+    \varphi_n(x) & = \begin{dcases}
+                       \frac{1}{\sqrt{L}}\cos(\frac{n\pi}{2L}x) & (n = 1,3,5,\ldots) \\
+                       \frac{1}{\sqrt{L}}\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
+                     \end{dcases} \\
+    E_n          & = \frac{\hbar^2}{2m}\qty(\frac{n\pi}{2L})^2
+  \end{align}
+  のように離散化される。
+\end{proof}
+
+\subsection{井戸型ポテンシャル}
+\begin{proposition}
+  \begin{align}
+    V(x) =
+    \begin{cases}
+      V_0 & (|x| < L) \\
+      0   & (|x| > L)
+    \end{cases}
+  \end{align}
+  $V_0 < E < 0$ のとき
+\end{proposition}
+\begin{proof}
+  空間反転対称性より偶関数と奇関数 $\varphi_+(x), \varphi_-(x)$ としてよい。
+  \begin{align}
+    -\frac{\hbar^2}{2m}\dv[2]{x}\varphi_{\pm}(x) & = (E - V_0)\varphi_{\pm}(x) & (|x| < L) \\
+    -\frac{\hbar^2}{2m}\dv[2]{x}\varphi_{\pm}(x) & = E\varphi_{\pm}(x)         & (|x| > L)
+  \end{align}
+  まず $V_0 < E < 0$ となる場合を考える。
+  \begin{align}
+    \varphi_{\pm}(x) & = \begin{dcases}
+                           Ae^{ikx} + Be^{-ikx}                               & (|x| < L) \\
+                           C_\pm e^{\kappa(x - L)} + D_\pm e^{-\kappa(x - L)} & (|x| > L)
+                         \end{dcases} \\
+    E - V_0          & = \frac{\hbar^2k^2}{2m} > 0, \qquad E = -\frac{\hbar^2\kappa^2}{2m} < 0
+  \end{align}
+  $|x| < L$ において偶奇性より
+  \begin{align}
+    \begin{dcases}
+      \varphi_+(x) = A_+\cos(kx) \\
+      \varphi_-(x) = A_-\sin(kx)
+    \end{dcases}
+  \end{align}
+  境界における波動関数とその微分係数の連続性を要請すると
+  \begin{align}
+    \begin{dcases}
+      \varphi_+(L) = A_+\cos(kL) = C_+ + D_+                \\
+      \varphi_-(L) = A_-\sin(kL) = C_- + D_-                \\
+      \varphi_+'(L) = -A_+k\sin(kL) = C_+\kappa - D_+\kappa \\
+      \varphi_-'(L) = A_-k\cos(kL) = C_+\kappa - D_+\kappa  \\
+    \end{dcases}
+    \iff
+    \begin{dcases}
+      2C_+ = A_+\cos(kL) - A_+\frac{k}{\kappa}\sin(kL) \\
+      2D_+ = A_+\cos(kL) + A_+\frac{k}{\kappa}\sin(kL) \\
+      2C_- = A_-\sin(kL) + A_-\frac{k}{\kappa}\cos(kL) \\
+      2D_- = A_-\sin(kL) - A_-\frac{k}{\kappa}\cos(kL) \\
+    \end{dcases}
+  \end{align}
+\end{proof}
+
+
+
+\subsection{1次元調和振動子}
+\begin{proposition}
+  ポテンシャルが質点の遠心力を仕事とした調和振動子とする。
+  \begin{align}
+    V(x) = \frac{1}{2}m\omega^2x^2
+  \end{align}
+  固有関数と固有エネルギーは次のようになる。
+  \begin{align}
+    \psi_n(x) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega x^2}{2\hbar}} \\
+    E_n       & = \hbar\omega\qty(n + \frac{1}{2})
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    H = \frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2
+  \end{align}
+  $\xi = \sqrt{m\omega/\hbar}x$ とおくと
+  \begin{align}
+    H\psi(x) & = \qty(-\frac{\hbar^2}{2m}\dv[2]{x} + \frac{1}{2}m\omega^2x^2)\psi(x) \\
+             & = \frac{\hbar\omega}{2}\qty(-\dv[2]{\xi} + \xi^2)\psi(\xi)
+  \end{align}
+  より $\epsilon = 2E/\hbar\omega$ とおくと
+  \begin{align}
+    \psi'' + \qty(\epsilon - \xi^2)\psi(\xi) = 0
+  \end{align}
+  となる。この解は $\psi(\xi) = X(\xi)e^{\pm\frac{\xi^2}{2}}$ と予測されるのでこれを微分方程式に代入とすると
+  \begin{align}
+    X'' \pm 2\xi X' + (\epsilon\pm 1)X = 0
+  \end{align}
+  よりこの微分方程式の解 $X(\xi)$ はエルミート多項式の定数倍 $cH_n(\xi)$ となる。このとき無限大で発散する $\psi(\xi) = X(\xi)e^{\frac{\xi^2}{2}}$ は不適。
+  // TODO なぜ $+$ の場合を排除できるのかを明確に記す。
+  これより $\psi_n(\xi) = cH_n(\xi)e^{-\frac{\xi^2}{2}}$ となる。規格化条件を考えると
+  \begin{align}
+    \int_\RR \psi_m^*\psi_n\dd{\xi} & = c^2\int_\RR \qty(H_m(\xi)e^{-\frac{\xi^2}{2}})^*H_n(\xi)e^{-\frac{\xi^2}{2}}\dd{\xi} \\
+                                    & = c^2\int_\RR H_m(\xi)H_n(\xi)e^{-\xi^2}\dd{\xi}                                       \\
+                                    & = 2^nn!\sqrt{\pi}c^2\delta_{m, n}                                                      \\
+                                    & = \delta_{m, n}
+  \end{align}
+  よって次のようになる。
+  \begin{align}
+    \psi_n(\xi) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}}                                          \\
+    \psi_n(x)   & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega x^2}{2\hbar}} \\
+    E_n         & = \hbar\omega\qty(n + \frac{1}{2})
+  \end{align}
+\end{proof}
+
+\begin{definition}
+  上昇演算子 $\hat{a}^\dagger$, 下降演算子 $\hat{a}$, 数演算子 $\hat{N}$ を次のように定義する。
+  \begin{align}
+    \hat{a}^\dagger & = \frac{1}{\sqrt{2}}\qty(\xi - \dv{\xi}) & \hat{a} & = \frac{1}{\sqrt{2}}\qty(\xi + \dv{\xi}) & \hat{N} & = \hat{a}^\dagger\hat{a}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  上昇・下降演算子により
+  \begin{align}
+    \hat{a}^\dagger\psi_n(\xi) & = \sqrt{n+1}\psi_{n+1}(\xi) \\
+    \hat{a}\psi_n(\xi)         & = \sqrt{n}\psi_{n-1}(\xi)   \\
+    \hat{N}\psi_n(\xi)         & = n\psi_n(\xi)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  これらを波動関数に掛けると
+  \begin{align}
+    \hat{a}^\dagger\psi_n(\xi) & = \frac{1}{\sqrt{2}}\qty(\xi - \dv{\xi})\qty(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})   \\
+                               & = \sqrt{\frac{n+1}{2^{n+1}(n+1)!\sqrt{\pi}}}\qty(\xi H_n(\xi) - (H_n'(\xi) - \xi H_n(\xi)))                  \\
+                               & = \sqrt{n+1}\psi_{n+1}(\xi)                                                                                  \\
+    \hat{a}\psi_n(\xi)         & = \frac{1}{\sqrt{2}}\qty(\xi + \dv{\xi})\qty(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})   \\
+                               & = \sqrt{\frac{1}{2^{n-1}(n-1)!\sqrt{\pi}}}\frac{1}{2\sqrt{n}}\qty(\xi H_n(\xi) + (H_n'(\xi) - \xi H_n(\xi))) \\
+                               & = \sqrt{n}\psi_{n-1}(\xi)                                                                                    \\
+    \hat{N}\psi_n(\xi)         & = n\psi_n(\xi)
+  \end{align}
+  となる。
+\end{proof}
+
+\begin{proposition}
+  \begin{align}
+    [\hat{a}, \hat{a}^\dagger] & = 1                                      \\
+    [\hat{N}, \hat{a}]         & = -\hat{a}^\dagger                       \\
+    [\hat{N}, \hat{a}^\dagger] & = \hat{a}                                \\
+    \hat{H}                    & = \hbar\omega\qty(\hat{N} + \frac{1}{2})
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    [\hat{a}, \hat{a}^\dagger] & = \hat{a}\hat{a}^\dagger - \hat{a}^\dagger\hat{a}                                                      \\
+                               & = \frac{1}{2}\qty(\qty(\xi + \dv{\xi})\qty(\xi - \dv{\xi}) - \qty(\xi - \dv{\xi})\qty(\xi + \dv{\xi})) \\
+                               & = \frac{1}{2}\qty(\qty(\xi^2 + 1 - \dv[2]{\xi}) - \qty(\xi^2 - 1 - \dv[2]{\xi}))                       \\
+                               & = 1                                                                                                    \\
+    [\hat{N}, \hat{a}]         & = [\hat{a}^\dagger\hat{a}, \hat{a}] =                                                                  \\
+    [\hat{N}, \hat{a}^\dagger] & = \hat{a}                                                                                              \\
+  \end{align}
+\end{proof}
+
+\subsection{3次元調和振動子}
+\begin{proposition}
+  3次元等方調和振動子について
+  \begin{align}
+    \hat{H} = \frac{\hat{\pp}}{2m} + \frac{1}{2}m\omega^2\rr^2
+  \end{align}
+  固有関数、固有エネルギーは次のようになる。
+  \begin{align}
+    \psi_{n_1,n_2,n_3}(\rr) & = \prod_{i = 1}^3\sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}\qty(\sqrt{\frac{m\omega}{\hbar}}r_i)e^{-\frac{m\omega r_i^2}{2\hbar}} \\
+    E_{n_1,n_2,n_3}         & = \sum_{i=1}^{3}\hbar\omega\qty(n_i + \frac{1}{2})
+  \end{align}
+\end{proposition}
+\begin{proof}
+  波動関数を $\psi(\rr) = X_1(r_1)X_2(r_2)X_3(r_3)$ と変数分離すると1次元調和振動子と同様に解ける。
+  \begin{align}
+    E_iX_i(r_i) & = \qty(\frac{\hat{p}_i^2}{2m} + \frac{1}{2}m\omega^2r_i^2)X_i(r_i)                                                           \\
+    X_i(r_i)    & = \sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}(\xi_i)e^{-\frac{\xi_i^2}{2}} & \qty(\xi_i = \sqrt{\frac{m\omega}{\hbar}}r_i) \\
+    E_i         & = \hbar\omega\qty(n_i + \frac{1}{2})
+  \end{align}
+  より
+  \begin{align}
+    \psi_{n_1,n_2,n_3}(r_1,r_2,r_3) & = \prod_{i = 1}^3\sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}(\xi_i)e^{-\frac{\xi_i^2}{2}} \\
+    E_{n_1,n_2,n_3}                 & = \sum_{i=1}^{3}\hbar\omega\qty(n_i + \frac{3}{2})
+  \end{align}
+  となる。
+\end{proof}
+
+
+
+\subsection{2次元中心力ポテンシャル}
+\begin{proposition}
+  2次元中心力ポテンシャルのとき、波動関数は $\psi(r, \theta) = R(r)e^{i\mu\theta}$ として $R(r)$ は次の微分方程式を満たす関数である。
+  \begin{align}
+    R'' + \frac{1}{r}R' - \qty(\frac{2m(V(r) - E)}{\hbar^2} + \mu^2)R = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  極座標
+  \begin{align}
+    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + V(r)                                                                               \\
+            & = -\frac{\hbar^2}{2m}\qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + V(r)                     \\
+    0       & = \qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta} + \frac{2m(E - V(r))}{\hbar^2})\psi(r, \theta)
+  \end{align}
+  波動関数を $\psi(r, \theta) = R(r)\Theta(\theta)$ と変数分離する。
+  \begin{align}
+    \frac{R''}{R} + \frac{1}{r}\frac{R'}{R} + \frac{1}{r^2}\frac{\Theta''}{\Theta} + \frac{2m(E - V(r))}{\hbar^2} = 0
+  \end{align}
+  依存する変数を分けることで定数 $\mu$ を用いて次のようになる。
+  \begin{align}
+    \begin{dcases}
+      R'' + \frac{1}{r}R' + \frac{2m(E - V(r))}{\hbar^2}R = \mu^2R \\
+      \Theta'' = -\mu^2\Theta
+    \end{dcases}
+  \end{align}
+  $\Theta(\theta)$ については次のように解ける。
+  \begin{align}
+    \Theta(\theta) = \begin{cases}
+                       Ae^{i|\mu|\theta} + Be^{-i|\mu|\theta} & (\mu^2 \neq 0) \\
+                       C\theta + D                            & (\mu^2 = 0)    \\
+                     \end{cases}
+  \end{align}
+  波動関数は連続であるから $\Theta(0) = \Theta(2\pi)$ であり、規格化条件を満たす。これより $C = D = 0$ となる解は意味を成さず、$m\in\ZZ$ となる。
+  \begin{align}
+    \Theta(\theta) = \frac{1}{\sqrt{2\pi}}e^{i\mu\theta} \qquad (\mu\in\ZZ)
+  \end{align}
+  よって波動関数は $\psi(r, \theta) = R(r)e^{i\mu\theta}$ として $R(r)$ は次の微分方程式を満たす関数である。
+  \begin{align}
+    R'' + \frac{1}{r}R' + \qty(\frac{2m(E - V(r))}{\hbar^2} - \mu^2)R = 0
+  \end{align}
+\end{proof}
+
+
+
+\subsection{2次元等方調和振動子}
+\begin{proposition}
+  2次元等方調和振動子のポテンシャルにおいて固有関数と固有エネルギーは次のようになる。
+  \begin{align}
+    \psi(\rho, \theta) & = \rho^{|\mu|}e^{-\frac{\rho^2}{2}}L_n^{|\mu|}(\rho)e^{i\mu\theta} \\
+    E_{n, \mu}         & =
+  \end{align}
+\end{proposition}
+\begin{proof}
+  極座標で2次元等方調和振動子を考える。まず $r$ を無次元化すると
+  \begin{align}
+    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + \frac{1}{2}m\omega^2r^2                                                                                                        \\
+            & = -\frac{\hbar^2}{2m}\qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + \frac{1}{2}m\omega^2r^2                                              \\
+            & = -\frac{\hbar\omega}{2}\qty(\pdv[2]{\rho} + \frac{1}{\rho}\pdv{\rho} + \frac{1}{\rho^2}\pdv[2]{\theta} - \rho^2)   & \qty(\rho = \sqrt{\frac{m\omega}{\hbar}}r)
+  \end{align}
+  波動関数を $\psi(\rho, \theta) = R(\rho)e^{i\mu\theta}$ と変数分離する。
+  \begin{align}
+    R'' + \frac{1}{\rho}R' + \qty(\frac{2E}{\hbar\omega} - \rho^2 - \frac{\mu^2}{\rho^2})R = 0
+  \end{align}
+  $\rho\to 0$ のとき $R(\rho) = \rho^s$ とおくと $R(\rho) = \rho^{|\mu|}$ が適する。
+  \begin{align}
+     & \rho^2R'' + \rho R' - \mu^2R = 0                              & (\rho\to 0) \\
+     & \rho^2s(s - 1)\rho^{s-2} + \rho s\rho^{s-1} - \mu^2\rho^s = 0               \\
+     & (s^2 - \mu^2)\rho^s = 0
+  \end{align}
+  $\rho\to\infty$ のとき $R = e^{-\frac{\rho^2}{2}}$ が適する。
+  \begin{align}
+     & \rho R'' + R' - \rho^3R = 0                                                                            & (\rho\to\infty) \\
+     & \rho (-1 + \rho^2)e^{-\frac{\rho^2}{2}} - \rho e^{-\frac{\rho^2}{2}} - \rho^3e^{-\frac{\rho^2}{2}} = 0
+  \end{align}
+  この結果を用いて微分方程式に代入するとそれらはラゲールの陪関数によって補完されることが分かる。
+  \begin{align}
+    R(\rho) & = \rho^{|\mu|}e^{-\frac{\rho^2}{2}}L_n^{|\mu|}(\rho) \qquad (|\mu|\leq n\in\ZZ)
+  \end{align}
+  \begin{align}
+    \psi(\rho, \theta) & = \rho^{|\mu|}e^{-\frac{\rho^2}{2}}L_n^{|\mu|}(\rho)e^{i\mu\theta} \\
+    E_{n, \mu}         & =
+  \end{align}
+\end{proof}
+
+
+
+\subsection{3次元中心力(球対称)ポテンシャル}
+\begin{proposition}
+  3次元中心力ポテンシャルのとき、波動関数は $\psi_{lm}(r, \theta, \phi) = r\chi_l(r)\Theta_{lm}(\theta)e^{im\phi}$ となり、$\Theta_{lm}(\theta)$ は次のようになり、$\chi_l(r)$ は次の微分方程式を満たす。
+  $l, m\in\ZZ$
+  \begin{align}
+     & \Theta_{lm}(\theta) = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
+     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  動径方向のみに依存するポテンシャル $V(r)$ を考える。
+  \begin{align}
+    \hat{H} & = -\frac{\hbar^2}{2\mu}\laplacian + V(r)                                                                                                                                                       \\
+            & = -\frac{\hbar^2}{2\mu}\qty(\frac{1}{r^2}\pdv{r}\qty(r^2\pdv{r}) + \frac{1}{r^2\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{r^2\sin^2\theta}\pdv[2]{\phi}) + V(r)            \\
+    0       & = \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi} + \frac{2\mu r^2(E - V(r))}{\hbar^2})\psi(r, \theta, \phi)
+  \end{align}
+  と書ける。波動関数 $\psi(r, \theta, \phi)$ を $\psi(r, \theta, \phi) = R(r)Y(\theta, \phi)$ と変数分離すると定数 $\lambda$ を用いて
+  \begin{align}
+    \begin{dcases}
+      \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r) \\
+      \qty(\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi)
+    \end{dcases}
+  \end{align}
+  となる。また $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ と変数分離すると定数 $m$ を用いて
+  \begin{align}
+    \begin{dcases}
+      \qty(\sin\theta\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \lambda \sin^2\theta)\Theta(\theta)  = m^2\Theta(\theta) \\
+      \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
+    \end{dcases}
+  \end{align}
+  となる。よって次の 3 式を解けばよい。
+  \begin{align}
+     & \qty(\dv{r}\qty(r^2\dv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                              \\
+     & \qty(\sin\theta\dv{\theta}\qty(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta)  = m^2\Theta(\theta) \\
+     & \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
+  \end{align}
+  まず $\Phi(\phi)$ の一般解は次のようになる。
+  \begin{align}
+     & \dv[2]{\Phi(\phi)}{\phi} + m^2\Phi(\phi) = 0               \\
+     & \Phi(\phi) = \begin{cases}
+                      Ae^{i|m|\phi} + Be^{-i|m|\phi} & (m^2 \neq 0) \\
+                      C\phi + D                      & (m^2 = 0)    \\
+                    \end{cases}
+  \end{align}
+  波動関数は連続であるから $\Phi(0) = \Phi(2\pi)$ であり、規格化条件を満たす。$C = D = 0$ となる解は意味を成さず、$m\in\ZZ$ となる。$L_z$ の固有関数となることから
+  \begin{align}
+    \Phi(\phi) & = \frac{1}{\sqrt{2\pi}}e^{im\phi} \qquad (m\in\ZZ)
+  \end{align}
+  となる。次に $\Theta(\theta)$ について解く。$z = \cos\theta$ とおくと,
+  \begin{align}
+    \qty(\sin\theta\dv{\theta}\qty(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) & = m^2\Theta(\theta) \\
+    \dv{z}\qty((1 - z^2)\dv{\Theta}{z}) + \qty(\lambda - \frac{m^2}{1 - z^2})\Theta(z)          & = 0
+  \end{align}
+  となる。$m = 0$ において $\Theta(z)$ はルジャンドルの微分方程式を満たす。$\Theta(z)$ をべき展開することで
+  \begin{align}
+     & (1 - z^2)\Theta'' - 2z\Theta' + \lambda\Theta = 0, \qquad \Theta(z) = \sum_{k = 0}^\infty a_kz^k                          \\
+     & (1 - z^2)\sum_{k = 2}^\infty k(k-1)a_kz^{k-2} - 2z\sum_{k = 1}^\infty ka_kz^{k-1} + \lambda\sum_{k = 0}^\infty a_kz^k = 0 \\
+     & \sum_{k = 0}^\infty \qty((k+1)(k+2)a_{k+2} + \qty(\lambda - k(k+1))a_k)z^k + \mathcal{O}(z) = 0                           \\
+     & a_{k+2} = \frac{k(k+1) - \lambda}{(k+2)(k+1)}a_k
+  \end{align}
+  となる。よって $z$ について一般に発散しない為には $\lambda = l(l+1)\ (l\in\ZZ_{>0})$ とならければならない。すると $m\neq 0$ のときはルジャンドルの陪微分方程式となる。
+  これよりルジャンドルの陪関数 $P_l^m(z)$ と規格化条件から
+  \begin{align}
+    \Theta_{lm}(\theta) & = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
+    P_l^m(z)            & = (1 - z^2)^{\frac{m}{2}}\dv[m]{P_l(z)}{z}                                                               \\
+    P_l(z)              & = \frac{1}{2^l}\dv[l]{z}(z^2 - 1)^l
+  \end{align}
+  と書けるらしい。また $R_l(r)$ については $R_l(r) = \dfrac{\chi_l(r)}{r}$ とおくと
+  \begin{align}
+     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)                                                  \\
+     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + V_{\mathrm{eff}}(r)\chi_l(r) = E\chi_l(r) \qquad \qty(V_{\mathrm{eff}}(r) = V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})
+  \end{align}
+  となり, 1 次元のシュレーディンガー方程式に帰着する。
+\end{proof}
+
+
+
+\subsection{自由な 3 次元系}
+\begin{proposition}
+  ポテンシャルが球対称に無いとき
+  \begin{align}
+    V(r) = 0
+  \end{align}
+  球ベッセル関数 $j_l(\xi)$ と球ノイマン関数 $n_l(\xi)$ の線形結合で書かれる。
+  \begin{align}
+    R_l(\xi) & = \alpha j_l(\xi) + \beta n_l(\xi)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  動径方向のシュレーディンガー方程式について $k^2 = \dfrac{2\mu E}{\hbar^2}$, $\xi = kr$ とすると
+  \begin{align}
+     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \qty(\frac{2\mu E}{\hbar^2} - \frac{l(l+1)}{r^2})R_l(r) = 0 \\
+     & \dv[2]{\xi}R_l(\xi) + \frac{2}{\xi}\dv{\xi}R_l(\xi) + \qty(1 - \frac{l(l+1)}{\xi^2})R_l(\xi) = 0
+  \end{align}
+  となり, 一般解は球ベッセル関数 $j_l(\xi)$ と球ノイマン関数 $n_l(\xi)$ の線形結合で書かれる。
+  \begin{align}
+    R_l(\xi) & = \alpha j_l(\xi) + \beta n_l(\xi)
+  \end{align}
+  球ノイマン関数は原点に極を持つので大体の場合排除される。
+
+  例えば球面波のとき $\psi_{lm}(r, \theta, \phi) = j_l(kr)Y_l^m(\theta,\phi)$ となる。
+
+  平面波のとき $\psi_{lm}(r, \theta, \phi) = e^{i\bm{k}\vdot\bm{r}}$ となる。特に $z$ 方向のとき次のようになるらしい。
+  \begin{align}
+    e^{i\bm{k}\vdot\bm{z}} = e^{ikr\cos\theta} = \sum_{l = 0}^\infty (2l + 1)i^lj_l(kr)P_l(\cos\theta)
+  \end{align}
+\end{proof}
+
+
+
+\subsection{球対称剛体壁ポテンシャル}
+\begin{proposition}
+  次のようなポテンシャルのとき
+  \begin{align}
+    V(r) = \begin{dcases}
+             0      & (0\leq r\leq L) \\
+             \infty & (L < r)
+           \end{dcases}
+  \end{align}
+  固有関数と固有エネルギーは次のようになる。
+  \begin{align}
+    \psi_{nlm}(r, \theta, \phi) & = C_{nl}j_l(\xi_{nl})Y_l^m(\theta,\phi) \\
+    E_{ln}                      & = \dfrac{\hbar^2}{2\mu L^2}\xi_{ln}^2
+  \end{align}
+\end{proposition}
+\begin{proof}
+  これは境界条件 $R_{nl}(L) = 0$ から $\xi_{nl}$ を定めて となる。
+  \begin{align}
+    \psi_{nlm}(r, \theta, \phi) & = C_{nl}j_l(\xi_{nl})Y_l^m(\theta,\phi) \\
+    E_{ln}                      & = \dfrac{\hbar^2}{2\mu L^2}\xi_{ln}^2
+  \end{align}
+\end{proof}
+
+
+
+\subsection{3次元等方調和振動子}
+\begin{proposition}
+  \begin{align}
+    V(r) = \frac{1}{2}\mu\omega^2r^2
+  \end{align}
+  \begin{align}
+    R_l(x) = x^{l/2}e^{-x/2}S_n^\alpha(x)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  まず無次元化するために $\rho = \sqrt{\dfrac{\mu\omega}{\hbar}}r$ とおくと
+  \begin{align}
+     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{1}{2}\mu\omega^2r^2 - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0                                          \\
+     & \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) = 0                         & \qty(\lambda = \frac{2E}{\hbar\omega})
+  \end{align}
+  となる。$x = \rho^2$ と変数変換すると
+  \begin{align}
+     & x\dv[2]{x}R_l(x) + \frac{3}{2}\dv{x}R_l(x) + \frac{1}{4}\qty(\lambda + x - \frac{l(l+1)}{x})R_l(x) = 0
+  \end{align}
+  となり, 級数展開法より $\rho\to\infty$ で発散しない為には $n$ を非負整数として $\lambda = 4n + 2l + 3$ となる。
+  $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-x/2}$, $x^{l/2}$ となるので $R_l(x) = x^{l/2}e^{-x/2}S_n^\alpha(x)$ と分離すると
+  \begin{align}
+    x\dv[2]{x}S_n^\alpha + (\alpha + 1 - x)\dv{x}S_n^\alpha + nS_n^\alpha = 0
+  \end{align}
+  ソニンの多項式となるので解はラゲールの陪関数を用いて $L_{n + \alpha}^\alpha$ と書ける。
+\end{proof}
+
+
+
+\subsection{水素原子}
+\begin{proposition}
+  \begin{align}
+    V(r) = -\frac{e^2}{4\pi\epsilon_0r}
+  \end{align}
+  固有関数と固有エネルギーは次のようになる。
+  \begin{align}
+    R_{nl}(\rho) & = \qty(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho) \\
+    E_n          & = - \frac{e^2}{8\pi\epsilon_0a_B}\frac{1}{n^2}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  まず無次元化するために $\rho = \alpha r$, $\alpha = 2\sqrt{\dfrac{2\mu|E|}{\hbar^2}}$ とすると
+  \begin{align}
+     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{e^2}{4\pi\epsilon_0r} - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0                                                                              \\
+     & \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\frac{1}{4} + \frac{\lambda}{\rho} - \frac{l(l+1)}{\rho^2})R_l(\rho) = 0         & \qty(\lambda = \frac{e^2}{8\pi\epsilon_0E}\sqrt{\dfrac{2\mu|E|}{\hbar^2}})
+  \end{align}
+  $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-\rho/2}$, $\rho^l$ となるので $R_l(\rho) = \rho^le^{-\rho/2}L(\rho)$ と分離すると
+  \begin{align}
+    \rho\dv[2]{L}{\rho} + (2l + 2 - \rho)\dv{L}{\rho} + (\lambda - 1 - l)L = 0
+  \end{align}
+  となりラゲールの陪多項式となる。ここで級数展開法より $r\to\infty$ で発散しない為には非負整数 $n$ を用いて $\lambda = n + l + 1$ とかける。これより水素原子のエネルギー準位はボーア半径 $a_B$ を用いて
+  \begin{align}
+    E_n & = - \frac{\mu e^4}{2(4\pi\epsilon_0)^2\hbar^2}\frac{1}{n^2} =  - \frac{e^2}{8\pi\epsilon_0a_B}\frac{1}{n^2} & a_B = \frac{4\pi\epsilon_0\hbar^2}{\mu e^2}
+  \end{align}
+  とかける。よって規格化条件を加えると
+  \begin{align}
+    R_{nl}(\rho) = \qty(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho)
+  \end{align}
+  となり $0\leq l < n$ を満たす。
+\end{proof}
+
+
+
+\subsection{電磁場中の荷電粒子}
+スカラーポテンシャル $\phi$, ベクトルポテンシャル $\bm{A}$ の中での電荷 $e$ を持つ粒子の運動は次の置き換えで記述できる。
+\begin{align}
+  H      & \mapsto H - e\phi(\rr, t)        \\
+  \bm{p} & \mapsto \bm{p} - e\bm{A}(\rr, t)
+\end{align}
+一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\cross\rr$ (対称ゲージ) と置くことができるので
+\begin{align}
+  \frac{1}{2m}(\bm{p} - e\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{e}{2m}\bm{B}\vdot\bm{L} + \frac{e^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
+\end{align}
+$\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
+\begin{align}
+  H & = \frac{(\bm{\sigma}\vdot\bm{p})^2}{2m}                                                                         \\
+    & = \frac{(\bm{\sigma}\vdot\bm{p - e\bm{A}})^2}{2m}                                                               \\
+    & = \frac{1}{2m}(\bm{p - e\bm{A}})^2 - 2\frac{e\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
+\end{align}
+となる。
+ゼーマン相互作用
+
+
+
+\subsection{摂動論}
+近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
+\begin{proposition}
+  1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+  \begin{align}
+    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+  \end{align}
+  \begin{align}
+    \hat{H}_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \hat{H}\ket{\phi_n} & = E_n\ket{\phi_n}                                  \\
+    \hat{H}             & = \hat{H}_0 + \lambda V                            \\
+    \ket{\phi_n}        & = \sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}} \\
+    E_n                 & = \sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}
+  \end{align}
+  \begin{align}
+    (H - E_n)\ket{\phi_n} & = \qty(\qty(H_0 + \lambda V) - \qty(\sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}}) \\
+                          & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}}) = 0
+  \end{align}
+  これより各 $\lambda$ の次数について比較して次のようになる。
+  \begin{align}
+    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}} = 0
+  \end{align}
+  ここでは 0, 1, 2 次についてのみ考える。
+  \begin{align}
+     & \begin{dcases}
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(0)}} = 0                                     \\
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - E_n^{(2)}\ket{\phi_n^{(0)}}
+       \end{dcases}\label{perturbation}
+  \end{align}
+  まず 0 次については次のように書ける。
+  \begin{align}
+    H_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+  \end{align}
+  式 \eqref{perturbation} に $\bra{\phi_m^{(0)}}$ を掛けると
+  \begin{align}
+         & \begin{dcases}
+             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
+             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - \bra{\phi_m^{(0)}}E_n^{(2)}\ket{\phi_n^{(0)}}
+           \end{dcases}          \\
+    \iff & \begin{dcases}
+             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}} - E_n^{(1)}\delta_{mn} \\
+             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(1)}} - E_n^{(1)}\braket{\phi_m^{(0)}}{\phi_n^{(1)}} - E_n^{(2)}\delta_{mn}
+           \end{dcases}
+  \end{align}
+  よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+  \begin{align}
+    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+  \end{align}
+\end{proof}
+
+
+\section{ヒルベルト空間}
+これからは固有関数を状態として抽象化を行う。
+\begin{definition}
+  無限次元の複素ベクトル空間をヒルベルト空間
+\end{definition}
+\begin{definition}[ケット空間]
+  状態ベクトル (state vector) をケット (ket) と呼び $\ket{\alpha}$ と記そう。この状態ケットは物理的状態の完全な情報を含んでいるものと仮定しておく。すなわち状態に関して問われるすべての事項がこのケットの中に含まれているとする。
+  \begin{align}
+    \ket{\alpha} + \ket{\beta} = \ket{\gamma} \\
+    c\ket{\alpha} = \ket{\alpha}c
+  \end{align}
+  特別な場合として $c$ がゼロのとき掛けてできるケットは零ケット (null ket) といわれる。物理的要請の 1 つとして $\ket{\alpha}$ と $c\ket{\alpha}$ は同じ状態を表すことにする。
+\end{definition}
+
+\begin{definition}
+  運動量やスピン成分といった観測可能量 (observable) は扱っているベクトル空間の演算子 (operator) によって表せられる。一般に演算子はケットに左から作用し、別のケットになる。
+  \begin{align}
+    A\cdot(\ket{\alpha}) = A\ket{\alpha}
+  \end{align}
+  一般に $A\ket{\alpha}$ は $\ket{\alpha}$ の定数倍ではない。しかし演算子の固有ケット (eigenkets) と呼ばれ
+  \begin{align}
+    \ket{a'},\ket{a''},\ket{a'''},\ldots
+  \end{align}
+  の記号で表される重要な特別のケットがあり、これらは
+  \begin{align}
+    A\ket{a'} = a'\ket{a'},A\ket{a''} = a''\ket{a''},\ldots
+  \end{align}
+  という性質を持つ。
+\end{definition}
+
+内積
+
+\section{時間発展のあるシュレーディンガー方程式}
+\begin{align}
+  i\hbar\pdv{t}\ket{\phi(t)} & = \hat{H}\ket{\phi(t)}
+\end{align}
+$\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完全系をなす。これで展開して代入すると
+\begin{align}
+  \ket{\phi(t)}      & = \sum_nc_n(t)\ket{\phi_n}                           & \qty(c_n(t) = \braket{\phi_n}{\phi(t)}) \\
+  i\hbar\dv{t}c_n(t) & = E_nc_n(t)                                                                                    \\
+  c_n(t)             & = c_n(0)\exp(-i\frac{E_nt}{\hbar})                                                             \\
+  \ket{\phi(t)}      & = \sum_nc_n(0)\exp(-i\frac{E_nt}{\hbar})\ket{\phi_n}
+\end{align}
+となる。
+
+
+\subsection{ラーモア歳差運動}
+\begin{align}
+  \ket{\sigma(t)}
+\end{align}
+
+
+
+\section{角運動量代数}
+\begin{definition}
+  角運動量演算子 $\hat{\bm{L}}$ を次のように定義する。
+  \begin{align}
+    \hat{\bm{L}} & = \hat{\rr}\cross\hat{\pp}
+  \end{align}
+  これは次のように無次元化できる。
+  \begin{align}
+    \hat{\bm{j}} & = \frac{\hat{\bm{L}}}{\hbar}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    \hat{\bm{L}}^2              & = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2 \\
+    [\hat{L}_i, \hat{L}_j]      & = i\hbar\epsilon_{ijk}\hat{L}_k           \\
+    [\hat{\bm{L}}^2, \hat{L}_i] & = 0
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  $\hat{\bm{j}}$ を無次元の演算子として次の交換関係が成り立つとする。
+  \begin{align}
+    [\hat{j}_i, \hat{j}_j] = i\epsilon_{ijk}\hat{j}_k
+  \end{align}
+  $[\hat{\bm{j}}^2, \hat{j}_z] = 0$ より $\hat{\bm{j}}^2, \hat{j}_z$ は固有値 $\lambda, m$ とする同時固有状態 $\ket{\lambda, m}$ を持つ。
+  上昇演算子 $\hat{j}_+$ と下降演算子 $\hat{j}_-$ を次のように定義する。
+  \begin{align}
+    \hat{j}_\pm & = \hat{j}_x \pm i\hat{j}_y
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    [\hat{\bm{j}}^2, \hat{j}_z] = 0, \qquad [\hat{j}_+, \hat{j}_-] = 2\hat{j}_z, \qquad [\hat{j}_z, \hat{j}_\pm] = \pm \hat{j}_\pm, \qquad [\hat{\bm{j}}^2, \hat{j}_\pm] = 0 \\
+    \hat{\bm{j}}^2 = \frac{1}{2}(\hat{j}_+\hat{j}_- + \hat{j}_-\hat{j}_+) + \hat{j}_z^2 = \hat{j}_-\hat{j}_+ + \hat{j}_z + \hat{j}_z^2 = \hat{j}_+\hat{j}_- - \hat{j}_z + \hat{j}_z^2
+  \end{align}
+\end{proposition}
+\begin{proof}
+\end{proof}
+
+\begin{proposition}
+  上昇演算子 $\hat{j}_+$ を演算させると $\hat{j}_z$ の固有値は 1 つ上昇し、下降演算子 $\hat{j}_-$ を演算させると $\hat{j}_z$ の固有値が 1 つ下降する。
+  \begin{align}
+    \hat{j}_\pm\ket{\lambda, m} = \ket{\lambda, m\pm 1}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  このとき上昇,下降演算子を作用させたとき
+  \begin{align}
+    \hat{\bm{j}}^2(\hat{j}_\pm\ket{\lambda, m}) & = \hat{j}_\pm\hat{\bm{j}}^2\ket{\lambda, m} = \lambda \hat{j}_\pm\ket{\lambda, m}               \\
+    \hat{j}_z(\hat{j}_\pm\ket{\lambda, m})      & = (\hat{j}_\pm \hat{j}_z \pm \hat{j}_\pm)\ket{\lambda, m} = (m\pm 1)\hat{j}_\pm\ket{\lambda, m}
+  \end{align}
+  より $\hat{j}_\pm\ket{\lambda, m} = \ket{\lambda, m\pm 1}$ とかける。
+\end{proof}
+
+\begin{proposition}
+  $\hat{j}_z$ の固有値 $m$ の上限と下限は存在する。
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \bra{\lambda, m}\hat{\bm{j}}^2\ket{\lambda, m} & = \bra{\lambda, m}(\hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2)\ket{\lambda, m}                       \\
+                                                   & = \bra{\lambda, m}\hat{j}_x^2\ket{\lambda, m} + \bra{\lambda, m}\hat{j}_y^2\ket{\lambda, m} + m^2 \\
+                                                   & = \lambda
+  \end{align}
+  $\hat{j}_x, \hat{j}_y$ はエルミート演算子より $\bra{\lambda, m}\hat{j}_x^2\ket{\lambda, m} \geq 0$, $\bra{\lambda, m}\hat{j}_y^2\ket{\lambda, m} \geq 0$ であり $0 \leq m^2 \leq \lambda$
+\end{proof}
+
+\begin{proposition}
+  $\hat{j}_z$ の固有値 $m$ は非負の整数または半整数 $j$ を用いて $m = -j,-j+1,\ldots,j-1,j$ と書ける。
+\end{proposition}
+\begin{proof}
+  次のような関係式が成り立つ。
+  \begin{align}
+    \bra{\lambda, m}\hat{\bm{j}}^2\ket{\lambda, m} & = \bra{\lambda, m}(\hat{j}_-\hat{j}_+ + \hat{j}_z^2 + \hat{j}_z)\ket{\lambda, m} = \bra{\lambda, m}\hat{j}_-\hat{j}_+\ket{\lambda, m} + m^2 + m \\
+                                                   & = \bra{\lambda, m}(\hat{j}_+\hat{j}_- + \hat{j}_z^2 - \hat{j}_z)\ket{\lambda, m} = \bra{\lambda, m}\hat{j}_+\hat{j}_-\ket{\lambda, m} + m^2 - m \\
+                                                   & = \lambda
+  \end{align}
+  これより $m$ の上限値 $j$ と置くと $\lambda = j(j + 1)$ となり、下限値 $j - n$ と置くと $\lambda = (j - n)(j - n - 1)$ となる。
+  \begin{align}
+    \begin{dcases}
+      \lambda = j(j + 1) \\
+      \lambda = (j - n)(j - n - 1)
+    \end{dcases}
+    \iff
+    \begin{dcases}
+      \lambda = j(j + 1) \\
+      j = \frac{n}{2}
+    \end{dcases}
+  \end{align}
+  より $j$ は非負の整数または半整数であることがわかる。これより $m = -j, -j + 1,\ldots, j-1, j$ である。
+\end{proof}
+
+\begin{definition}
+  $\ket{\lambda, m}$ を $\ket{j, m}$ と表現する。
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    \hat{\bm{j}}^2\ket{j, m} & = j(j + 1)\ket{j, m}                          \\
+    \hat{j}_z\ket{j, m}      & = m\ket{j, m}                                 \\
+    \hat{j}_\pm\ket{j, m}    & = \sqrt{(j \mp m)(j \pm m + 1)}\ket{j, m\pm1}
+  \end{align}
+\end{proposition}
+
+
+この角運動量が複数あるときについて考える。角運動量の合成とは合成系の角運動量固有状態を部分系の角運動量固有状態で表すことである。角運動量演算子 $\hat{\bm{j}}_1, \hat{\bm{j}}_2$ について
+\begin{align}
+  \hat{\bm{j}} & = \hat{\bm{j}}_1 + \hat{\bm{j}}_2
+\end{align}
+とおく。このとき
+\begin{align}
+  [\hat{j}_{a,i}, \hat{j}_{b,j}]   & = i\delta_{ab}\epsilon_{ijk}\hat{j}_{ck} \\
+  [\hat{j}_a, \hat{j}_b]           & = i\epsilon_{abc}\hat{j}_c               \\
+  [\hat{\bm{j}}^2, \hat{j}_a]      & = 0                                      \\
+  [\hat{\bm{j}}^2, \hat{\bm{j}}_s] & = 0
+\end{align}
+となる。また状態についても
+\begin{align}
+  \ket{j, m}\rangle & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2}
+\end{align}
+とおき, 次のようになるとする。
+\begin{align}
+  \hat{\bm{j}}^2\ket{j, m}\rangle & = j(j+1)\ket{j, m}\rangle                           \\
+  \hat{j}_z\ket{j, m}\rangle      & = m\ket{j, m}\rangle                                \\
+  \hat{j}_\pm\ket{j, m}\rangle    & = \sqrt{(j\mp m)(j\pm m + 1)}\ket{j, m\pm 1}\rangle \\
+  \hat{\bm{j}}_s\ket{j, m}\rangle & = j_s(j_s + 1)\ket{j, m}\rangle
+\end{align}
+この上で
+\begin{align}
+  \hat{j}_z\ket{j, m}\rangle      & = (j_{1z} + j_{2z})\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2} \\
+                                  & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}(m_1 + m_2)\ket{j_1, m_1}\ket{j_2, m_2}       \\
+                                  & = m\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2}                 \\
+  \hat{\bm{j}}^2\ket{j, m}\rangle & = (j_-j_+ + j_z^2 + j_z)\ket{j, m}\rangle                                           \\
+                                  & = (j_-j_+ + m^2 + m)\ket{j, m}\rangle                                               \\
+                                  & = j(j + 1)\ket{j, m}\rangle
+\end{align}
+より状態の係数比較して $m \neq m_1 + m_2$ のとき $C_{j_1m_1j_2m_2}^{jm} = 0$ となる。$m$ の最大値 $j_{\max} = j_1 + j_2$ である。
+\begin{align}
+  \sum_{j=j_{\min}}^{j_{\max}} (2j + 1) = (2j_1 + 1)(2j_2 + 1)
+\end{align}
+より $j_{\min} = |j_1 - j_2|$ となる。
+\begin{align}
+  \ket{1, 1}\rangle  & = \ket{\uparrow\uparrow}                                                                                               \\
+  \ket{1, 0}\rangle  & = \frac{1}{\sqrt{2}}j_-\ket{1, 1}\rangle = \frac{1}{\sqrt{2}}\qty(\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow}) \\
+  \ket{1, -1}\rangle & = \ket{\downarrow\downarrow}                                                                                           \\
+  \ket{0, 0}\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})
+\end{align}
+
+\begin{definition}
+  角運動量演算子の固有値は整数だけであったが、スピン演算子は半整数と成り得る。
+  量子力学的粒子にはスピンという内部自由度がある。スピン角運動量演算子 $\hat{\bm{S}}$ は位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、角運動量演算子 $\hat{\bm{L}}$ と交換する。
+  \begin{align}
+    [\hat{r}_i, \hat{S}_j] = 0, \qquad [\hat{p}_i, \hat{S}_j] = 0, \qquad [\hat{L}_i, \hat{S}_j] = 0
+  \end{align}
+  無次元化されたスピン角運動量演算子 $\hat{\bm{s}}$ は次の交換関係を満たす。
+  \begin{align}
+    [\hat{s}_x, \hat{s}_y] = i\hat{s}_z, \qquad [\hat{s}_y, \hat{s}_z] = i\hat{s}_x, \qquad [\hat{s}_z, \hat{s}_x] = i\hat{s}_y
+  \end{align}
+  スピン演算子の 2 乗 $\hat{\bm{s}}^2$ や昇降演算子 $\hat{s}_\pm$ を次のように定義する。
+  \begin{align}
+    \hat{\bm{s}}^2 = \hat{s}_x + \hat{s}_y + \hat{s}_z, \qquad \hat{s}_\pm = \hat{s}_x \pm i\hat{s}_y
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    [\hat{\bm{s}}^2, \hat{s}_z] = 0, \qquad [\hat{s}_+, \hat{s}_-] = 2\hat{s}_z, \qquad [\hat{s}_z, \hat{s}_\pm] = \pm \hat{s}_\pm, \qquad [\hat{\bm{s}}^2, \hat{s}_\pm] = 0 \\
+    \hat{\bm{s}}^2 = \frac{1}{2}(\hat{s}_+\hat{s}_- + \hat{s}_-\hat{s}_+) + \hat{s}_z^2 = \hat{s}_-\hat{s}_+ + \hat{s}_z + \hat{s}_z^2 = \hat{s}_+\hat{s}_- - \hat{s}_z + \hat{s}_z^2
+  \end{align}
+\end{proposition}
+
+\begin{proposition}
+  スピン $s = 1/2$ では $\hat{s}_z$ の固有状態が 2 つあり、それぞれ固有値 $m_s = \pm1/2$ を持つ $\ket{\uparrow}$, $\ket{\downarrow}$ とおく。
+  \begin{align}
+    \hat{s}_z\ket{\uparrow} = \frac{1}{2}\ket{\uparrow}, \qquad \hat{s}_z\ket{\downarrow} = -\frac{1}{2}\ket{\downarrow}, \qquad \hat{\bm{s}}^2\ket{\uparrow} = \frac{3}{4}\ket{\uparrow}, \qquad \hat{\bm{s}}^2\ket{\downarrow} = \frac{3}{4}\ket{\downarrow}
+  \end{align}
+  スピン昇降演算子を用いると固有状態は互いに入れ替わる。
+  \begin{align}
+    \hat{s}_+\ket{\uparrow} = 0, \qquad \hat{s}_+\ket{\downarrow} = \ket{\uparrow}, \qquad \hat{s}_-\ket{\uparrow} = \ket{\downarrow}, \qquad \hat{s}_-\ket{\downarrow} = 0
+  \end{align}
+\end{proposition}
+
+\begin{definition}[パウリ行列]
+  \begin{align}
+    \sigma_1 = \begin{pmatrix}
+                 0 & 1 \\
+                 1 & 0
+               \end{pmatrix}, \qquad
+    \sigma_2 = \begin{pmatrix}
+                 0 & -i \\
+                 i & 0
+               \end{pmatrix}, \qquad
+    \sigma_3 = \begin{pmatrix}
+                 1 & 0  \\
+                 0 & -1
+               \end{pmatrix}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  スピン演算子の表現は次のようになる。
+  \begin{align}
+    \ket{\uparrow} = \begin{pmatrix}
+                       1 \\
+                       0
+                     \end{pmatrix}, \qquad
+    \ket{\downarrow} = \begin{pmatrix}
+                         0 \\
+                         1
+                       \end{pmatrix}
+  \end{align}
+  \begin{align}
+    \hat{s}_i = \frac{1}{2}\sigma_i, \qquad
+    \hat{s}_+ = \begin{pmatrix}
+                  0 & 1 \\
+                  0 & 0
+                \end{pmatrix}, \qquad
+    \hat{s}_- = \begin{pmatrix}
+                  0 & 0 \\
+                  1 & 0
+                \end{pmatrix}, \qquad
+    \hat{\bm{s}}^2 = \frac{3}{4}\begin{pmatrix}
+                                  1 & 0 \\
+                                  0 & 1
+                                \end{pmatrix}
+  \end{align}
+\end{proposition}
+
+
+
+\section{相対論的量子力学}
+\begin{theorem}
+  \begin{align}
+    L           & = \frac{m}{2}\dot{\rr}^2 - q\phi(t, \rr) + q\dot{\rr}\vdot\AA(t, \rr) \\
+    m\ddot{\rr} & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                          \\
+    \pp         & = m\dot{\rr} + q\AA(t, \rr)                                           \\
+    H           & = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \pdv{t}(\pdv{L}{\dot{\rr}}) - \pdv{L}{\rr} & = 0                                                                         \\
+    m\ddot{\rr}                                & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                                \\
+    \pp                                        & = \pdv{L}{\dot{\rr}} = m\dot{\rr} + q\AA(t, \rr)                            \\
+    H                                          & = \pp\vdot\dot{\rr} - L = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+  \end{align}
+\end{proof}
+\begin{align}
+  i\hbar\pdv{t}\psi(t, \rr)                       & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
+  \qty(i\hbar\pdv{t} - q\phi(t, \rr))\psi(t, \rr) & = \frac{(-i\hbar\vnabla - q\AA(t, \rr))^2}{2m}
+\end{align}
+\begin{align}
+  i\hbar\pdv{t}  & \to i\hbar\pdv{t} - q\phi(t, \rr) \\
+  -i\hbar\vnabla & \to -i\hbar\vnabla - q\AA(t, \rr)
+\end{align}
+\begin{theorem}
+  \begin{align}
+    \pdv{\rho(t,\rr)}{t} + \vnabla\vdot\bm{j}(t,\rr) = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    i\hbar\pdv{t}\psi(t, \rr) & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
+  \end{align}
+\end{proof}
+
+
+
+\end{document}

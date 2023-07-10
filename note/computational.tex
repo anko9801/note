@@ -1,0 +1,176 @@
+\documentclass[a4paper,dvipdfmx]{jsarticle}
+
+\usepackage{okumacro}
+%ルビ用%
+\usepackage{indentfirst}
+%字下げを保存するための設定　\parでインデント＋改行%
+\usepackage[dvipdfmx]{graphicx}
+%画像挿入パッケージ。graphix=Windows,graphics=Mac%
+\usepackage{wrapfig}
+%文章を図に回り込ませるパッケージ%
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%数式色々%
+\usepackage{bm}
+%ベクトル%
+\usepackage{url}
+%url中の_や\にエラーをはかせないためのパッケージ%
+\usepackage{comment}
+%複数行コメントのためのパッケージ%
+\usepackage{listings}
+%コードのためのパッケージ（英語のみ）%
+\usepackage{physics}
+%物理関係のパッケージ%
+\usepackage{amsmath}
+\usepackage{mathtools}
+%数学関係のパッケージ%
+%定理証明関係のパッケージ%
+\usepackage{amsthm}
+%amsthm%
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{prop}[dfn]{Proposition}
+\newtheorem{lem}[dfn]{Lemma}
+\newtheorem{thm}[dfn]{Theorem}
+\newtheorem{cor}[dfn]{Corollary}
+\newtheorem{rem}[dfn]{Remark}
+\newtheorem{fact}[dfn]{Fact}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage{docmute}
+%ファイル分割%
+\lstset{
+  language=C++,
+  breaklines=true,
+  keywordstyle = {\color[rgb]{0,0,1}},
+  stringstyle = {\color[rgb]{1,0,0}},
+  commentstyle = { \color[rgb]{0,1,0}},
+  numbers=left,
+  frame=lines
+}
+%各種設定%
+\usepackage{color}
+%色付け　使うときは\documentclass[dvipdfmx]を追加すること！%
+\usepackage{ascmac}
+\usepackage{otf}
+%ギリシャ数字%
+\usepackage{siunitx}
+%SI単位系%
+\usepackage{tikz}
+%tikz%
+\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
+%tikzlibrary%
+\renewcommand{\Re}{\real}
+\newcommand{\LR}{\Leftrightarrow}
+\newcommand{\rr}{\vb*{r}}
+\newcommand{\kk}{\vb*{k}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\begin{document}
+\title{計算物理}
+\author{anko}
+\maketitle
+
+\section{差分法}
+\begin{align}
+  \pdv{f(x_i, t_n)}{t} \approx \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}
+\end{align}
+\begin{align}
+  f'(x_n) & \approx \frac{f(x_{n+1}) - f(x_n)}{\Delta x} + \mathcal{O}(\Delta x)        \\
+  f'(x_n) & \approx \frac{f(x_n) - f(x_{n-1})}{\Delta x} + \mathcal{O}(\Delta x)        \\
+  f'(x_n) & \approx \frac{f(x_{n+1}) - f(x_{n-1})}{2\Delta x} + \mathcal{O}(\Delta x^2)
+\end{align}
+$f(x\pm k\Delta x)$ の Taylor 展開で 2 次以外の項を相殺することで次の式が得られる.
+\begin{align}
+  f''(x_n) & \approx \frac{f(x_{n+1}) - 2f(x_n) + f(x_{n-1})}{\Delta x^2} + \mathcal{O}(\Delta x^2)                                   \\
+  f''(x_n) & \approx \frac{-f(x_{n+2}) + 16f(x_{n+1}) - 30f(x_n) + 16f(x_{n-1}) - f(x_{n-2})}{12\Delta x^2} + \mathcal{O}(\Delta x^4)
+\end{align}
+
+\subsection{拡散方程式}
+\begin{align}
+  \pdv{f(x, t)}{t}                               & = \kappa\pdv[2]{f(x, t)}{x}                                                                             \\
+  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t} & = \kappa\frac{f(x_{i+1}, t_n) - 2f(x_i, t_n) + f(x_{i-1}, t_n)}{\Delta x^2}                             \\
+  f(x_i, t_{n+1})                                & = f(x_i, t_n) + \frac{\kappa\Delta t}{\Delta x^2}\qty(f(x_{i+1}, t_n) - 2f(x_i, t_n) + f(x_{i-1}, t_n))
+\end{align}
+
+\subsection{フォン・ノイマンの安定性解析}
+時間が経つと共に振幅が増大しないことは安定性の条件となる.
+\begin{align}
+  f(x, t)                             & = \sum_kA_k(t)e^{ikx} \\
+  \qty|\frac{A_k(t_{n+1})}{A_k(t_n)}| & \leq 1
+\end{align}
+CFL (Courant-Friedrichs-Lewy) 条件とは計算上の情報の伝播する速さより物理的な情報の伝播する速さが小さいことは安定性の条件となる.
+\begin{align}
+  \frac{\Delta x}{\Delta t} \geq c
+\end{align}
+\subsection{移流方程式}
+差分法だと不安定となる. これは差分により拡散項が増えてしまったからである.
+2次中心差分で離散化したものについて安定性解析する.
+\begin{align}
+  \pdv{f(x, t)}{t}                                    & = -c\pdv{f(x, t)}{x}                                                             \\
+  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}      & = -c\frac{f(x_{i+1}, t_n) - f(x_{i-1}, t_n)}{2\Delta x}                          \\
+  \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(e^{ik\Delta x} - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{2\Delta x}      \\
+  \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - i\nu\sin(k\Delta x)|^2} = \sqrt{1 + \nu^2\sin^2(k\Delta x)} > 1
+\end{align}
+後退差分で離散化したものについて安定性解析する.
+\begin{align}
+  \pdv{f(x, t)}{t}                                    & = -c\pdv{f(x, t)}{x}                                                  \\
+  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}      & = -c\frac{f(x_i, t_n) - f(x_{i-1}, t_n)}{\Delta x}                    \\
+  \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(1 - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{\Delta x}         \\
+  \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - \nu(1 - e^{-ik\Delta x})|^2}                         \\
+                                                      & = \sqrt{1 - 2\nu(1 - \nu)(1 - \cos(k\Delta x))} \begin{cases}
+                                                                                                          \leq 1 & (\nu \leq 1) \\
+                                                                                                          > 1    & (\nu > 1)    \\
+                                                                                                        \end{cases}
+\end{align}
+CFL 条件
+\begin{align}
+  \pdv{f(x, t)}{t}                                                                   & = -c\pdv{f(x, t)}{x}                                                          \\
+  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}                                     & = -c\frac{f(x_i, t_n) - f(x_{i-1}, t_n)}{\Delta x^2}                          \\
+  \dot{f}(x_i, t_n) + \frac{\Delta t}{2}\ddot{f}(x_i, t_n) + \mathcal{O}(\Delta t^2) & = -cf'(x_i, t_n) + \frac{c\Delta x}{2}f''(x_i, t_n) + \mathcal{O}(\Delta x^2)
+\end{align}
+
+\subsection{Navier-Stokes方程式}
+\begin{align}
+  \pdv{\bm{v}}{t} & = -(\bm{v}\vdot\vnabla)\bm{v} - \frac{1}{\rho}\vnabla p + \nu\vnabla^2\bm{v} + \bm{F}
+\end{align}
+まず無次元化する.
+\begin{align}
+  \bm{v} & = V\tilde{\bm{v}} & \bm{r} & = L\tilde{\bm{r}} & t & = \frac{L}{V}\tilde{t} & p & = \rho V^2\tilde{p} & \vnabla & = \frac{1}{L}\tilde{\vnabla} & \pdv{t} & = \frac{V}{L}\pdv{\tilde{t}} & \mathrm{Re} & = \frac{UV}{\nu}
+\end{align}
+レイノルズ数 $\mathrm{Re}$ は慣性力と粘性力の比に対応する.
+\begin{align}
+  \pdv{\tilde{\bm{v}}}{\tilde{t}} & = -(\tilde{\bm{v}}\vdot\tilde{\vnabla})\tilde{\bm{v}} - \tilde{\vnabla}\tilde{p} + \frac{1}{\mathrm{Re}}\tilde{\vnabla}^2\tilde{\bm{v}}
+\end{align}
+これ以降, 無次元量を表すチルダは略す. $\bm{v} = (u, v, 0)$ とするとき, 次の渦度方程式となる.
+\begin{align}
+  \pdv{u}{t}      & = - \qty(u\pdv{x} + v\pdv{y})u - \pdv{p}{x} + \frac{1}{\mathrm{Re}}\qty(\pdv[2]{x} + \pdv[2]{y})u                                          \\
+  \pdv{v}{t}      & = - \qty(u\pdv{x} + v\pdv{y})v - \pdv{p}{y} + \frac{1}{\mathrm{Re}}\qty(\pdv[2]{x} + \pdv[2]{y})v                                          \\
+  \pdv{\omega}{t} & = -(\vnabla\vdot\bm{v})\omega - (\bm{v}\vdot\vnabla)\omega + \frac{1}{\mathrm{Re}}\vnabla^2\omega & \qty(\omega = \pdv{v}{x} - \pdv{u}{y})
+\end{align}
+ここでは非圧縮性液体 $\vnabla\vdot\bm{v} = 0$ のときを考える.
+\begin{align}
+  \pdv{\omega}{t} & = - (\bm{v}\vdot\vnabla)\omega + \frac{1}{\mathrm{Re}}\laplacian\omega
+\end{align}
+ここで流れ関数 $\Phi$ を導入する.
+\begin{align}
+  u & = - \pdv{\Phi}{y} \quad v = \pdv{\Phi}{x} \quad \omega = \pdv[2]{\Phi}{x} + \pdv[2]{\Phi}{y} = \laplacian\Phi
+\end{align}
+流れ関数を用いると解くべき方程式は渦度方程式とポアソン方程式に分けることができる.
+\begin{align}
+  \pdv{\omega}{t} & = \pdv{\Phi}{x}\pdv{\omega}{y} - \pdv{\Phi}{y}\pdv{\omega}{x} + \frac{1}{\mathrm{Re}}\laplacian\omega \\
+  \laplacian\Phi  & = - \omega
+\end{align}
+ポアソン方程式については差分法で解ける.
+\begin{align}
+   & \laplacian\Phi = - \omega                                                                                                                  \\
+   & \frac{\Phi_{i+1,j} - 2\Phi_{i,j} + \Phi_{i-1,j}}{\Delta x^2} + \frac{\Phi_{i,j+1} - 2\Phi_{i,j} + \Phi_{i,j-1}}{\Delta y^2} = \omega_{i,j} \\
+   & \Phi_{i,j} = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})
+\end{align}
+初期値を適当にセットして, この漸化式を収束するまで繰り返し更新する. この漸化式を改良させて収束を早めることができる. 次の漸化式を順にヤコビ法, ガウス・ザイデル法, SOR 法という.
+\begin{align}
+  \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})                                                                                    \\
+  \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j})                                                      \\
+  \Phi_{i,j}^{\mathrm{new}} & = C_{SOR}\frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j}) + (1 - C_{SOR})\Phi_{i,j} & (0 < C_{SOR} < 2)
+\end{align}
+
+\end{document}

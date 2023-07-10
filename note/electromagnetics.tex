@@ -1,0 +1,242 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{電磁気学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{電磁気学}
+\subsection{真空中の電磁気学}
+\begin{definition}[Maxwell の方程式]
+  電場 $\EE$ と磁束密度 $\BB$ に対して次のような式が成り立つ。
+  \begin{align}
+     & \int_{\partial V}\EE\vdot\bm{n}\dd{S} = \frac{1}{\epsilon_0}\int_V\rho\dd{V}                                                   &  & \iff \vnabla\vdot\EE  = \frac{\rho}{\epsilon_0}                 \\
+     & \int_{\partial S}\EE\vdot\dd{\bm{l}} = -\dv{t}\int_S\BB\vdot\bm{n}\dd{S}                                                       &  & \iff \vnabla\vdot\BB  = 0                                       \\
+     & \int_{\partial V}\BB\vdot\bm{n}\dd{S} = 0                                                                                      &  & \iff \vnabla\cross\EE = -\pdv{\BB}{t}                           \\
+     & c^2\int_{\partial S}\BB\vdot\dd{\bm{l}} = \frac{1}{\epsilon_0}\int_S\bm{j}\vdot\bm{n}\dd{S} + \dv{t}\int_S\EE\vdot\bm{n}\dd{S} &  & \iff \vnabla\cross\BB = \mu_0\bm{j} + \frac{1}{c^2}\pdv{\EE}{t}
+  \end{align}
+  ただし電荷密度 $\rho(t, \rr) = qn$ と電流密度 $\bm{j}(t, \rr) = qn\bm{v}$ とする。
+  ローレンツ力
+  \begin{align}
+    \bm{F} = q(\EE + \bm{v}\cross\BB)
+  \end{align}
+\end{definition}
+これらの法則で電磁気学が完結する。
+
+\subsection{ポテンシャル}
+\begin{theorem}[電位とベクトルポテンシャル]
+  次を満たす $\phi$, $\AA$ が存在し、
+  \begin{align}
+    \EE & = - \vnabla\phi - \pdv{\AA}{t} \\
+    \BB & = \vnabla\cross\AA
+  \end{align}
+\end{theorem}
+\begin{proof}
+\end{proof}
+
+\begin{theorem}[ゲージ変換]
+  任意の関数 $\chi(\rr, t)$ として次のゲージ変換は不変に保つ。
+  \begin{align}
+    \AA  & \to \AA + \vnabla\chi    \\
+    \phi & \to \phi - \pdv{\chi}{t}
+  \end{align}
+  ゲージ条件
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \vnabla\vdot\BB = 0
+  \end{align}
+  より
+
+\end{proof}
+
+\begin{proposition}
+  静電場においてクーロンゲージ条件を満たすとき
+  \begin{align}
+    \phi(\rr) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr')}{|\rr - \rr'|}\dd{\rr'} \\
+    \AA(\rr)  & = \frac{\mu_0}{4\pi}\int_V\frac{\bm{j}(\rr')}{|\rr - \rr'|}\dd{\rr'}
+  \end{align}
+\end{proposition}
+
+\begin{theorem}
+  静電エネルギー
+  \begin{align}
+    U_e = \frac{1}{2}
+  \end{align}
+\end{theorem}
+
+\subsection{電磁波}
+\begin{proposition}
+  $\rho = 0$ $\bm{j} = \bm{0}$ において $\EE, \BB$ は波動方程式を満たす。
+\end{proposition}
+\begin{align}
+  \nabla^2\EE = \frac{1}{c^2}\pdv[2]{t}\EE \\
+  \nabla^2\BB = \frac{1}{c^2}\pdv[2]{t}\BB
+\end{align}
+\begin{align}
+  \EE(t, \rr) & = \EE_0e^{i(\kk\vdot\rr - \omega t)} \\
+  \BB(t, \rr) & = \BB_0e^{i(\kk\vdot\rr - \omega t)}
+\end{align}
+
+\subsection{導体}
+\begin{definition}[導体]
+  時間が経つと
+  \begin{enumerate}
+    \item 導体内部に電場は存在しない。
+    \item 導体内部に電荷はなく、表面のみに電荷が分布する。
+  \end{enumerate}
+\end{definition}
+導体全体で電位は一定、
+
+\end{document}

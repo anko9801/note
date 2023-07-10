@@ -1,0 +1,490 @@
+\documentclass[a4paper,dvipdfmx]{jsarticle}
+
+\usepackage{okumacro}
+%ルビ用%
+\usepackage{indentfirst}
+%字下げを保存するための設定　\parでインデント＋改行%
+\usepackage[dvipdfmx]{graphicx}
+\graphicspath{{./assets/}}
+\usepackage{float}
+%画像挿入パッケージ。graphix=Windows,graphics=Mac%
+\usepackage{wrapfig}
+%文章を図に回り込ませるパッケージ%
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%数式色々%
+\usepackage{bm}
+%ベクトル%
+\usepackage{url}
+%url中の_や\にエラーをはかせないためのパッケージ%
+\usepackage{comment}
+%複数行コメントのためのパッケージ%
+\usepackage{listings, xcolor, inconsolata}
+\usepackage{listings-rust}
+% Color
+\definecolor{Green}{HTML}{009e73}
+
+% Listings
+\lstset{
+  language=Rust,
+  basicstyle=\ttfamily,
+  keywordstyle=\bfseries\color{Green},
+  showstringspaces=false,
+  frame={tb},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=2zw,
+  columns=[l]{fullflexible},
+  % columns=fixed,
+  % basewidth=0.5em,
+}
+
+%コードのためのパッケージ（英語のみ）%
+\usepackage{physics}
+%物理関係のパッケージ%
+\usepackage{amsmath}
+%数学関係のパッケージ%
+%定理証明関係のパッケージ%
+\usepackage{amsthm}
+\usepackage{mathtools}
+%amsthm%
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{prop}[dfn]{Proposition}
+\newtheorem{lem}[dfn]{Lemma}
+\newtheorem{thm}[dfn]{Theorem}
+\newtheorem{cor}[dfn]{Corollary}
+\newtheorem{rem}[dfn]{Remark}
+\newtheorem{fact}[dfn]{Fact}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage{docmute}
+%ファイル分割%
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\captionsetup{compatibility=false}
+%各種設定%
+\usepackage{color}
+%色付け　使うときは\documentclass[dvipdfmx]を追加すること！%
+\usepackage{ascmac}
+\usepackage{otf}
+%ギリシャ数字%
+\usepackage{siunitx}
+%SI単位系%
+\usepackage{tikz}
+%tikz%
+%枠付%
+\usepackage{ascmac}
+\usepackage{fancybox}
+
+\usepackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
+%tikzlibrary%
+\renewcommand{\Re}{\real}
+\newcommand{\LR}{\Leftrightarrow}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\begin{document}
+\title{統計力学}
+\author{
+  学籍番号: 21B00349\\
+  氏名: 宇佐見 大希\\
+}
+\maketitle
+
+\section{Debye 模型の基本的な考え方}
+固体の比熱 $C$ の Debye 模型を
+
+固体の比熱を独立な調和振動子の集まりの比熱として捉える.
+両者は何が独立な調和振動子であると考えるか
+
+固体を構成する
+
+\begin{itembox}[l]{Q 17-1.}
+  ある $N$ 自由度の系の一般化座標を $q_1, \ldots, q_N$
+\end{itembox}
+
+\section{解析力学の復習：点正準変換}
+
+\begin{itembox}[l]{Q 17-2.}
+  \begin{align}
+    H^{1次元結晶}(q_1,\ldots,q_N, p_1,\ldots,p_N) & := \frac{1}{2m}\sum_{i=1}^{N}p_i^2 + \frac{1}{2}\kappa\sum_{i=0}^{N}(q_i - q_{i+1})^2
+  \end{align}
+\end{itembox}
+
+
+\begin{itembox}[l]{Q 17-3.}
+  固定端境界条件の 1 次元結晶の系を考えているので Fourier 展開した基底が基準振動となることを示せ.
+  \begin{align}
+    H^{1次元結晶}(Q_1,\ldots,Q_N, P_1,\ldots,P_N) & = \sum_{j=1}^{N}\qty(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
+  \end{align}
+  ただし, $\omega_j$ を次のように定めます.
+  \begin{align}
+    \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j).
+  \end{align}
+\end{itembox}
+
+\begin{align}
+  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji)
+\end{align}
+
+まずこれらの計算に必要な関数を定義する. \\
+
+(i) $\alpha \neq 0 \pmod{2\pi}$ に対して $F(\alpha), G(\alpha)$ を次のように定義する.
+\begin{align}
+  F(\alpha) & := \sum_{i=1}^{N}\cos(\alpha i) \\
+  G(\alpha) & := \sum_{i=1}^{N}\sin(\alpha i)
+\end{align}
+このとき $F(\alpha), G(\alpha)\in\RR$ より $F(\alpha) + \sqrt{-1}G(\alpha)\in\CC$ の実部と虚部はそれぞれ $F(\alpha), G(\alpha)$ と対応した値となる. Euler の公式を用いて次のように計算できる.
+\begin{align}
+  F(\alpha) + \sqrt{-1}G(\alpha) & = \sum_{i=1}^{N}e^{\sqrt{-1}\alpha i}                                                                                                                                                     \\
+                                 & = \frac{e^{\sqrt{-1}\alpha} - e^{\sqrt{-1}\alpha (N+1)}}{1 - e^{\sqrt{-1}\alpha}}                                                                                                         \\
+                                 & = \frac{2e^{\sqrt{-1}\alpha}e^{\sqrt{-1}\alpha \frac{N}{2}}\sin{\alpha \frac{N}{2}}}{2e^{\sqrt{-1}\alpha\frac{1}{2}}\sin{\alpha\frac{1}{2}}}                                              \\
+                                 & = \frac{e^{\sqrt{-1}\frac{\alpha}{2}(N+1)}\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}                                                                                                \\
+                                 & = \frac{\cos\qty(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}} + \sqrt{-1}\frac{\sin\qty(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}.
+\end{align}
+これより実部虚部の対応から $F(\alpha), G(\alpha)$ が求まる.
+\begin{align}
+  F(\alpha) & := \sum_{i=1}^{N}\cos(\alpha i) = \frac{\cos\qty(\frac{\alpha}{2}(N+1))\sin\qty(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}, \\
+  G(\alpha) & := \sum_{i=1}^{N}\sin(\alpha i) = \frac{\sin\qty(\frac{\alpha}{2}(N+1))\sin\qty(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}.
+\end{align}
+$\Box$
+
+(ii) $j, j' = 1,\ldots,N$ とすると $j - j' = -(N - 1),\ldots,N - 1$ かつ $j + j' = 2,\ldots,2N$ である. これより $j - j' = 0$ である場合に限り $j - j' = 0 \pmod{2(N+1)}$ が成り立ち, $j + j' = 0 \pmod{2(N+1)}$ が成り立つ場合は存在せず, 逆に主結合子の前件が恒偽ならばその論理式は真である. よって次の同値関係が成り立つ.
+\begin{align}
+   & \frac{\pi}{N+1}(j - j') = 0 \pmod{2\pi} \iff j - j' = 0 \pmod{2(N+1)} \iff j = j', \label{Q17-3. ii-1} \\
+   & \frac{\pi}{N+1}(j + j') = 0 \pmod{2\pi} \iff j + j' = 0 \pmod{2(N+1)} \iff false. \label{Q17-3. ii-2}
+\end{align}
+$\Box$
+
+(iii) $j, j' = 1,\ldots,N$ に対して次のように内積を定義する. このときこの内積の正規直交関係を示す.
+\begin{align}
+  (q^{(j)}, q^{(j')}) & := \sum_{i = 1}^{N}q_i^{(j)}q_i^{(j')}.
+\end{align}
+まず (i), (ii) を用いることで次のように式変形できる.
+\begin{align}
+  (q^{(j)}, q^{(j')}) & := \sum_{i = 1}^{N}q_i^{(j)}q_i^{(j')}                                                                                                                                                                                                                                              \\
+                      & = \frac{2}{N+1}\sum_{i = 1}^{N}\sin\qty(\frac{\pi}{N+1}ji)\sin\qty(\frac{\pi}{N+1}j'i)                                                                                                                                                                                              \\
+                      & = \frac{1}{N+1}\sum_{i = 1}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j - j')i) - \cos\qty(\frac{\pi}{N+1}(j + j')i))                                                                                                                                                                        \\
+                      & = \begin{dcases}
+                            \frac{1}{N+1}\qty(\frac{\cos\qty(\frac{\pi}{2}(j - j'))\sin\qty(\frac{N\pi}{2(N+1)}(j - j'))}{\sin\qty(\frac{\pi}{2(N+1)}(j - j'))} - \frac{\cos\qty(\frac{\pi}{2}(j + j'))\sin\qty(\frac{N\pi}{2(N+1)}(j + j'))}{\sin\qty(\frac{\pi}{2(N+1)}(j + j'))}) & (j \neq j') \\
+                            \frac{1}{N+1}\qty(N - \frac{\cos\qty(j\pi)\sin\qty(\frac{jN}{N+1}\pi)}{\sin\qty(\frac{j}{N+1}\pi)})                                                                                                                                                      & (j = j')
+                          \end{dcases}.
+\end{align}
+先に $j \neq j'$ の場合を考える. 括弧内を通分した分子の第一項と第二項についてそれぞれ計算する. 第一項について
+\begin{align}
+    & \cos\qty(\frac{\pi}{2}(j - j'))\sin\qty(\frac{N\pi}{2(N+1)}(j - j'))\sin\qty(\frac{\pi}{2(N+1)}(j + j'))                                                      \\
+  = & \cos\qty(\frac{j - j'}{2}\pi)\qty(\cos\qty(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi))                                \\
+  = & \cos\qty(\frac{j - j'}{2}\pi)\cos\qty(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{j - j'}{2}\pi)\cos\qty(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi)         \\
+  = & \cos\qty(\frac{j}{N+1}\pi) + \cos\qty(\frac{Nj - (N+1)j'}{N+1}\pi) - \cos\qty(\frac{j'}{N+1}\pi) - \cos\qty(\frac{(N+1)j - Nj'}{N+1}\pi) \label{Q17-3. iii 1}
+\end{align}
+第二項について
+\begin{align}
+    & \cos\qty(\frac{\pi}{2}(j + j'))\sin\qty(\frac{N\pi}{2(N+1)}(j + j'))\sin\qty(\frac{\pi}{2(N+1)}(j - j'))                                                      \\
+  = & \cos\qty(\frac{j + j'}{2}\pi)\qty(\cos\qty(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi))                                \\
+  = & \cos\qty(\frac{j + j'}{2}\pi)\cos\qty(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{j + j'}{2}\pi)\cos\qty(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi)         \\
+  = & \cos\qty(\frac{Nj + (N+1)j'}{N+1}\pi) + \cos\qty(\frac{j}{N+1}\pi) - \cos\qty(\frac{(N+1)j + Nj'}{N+1}\pi) - \cos\qty(\frac{j'}{N+1}\pi) \label{Q17-3. iii 2}
+\end{align}
+これより分子は次のようになる.
+\begin{align}
+  \eqref{Q17-3. iii 1} - \eqref{Q17-3. iii 2} & = \qty(\cos\frac{j}{N+1}\pi + \cos\qty(\frac{Nj}{N+1} - j')\pi - \cos\frac{j'}{N+1}\pi - \cos\qty(j - \frac{Nj'}{N+1})\pi)                                           \\
+                                              & - \qty(\cos\qty(\frac{Nj}{N+1} + j')\pi + \cos\frac{j}{N+1}\pi - \cos\qty(j + \frac{Nj'}{N+1})\pi - \cos\frac{j'}{N+1}\pi)                                           \\
+                                              & = \cos\qty(\frac{Nj}{N+1} - j')\pi - \cos\qty(\frac{Nj}{N+1} + j')\pi + \cos\qty(j + \frac{Nj'}{N+1})\pi - \cos\qty(j - \frac{Nj'}{N+1})\pi                          \\
+                                              & = 2\sin\qty(j'\pi)\sin\qty(\frac{Nj}{N+1}\pi) - 2\sin\qty(j\pi)\sin\qty(\frac{Nj'}{N+1}\pi)                                                                          \\
+                                              & = 0                                                                                                                                         & (\because j, j'\in\ZZ)
+\end{align}
+よって $j \neq j'$ のときは $(q^{(j)}, q^{(j')}) = 0$ となる.
+
+次に $j = j'$ の場合を考える. これは $j$ が奇数か偶数かで場合分けして考える.
+\begin{align}
+  \frac{\cos\qty(j\pi)\sin\qty(\frac{jN}{N+1}\pi)}{\sin\qty(\frac{j}{N+1}\pi)} & =
+  \begin{dcases}
+    \frac{\cos\qty(2k\pi)\sin\qty(\frac{2kN}{N+1}\pi)}{\sin\qty(\frac{2k}{N+1}\pi)}           & (j = 2k, k\in\ZZ)   \\
+    \frac{\cos\qty((2k-1)\pi)\sin\qty(\frac{(2k-1)N}{N+1}\pi)}{\sin\qty(\frac{2k-1}{N+1}\pi)} & (j = 2k-1, k\in\ZZ)
+  \end{dcases} \\ & =
+  \begin{dcases}
+    \frac{1\cdot\sin\qty(2k\pi\frac{N}{N+1} - 2k\pi)}{\sin\qty(2k\pi\frac{1}{N+1})} \\
+    \frac{-1 \cdot -\sin\qty((2k-1)\pi\frac{N}{N+1} - (2k-1)\pi)}{\sin\qty((2k-1)\pi\frac{1}{N+1})}
+  \end{dcases}         \\
+                                                                               & = -1
+\end{align}
+よって $j = j'$ のときは $(q^{(j)}, q^{(j')}) = 1$ となる.
+
+これらから $(q^{(j)}, q^{(j')}) = \delta_{j,j'}$ となる. $\Box$ \\
+
+(iv) ここで行列 $A_{ij} := q_i^{(j)}$ を定義します. このとき次の計算から $A_{ij}$ は直交行列であるとわかります.
+\begin{align}
+  (A^{\top}A)_{ij} & = \sum_{k=1}^{N}A_{ik}^\top A_{kj} = \sum_{k=1}^{N}A_{ki}A_{kj} = \sum_{k=1}^{N}q_k^{(i)}q_k^{(j)} = (q^{(i)}, q^{(j)}) = \delta_{i,j}.
+\end{align}
+
+(v) また $A_{ij}$ が直交行列であるから次のような正規直交関係もあります.
+\begin{align}
+  (AA^{\top})_{ij} & = \sum_{k=1}^{N}A_{ik}A_{kj}^{\top} = \sum_{k=1}^{N}A_{ik}A_{jk} = \sum_{k=1}^{N}q_i^{(k)}q_j^{(k)} = \delta_{i,j}.
+\end{align}
+
+(vi) ここで原子の変位を表す古い座標系 $q_1, \ldots, q_N$ を $q^{(1)}, \ldots, q^{(N)}$ で離散 Fourier Sine 展開した振幅を新しい座標系 $Q_1, \ldots, Q_N$ と定義します.
+\begin{align}
+  q_i = \sum_{j=1}^{N}Q_jq_i^{(j)}
+\end{align}
+これは点正準変換において新しい運動量を古い運動量を表せます.
+\begin{align}
+  P_j = \sum_{i=1}^{N}\pdv{q_i}{Q_j}p_i = \sum_{i=1}^{N}q_i^{(j)}p_i
+\end{align}
+
+(vii) Hamilton 関数の運動エネルギーの表式の核の部分について次のように表されます.
+\begin{align}
+  \sum_{j=1}^{N}P_j^2 = \sum_{j=1}^{N}\qty(\sum_{i=1}^{N}q_i^{(j)}p_i)^2 = \sum_{j=1}^{N}\sum_{i=1}^{N}\sum_{i'=1}^{N}(q_i^{(j)}p_i)(q_{i'}^{(j)}p_{i'}) = \sum_{i=1}^{N}p_i^2
+\end{align}
+
+(viii) Hamilton 関数のポテンシャルエネルギーの核の部分について次のような表されます.
+\begin{align}
+  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{i=0}^{N}\qty(\sum_{j=1}^{N}\qty(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)}))^2                                                     \\
+                                  & = \sum_{i=0}^{N}\sum_{j=1}^{N}\sum_{j'=1}^{N}\qty(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)})\qty(Q_{j'}q_i^{(j')} - Q_{j'}q_{i+1}^{(j')}) \\
+                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})Q_jQ_{j'}                  \\
+                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}B_{j,j'}Q_jQ_{j'}
+\end{align}
+ただし, $B_{j,j'}$ を次のように定めました.
+\begin{align}
+  B_{j,j'} := \sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})
+\end{align}
+
+(ix) 次に $B_{j,j'}$ を求めます. まず $q_i^{(j)} - q_{i+1}^{(j)}$ は次のように求められます.
+\begin{align}
+  q_i^{(j)} - q_{i+1}^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji) - \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}j(i+1)) \\
+                            & = \sqrt{\frac{2}{N+1}}\qty(\sin\qty(\frac{\pi}{N+1}ji) - \sin\qty(\frac{\pi}{N+1}j(i+1)))               \\
+                            & = -2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j}{N+1}).
+\end{align}
+
+(x) これより $B_{j,j'}$ は次のようになります.
+\begin{align}
+  B_{j,j'} & := \sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})                                                                                                                                                              \\
+           & = \sum_{i=0}^{N}\qty(-2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j}{N+1}))\qty(-2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j'}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})) \\
+           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\frac{2}{N+1}\sum_{i=0}^{N}\cos\qty(\frac{\pi}{N+1}j\qty(i + \frac{1}{2}))\cos\qty(\frac{\pi}{N+1}j'\qty(i + \frac{1}{2}))                                 \\
+           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j + j')\qty(i + \frac{1}{2})) + \cos\qty(\frac{\pi}{N+1}(j - j')\qty(i + \frac{1}{2})))           \\
+           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'}
+\end{align}
+ただし, $\tilde{B}_{j,j'}$ を次のように定めました.
+\begin{align}
+  \tilde{B}_{j,j'} & := \frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j + j')\qty(i + \frac{1}{2})) + \cos\qty(\frac{\pi}{N+1}(j - j')\qty(i + \frac{1}{2})))
+\end{align}
+
+(xi) さらに $\tilde{B}_{j,j'}$ は次のようになります.
+\begin{align}
+  \tilde{B}_{j,j'} & := \frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\pi\frac{j + j'}{N+1}\qty(i + \frac{1}{2})) + \cos\qty(\pi\frac{j - j'}{N+1}\qty(i + \frac{1}{2}))) \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\sum_{i=0}^{N}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\qty(\pi\frac{j + j'}{N+1}i)    \\
+                                                             & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\qty(\pi\frac{j + j'}{N+1}i)       \\
+                                                             & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\qty(\pi\frac{j - j'}{N+1}i)       \\
+                                                             & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\qty(\pi\frac{j - j'}{N+1}i)\bigg]
+                       \end{aligned}                                          \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + F\qty(\pi\frac{j + j'}{N+1})) \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})G\qty(\pi\frac{j + j'}{N+1})              \\
+                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + F\qty(\pi\frac{j - j'}{N+1}))    \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})G\qty(\pi\frac{j - j'}{N+1})\bigg]
+                       \end{aligned}
+\end{align}
+
+(xii) ここで $\tilde{B}_{j,j'}$ について $j = j'$ の場合を考えます.
+\begin{align}
+  \tilde{B}_{j,j'} & = \tilde{B}_{j,j}                                                                                                                                                                                                                                      \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\bigg[ & \quad\cos\qty(\frac{1}{N+1}j\pi)\qty(1 + F\qty(\frac{2}{N+1}j\pi)) \\
+                                               & - \sin\qty(\frac{1}{N+1}j\pi)G\qty(\frac{2}{N+1}j\pi)              \\
+                                               & + \qty(1 + N)                                                      \\
+                                               & - 0]
+                       \end{aligned}                                                                                                                                               \\
+                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi)\qty(1 + \frac{\cos\qty(j\pi)\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)}) - \sin\qty(\frac{1}{N+1}j\pi)\frac{\sin\qty(j\pi)\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)}) \\
+                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi) + \qty(\cos\qty(\frac{1}{N+1}j\pi)\cos\qty(j\pi) - \sin\qty(\frac{1}{N+1}j\pi)\sin\qty(j\pi))\frac{\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)})                                      \\
+                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi) + \cos\qty(\frac{N+2}{N+1}j\pi)\frac{\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)})                                                                                                    \\
+                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi)\sin\qty(\frac{1}{N+1}j\pi) + \cos\qty(\frac{N+2}{N+1}j\pi)\sin\qty(\frac{N}{N+1}j\pi))\bigg/\sin\qty(\frac{1}{N+1}j\pi)                                                                            \\
+                   & = 1 + \frac{1}{N+1}\qty(\frac{1}{2}\sin\qty(\frac{2}{N+1}j\pi) + \frac{1}{2}\sin\qty(-\frac{2}{N+1}j\pi))\bigg/\sin\qty(\frac{1}{N+1}j\pi)                                                                                                             \\
+                   & = 1
+\end{align}
+
+(xiii) 次に $\tilde{B}_{j,j'}$ について $j \neq j'$ の場合を考えます.
+\begin{align}
+  \tilde{B}_{j,j'} & = \tilde{B}_{j,j'}                                                                                                                                                                         \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + F\qty(\pi\frac{j + j'}{N+1})) \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})G\qty(\pi\frac{j + j'}{N+1})              \\
+                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + F\qty(\pi\frac{j - j'}{N+1}))    \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})G\qty(\pi\frac{j - j'}{N+1})\bigg]
+                       \end{aligned}                                                                                               \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + \frac{\cos\qty(\frac{1}{2}(j+j')\pi)\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}) \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\frac{\sin\qty(\frac{1}{2}(j+j')\pi)\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}              \\
+                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + \frac{\cos\qty(\frac{1}{2}(j-j')\pi)\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)})    \\
+                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\frac{\sin\qty(\frac{1}{2}(j-j')\pi)\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
+                       \end{aligned}                                                                                                \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1}) + \qty(\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\qty(\frac{j+j'}{2}\pi) - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\qty(\frac{j+j'}{2}\pi))\frac{\sin\qty(\frac{N(j+j')}{2(N+1)}\pi)}{\sin\qty(\frac{j+j'}{2(N+1)}\pi)}    \\
+                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1}) + \qty(\cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\qty(\frac{j-j'}{2}\pi) - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\qty(\frac{j-j'}{2}\pi))\frac{\sin\qty(\frac{N(j-j')}{2(N+1)}\pi)}{\sin\qty(\frac{j-j'}{2(N+1)}\pi)}\Bigg]
+                       \end{aligned}                                                                             \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1}) + \cos\qty(\frac{N+2}{2(N+1)}(j + j')\pi)\frac{\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}    \\
+                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1}) + \cos\qty(\frac{N+2}{2(N+1)}(j - j')\pi)\frac{\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
+                       \end{aligned}                                                                         \\
+                   & \ \begin{aligned}
+                         = \frac{1}{N+1}\Bigg[ & \quad\frac{1}{2}\qty(\sin\qty(\frac{j + j'}{N+1}\pi) + \sin\qty((j + j')\pi) + \sin\qty(-\frac{j+j'}{N+1}\pi))\bigg/\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)    \\
+                                               & + \frac{1}{2}\qty(\sin\qty(\frac{j - j'}{N+1}\pi) + \sin\qty((j - j')\pi) + \sin\qty(-\frac{j-j'}{N+1}\pi))\bigg/\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)\bigg]
+                       \end{aligned} \\
+                   & = 0.
+\end{align}
+よって (xii), (xiii) の考察から $\tilde{B}_{j,j'} = \delta_{j,j'}$ となります.
+
+(xiv) これより $B_{j,j'}$ は (x) の考察から次のようになります.
+\begin{align}
+  B_{j,j'} & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'} \\
+           & = \delta_{j,j'}4\sin^2\qty(\frac{\pi}{2(N+1)}j).
+\end{align}
+
+(xv) ポテンシャルエネルギーの表式 (vii) に代入して次のようになります.
+\begin{align}
+  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{j=1}^{N}\sum_{j'=1}^{N}B_{j,j'}Q_jQ_{j'}                                      \\
+                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\delta_{j,j'}4\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_jQ_{j'} \\
+                                  & = 4\sum_{j=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_j^2.
+\end{align}
+
+(xvi) よって Hamilton 関数は (vii) (xv) から次のように表されます.
+\begin{align}
+  H^{1次元結晶}(q_1,\ldots,q_N, p_1,\ldots,p_N) & = \frac{1}{2m}\sum_{i=1}^{N}p_i^2 + \frac{1}{2}\kappa\sum_{i=0}^{N}(q_i - q_{i+1})^2          \\
+                                            & = \frac{1}{2m}\sum_{j=1}^{N}P_j^2 + 2\kappa\sum_{j=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_j^2 \\
+                                            & = \sum_{j=1}^{N}\qty(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
+\end{align}
+ただし, $\omega_j$ を次のように定めました.
+\begin{align}
+  \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j).
+\end{align}
+
+\begin{itembox}[l]{Q 17-4.}
+\end{itembox}
+
+(i)
+
+\begin{align}
+  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji)             \\
+            & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{a}\frac{j}{N+1}x_i) \\
+            & = \sqrt{\frac{2}{N+1}}\sin\qty(k_jx_i).
+\end{align}
+ただし, 波数 $k_j$ を次のように定めました.
+\begin{align}
+  k_j := \frac{\pi}{a}\frac{j}{N+1}.
+\end{align}
+
+(ii)
+
+\begin{align}
+  \omega(k_j) & = \omega_j                                              \\
+              & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j) \\
+              & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}k_ja),    \\
+  \omega(k)   & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}ka).
+\end{align}
+
+(iii)
+
+(iv)
+$ka\ll 1$
+
+\begin{align}
+  \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}ka)                   \\
+            & = 2\sqrt{\frac{\kappa}{m}}\qty(\frac{1}{2}ka + \mathcal{O}((ka)^3)) \\
+            & = \sqrt{\frac{\kappa}{m}}ka + \mathcal{O}((ka)^3) \qquad (ka\ll 1).
+\end{align}
+
+(v)
+\begin{align}
+  v & = \lim_{ka\to 0}\frac{\omega(k)}{k} = \sqrt{\frac{\kappa}{m}}a.
+\end{align}
+
+(vi)
+
+\begin{itembox}[l]{Q 17-5.}
+\end{itembox}
+
+(i)(ii)
+\begin{align}
+  \omega_j & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j)
+\end{align}
+
+\begin{align}
+  \omega_{\max} & := \max_{1\leq j\leq N}\omega_j = \omega_N = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi N}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}}                                                          \\
+  \omega_{\min} & := \min_{1\leq j\leq N}\omega_j = \omega_1 = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}}\frac{\pi}{2(N+1)} = \sqrt{\frac{\kappa}{m}}\frac{\pi}{N+1}
+\end{align}
+
+\begin{itembox}[l]{Q 17-6.}
+\end{itembox}
+
+\begin{align}
+  H^{1次元結晶}(q_1,\ldots,q_N, p_1,\ldots,p_N) & := \frac{1}{2m}\sum_{i=1}^{N}p_i^2 + \frac{1}{2}\kappa\sum_{i=0}^{N}(q_i - q_{i+1})^2
+\end{align}
+
+\begin{align}
+     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                        \\
+  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                         \\
+  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2)
+\end{align}
+
+\begin{align}
+  i_x = 0, N+1 \lor i_y = 0, N+1 \lor i_z = 0, N+1 \implies q_{i_x,i_y,i_z,\alpha} = 0.
+\end{align}
+
+\begin{itembox}[l]{Q 17-7.}
+\end{itembox}
+
+\begin{align}
+  q_{i_x,i_y,i_z,\alpha} & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}
+\end{align}
+
+(i)
+\begin{align}
+  P_{j_x,j_y,j_z,\alpha} & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\pdv{q_{i_x,i_y,i_z,\alpha}}{Q_{j_x,j_y,j_z,\alpha}}p_{i_x,i_y,i_z,\alpha} \\
+                         & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha}
+\end{align}
+
+(ii)
+
+\begin{align}
+  \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}P_{j_x,j_y,j_z,\alpha}^2 & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha})^2                                                                                                                           \\
+                                                                           & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha}q_{i_x'}^{(j_x)}q_{i_y'}^{(j_y)}q_{i_z'}^{(j_z)}p_{i_x',i_y',i_z',\alpha}) \\
+                                                                           & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}p_{i_x,i_y,i_z,\alpha}p_{i_x',i_y',i_z',\alpha}                                                                                                 \\
+                                                                           & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}p_{i_x,i_y,i_z,\alpha}^2
+\end{align}
+
+(iii)
+\begin{align}
+    & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}(q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2                                                                                                                                                                                                                                                \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\qty(\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}))^2                                                                                            \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}                                                                                                                                                                                                  \\
+    & \qty(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)})\qty(Q_{j_x',j_y',j_z',\alpha}q_{i_x}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')} - Q_{j_x',j_y',j_z',\alpha}q_{i_x+1}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')})                                       \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}\qty(q_{i_x}^{(j_x)} - q_{i_x+1}^{(j_x)})\qty(q_{i_x}^{(j_x')} - q_{i_x+1}^{(j_x')})q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha} \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}B_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                                                                     \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}4\sin^2\qty(\frac{\pi}{2(N+1)}j_x)\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                              \\
+  = & 4\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2
+\end{align}
+
+(iv)
+\begin{align}
+     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                          \\
+  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                           \\
+  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2)   \\
+  =  & \frac{1}{2m}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}P_{j_x,j_y,j_z,\alpha}^2                                                                                                                                                           \\
+  +  & 2\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty(\sin^2\qty(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\qty(\frac{\pi}{2(N+1)}j_y)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)Q_{j_x,j_y,j_z,\alpha}^2) \\
+  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + 2\kappa\qty(\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z))Q_{j_x,j_y,j_z,\alpha}^2)    \\
+  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2Q_{j_x,j_y,j_z,\alpha}^2)
+\end{align}
+ただし, $\omega_{j_x,j_y,j_z}$ は次のように定めました.
+\begin{align}
+  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)}
+\end{align}
+
+\begin{itembox}[l]{Q 17-8.}
+\end{itembox}
+
+(i)
+\begin{align}
+  \bm{k}_{j_x,j_y,j_z} & = \frac{\pi}{a(N+1)}(j_x,j_y,j_z).
+\end{align}
+
+
+\end{document}

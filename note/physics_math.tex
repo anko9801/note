@@ -1,0 +1,822 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{物理数学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{ベクトル解析}
+
+\begin{definition}[Kronecker のデルタ]
+  \begin{align}
+    \delta_{ij} = \begin{cases}
+                    1 & (i = j)    \\
+                    0 & (i \neq j)
+                  \end{cases}
+  \end{align}
+\end{definition}
+\begin{definition}[レビ・チビタの完全反対称テンソル (Levi-Civita antisymmetric tensor)]
+  $\epsilon_{ijk}$ は $1,-1,0$ の値を取る. ${\epsilon_{xyz} = 1}$ であり, 任意の2つの添字の交換に対して符号を変え, また任意の2つの添字の値が等しければ $0$ となる.
+  \begin{align}
+    \epsilon_{\mu_1\cdots\mu_k} & :=
+    \begin{dcases}
+      \sgn\begin{pmatrix}
+            1     & \cdots & k     \\
+            \mu_1 & \cdots & \mu_k
+          \end{pmatrix} & (\mu_1\cdots\mu_k が順列のとき) \\
+      0                         & (else)
+    \end{dcases} \\
+                                & =
+    \begin{dcases}
+      1  & (\mu_1\cdots\mu_k が偶置換のとき) \\
+      -1 & (\mu_1\cdots\mu_k が奇置換のとき) \\
+      0  & (else)
+    \end{dcases}
+  \end{align}
+\end{definition}
+
+\begin{definition}[Einstein の縮約記法]
+  同じ項で添字が重なる場合はその添字について和を取る.
+  \begin{align}
+    A_iB_i = \sum_{i=x,y,z}A_iB_i
+  \end{align}
+\end{definition}
+
+\begin{definition}
+  ベクトルについて内積と外積を定義する。
+  \begin{align}
+    \bm{A}\vdot\bm{B}  & = A_xB_x + A_yB_y + A_zB_z = A_iB_i                                                  \\
+    \bm{A}\cross\bm{B} & = (A_yB_z - A_zB_y, A_zB_x - A_xB_z, A_xB_y - A_yB_x) = \bm{e}_i\epsilon_{ijk}A_jB_k
+  \end{align}
+\end{definition}
+\begin{definition}
+  \begin{align}
+    \grad{\bm{A}} & = \qty(\pdv{A_x}{x}, \pdv{A_y}{y}, \pdv{A_z}{z})                                                                                    \\
+    \div{\bm{A}}  & = \pdv{A_x}{x} + \pdv{A_y}{y} + \pdv{A_z}{z} = \partial_iA_i                                                                        \\
+    \rot{\bm{A}}  & = \qty(\pdv{A_z}{y} - \pdv{A_y}{z}, \pdv{A_x}{z} - \pdv{A_z}{x}, \pdv{A_y}{x} - \pdv{A_x}{y}) = \bm{e}_i\epsilon_{ijk}\partial_jA_k
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \grad{(f+g)}               & = \grad{f} + \grad{g}                                                                                               \\
+    \grad{(fg)}                & = f\grad{g} + g\grad{f}                                                                                             \\
+    \grad{(\bm{A}\vdot\bm{B})} & = \bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A} \\
+    \div{(\bm{A}+\bm{B})}      & = \div{\bm{A}} + \div{\bm{B}}                                                                                       \\
+    \div{(f\bm{A})}            & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                                                                           \\
+    \div{(\bm{A}\cross\bm{B})} & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                             \\
+    \rot{(\bm{A}+\bm{B})}      & = \rot{\bm{A}} + \rot{\bm{B}}                                                                                       \\
+    \rot{(f\bm{A})}            & = f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f})                                                                          \\
+    \rot{(\bm{A}\cross\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}             \\
+    \div{(\rot{\bm{A}})}       & = 0                                                                                                                 \\
+    \rot{(\grad{f})}           & = \bm{0}                                                                                                            \\
+    \rot{(\rot{\bm{A}})}       & = \div{(\grad{\bm{A}})} - \laplacian{\bm{A}}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  ベクトルのときは各要素について考える。
+  \begin{align}
+    (\grad{(f+g)})_i               & = \partial_i(f+g) = \partial_i f + \partial_i g = (\grad{f} + \grad{g})_i                                                           \\
+    (\grad{(fg)})_i                & = \partial_i(fg) = f\partial_i g + g\partial_i f = (f\grad{g} + g\grad{f})_i                                                        \\
+    (\grad{(\bm{A}\vdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                \\
+                                   & = (A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i)             \\
+                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)    \\
+                                   & = \epsilon_{kij}\epsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                         \\
+                                   & = \epsilon_{ijk}A_j\epsilon_{klm}\partial_lB_m + \epsilon_{ijk}B_j\epsilon_{klm}\partial_lA_m + A_j\partial_jB_i + B_j\partial_jA_i \\
+                                   & = (\bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A})_i
+  \end{align}
+  \begin{align}
+    \div{(\bm{A}+\bm{B})}      & = \partial_i(A_i + B_i) = \partial_i A_i + \partial_i B_i         \\
+                               & = \div{\bm{A}}+\div{\bm{B}}                                       \\
+    \div{(f\bm{A})}            & = \partial_i(fA_i) = f\partial_iA_i + A_i\partial_if              \\
+                               & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                         \\
+    \div{(\bm{A}\cross\bm{B})} & = \partial_i(\epsilon_{ijk}A_jB_k)                                \\
+                               & = \epsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)             \\
+                               & = B_k\epsilon_{kij}\partial_iA_j - A_j\epsilon_{jik}\partial_iB_k \\
+                               & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})
+  \end{align}
+  \begin{align}
+    (\rot{(\bm{A} + \bm{B})})_i    & = \epsilon_{ijk}\partial_j(A_k + B_k)                                                                   \\
+                                   & = \epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}\partial_jB_k                                             \\
+                                   & = \rot{\bm{A}} + \rot{\bm{B}}                                                                           \\
+    (\rot{(f\bm{A})})_i            & = \epsilon_{ijk}\partial_j(fA_k)                                                                        \\
+                                   & = f\epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}A_k\partial_jf                                           \\
+                                   & = f\epsilon_{ijk}\partial_jA_k - \epsilon_{ikj}A_k\partial_jf                                           \\
+                                   & = (f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f}))_i                                                          \\
+    (\rot{(\bm{A}\cross\bm{B})})_i & = \epsilon_{ijk}\partial_j\epsilon_{klm}A_lB_m                                                          \\
+                                   & = \epsilon_{kij}\epsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                     \\
+                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                \\
+                                   & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                         \\
+                                   & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                             \\
+                                   & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
+  \end{align}
+  \begin{align}
+    \div{(\rot{\bm{A}})}     & = \partial_i(\epsilon_{ijk}\partial_jA_k) = \epsilon_{ijk}\partial_i\partial_jA_k = 0 \\
+    (\rot{(\grad{f})})_i     & = \epsilon_{ijk}\partial_j\partial_kf = 0                                             \\
+    (\rot{(\rot{\bm{A}})})_i & = \epsilon_{ijk}\partial_j(\epsilon_{klm}\partial_lA_m)                               \\
+                             & = \epsilon_{kij}\epsilon_{klm}\partial_j\partial_lA_m                                 \\
+                             & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m            \\
+                             & = \partial_j\partial_iA_j - \partial_j^2A_i                                           \\
+                             & = (\div{(\grad{\bm{A}})} - \laplacian{\bm{A}})_i
+  \end{align}
+\end{proof}
+
+\section{微分幾何学}
+\subsection{多様体}
+接ベクトル
+接ベクトル束
+\subsection{微分形式}
+\begin{definition}[微分形式]
+  $\land:$
+  \begin{align}
+    u\land v := u\otimes v - v\otimes u
+  \end{align}
+  $0$-形式 \\
+  $k$-形式$\omega_{\mu_1\cdots\mu_k}\in C^\infty(U)$
+  \begin{align}
+    \omega = \frac{1}{k!}\omega_{\mu_1\cdots\mu_k}dx^{\mu_1}\land\cdots\land dx^{\mu_k}
+  \end{align}
+\end{definition}
+\begin{definition}[外微分]
+  外微分 (exterior derivative) $d: \Omega^k(M)\to\Omega^{k+1}(M)$ を次のように定義する。
+  \begin{align}
+    d\omega & := d\qty(\frac{1}{k!}\omega_{\mu_1\cdots\mu_k})\land dx^{\mu_1}\land\cdots\land dx^{\mu_k}                \\
+            & = \frac{1}{k!}\pdv{\omega_{\mu_1\cdots\mu_k}}{x^{\nu}}dx^{\nu}\land dx^{\mu_1}\land\cdots\land dx^{\mu_k}
+  \end{align}
+\end{definition}
+\begin{align}
+  dx\land dy & = d(r\cos\theta)\land d(r\sin\theta)                                                                                                                  \\
+             & = (dr\cos\theta - r\sin\theta d\theta)\land (dr\sin\theta + r\cos\theta d\theta)                                                                      \\
+             & = (\cos\theta\sin\theta)dr\land dr + (r\cos^2\theta)dr\land d\theta - (r\sin^2\theta) d\theta\land dr - (r^2\sin\theta\cos\theta)d\theta\land d\theta \\
+             & = r dr\land d\theta
+\end{align}
+
+\begin{definition}[1 の分割 (partition of unity)]
+\end{definition}
+
+\begin{theorem}[ストークスの定理]
+\end{theorem}
+
+\section{複素関数}
+この章では
+\subsection{複素数}
+高校では $i^2 = -1$ を満たす $i$ を虚数単位といってこれを実数に付け加えたものを複素数と言っていました。これを代数の知識を用いて定義し直します。
+
+\begin{definition}
+  $\RR[x]/(x^2 + 1)$ を複素数体といい、 $\CC$ と書く。この元を複素数といい、 $x$ を虚数単位 (imaginary unit) といい、$i$ と書くことにする。このとき任意の元 $z\in\CC$ は 2 つの実数 $x, y\in\RR$ を用いて $z = x + iy$ と表される。このとき関数 $\Re, \Im$ を次のように定義する。
+  \begin{align}
+    \begin{cases}
+      x = \Re z \\
+      y = \Im z
+    \end{cases}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  複素数 $z_1 = x_1 + iy_1$, $z_2 = x_2 + iy_2$, $z = x + iy$ とすると次が成り立つ。
+  \begin{align}
+     & z_1 = z_2 \iff x_1 = x_2 \land y_1 = y_2            \\
+     & z_1 + z_2 = (x_1 + x_2) + i(y_1 + y_2)              \\
+     & z_1z_2 = (x_1x_2 - y_1y_2) + i(x_1y_2 + x_2y_1)     \\
+     & z^{-1} = \frac{x}{x^2 + y^2} - i\frac{y}{x^2 + y^2}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  複素数体 $\CC$ において $\lbrace 1, i\rbrace$ は基底となるから線形独立であり $x + iy = 0$ ならば $x = 0$ かつ $y = 0$ である。
+  これより次のようになる。
+  \begin{align}
+    z_1 = z_2 & \iff z_1 - z_2 = 0 \iff (x_1 - x_2) + i(y_1 - y_2) = 0                \\
+              & \iff x_1 - x_2 = 0 \land y_1 - y_2 = 0 \iff x_1 = x_2 \land y_1 = y_2
+  \end{align}
+  他の等式は計算すれば満たすことが分かる。
+\end{proof}
+
+また交換法則、結合法則、分配法則を満たすことが分かるので $\CC$ は可換体です。
+\begin{definition}
+  複素数 $z = x + iy$ の絶対値 (absolute value)、共役複素数 (complex conjugate) をそれぞれ次のように定義する。
+  \begin{align}
+    |z|          & = \sqrt{x^2 + y^2} \\
+    \overline{z} & = x - iy
+  \end{align}
+\end{definition}
+\begin{proposition}
+  複素数 $z, z_1, z_2\in\CC$ に対して次の式が成り立つ。
+  \begin{align}
+     & |z|^2 = z\overline{z}                                   \\
+     & \qty||z_1| - |z_2|| \leq |z_1 + z_2| \leq |z_1| + |z_2|
+  \end{align}
+\end{proposition}
+\begin{proof}
+  最初の式については $z = x + iy$ と置くと次のように表される。
+  \begin{align}
+    |z|^2 = x^2 + y^2 = (x + iy)(x - iy) = z\overline{z}
+  \end{align}
+  次に第二式の各項についてそれぞれを二乗した値を比較する。
+  \begin{align}
+    \qty(|z_1| - |z_2|)^2 & = \qty(\sqrt{x_1^2 + y_1^2} - \sqrt{x_2^2 + y_2^2})^2 = x_1^2 + y_1^2 + x_2^2 + y_2^2 - 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)} \\
+    |z_1 + z_2|^2         & = (x_1 + x_2)^2 + (y_1 + y_2)^2 = x_1^2 + x_2^2 + y_1^2 + y_2^2 + 2(x_1x_2 + y_1y_2)                                           \\
+    (|z_1| + |z_2|)^2     & = |z_1|^2 + |z_2|^2 + 2|z_1||z_2| = x_1^2 + y_1^2 + x_2^2 + y_2^2 + 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}
+  \end{align}
+  ここで $x_1^2y_2^2 + x_2^2y_1^2 \geq 2x_1x_2y_1y_2$ であるから $x^2 \leq y^2\implies |x|\leq |y|$ より第二式が成り立つ。
+\end{proof}
+
+無限遠点
+
+リーマン面
+リーマン球面
+
+\subsection{複素変数の関数}
+
+\begin{theorem}[コーシー・リーマンの方程式]
+  複素変数の関数 $f(z)\in\CC(z) = f(x + iy) = u(x, y) + iv(x, y)$ が $z = z_0$ で微分可能であるとき導関数 $f'(z_0)$ は次のように書くことができる。
+  \begin{align}
+    f'(z_0) = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}
+  \end{align}
+  このとき実関数 $u, v$ は次の式を満たす。
+  \begin{align}
+    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $\Delta z = \Delta x + 0i$
+  \begin{align}
+    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                     \\
+            & = \lim_{\Delta x\to 0}\frac{u(x_0 + \Delta x, y_0) - u(x_0, y_0) + i(v(x_0 + \Delta x, y_0) - v(x_0, y_0))}{\Delta x} \\
+            & = \pdv{u(x_0, y_0)}{x} + i\pdv{v(x_0, y_0)}{x}
+  \end{align}
+  $\Delta z = 0 + i\Delta y$
+  \begin{align}
+    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                      \\
+            & = \lim_{\Delta y\to 0}\frac{u(x_0, y_0 + \Delta y) - u(x_0, y_0) + i(v(x_0, y_0 + \Delta y) - v(x_0, y_0))}{i\Delta y} \\
+            & = \pdv{v(x_0, y_0)}{y} - i\pdv{u(x_0, y_0)}{y}
+  \end{align}
+  これより領域において次が成り立つ
+  \begin{align}
+    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
+  \end{align}
+\end{proof}
+
+
+\subsection{正則関数}
+\begin{theorem}
+  Riemman Roch の定理
+\end{theorem}
+
+\begin{definition}[初等関数]
+  指数関数 $2\pi i$ 周期で同じ
+  \begin{align}
+    f(z) = e^z = e^{x + iy} = e^x(\cos y + i\sin y)
+  \end{align}
+  三角関数
+  \begin{align}
+    \sin z & := \frac{e^{iz} - e^{-iz}}{2i}                          \\
+    \cos z & := \frac{e^{iz} + e^{-iz}}{2}                           \\
+    \tan z & := \frac{1}{i}\frac{e^{iz} - e^{-iz}}{e^{iz} + e^{-iz}}
+  \end{align}
+
+  双曲線関数
+  \begin{align}
+    \sinh z & := \frac{e^{z} - e^{-z}}{2}              \\
+    \cosh z & := \frac{e^{z} + e^{-z}}{2}              \\
+    \tanh z & := \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
+  \end{align}
+
+  対数関数
+  \begin{align}
+    \log z & := \log r + i\theta \qquad (z\neq 0) \\
+    \theta & = \arg z = \Arg z + 2n\pi            \\
+    \Log z & := \log r + i\Arg z
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    \sin^{-1} z = -i\log(iz + (1 - z^2)^{1/2})
+  \end{align}
+\end{proposition}
+
+\begin{theorem}[一致の定理]
+  領域 $D$ で正則な関数 $f(z), g(z)$ があり、$D$ の小領域もしくは曲線上で一致しているとき、領域 $D$ 全体で $f(z) = g(z)$ が成り立つ。
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    f(z) & = \sum_{n=0}^{\infty}\frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \\
+    g(z) & = \sum_{n=0}^{\infty}\frac{g^{(n)}(z_0)}{n!}(z - z_0)^n
+  \end{align}
+\end{proof}
+\begin{theorem}[解析接続]
+\end{theorem}
+
+\section{フーリエ解析}
+\subsection{フーリエ級数}
+\begin{definition}[複素フーリエ級数]
+  $\TT = \RR/(2\pi\ZZ)$ 上 関数 $f: \TT\to\CC$ に対し
+  \begin{align}
+    f(x) & = \sum_{n\in\ZZ}c_ne^{inx}                          \\
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+  \end{align}
+\end{definition}
+例
+\begin{theorem}[Bessel の不等式]
+  \begin{align}
+    \sum_{n\in\ZZ}|\hat{f}(n)|^2 \leq \|f\|_2^2
+  \end{align}
+\end{theorem}
+
+
+\begin{theorem}[平均値の定理]
+  区間 $[a, b]$ で連続、 $(a, b)$ で微分可能な関数 $f(x)$ について $a < c < b$ となる $c$ が存在して次のようになる。
+  \begin{align}
+    \frac{f(b) - f(a)}{b - a} = f'(c)
+  \end{align}
+\end{theorem}
+
+\begin{proposition}
+  \begin{align}
+     & \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} = 0               \\
+     & \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \cos(nx)\dd{x} = 2\pi\delta_{n,0}        \\
+     & \int_{-\pi}^\pi \sin(nx)\dd{x} = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\sin(m + n)x + \sin(m - n)x]\dd{x}                            \\
+                                           & = \frac{1}{2}\qty[- \frac{\cos(m + n)x}{m + n} - \frac{\cos(m - n)x}{m - n}]_{-\pi}^\pi         \\
+                                           & = 0                                                                                             \\
+    \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x + \cos(m + n)x]\dd{x}                            \\
+                                           & = \begin{dcases}
+                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\qty[x + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                               \end{dcases} \\
+                                           & = \pi\delta_{m,n}                                                                               \\
+    \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x - \cos(m + n)x]\dd{x}                            \\
+                                           & = \begin{dcases}
+                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\qty[x - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                               \end{dcases} \\
+                                           & = \pi\delta_{m,n}
+  \end{align}
+  \begin{align}
+    \int_{-\pi}^\pi \cos(nx)\dd{x} & = \begin{dcases}
+                                         \qty[\frac{\sin(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \qty[x]_{-\pi}^\pi                  & (n = 0)
+                                       \end{dcases}  \\
+                                   & = 2\pi\delta_{n,0}                                       \\
+    \int_{-\pi}^\pi \sin(nx)\dd{x} & = \begin{dcases}
+                                         \qty[-\frac{\cos(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \qty[0]_{-\pi}^\pi                   & (n = 0)
+                                       \end{dcases} \\
+                                   & = 0
+  \end{align}
+\end{proof}
+
+\begin{definition}[$2\pi$ の周期をもつ関数のフーリエ級数]
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx)) \\
+    a_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\dd{x}                  \\
+    b_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\dd{x}
+  \end{align}
+\end{definition}
+
+\begin{definition}[$2\pi$ の周期をもつ関数の複素フーリエ級数]
+  \begin{align}
+    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{inx}               \\
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+  \end{align}
+\end{definition}
+\begin{proof}
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx))                                               \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n}{2}(e^{inx} + e^{-inx}) + \frac{b_n}{2i}(e^{inx} - e^{-inx})) \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n - ib_n}{2}e^{inx} + \frac{a_n + ib_n}{2}e^{-inx})             \\
+         & = \sum_{n=-\infty}^{\infty}c_ne^{inx}
+  \end{align}
+  ただし $c_n$ は次のように定める。
+  \begin{align}
+    c_n & := \begin{dcases}
+               \frac{a_n - ib_n}{2} & (n > 0) \\
+               \frac{a_0}{2}        & (n = 0) \\
+               \frac{a_n - ib_n}{2} & (n < 0)
+             \end{dcases}
+  \end{align}
+  \begin{align}
+    \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x} & = \frac{1}{2\pi}\int_{-\pi}^\pi\sum_{m=-\infty}^{\infty}c_me^{imx}e^{-inx}\dd{x} \\
+                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m\int_{-\pi}^\pi e^{i(m - n)x}\dd{x}  \\
+                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m 2\pi\delta_{m,n}                    \\
+                                                     & = c_n
+  \end{align}
+\end{proof}
+
+\begin{definition}[一般の周期をもつ関数のフーリエ級数]
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l}) \\
+    a_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\cos\frac{n\pi x}{l}\dd{x}                                      \\
+    b_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\sin\frac{n\pi x}{l}\dd{x}
+  \end{align}
+\end{definition}
+\begin{definition}[一般の周期をもつ関数の複素フーリエ級数]
+  \begin{align}
+    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi}{l}x}         \\
+    c_n  & := \frac{1}{2l}\int_{-l}^l f(x)e^{-i\frac{n\pi}{l}x}\dd{x}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \lim_{n\to\infty}a_n = 0
+  \end{align}
+\end{theorem}
+
+\begin{lemma}[コーシーの不等式]
+  実数の数列 $\lbrace p_n\rbrace_n, \lbrace q_n\rbrace_n$ について次の不等式が成立する。
+  \begin{align}
+    \qty(\sum_{n=1}^{N}p_n^2)\qty(\sum_{n=1}^{N}q_n^2) \geq \qty(\sum_{n=1}^{N}p_nq_n)^2
+  \end{align}
+\end{lemma}
+\begin{proof}
+  $x$ について次の 2 次関数の判別式を考えることで求まる。
+  \begin{align}
+    \sum_{n=1}^{N}(p_nx + q_n)^2 \geq 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}[ワイエルシュトラスの M テスト]
+  区間 $[a, b]$ で定義された関数列の無限級数 $s(x)$ の各項の絶対値が上界 $M_n$ をもち、 $M_n$ の総和が収束するならばもとの級数は $[a, b]$ で一様収束する。
+  \begin{align}
+    s(x) = \sum_{n=1}^{\infty}f_n(x)
+  \end{align}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+\section{特殊関数}
+\begin{definition}
+  複素平面上で $\Re z > 1$ を満たす領域内にある閉曲線 $C$ 上の点 $z$ に対して次の関数は一様収束し正則な関数となる.
+  \begin{align}
+    \Gamma(z) := \int_0^\infty e^{-t}t^{z-1}\dd{t}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    \Gamma(z + 1)           & = z\Gamma(z) \\
+    \Gamma(1)               & = 1          \\
+    \Gamma(n + 1)           & = n!         \\
+    \Gamma\qty(\frac{1}{2}) & = \sqrt{\pi}
+  \end{align}
+\end{proposition}
+
+\begin{proposition}[スターリングの公式 (Stirling's formula)]
+  \begin{align}
+    \Gamma(x + 1) & = \sqrt{2\pi x}e^{-x}x^x \qquad (x \gg 1)
+  \end{align}
+\end{proposition}
+
+\begin{proposition}
+  ガウスの公式 (Gauss's formula)
+  \begin{align}
+    \Gamma(z) & = \lim_{n\to\infty}\frac{n!n^z}{z(z+1)\cdots(z+n)} \\
+  \end{align}
+\end{proposition}
+\begin{proposition}
+  ワイエルシュトラスの公式 (Weierstrass' formula) $\gamma$ はオイラーの定数 (Euler's constant) とする.
+  \begin{align}
+    \frac{1}{\Gamma(z)} & = ze^{\gamma z}\prod_{n=1}^{\infty}\qty(1 + \frac{z}{n})e^{-z/n}              \\
+    \gamma              & := \lim_{n\to\infty}\qty(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  ベータ関数 (Beta function)
+  \begin{align}
+    B(z, \zeta) := \int_{0}^{1}t^{z-1}(1-t)^{\zeta-1}\dd{t}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    B(z, \zeta)            & = B(\zeta, z)                                                          \\
+    B(z, \zeta)            & = 2\int_0^{\pi/2}\sin^{2z - 1}\theta\cos^{2\zeta - 1}\theta\dd{\theta} \\
+    B(z, \zeta)            & = \int_0^{\infty}\frac{u^{z-1}}{(1 + u)^{z + \zeta}}\dd{\theta}        \\
+    B(z, \zeta)            & = \frac{\Gamma(z)\Gamma(\zeta)}{\Gamma(z + \zeta)}                     \\
+    \Gamma(z)\Gamma(1 - z) & = \frac{\pi}{\sin\pi z}
+  \end{align}
+\end{proposition}
+
+\begin{definition}[ルジャンドル微分方程式]
+  \begin{align}
+    (1 - x^2)y'' - 2xy' + \lambda y = 0
+  \end{align}
+\end{definition}
+
+\begin{align}
+  y = \sum_{j=0}^{\infty}a_jx^j
+\end{align}
+
+\begin{definition}[ルジャンドルの陪微分方程式]
+  ルジャンドルの陪微分方程式
+  \begin{align}
+    (1 - x^2)y'' - 2xy' + \qty(n(n + 1) - \frac{m^2}{1 - x^2})y = 0
+  \end{align}
+  これを満たす独立な 2 つの解 $P_n^m(x)$ と $Q_n^m(x)$ を第一種および第二種ルジャンドル陪関数はルジャンドル関数で表される。
+\end{definition}
+
+\begin{definition}
+  ベッセルの微分方程式 (Bessel's equation)
+  \begin{align}
+    x^2y'' + xy' + (x^2 - \nu^2)y = 0
+  \end{align}
+\end{definition}
+\begin{definition}
+  ベッセルの微分方程式 (Bessel's equation)
+  \begin{align}
+    x^2y'' + xy' + (x^2 - \nu^2)y = 0
+  \end{align}
+\end{definition}
+
+\begin{definition}
+  ラゲール多項式
+  \begin{align}
+    \frac{e^{-xz/(1-z)}}{1-z} & = \sum_{n=0}^{\infty}L_n(x)\frac{z^n}{n!}
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    L_n(x)     & = e^x\dv[n]{x}(x^ne^{-x})                            \\
+    L_n(x)     & = \sum_{l=0}^{n}\frac{(-1)^l(n!)^2}{(l!)^2(n-l)!}x^l \\
+    L_{n+1}(x) & = (2n + 1 - x)L_n(x) - n^2L_{n-1}(x)                 \\
+    xL_n'(x)   & = nL_n(x) - n^2L_{n-1}(x)                            \\
+    L_n(0)     & = n!
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  次の級数展開の右辺に現れる $H_n(x)$ をエルミート多項式 (Hermite polynomials) という.
+  \begin{align}
+    e^{-t^2 + 2tx} = \sum_{n=0}^{\infty}\frac{1}{n!}H_n(x)t^n
+  \end{align}
+  また, 左辺の関数はエルミート多項式の母関数 (generating function) という.
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    H_n(x) = (-1)^ne^{x^2}\dv[n]{x}
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  超幾何関数
+  \begin{align}
+    x(1 - x)y'' + [c - (a + b + 1)x]y' - aby = 0
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    e^x         & = \lim_{b\to\infty}{}_2F_1\qty(1,b,1;\frac{x}{b}) \\
+    \log(1 + x) & = x\cdot{}_2F_1(1,1,2;-x)
+  \end{align}
+\end{proposition}
+
+\subsection{境界値問題}
+\begin{definition}
+  ラプラス方程式 (Laplace equation)
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+  \end{align}
+  ポアソン方程式 (Poisson equation)
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = -\rho(x, y)
+  \end{align}
+  波動方程式 (wave equation)
+  \begin{align}
+    \frac{1}{c^2}\pdv[2]{u}{t} = \pdv[2]{u}{x}
+  \end{align}
+  熱伝導方程式 (heat conduction equation) \\
+  $\kappa$ を熱伝導率 (thermal conductivity)
+  \begin{align}
+    \pdv{u}{t} & = \kappa\pdv[2]{u}{x} + q(x)
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  ラプラス方程式を満たし
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+  \end{align}
+  次の境界条件を満たす関数 $u(x, y)$ を求める。
+  \begin{align}
+    u(0, y) = 0, u(a, y) = 0, u(x, 0) = f(x), u(x, b) = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  これは変数分離法が使えないと思う。
+  \begin{align}
+    u(x, y) = X(x)Y(y)
+  \end{align}
+  ラプラス方程式
+  \begin{align}
+    X''(x)Y(y)          & + X(x)Y''(y) = 0                                                      \\
+    \frac{X''(x)}{X(x)} & = - \frac{Y''(y)}{Y(y)}                                               \\
+    X''(x)              & = - \lambda^2X(x)                                                     \\
+    Y''(y)              & = \lambda^2Y(y)                                                       \\
+    X(x)                & = \sin(\frac{n\pi x}{a})                                              \\
+    \lambda             & = \frac{n\pi}{a}                                                      \\
+    f(x)                & = \sum_{n=1}^{\infty}A_n\sin(\frac{n\pi x}{a})\sinh(\frac{n\pi b}{a})
+  \end{align}
+\end{proof}
+\begin{theorem}[ガウス積分]
+  \begin{align}
+     & \int_0^{\infty} e^{-\alpha x^2}\dd{x} = \frac{1}{2}\sqrt{\frac{\pi}{a}}                     \\
+     & \int_0^{\infty} x^{2n}e^{-x^2/a^2}\dd{x} = \sqrt{\pi}(2n - 1)!!\frac{a^{2n + 1}}{2^{n + 1}} \\
+     & \int_0^{\infty} x^{2n + 1}e^{-x^2/a^2}\dd{x} = \frac{n!}{2}a^{2n + 2}                       \\
+     & \int_{-\infty}^{\infty} e^{-k^2/4}e^{ikx}\dd{k} = 2\sqrt{\pi}e^{-x^2}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  まず積分値を $I$ とおく。
+  \begin{align}
+    I & := \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x}
+  \end{align}
+  ここで $I^2$ を変数変換して計算する。
+  \begin{align}
+    I^2 & = \qty(\int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x})\qty(\int_0^{\infty} e^{-\alpha x^2}\dd{x}) \\
+        & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-\alpha (x^2 + y^2)}\dd{x}\dd{y}             \\
+        & = \int_{0}^{\infty}\int_{0}^{2\pi} e^{-\alpha r^2}r\dd{\theta}\dd{r}                             \\
+        & = 2\pi\qty[-\frac{e^{-\alpha r^2}}{2\alpha}]_{0}^{\infty} = \frac{\pi}{a}
+  \end{align}
+  よって
+  \begin{align}
+    I & = \sqrt{\frac{\pi}{a}}
+  \end{align}
+  また
+  \begin{align}
+    \int_0^{\infty} x^{2n}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty} \pdv[n]{\alpha}e^{-\alpha x^2}\dd{x}      \\
+                                                & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty} e^{-\alpha x^2}\dd{x}      \\
+                                                & = (-1)^n\pdv[n]{\alpha}\qty(\frac{1}{2}\sqrt{\frac{\pi}{\alpha}}) \\
+                                                & = \sqrt{\pi}\frac{(2n - 1)!!}{2^{n+1}}\alpha^{-(2n + 1)/2}
+  \end{align}
+  \begin{align}
+    \int_0^{\infty} x^{2n + 1}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty}\pdv[n]{\alpha}xe^{-\alpha x^2}\dd{x} \\
+                                                    & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty}xe^{-\alpha x^2}\dd{x} \\
+                                                    & = (-1)^n\pdv[n]{\alpha}\frac{1}{2\alpha}                     \\
+                                                    & = \frac{n!}{2}\alpha^{-(n + 1)}
+  \end{align}
+\end{proof}
+
+
+
+
+
+\end{document}

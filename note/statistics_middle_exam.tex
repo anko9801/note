@@ -1,0 +1,151 @@
+\documentclass[a4paper,dvipdfmx]{jsarticle}
+
+\usepackage{okumacro}
+%ルビ用%
+\usepackage{indentfirst}
+%字下げを保存するための設定　\parでインデント＋改行%
+\usepackage[dvipdfmx]{graphicx}
+%画像挿入パッケージ。graphix=Windows,graphics=Mac%
+\usepackage{wrapfig}
+%文章を図に回り込ませるパッケージ%
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%数式色々%
+\usepackage{bm}
+%ベクトル%
+\usepackage{url}
+%url中の_や\にエラーをはかせないためのパッケージ%
+\usepackage{comment}
+%複数行コメントのためのパッケージ%
+\usepackage{listings}
+%コードのためのパッケージ（英語のみ）%
+\usepackage{physics}
+%物理関係のパッケージ%
+\usepackage{amsmath}
+\usepackage{mathtools}
+%数学関係のパッケージ%
+%定理証明関係のパッケージ%
+\usepackage{amsthm}
+%amsthm%
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{prop}[dfn]{Proposition}
+\newtheorem{lem}[dfn]{Lemma}
+\newtheorem{thm}[dfn]{Theorem}
+\newtheorem{cor}[dfn]{Corollary}
+\newtheorem{rem}[dfn]{Remark}
+\newtheorem{fact}[dfn]{Fact}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage{docmute}
+%ファイル分割%
+\lstset{
+  language=C++,
+  breaklines=true,
+  keywordstyle = {\color[rgb]{0,0,1}},
+  stringstyle = {\color[rgb]{1,0,0}},
+  commentstyle = { \color[rgb]{0,1,0}},
+  numbers=left,
+  frame=lines
+}
+%各種設定%
+\usepackage{color}
+%色付け　使うときは\documentclass[dvipdfmx]を追加すること！%
+\usepackage{ascmac}
+\usepackage{otf}
+%ギリシャ数字%
+\usepackage{siunitx}
+%SI単位系%
+\usepackage{tikz}
+%tikz%
+\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
+%tikzlibrary%
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\begin{document}
+\title{統計力学}
+\author{21B00349 宇佐見大希}
+\maketitle
+
+\section*{問 1}
+固体において原子の取りうる量子状態が二つある二準位系について考える。それぞれのエネルギーレベルは $\pm\epsilon\ (\epsilon > 0)$ である。固体における原子数が $N$ で与えられ、その数は非常に大きいとき、以下の問いに答えよ。 \\
+
+(1) エネルギー ($-\epsilon$) をとる数を $N_1$、$\epsilon$ を取る数を $N_2$ と置き、エントロピー $S(N_1, N_2)$ を求めよ。
+
+まず $N = N_1 + N_2$ とおくと量子状態数 $W$ は次のようになる。
+\begin{align}
+  W = {}_NC_{N_1} = \frac{N!}{N_1!N_2!}
+\end{align}
+これよりエントロピー $S(N_1, N_2)$ はスターリングの公式を用いると
+\begin{align}
+  S(N_1, N_2) & = k_B\ln W                                                              \\
+              & = k_B\ln\frac{N!}{N_1!N_2!}                                             \\
+              & \approx k_B\qty((N\ln N - N) - (N_1\ln N_1 - N_1) - (N_2\ln N_2 - N_2)) \\
+              & = k_B\qty(N\ln N - N_1\ln N_1 - N_2\ln N_2)
+\end{align}
+となる。 \\
+
+(2) 系全体のエネルギーを $E$ とするとき、エネルギー $E$ を温度 $T$ の関数として求めよ。
+
+$E = -\epsilon N_1 + \epsilon N_2 = \epsilon (N_2 - N_1)$ よりエントロピーはエネルギーの関数として表される。
+\begin{align}
+  S(N_1, N_2) & = S\qty(\frac{1}{2}\qty(N - \frac{E}{\epsilon}), \frac{1}{2}\qty(N + \frac{E}{\epsilon}))                                                                                                         \\
+              & \approx k_B\qty(N\ln N - \frac{1}{2}\qty(N - \frac{E}{\epsilon})\ln \frac{1}{2}\qty(N - \frac{E}{\epsilon}) - \frac{1}{2}\qty(N + \frac{E}{\epsilon})\ln \frac{1}{2}\qty(N + \frac{E}{\epsilon})) \\
+              & = \frac{k_B}{2}\qty(2N\ln 2N - \qty(N - \frac{E}{\epsilon})\ln\qty(N - \frac{E}{\epsilon}) - \qty(N + \frac{E}{\epsilon})\ln\qty(N + \frac{E}{\epsilon}))
+\end{align}
+これを用いて温度 $T$ を計算すると次のようになる。
+\begin{align}
+  T & = \qty(\pdv{E}{S})_V                                                                                                                                                                  \\
+    & \approx \qty(\frac{k_B}{2}\qty(\frac{1}{\epsilon} + \frac{1}{\epsilon}\ln\qty(N - \frac{E}{\epsilon}) - \frac{1}{\epsilon} - \frac{1}{\epsilon}\ln\qty(N + \frac{E}{\epsilon})))^{-1} \\
+    & = \qty(\frac{k_B}{2\epsilon}\ln\qty(\frac{N - \frac{E}{\epsilon}}{N + \frac{E}{\epsilon}}))^{-1}
+\end{align}
+よって $T$ はエネルギー $E$ の関数となったので逆写像とすることでエネルギー $E$ を $T$ で表される。
+\begin{align}
+  E & = \epsilon N\frac{e^{-\frac{2\epsilon}{k_BT}} - 1}{e^{-\frac{2\epsilon}{k_BT}} + 1}
+\end{align} \\
+
+(3) 比熱を求め、高温極限と低温極限の漸近形を求めよ。
+
+比熱を計算すると
+\begin{align}
+  C & = \qty(\pdv{E}{T})_V = \frac{4\epsilon^2N}{k_BT^2}\frac{e^{-\frac{2\epsilon}{k_BT}}}{\qty(1 + e^{-\frac{2\epsilon}{k_BT}})^2} = k_BN\qty(\frac{2\epsilon}{k_BT})^2\frac{e^{-\frac{2\epsilon}{k_BT}}}{\qty(1 + e^{-\frac{2\epsilon}{k_BT}})^2}
+\end{align}
+となるから高温極限 ($2\epsilon/k_BT \ll 1$) と低温極限 ($2\epsilon/k_BT \gg 1$) の比熱 $C_{high}, C_{low}$ は次のようになる。
+\begin{align}
+  C_{high} & \approx \frac{k_BN}{4}\qty(\frac{2\epsilon}{k_BT})^2 \to 0                  \\
+  C_{low}  & \approx k_BN\qty(\frac{2\epsilon}{k_BT})^2e^{-\frac{2\epsilon}{k_BT}} \to 0
+\end{align}
+
+\section*{問 2}
+固体における原子の熱振動について考える。各原子が格子点への復元力により独立に単振動しているものと近似するとき，系のハミルトニアンは以下のように書くことができる。
+\begin{align}
+  H = \sum_{i=1}^{N}\qty[\frac{1}{2m}p_i^2 + \frac{1}{2}m\omega^2x_i^2]
+\end{align}
+ここで, $i$ 番目の原子の格子点からの変位を $x_i$ とし, $p_i$ はそれに共役な運動量である。また, $m$ は原子の質量, $\omega$ は角振動数, $N$ は原子数である。温度を $T$, ボルツマン定数を $k_B$ として以下の問に答えよ。 \\
+
+(1) 原子の運動が量子力学的な場合, この系の分配関数を求めよ。ここで, 以下のハミルトニアンで与えられる質量 $m$, 角振動数 $\omega$ の 1 次元調和振動子
+\begin{align}
+  H = \frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2
+\end{align}
+のエネルギー準位が
+\begin{align}
+  E_n = \qty(n + \frac{1}{2})\hbar\omega \qquad (n = 0, 1, 2, \ldots)
+\end{align}
+で表されることを用いてもよい。 \\
+
+$\beta = 1/k_BT$ とおくと分配関数 $Z(\beta)$ は次のようになる。
+\begin{align}
+  Z(\beta) & = \sum_{n=0}^{\infty}e^{-\beta E_n}                                 \\
+           & = \sum_{n=0}^{\infty}e^{-\beta\qty(n + \frac{1}{2})\hbar\omega}     \\
+           & = \frac{e^{-\frac{\beta\hbar\omega}{2}}}{1 - e^{-\beta\hbar\omega}}
+\end{align} \\
+
+(2) この系の自由エネルギーを求めよ。
+
+これより自由エネルギー $F$ は次のようになる。
+\begin{align}
+  F & = -k_BT\ln Z                                                                 \\
+    & = -k_BT\ln \frac{e^{-\frac{\beta\hbar\omega}{2}}}{1 - e^{-\beta\hbar\omega}} \\
+    & = \frac{1}{2}k_BT\beta\hbar\omega + k_BT\ln(1 - e^{-\beta\hbar\omega})
+\end{align}
+
+\end{document}

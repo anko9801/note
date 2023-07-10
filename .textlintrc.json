@@ -1,0 +1,17 @@
+{
+  "plugins": ["latex2e"],
+  "filters": {},
+  "rules": {
+    "preset-ja-technical-writing": {
+      "sentence-length": {
+        "max": 200
+      },
+      "ja-no-mixed-period": {
+        "periodMark": ["。", ".", ",", "\n"]
+      },
+      "max-kanji-continuous-len": {
+        "max": 10
+      }
+    }
+  }
+}
