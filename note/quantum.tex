@@ -1032,20 +1032,38 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
   特別な場合として $c$ がゼロのとき掛けてできるケットは零ケット (null ket) といわれる。物理的要請の 1 つとして $\ket{\alpha}$ と $c\ket{\alpha}$ は同じ状態を表すことにする。
 \end{definition}
 
-\begin{definition}
-  運動量やスピン成分といった観測可能量 (observable) は扱っているベクトル空間の演算子 (operator) によって表せられる。一般に演算子はケットに左から作用し、別のケットになる。
+\begin{definition}[演算子]
+  一般に演算子はケットに左から作用し、別のケットになる。
   \begin{align}
     A\cdot(\ket{\alpha}) = A\ket{\alpha}
+  \end{align}
+  \begin{align}
+    A = B     & \iff \forall \ket{\alpha}, A\ket{\alpha} = B\ket{\alpha}                                       \\
+    C = A + B & \iff \forall \ket{\alpha}, C\ket{\alpha} = (A + B)\ket{\alpha} = A\ket{\alpha} + B\ket{\alpha}
   \end{align}
   一般に $A\ket{\alpha}$ は $\ket{\alpha}$ の定数倍ではない。しかし演算子の固有ケット (eigenkets) と呼ばれ
   \begin{align}
     \ket{a'},\ket{a''},\ket{a'''},\ldots
   \end{align}
-  の記号で表される重要な特別のケットがあり、これらは
+  の記号で表される重要な特別のケットがあり、これらは数 $a',a'',\ldots\in\CC$ を用いて
   \begin{align}
     A\ket{a'} = a'\ket{a'},A\ket{a''} = a''\ket{a''},\ldots
   \end{align}
-  という性質を持つ。
+  という性質を持つ。固有ケットに相応する物理的状態は固有状態 (eigenstate) と呼ばれる。
+\end{definition}
+
+\begin{definition}[ブラ空間]
+  \begin{align}
+    \bra{\alpha} & := \ket{\alpha}^\dagger
+  \end{align}
+  $\ket{\alpha}^\dagger$ には線形性があり、
+  \begin{align}
+    c_{\alpha}^*\bra{\alpha} + c_{\beta}^*\bra{\beta} & = (c_{\alpha}\ket{\alpha} + c_{\beta}\ket{\beta})^\dagger
+  \end{align}
+\end{definition}
+
+\begin{definition}
+  運動量やスピン成分といった観測可能量 (observable) は扱っているベクトル空間の演算子 (operator) によって表せられる。
 \end{definition}
 
 内積
