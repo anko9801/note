@@ -303,4 +303,45 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 \end{align}
 が非相対論的極限 $mc^2\to\infty$
 
+\begin{problem}
+中心力ポテンシャル $V(r)$ を持つハミルトニアン $\hat{H} = c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r)$ を考える.
+\end{problem}
+(1) $\hat{H}$ と軌道角運動量 $\hat{L} = \rr\cross\hat{\pp}$ との交換関係を求めよ。
+\begin{proof}
+  \begin{align}
+    [\hat{H}, \hat{L}^i] & = [c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r), \varepsilon^{ijk}r^j\hat{p}^k]                                         \\
+                         & = \varepsilon^{ijk}\qty(c[\alpha^\mu\hat{p}^\mu, r^j\hat{p}^k] + mc^2[\beta, r^j\hat{p}^k] + [V(r), r^j\hat{p}^k])        \\
+                         & = \varepsilon^{ijk}\qty(c\alpha^\mu(p^\mu r^jp^k - r^jp^kp^\mu) + mc^2(\beta r^jp^k - r^jp^k\beta) + (Vr^jp^k - r^jp^kV)) \\
+                         & = \varepsilon^{ijk}\qty(c\alpha^\mu (-i\hbar\delta^{\mu j})p^k + 0 + r^j(-i\hbar\partial^kV))                             \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\varepsilon^{ijk}r^j(\partial^kV)
+  \end{align}
+\end{proof}
+(2) $\Sigma^i := -\dfrac{i}{2}\sum_{j,k}\varepsilon^{ijk}\alpha^j\alpha^k$ とするとき、$\hat{H}$ とスピン角運動量 $\hat{\bm{S}} = \dfrac{\hbar}{2}\bm{\Sigma}$ との交換関係を求めよ。
+\begin{proof}
+  \begin{align}
+    [\hat{H}, \hat{S}^i] & = \qty[c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r), -\frac{i\hbar}{4}\varepsilon^{ijk}\alpha^j\alpha^k]                                                          \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\qty(c[\alpha^\mu, \alpha^j\alpha^k]p^\mu + mc^2[\beta, \alpha^j\alpha^k] + [V(r), \alpha^j\alpha^k])                           \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\qty(c(\alpha^\mu\alpha^j\alpha^k - \alpha^j\alpha^k\alpha^\mu)p^\mu + mc^2(\beta\alpha^j\alpha^k - \alpha^j\alpha^k\beta) + 0) \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\qty(c((-\alpha^j\alpha^\mu + 2\delta^{\mu j})\alpha^k - \alpha^j(-\alpha^\mu\alpha^k + 2\delta^{k\mu}))p^\mu + 0 + 0)          \\
+                         & = -\frac{i\hbar c}{2}\varepsilon^{ijk}(\alpha^kp^j - \alpha^jp^k)                                                                                                   \\
+                         & = i\hbar c\varepsilon^{ijk}\alpha^jp^k
+  \end{align}
+\end{proof}
+(3) 全角運動量が保存量となることを示せ。
+\begin{proof}
+  \begin{align}
+    [\hat{H}, \hat{J}^i] & = [\hat{H}, \hat{L}^i + \hat{S}^i] = - i\hbar\varepsilon^{ijk}r^j(\partial^kV(r))
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対する 2 行 2 列の行列 $\bm{\sigma}\vdot\pp$ を考える。
+\end{problem}
+(1) $(\bm{\sigma}\vdot\pp)^2$ を求めよ。
+\begin{proof}
+  \begin{align}
+    (\bm{\sigma}\vdot\pp)^2 & = \pp^2
+  \end{align}
+\end{proof}
+
 \end{document}
