@@ -2,3 +2,10 @@
 node_modules
 
 package-lock.json
+*.aux
+*.dvi
+*.synctex.gz
+*.out
+*.log
+*.fls
+*.fdb_latexmk
