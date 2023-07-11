@@ -1,0 +1,306 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{相対論的量子力学 レポート課題 1}
+\author{宇佐見大希}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\begin{problem}
+$\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
+\begin{align}
+  \lbrace\alpha^i,\alpha^j\rbrace = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
+\end{align}
+\end{problem}
+(1) $\gamma^0, \gamma^i$ を次のように定義する。
+\begin{align}
+  \gamma^0 := \beta, \qquad \gamma^i := \beta\alpha^i
+\end{align}
+このとき次の式を示せ。
+\begin{align}
+  (\gamma^0)^\dagger = \gamma^0, \qquad (\gamma^i)^\dagger = \gamma^i, \qquad \lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}
+\end{align}
+\begin{proof}
+  $\alpha^i$, $\beta$ がエルミート行列であることと式 \eqref{condition} より次の式が成り立つ。
+  \begin{align}
+    (\alpha^i)^\dagger & = \alpha^i                            \\
+    \beta^\dagger      & = \beta                               \\
+    \alpha^i\alpha^j   & = - \alpha^j\alpha^i \qquad (i\neq j) \\
+    \alpha^i\beta      & = -\beta\alpha^i
+  \end{align}
+  これらよりガンマ行列のエルミート共役が分かる。
+  \begin{align}
+    (\gamma^0)^\dagger & = \beta^\dagger = \beta = \gamma^0                                     \\
+    (\gamma^i)^\dagger & = (\beta\alpha^i)^\dagger = \alpha^i\beta = -\beta\alpha^i = -\gamma^i
+  \end{align}
+  次に $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ を示す。$\lbrace\gamma^\mu, \gamma^\nu\rbrace = \lbrace\gamma^\nu, \gamma^\mu\rbrace$ より $\mu \leq \nu$ を示せばよい。 \\
+  $\mu > 0$ のとき
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^\nu\rbrace & = \beta\alpha^\mu\beta\alpha^\nu + \beta\alpha^\nu\beta\alpha^\mu \\
+                                         & = -\beta^2(\alpha^\mu\alpha^\nu + \alpha^\nu\alpha^\mu)           \\
+                                         & = -2\delta^{\mu\nu}
+  \end{align}
+  $\mu = 0$ かつ $\mu < \nu$ のとき
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^\nu\rbrace & = \beta\beta\alpha^\nu + \beta\alpha^\nu\beta \\
+                                         & = \beta^2\alpha^\nu - \beta^2\alpha^\nu       \\
+                                         & = 0
+  \end{align}
+  $\mu = \nu = 0$ のとき
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^\nu\rbrace & = 2\beta^2 \\
+                                         & = 2
+  \end{align}
+  よって $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ と書ける。
+\end{proof}
+
+(2) $\gamma^5$ を次のように定義する。
+\begin{align}
+  \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
+\end{align}
+このとき次の式を示せ。
+\begin{align}
+  (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
+\end{align}
+\begin{proof}
+  \begin{align}
+    (\gamma^5)^\dagger & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0                                   \\
+                       & = i\gamma^3\gamma^2\gamma^1\gamma^0                                             \\
+                       & = (-1)^6i\gamma^0\gamma^1\gamma^2\gamma^3                                       \\
+                       & = \gamma^5                                                                      \\
+    (\gamma^5)^2       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger \\
+                       & = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2                            \\
+                       & = 1
+  \end{align}
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^5\rbrace & = i(\gamma^\mu\gamma^0\gamma^1\gamma^2\gamma^3 + \gamma^0\gamma^1\gamma^2\gamma^3\gamma^\mu) \\
+                                       & = i((-1)^\mu + (-1)^{3-\mu})\gamma^0\cdots(\gamma^\mu)^2\cdots\gamma^3                       \\
+                                       & = 0
+  \end{align}
+\end{proof}
+
+(3) $\Sigma^i$ を次のように定義する。
+\begin{align}
+  \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
+\end{align}
+このとき次の式を示せ。
+\begin{align}
+  (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
+\end{align}
+\begin{proof}
+
+  \begin{align}
+    (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}(\varepsilon^{ijk}\gamma^j\gamma^k)^\dagger \\
+                       & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j           \\
+                       & = -\frac{i}{2}\sum_{j,k}-\varepsilon^{ikj}\gamma^k\gamma^j          \\
+                       & = \Sigma^i
+  \end{align}
+  次に $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ を示す。 \\
+  $i = j$ のとき、ある $k, l$ が存在して
+  \begin{align}
+    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{2}\qty(\sum_{a,b}\varepsilon^{iab}\gamma^a\gamma^b)^2                                                                                             \\
+                                     & = -\frac{1}{2}\qty(\gamma^k\gamma^l - \gamma^l\gamma^k)^2                                                                                                     \\
+                                     & = -\frac{1}{2}\qty(\gamma^k\gamma^l\gamma^k\gamma^l - \gamma^k\gamma^l\gamma^l\gamma^k - \gamma^l\gamma^k\gamma^k\gamma^l + \gamma^l\gamma^k\gamma^l\gamma^k) \\
+                                     & = 2
+  \end{align}
+  $i \neq j$ のとき $a, b, c, d$ のいづれか 2 つ 1 組は同じであるから
+  \begin{align}
+    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}(\varepsilon^{iab}\gamma^a\gamma^b\varepsilon^{jcd}\gamma^c\gamma^d + \varepsilon^{jcd}\gamma^c\gamma^d\varepsilon^{iab}\gamma^a\gamma^b) \\
+                                     & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}\varepsilon^{iab}\varepsilon^{jcd}(1 + (-1)^3)\gamma^a\gamma^b\gamma^c\gamma^d                                                            \\
+                                     & = 0
+  \end{align}
+  よって $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ である。
+\end{proof}
+
+(4) $\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
+\begin{align}
+  (\bm{v}\vdot\bm{\Sigma})^2 = \bm{v}^2
+\end{align}
+\begin{proof}
+  \begin{align}
+    (\bm{v}\vdot\bm{\Sigma})^2 & = (v^i\Sigma^i)(v^j\Sigma^j)^\dagger \\
+                               & = v^i\Sigma^i\Sigma^j(v^j)^\dagger   \\
+                               & = \delta^{ij}v^i(v^j)^\dagger        \\
+                               & = \bm{v}^2
+  \end{align}
+\end{proof}
+
+(5) $\alpha^i, \beta$ の具体例を 1 つ挙げて性質を満たすことを確認せよ。
+\begin{proof}
+
+\end{proof}
+
+\begin{problem}
+共変微分 $D_\mu$ を次のように定義する。
+\begin{align}
+  D_\mu := \partial_\mu - \frac{q}{i\hbar}A_\mu(x)
+\end{align}
+\end{problem}
+(1)
+\begin{proof}
+  \begin{align}
+    D_\mu D_\nu                & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\qty(\partial_\nu - \frac{q}{i\hbar}A_\nu(x))                                                    \\
+                               & = \partial_\mu\partial_\nu - \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu - \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x) \\
+    (\bm{D}\vdot\bm{\sigma})^2 & = D_\mu\sigma^\mu D_\nu\sigma^\nu                                                                                                               \\
+                               & = (\sigma^\mu)^2D_\mu^2 + \sigma^\mu\sigma^\nu D_iD_j + \sigma^j\sigma^iD_jD_i                                                                  \\
+                               & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\sigma^\mu\qty(\partial_\nu - \frac{q}{i\hbar}A_\nu(x))\sigma^\nu
+  \end{align}
+\end{proof}
+
+(2) 荷電粒子に対するクライン・ゴルドン方程式
+\begin{align}
+  [\hbar^2D^2 + (mc)^2]\phi(x) = 0
+\end{align}
+が非相対論的極限 $mc^2\to\infty$
+
+\end{document}
