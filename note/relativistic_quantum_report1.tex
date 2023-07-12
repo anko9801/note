@@ -238,7 +238,7 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
   (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
 \end{align}
 \begin{proof}
-
+  まず $(\Sigma^i)^\dagger = \Sigma^i$ を示す。
   \begin{align}
     (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}(\varepsilon^{ijk}\gamma^j\gamma^k)^\dagger \\
                        & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j           \\
@@ -288,7 +288,7 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
               0        & -\sigma^0
             \end{pmatrix}
   \end{align}
-  このとき
+  このとき $\alpha^i, \beta$ の性質を満たす。
   \begin{align}
     (\alpha^i)^\dagger & = \begin{pmatrix}
                              0        & \sigma^i \\
@@ -359,10 +359,12 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 \end{align}
 を示せ。
 \begin{proof}
+  まず次の式が成り立つことを確認する。
   \begin{align}
     D_\mu D_\nu^\dagger & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\qty(\partial_\nu + \frac{q}{i\hbar}A_\nu(x))                                                    \\
                         & = \partial_\mu\partial_\nu + \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu + \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x)
   \end{align}
+  よって次のように示せる。
   \begin{align}
     (\bm{D}\vdot\bm{\sigma})^2 & = \sum_{i,j}(D_i\sigma^i)(D_j\sigma^j)^\dagger                                      \\
                                & = \sum_{i,j}\qty(\delta^{ij}I + i\sum_{k}\varepsilon^{ijk}\sigma^k)D_iD_j^\dagger   \\
@@ -394,10 +396,11 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
     i\hbar\pdv{t}\phi(x) & = \qty(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\phi(x)
   \end{align}
 \end{proof}
-(3)
+(3) 荷電粒子に対するディラック方程式
 \begin{align}
   (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
 \end{align}
+を用いて, 軸性ベクトル $j_A^\mu(x) := \bar{\psi}(x)\gamma^\mu\gamma^5\psi(x)$ の発散 $\partial_\mu j_A^\mu(x)$ を計算し、微分を含まない形で表せ。
 \begin{proof}
   まず次の式が成り立つことを確認する。
   \begin{align}
@@ -446,6 +449,7 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 \end{proof}
 (3) 全角運動量が保存量となることを示せ。
 \begin{proof}
+  全角運動量がハミルトニアンと交換するから保存量となる。
   \begin{align}
     [\hat{H}, \hat{J}^i] & = [\hat{H}, \hat{L}^i + \hat{S}^i] = 0
   \end{align}

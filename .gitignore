@@ -5,7 +5,7 @@ package-lock.json
 *.aux
 *.dvi
 *.synctex.gz
-*.synctex
+*.synctex(busy)
 *.out
 *.log
 *.fls
