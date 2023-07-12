@@ -5,6 +5,7 @@ package-lock.json
 *.aux
 *.dvi
 *.synctex.gz
+*.synctex
 *.out
 *.log
 *.fls
