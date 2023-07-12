@@ -277,7 +277,74 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 
 (5) $\alpha^i, \beta$ の具体例を 1 つ挙げて性質を満たすことを確認せよ。
 \begin{proof}
-
+  次のディラック表示を用いる。
+  \begin{align}
+    \alpha^i = \begin{pmatrix}
+                 0        & \sigma^i \\
+                 \sigma^i & 0
+               \end{pmatrix}, \qquad
+    \beta = \begin{pmatrix}
+              \sigma^0 & 0         \\
+              0        & -\sigma^0
+            \end{pmatrix}
+  \end{align}
+  このとき
+  \begin{align}
+    (\alpha^i)^\dagger & = \begin{pmatrix}
+                             0        & \sigma^i \\
+                             \sigma^i & 0
+                           \end{pmatrix} = \alpha^i \\
+    \beta^\dagger      & = \begin{pmatrix}
+                             \sigma^0 & 0         \\
+                             0        & -\sigma^0
+                           \end{pmatrix} = \beta
+  \end{align}
+  \begin{align}
+    \lbrace\alpha^i, \alpha^j\rbrace & = \begin{pmatrix}
+                                           0        & \sigma^i \\
+                                           \sigma^i & 0
+                                         \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^j \\
+      \sigma^j & 0
+    \end{pmatrix} +
+    \begin{pmatrix}
+      0        & \sigma^j \\
+      \sigma^j & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^i \\
+      \sigma^i & 0
+    \end{pmatrix}                                                                                                                           \\
+                                     & = (\sigma^i\sigma^j + \sigma^j\sigma^i)\otimes I                                                           \\
+                                     & = \qty((\delta^{ij}I + i\varepsilon^{ijk}\sigma^k) + (\delta^{ji}I + i\varepsilon^{jik}\sigma^k))\otimes I \\
+                                     & = 2\delta^{ij}                                                                                             \\
+    \beta^2                          & = \begin{pmatrix}
+                                           \sigma^0 & 0         \\
+                                           0        & -\sigma^0
+                                         \end{pmatrix}^2 = 1                                                                                     \\
+    \lbrace\alpha^i, \beta\rbrace    & = \begin{pmatrix}
+                                           0        & \sigma^i \\
+                                           \sigma^i & 0
+                                         \end{pmatrix}
+    \begin{pmatrix}
+      \sigma^0 & 0         \\
+      0        & -\sigma^0
+    \end{pmatrix} +
+    \begin{pmatrix}
+      \sigma^0 & 0         \\
+      0        & -\sigma^0
+    \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^i \\
+      \sigma^i & 0
+    \end{pmatrix}                                                                                                                           \\
+                                     & = (\sigma^i\sigma^0 - \sigma^0\sigma^i)\otimes\begin{pmatrix}
+                                                                                       0 & -1 \\
+                                                                                       1 & 0
+                                                                                     \end{pmatrix}                                               \\
+                                     & = 0
+  \end{align}
 \end{proof}
 
 \begin{problem}
@@ -286,14 +353,23 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
   D_\mu := \partial_\mu - \frac{q}{i\hbar}A_\mu(x)
 \end{align}
 \end{problem}
-(1)
+(1) $\bm{D} = (D_1, D_2, D_3)$ に対して
+\begin{align}
+  (\bm{D}\vdot\bm{\sigma})^2 & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\vdot\bm{\sigma}
+\end{align}
+を示せ。
 \begin{proof}
   \begin{align}
-    D_\mu D_\nu                & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\qty(\partial_\nu - \frac{q}{i\hbar}A_\nu(x))                                                    \\
-                               & = \partial_\mu\partial_\nu - \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu - \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x) \\
-    (\bm{D}\vdot\bm{\sigma})^2 & = D_\mu\sigma^\mu D_\nu\sigma^\nu                                                                                                               \\
-                               & = (\sigma^\mu)^2D_\mu^2 + \sigma^\mu\sigma^\nu D_iD_j + \sigma^j\sigma^iD_jD_i                                                                  \\
-                               & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\sigma^\mu\qty(\partial_\nu - \frac{q}{i\hbar}A_\nu(x))\sigma^\nu
+    D_\mu D_\nu^\dagger & = \qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\qty(\partial_\nu + \frac{q}{i\hbar}A_\nu(x))                                                    \\
+                        & = \partial_\mu\partial_\nu + \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu + \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x)
+  \end{align}
+  \begin{align}
+    (\bm{D}\vdot\bm{\sigma})^2 & = \sum_{i,j}(D_i\sigma^i)(D_j\sigma^j)^\dagger                                      \\
+                               & = \sum_{i,j}\qty(\delta^{ij}I + i\sum_{k}\varepsilon^{ijk}\sigma^k)D_iD_j^\dagger   \\
+                               & = \sum_{i}D_i^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^kD_iD_j^\dagger              \\
+                               & = \bm{D}^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^k\frac{q}{i\hbar}\partial_iA_j(x) \\
+                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{\sigma}\vdot(\vnabla\cross\bm{A}(x))                \\
+                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\vdot\bm{\sigma}
   \end{align}
 \end{proof}
 
@@ -301,7 +377,46 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 \begin{align}
   [\hbar^2D^2 + (mc)^2]\phi(x) = 0
 \end{align}
-が非相対論的極限 $mc^2\to\infty$
+が非相対論的極限 $mc^2\to\infty$ において、シュレーディンガー方程式に帰着することを示せ
+\begin{proof}
+  $A^\mu = (\phi/c, \bm{A})$ であり $\phi(x) = e^{-i(mc^2)t/\hbar}\varphi(x)$ とおくと
+  \begin{align}
+     & [\hbar^2D^2 + (mc)^2]\phi(x) = 0                                                                                                                                                                                                   \\
+     & = \qty[\hbar^2\qty(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\qty(\partial^\nu - \frac{q}{i\hbar}A^\nu(x)) + (mc)^2]\phi(x)                                                                                                          \\
+     & = \qty[\qty(\hbar^2\partial_\mu\partial^\nu + i\hbar\partial_\mu qA^\nu(x)  + qA_\mu(x)i\hbar\partial^\nu - q^2A_\mu(x)A^\nu(x)) + (mc)^2]\phi(x)                                                                                  \\
+     & = \qty[\qty(\frac{\hbar^2}{c^2}\pdv[2]{t} + \pp^2) + q\qty(\frac{i\hbar}{c^2}\pdv{t}\phi - \pp\vdot\bm{A}(x)) + q\qty(\frac{i\hbar}{c^2}\phi\pdv{t} - \bm{A}(x)\vdot\pp) - q^2\qty(\frac{\phi^2}{c^2} - \bm{A}^2) + (mc)^2]\phi(x) \\
+     & = \qty[\frac{\hbar^2}{c^2}\pdv[2]{t} + q\frac{i\hbar}{c^2}\pdv{t}\phi + q\frac{i\hbar}{c^2}\phi\pdv{t} - q^2\frac{\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                       \\
+     & = \qty[-(mc)^2 + q\frac{i\hbar}{c^2}\pdv{\phi}{t} + 2mq\phi - \frac{q^2\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                                                                  \\
+     & = 2m\qty[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]e^{-i(mc^2)t/\hbar}\varphi(x)
+  \end{align}
+  非相対論的極限 $mc^2\to\infty$ のとき $\phi(x)$ は時間に依存しないからシュレーディンガー方程式となる。
+  \begin{align}
+    i\hbar\pdv{t}\phi(x) & = \qty(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\phi(x)
+  \end{align}
+\end{proof}
+(3)
+\begin{align}
+  (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
+\end{align}
+\begin{proof}
+  まず次の式が成り立つことを確認する。
+  \begin{align}
+    \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
+                               & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
+                               & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
+  \end{align}
+  よってディラック方程式より次のようになる。
+  \begin{align}
+    \partial_\mu j_A^\mu(x) & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                      \\
+                            & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                            \\
+                            & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                             \\
+                            & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                           \\
+                            & = \qty(\frac{1}{i\hbar}\qty(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\qty(\frac{1}{i\hbar}\qty(\gamma^\mu qA_\mu(x) + mc)\psi(x)) \\
+                            & = -\frac{1}{i\hbar}\qty(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
+                            & = -\frac{1}{i\hbar}\qty(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
+                            & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
+  \end{align}
+\end{proof}
 
 \begin{problem}
 中心力ポテンシャル $V(r)$ を持つハミルトニアン $\hat{H} = c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r)$ を考える.
@@ -309,11 +424,13 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 (1) $\hat{H}$ と軌道角運動量 $\hat{L} = \rr\cross\hat{\pp}$ との交換関係を求めよ。
 \begin{proof}
   \begin{align}
-    [\hat{H}, \hat{L}^i] & = [c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r), \varepsilon^{ijk}r^j\hat{p}^k]                                         \\
-                         & = \varepsilon^{ijk}\qty(c[\alpha^\mu\hat{p}^\mu, r^j\hat{p}^k] + mc^2[\beta, r^j\hat{p}^k] + [V(r), r^j\hat{p}^k])        \\
-                         & = \varepsilon^{ijk}\qty(c\alpha^\mu(p^\mu r^jp^k - r^jp^kp^\mu) + mc^2(\beta r^jp^k - r^jp^k\beta) + (Vr^jp^k - r^jp^kV)) \\
-                         & = \varepsilon^{ijk}\qty(c\alpha^\mu (-i\hbar\delta^{\mu j})p^k + 0 + r^j(-i\hbar\partial^kV))                             \\
-                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\varepsilon^{ijk}r^j(\partial^kV)
+    [\hat{H}, \hat{L}^i] & = [c\bm{\alpha}\vdot\hat{\pp} + \beta mc^2 + V(r), \varepsilon^{ijk}r^j\hat{p}^k]                                               \\
+                         & = \varepsilon^{ijk}\qty(c[\alpha^\mu\hat{p}^\mu, r^j\hat{p}^k] + mc^2[\beta, r^j\hat{p}^k] + [V(r), r^j\hat{p}^k])              \\
+                         & = \varepsilon^{ijk}\qty(c\alpha^\mu(p^\mu r^jp^k - r^jp^kp^\mu) + mc^2(\beta r^jp^k - r^jp^k\beta) + (V(r)r^jp^k - r^jp^kV(r))) \\
+                         & = \varepsilon^{ijk}\qty(c\alpha^\mu (-i\hbar\delta^{\mu j})p^k + 0 + r^j(-i\hbar\partial^kV(r)))                                \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\qty(\rr\cross\dv{V}{r}\pdv{r}{\rr})_i                                          \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\dv{V}{r}\qty(\rr\cross\frac{\rr}{r})_i                                         \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k
   \end{align}
 \end{proof}
 (2) $\Sigma^i := -\dfrac{i}{2}\sum_{j,k}\varepsilon^{ijk}\alpha^j\alpha^k$ とするとき、$\hat{H}$ とスピン角運動量 $\hat{\bm{S}} = \dfrac{\hbar}{2}\bm{\Sigma}$ との交換関係を求めよ。
@@ -330,7 +447,7 @@ $\alpha^i$ と $\beta$ を次を満たすエルミート行列とする。
 (3) 全角運動量が保存量となることを示せ。
 \begin{proof}
   \begin{align}
-    [\hat{H}, \hat{J}^i] & = [\hat{H}, \hat{L}^i + \hat{S}^i] = - i\hbar\varepsilon^{ijk}r^j(\partial^kV(r))
+    [\hat{H}, \hat{J}^i] & = [\hat{H}, \hat{L}^i + \hat{S}^i] = 0
   \end{align}
 \end{proof}
 
@@ -340,8 +457,50 @@ $\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対�
 (1) $(\bm{\sigma}\vdot\pp)^2$ を求めよ。
 \begin{proof}
   \begin{align}
-    (\bm{\sigma}\vdot\pp)^2 & = \pp^2
+    (\bm{\sigma}\vdot\pp)^2 & = (\sigma^ip^i)(\sigma^jp^j)^\dagger                    \\
+                            & = p^ip^j\qty(\delta^{ij}I + i\varepsilon^{ijk}\sigma^k) \\
+                            & = \pp^2
   \end{align}
+\end{proof}
+(2) $\trace(\bm{\sigma}\vdot\pp)$ を求めよ。
+\begin{proof}
+  $\pp = (p^1, p^2, p^3)$ とすると
+  \begin{align}
+    \trace(\bm{\sigma}\vdot\pp) & = \trace\begin{pmatrix}
+                                            p^3        & p^1 - ip^2 \\
+                                            p^1 + ip^2 & -p^3
+                                          \end{pmatrix} = 0
+  \end{align}
+\end{proof}
+(3) $\bm{\sigma}\vdot\pp$ の固有値を求めよ。
+\begin{proof}
+  $\bm{\sigma}\vdot\pp$ の固有値を $\lambda_1, \lambda_2$ とおくと
+  \begin{align}
+    \lambda_1 + \lambda_2     & = \trace(\bm{\sigma}\vdot\pp) = 0 \\
+    \lambda_1^2 = \lambda_2^2 & = (\bm{\sigma}\vdot\pp)^2 = \pp^2
+  \end{align}
+  よって固有値は $\pm|\pp|$ である。
+\end{proof}
+(4) $\pp := |\pp|(\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)$ とするとき、固有ベクトルを求めよ。
+\begin{proof}
+  \begin{align}
+    (\bm{\sigma}\vdot\pp \mp |\pp|I)\bm{v} & = |\pp|\begin{pmatrix}
+                                                      \cos\theta \mp 1                         & \sin\theta\cos\phi - i\sin\theta\sin\phi \\
+                                                      \sin\theta\cos\phi + i\sin\theta\sin\phi & -\cos\theta \mp 1
+                                                    \end{pmatrix}\bm{v} \\
+                                           & = |\pp|\begin{pmatrix}
+                                                      \cos\theta \mp 1     & \sin\theta e^{-i\phi} \\
+                                                      \sin\theta e^{i\phi} & -\cos\theta \mp 1
+                                                    \end{pmatrix}\bm{v}
+  \end{align}
+  より固有値に対する固有ベクトルはそれぞれ次のベクトルの定数倍である。
+  \begin{align}
+    \bm{v} = \begin{pmatrix}
+               \sin\theta e^{-i\phi} \\
+               -\cos\theta \pm 1
+             \end{pmatrix}
+  \end{align}
+
 \end{proof}
 
 \end{document}
