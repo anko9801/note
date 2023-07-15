@@ -156,6 +156,174 @@
 \begin{document}
 \maketitle
 
+\section{複素関数}
+この章では
+\subsection{複素数}
+高校では $i^2 = -1$ を満たす $i$ を虚数単位といってこれを実数に付け加えたものを複素数と言っていました。これを代数の知識を用いて定義し直します。
+
+\begin{definition}
+  $\RR[x]/(x^2 + 1)$ を複素数体といい、 $\CC$ と書く。この元を複素数といい、 $x$ を虚数単位 (imaginary unit) といい、$i$ と書くことにする。このとき任意の元 $z\in\CC$ は 2 つの実数 $x, y\in\RR$ を用いて $z = x + iy$ と表される。このとき関数 $\Re, \Im$ を次のように定義する。
+  \begin{align}
+    \begin{cases}
+      x = \Re z \\
+      y = \Im z
+    \end{cases}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  複素数 $z_1 = x_1 + iy_1$, $z_2 = x_2 + iy_2$, $z = x + iy$ とすると次が成り立つ。
+  \begin{align}
+     & z_1 = z_2 \iff x_1 = x_2 \land y_1 = y_2            \\
+     & z_1 + z_2 = (x_1 + x_2) + i(y_1 + y_2)              \\
+     & z_1z_2 = (x_1x_2 - y_1y_2) + i(x_1y_2 + x_2y_1)     \\
+     & z^{-1} = \frac{x}{x^2 + y^2} - i\frac{y}{x^2 + y^2}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  複素数体 $\CC$ において $\lbrace 1, i\rbrace$ は基底となるから線形独立であり $x + iy = 0$ ならば $x = 0$ かつ $y = 0$ である。
+  これより次のようになる。
+  \begin{align}
+    z_1 = z_2 & \iff z_1 - z_2 = 0 \iff (x_1 - x_2) + i(y_1 - y_2) = 0                \\
+              & \iff x_1 - x_2 = 0 \land y_1 - y_2 = 0 \iff x_1 = x_2 \land y_1 = y_2
+  \end{align}
+  他の等式は計算すれば満たすことが分かる。
+\end{proof}
+
+また交換法則、結合法則、分配法則を満たすことが分かるので $\CC$ は可換体です。
+\begin{definition}
+  複素数 $z = x + iy$ の絶対値 (absolute value)、共役複素数 (complex conjugate) をそれぞれ次のように定義する。
+  \begin{align}
+    |z|          & = \sqrt{x^2 + y^2} \\
+    \overline{z} & = x - iy
+  \end{align}
+\end{definition}
+\begin{proposition}
+  複素数 $z, z_1, z_2\in\CC$ に対して次の式が成り立つ。
+  \begin{align}
+     & |z|^2 = z\overline{z}                                   \\
+     & \qty||z_1| - |z_2|| \leq |z_1 + z_2| \leq |z_1| + |z_2|
+  \end{align}
+\end{proposition}
+\begin{proof}
+  最初の式については $z = x + iy$ と置くと次のように表される。
+  \begin{align}
+    |z|^2 = x^2 + y^2 = (x + iy)(x - iy) = z\overline{z}
+  \end{align}
+  次に第二式の各項についてそれぞれを二乗した値を比較する。
+  \begin{align}
+    \qty(|z_1| - |z_2|)^2 & = \qty(\sqrt{x_1^2 + y_1^2} - \sqrt{x_2^2 + y_2^2})^2 = x_1^2 + y_1^2 + x_2^2 + y_2^2 - 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)} \\
+    |z_1 + z_2|^2         & = (x_1 + x_2)^2 + (y_1 + y_2)^2 = x_1^2 + x_2^2 + y_1^2 + y_2^2 + 2(x_1x_2 + y_1y_2)                                           \\
+    (|z_1| + |z_2|)^2     & = |z_1|^2 + |z_2|^2 + 2|z_1||z_2| = x_1^2 + y_1^2 + x_2^2 + y_2^2 + 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}
+  \end{align}
+  ここで $x_1^2y_2^2 + x_2^2y_1^2 \geq 2x_1x_2y_1y_2$ であるから $x^2 \leq y^2\implies |x|\leq |y|$ より第二式が成り立つ。
+\end{proof}
+
+無限遠点
+
+リーマン面
+リーマン球面
+
+\subsection{複素変数の関数}
+
+\begin{theorem}[コーシー・リーマンの方程式]
+  複素変数の関数 $f(z)\in\CC(z) = f(x + iy) = u(x, y) + iv(x, y)$ が $z = z_0$ で微分可能であるとき導関数 $f'(z_0)$ は次のように書くことができる。
+  \begin{align}
+    f'(z_0) = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}
+  \end{align}
+  このとき実関数 $u, v$ は次の式を満たす。
+  \begin{align}
+    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $\Delta z = \Delta x + 0i$
+  \begin{align}
+    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                     \\
+            & = \lim_{\Delta x\to 0}\frac{u(x_0 + \Delta x, y_0) - u(x_0, y_0) + i(v(x_0 + \Delta x, y_0) - v(x_0, y_0))}{\Delta x} \\
+            & = \pdv{u(x_0, y_0)}{x} + i\pdv{v(x_0, y_0)}{x}
+  \end{align}
+  $\Delta z = 0 + i\Delta y$
+  \begin{align}
+    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                      \\
+            & = \lim_{\Delta y\to 0}\frac{u(x_0, y_0 + \Delta y) - u(x_0, y_0) + i(v(x_0, y_0 + \Delta y) - v(x_0, y_0))}{i\Delta y} \\
+            & = \pdv{v(x_0, y_0)}{y} - i\pdv{u(x_0, y_0)}{y}
+  \end{align}
+  これより領域において次が成り立つ
+  \begin{align}
+    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
+  \end{align}
+\end{proof}
+
+
+\subsection{正則関数}
+\begin{theorem}
+  Riemman Roch の定理
+\end{theorem}
+
+\begin{definition}[初等関数]
+  指数関数 $2\pi i$ 周期で同じ
+  \begin{align}
+    f(z) = e^z = e^{x + iy} = e^x(\cos y + i\sin y)
+  \end{align}
+  三角関数
+  \begin{align}
+    \sin z & := \frac{e^{iz} - e^{-iz}}{2i}                          \\
+    \cos z & := \frac{e^{iz} + e^{-iz}}{2}                           \\
+    \tan z & := \frac{1}{i}\frac{e^{iz} - e^{-iz}}{e^{iz} + e^{-iz}}
+  \end{align}
+
+  双曲線関数
+  \begin{align}
+    \sinh z & := \frac{e^{z} - e^{-z}}{2}              \\
+    \cosh z & := \frac{e^{z} + e^{-z}}{2}              \\
+    \tanh z & := \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
+  \end{align}
+
+  対数関数
+  \begin{align}
+    \log z & := \log r + i\theta \qquad (z\neq 0) \\
+    \theta & = \arg z = \Arg z + 2n\pi            \\
+    \Log z & := \log r + i\Arg z
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    \sin^{-1} z = -i\log(iz + (1 - z^2)^{1/2})
+  \end{align}
+\end{proposition}
+
+\begin{theorem}[一致の定理]
+  領域 $D$ で正則な関数 $f(z), g(z)$ があり、$D$ の小領域もしくは曲線上で一致しているとき、領域 $D$ 全体で $f(z) = g(z)$ が成り立つ。
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    f(z) & = \sum_{n=0}^{\infty}\frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \\
+    g(z) & = \sum_{n=0}^{\infty}\frac{g^{(n)}(z_0)}{n!}(z - z_0)^n
+  \end{align}
+\end{proof}
+\begin{theorem}[解析接続]
+\end{theorem}
+
+\section{微分積分学}
+\subsection{測度}
+測度とはある範囲の集合に非負の実数あるいは $\infty$ を対応させる集合関数である。
+\begin{definition}[加法族]
+  集合 $X$ の部分集合の族 $\bm{B}$ が次の条件を満たすとき、$X$ 上の加法族と呼ぶ。
+  \begin{enumerate}
+    \item $\emptyset\in\bm{B}$
+    \item $A\in\bm{B}$ ならば $A^c\in\bm{B}$
+    \item $A_n\in\bm{B}$ ならば $\bigcup_{n=1}^\infty A_n\in\bm{B}$
+  \end{enumerate}
+\end{definition}
+\begin{definition}[測度]
+  $\bm{B}$ を $X$ 上の加法族とするとき $\mu$ が $(X, \bm{B})$ 上の測度であるとは
+  \begin{enumerate}
+    \item $A\in\bm{B}$ に対し $0\leq \mu(A)\leq\infty$ $\mu(\emptyset) = 0$
+    \item $A_n$
+  \end{enumerate}
+\end{definition}
+
 \section{ベクトル解析}
 
 \begin{definition}[Kronecker のデルタ]
@@ -308,159 +476,17 @@
 \begin{theorem}[ストークスの定理]
 \end{theorem}
 
-\section{複素関数}
-この章では
-\subsection{複素数}
-高校では $i^2 = -1$ を満たす $i$ を虚数単位といってこれを実数に付け加えたものを複素数と言っていました。これを代数の知識を用いて定義し直します。
-
-\begin{definition}
-  $\RR[x]/(x^2 + 1)$ を複素数体といい、 $\CC$ と書く。この元を複素数といい、 $x$ を虚数単位 (imaginary unit) といい、$i$ と書くことにする。このとき任意の元 $z\in\CC$ は 2 つの実数 $x, y\in\RR$ を用いて $z = x + iy$ と表される。このとき関数 $\Re, \Im$ を次のように定義する。
-  \begin{align}
-    \begin{cases}
-      x = \Re z \\
-      y = \Im z
-    \end{cases}
-  \end{align}
-\end{definition}
-
-\begin{proposition}
-  複素数 $z_1 = x_1 + iy_1$, $z_2 = x_2 + iy_2$, $z = x + iy$ とすると次が成り立つ。
-  \begin{align}
-     & z_1 = z_2 \iff x_1 = x_2 \land y_1 = y_2            \\
-     & z_1 + z_2 = (x_1 + x_2) + i(y_1 + y_2)              \\
-     & z_1z_2 = (x_1x_2 - y_1y_2) + i(x_1y_2 + x_2y_1)     \\
-     & z^{-1} = \frac{x}{x^2 + y^2} - i\frac{y}{x^2 + y^2}
-  \end{align}
-\end{proposition}
-\begin{proof}
-  複素数体 $\CC$ において $\lbrace 1, i\rbrace$ は基底となるから線形独立であり $x + iy = 0$ ならば $x = 0$ かつ $y = 0$ である。
-  これより次のようになる。
-  \begin{align}
-    z_1 = z_2 & \iff z_1 - z_2 = 0 \iff (x_1 - x_2) + i(y_1 - y_2) = 0                \\
-              & \iff x_1 - x_2 = 0 \land y_1 - y_2 = 0 \iff x_1 = x_2 \land y_1 = y_2
-  \end{align}
-  他の等式は計算すれば満たすことが分かる。
-\end{proof}
-
-また交換法則、結合法則、分配法則を満たすことが分かるので $\CC$ は可換体です。
-\begin{definition}
-  複素数 $z = x + iy$ の絶対値 (absolute value)、共役複素数 (complex conjugate) をそれぞれ次のように定義する。
-  \begin{align}
-    |z|          & = \sqrt{x^2 + y^2} \\
-    \overline{z} & = x - iy
-  \end{align}
-\end{definition}
-\begin{proposition}
-  複素数 $z, z_1, z_2\in\CC$ に対して次の式が成り立つ。
-  \begin{align}
-     & |z|^2 = z\overline{z}                                   \\
-     & \qty||z_1| - |z_2|| \leq |z_1 + z_2| \leq |z_1| + |z_2|
-  \end{align}
-\end{proposition}
-\begin{proof}
-  最初の式については $z = x + iy$ と置くと次のように表される。
-  \begin{align}
-    |z|^2 = x^2 + y^2 = (x + iy)(x - iy) = z\overline{z}
-  \end{align}
-  次に第二式の各項についてそれぞれを二乗した値を比較する。
-  \begin{align}
-    \qty(|z_1| - |z_2|)^2 & = \qty(\sqrt{x_1^2 + y_1^2} - \sqrt{x_2^2 + y_2^2})^2 = x_1^2 + y_1^2 + x_2^2 + y_2^2 - 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)} \\
-    |z_1 + z_2|^2         & = (x_1 + x_2)^2 + (y_1 + y_2)^2 = x_1^2 + x_2^2 + y_1^2 + y_2^2 + 2(x_1x_2 + y_1y_2)                                           \\
-    (|z_1| + |z_2|)^2     & = |z_1|^2 + |z_2|^2 + 2|z_1||z_2| = x_1^2 + y_1^2 + x_2^2 + y_2^2 + 2\sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}
-  \end{align}
-  ここで $x_1^2y_2^2 + x_2^2y_1^2 \geq 2x_1x_2y_1y_2$ であるから $x^2 \leq y^2\implies |x|\leq |y|$ より第二式が成り立つ。
-\end{proof}
-
-無限遠点
-
-リーマン面
-リーマン球面
-
-\subsection{複素変数の関数}
-
-\begin{theorem}[コーシー・リーマンの方程式]
-  複素変数の関数 $f(z)\in\CC(z) = f(x + iy) = u(x, y) + iv(x, y)$ が $z = z_0$ で微分可能であるとき導関数 $f'(z_0)$ は次のように書くことができる。
-  \begin{align}
-    f'(z_0) = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}
-  \end{align}
-  このとき実関数 $u, v$ は次の式を満たす。
-  \begin{align}
-    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
-  \end{align}
-\end{theorem}
-\begin{proof}
-  $\Delta z = \Delta x + 0i$
-  \begin{align}
-    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                     \\
-            & = \lim_{\Delta x\to 0}\frac{u(x_0 + \Delta x, y_0) - u(x_0, y_0) + i(v(x_0 + \Delta x, y_0) - v(x_0, y_0))}{\Delta x} \\
-            & = \pdv{u(x_0, y_0)}{x} + i\pdv{v(x_0, y_0)}{x}
-  \end{align}
-  $\Delta z = 0 + i\Delta y$
-  \begin{align}
-    f'(z_0) & = \lim_{\Delta z\to 0}\frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}                                                      \\
-            & = \lim_{\Delta y\to 0}\frac{u(x_0, y_0 + \Delta y) - u(x_0, y_0) + i(v(x_0, y_0 + \Delta y) - v(x_0, y_0))}{i\Delta y} \\
-            & = \pdv{v(x_0, y_0)}{y} - i\pdv{u(x_0, y_0)}{y}
-  \end{align}
-  これより領域において次が成り立つ
-  \begin{align}
-    \pdv{u}{x} = \pdv{v}{y}, \pdv{u}{y} = -\pdv{v}{x}
-  \end{align}
-\end{proof}
-
-
-\subsection{正則関数}
-\begin{theorem}
-  Riemman Roch の定理
-\end{theorem}
-
-\begin{definition}[初等関数]
-  指数関数 $2\pi i$ 周期で同じ
-  \begin{align}
-    f(z) = e^z = e^{x + iy} = e^x(\cos y + i\sin y)
-  \end{align}
-  三角関数
-  \begin{align}
-    \sin z & := \frac{e^{iz} - e^{-iz}}{2i}                          \\
-    \cos z & := \frac{e^{iz} + e^{-iz}}{2}                           \\
-    \tan z & := \frac{1}{i}\frac{e^{iz} - e^{-iz}}{e^{iz} + e^{-iz}}
-  \end{align}
-
-  双曲線関数
-  \begin{align}
-    \sinh z & := \frac{e^{z} - e^{-z}}{2}              \\
-    \cosh z & := \frac{e^{z} + e^{-z}}{2}              \\
-    \tanh z & := \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
-  \end{align}
-
-  対数関数
-  \begin{align}
-    \log z & := \log r + i\theta \qquad (z\neq 0) \\
-    \theta & = \arg z = \Arg z + 2n\pi            \\
-    \Log z & := \log r + i\Arg z
-  \end{align}
-\end{definition}
-\begin{proposition}
-  \begin{align}
-    \sin^{-1} z = -i\log(iz + (1 - z^2)^{1/2})
-  \end{align}
-\end{proposition}
-
-\begin{theorem}[一致の定理]
-  領域 $D$ で正則な関数 $f(z), g(z)$ があり、$D$ の小領域もしくは曲線上で一致しているとき、領域 $D$ 全体で $f(z) = g(z)$ が成り立つ。
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    f(z) & = \sum_{n=0}^{\infty}\frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \\
-    g(z) & = \sum_{n=0}^{\infty}\frac{g^{(n)}(z_0)}{n!}(z - z_0)^n
-  \end{align}
-\end{proof}
-\begin{theorem}[解析接続]
-\end{theorem}
-
 \section{フーリエ解析}
 \subsection{フーリエ級数}
+\begin{definition}[内積]
+  関数の正規直交関数系による展開
+  区間 $[a, b]$ 上の
+\end{definition}
+
+
 \begin{definition}[複素フーリエ級数]
   $\TT = \RR/(2\pi\ZZ)$ 上 関数 $f: \TT\to\CC$ に対し
+  区間 $[-\pi, \pi]$ において定義された実数値関数 $f(x)$ が連続かつ区分的に $C^1$ 級かつ周期的である ($f(-\pi) = f(\pi)$) ならば $f(x)$ は
   \begin{align}
     f(x) & = \sum_{n\in\ZZ}c_ne^{inx}                          \\
     c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
