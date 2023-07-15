@@ -178,35 +178,6 @@
 \end{definition}
 これらの法則で電磁気学が完結する。
 
-\begin{theorem}
-  連続の方程式を満たし、電荷は保存する。
-  \begin{align}
-    \pdv{\rho}{t} + \vnabla\vdot\bm{j} = 0
-  \end{align}
-\end{theorem}
-\begin{proof}
-  式 \eqref{Ampere} の両辺の発散を計算することで連続の方程式を導出する。
-  \begin{align}
-    \vnabla\vdot(\vnabla\cross\BB) & = \vnabla\vdot\qty(\mu_0\bm{j} + \frac{1}{c^2}\pdv{\EE}{t})     \\
-    0                              & = \mu_0\vnabla\vdot\bm{j} + \frac{1}{c^2}\pdv{t}\vnabla\vdot\EE \\
-    0                              & = \vnabla\vdot\bm{j} + \pdv{\rho}{t}
-  \end{align}
-  連続の方程式の両辺を空間微分することで電荷が保存することが分かる。
-  \begin{align}
-     & \int_V\qty(\pdv{\rho}{t} + \vnabla\vdot\bm{j})\dd{V} = 0             \\
-     & \dv{t}\int_V\rho\dd{V} + \int_{\partial V}\bm{j}\vdot\dd{\bm{S}} = 0
-  \end{align}
-\end{proof}
-
-\begin{theorem}
-  真空中での電磁場のエネルギー
-  \begin{align}
-    u_{em} = \frac{1}{2}\varepsilon_0\EE^2 + \frac{1}{2\mu_0}\BB^2
-  \end{align}
-\end{theorem}
-
-\subsection{電荷}
-
 \subsection{電磁ポテンシャルとゲージ変換}
 \begin{theorem}[電位とベクトルポテンシャル]
   次を満たす $\phi$, $\AA$ が存在し、
@@ -256,14 +227,72 @@
   \end{align}
 \end{definition}
 
-
-
-\begin{theorem}
-  静電エネルギー
+\subsection{電荷}
+\begin{theorem}[電荷の保存則]
+  連続の方程式を満たし、電荷は保存する。
   \begin{align}
-    U_e = \frac{1}{2}
+    \pdv{\rho}{t} + \vnabla\vdot\bm{j} = 0
   \end{align}
 \end{theorem}
+\begin{proof}
+  式 \eqref{Ampere} の両辺の発散を計算することで連続の方程式を導出する。
+  \begin{align}
+    \vnabla\vdot(\vnabla\cross\BB) & = \vnabla\vdot\qty(\mu_0\bm{j} + \frac{1}{c^2}\pdv{\EE}{t})     \\
+    0                              & = \mu_0\vnabla\vdot\bm{j} + \frac{1}{c^2}\pdv{t}\vnabla\vdot\EE \\
+    0                              & = \vnabla\vdot\bm{j} + \pdv{\rho}{t}
+  \end{align}
+  連続の方程式の両辺を空間微分することで電荷が保存することが分かる。
+  \begin{align}
+     & \int_V\qty(\pdv{\rho}{t} + \vnabla\vdot\bm{j})\dd{V} = 0             \\
+     & \dv{t}\int_V\rho\dd{V} + \int_{\partial V}\bm{j}\vdot\dd{\bm{S}} = 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  位置 $\rr'$ にある点電荷 $Q$ が位置 $\rr$ にある点電荷 $q$ に及ぼす Coulomb 力 $\bm{F}$ は次のように表される。
+  \begin{align}
+    \bm{F} = \frac{Qq}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  電位から電場を求めて Coulomb 力を示す。
+  \begin{align}
+    \phi(\rr) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr')}{|\rr - \rr'|}\dd{\rr'} = \frac{1}{4\pi\epsilon_0}\frac{Q}{|\rr - \rr'|} \\
+    \EE(\rr)  & = -\vnabla\phi = \frac{Q}{4\pi\epsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}                                                \\
+    \bm{F}    & = q\EE = \frac{Qq}{4\pi\epsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
+  \end{align}
+\end{proof}
+
+\begin{proposition}[電気双極子]
+  位置 $\rr$ での電位は点電荷 $-Q$ 点電荷 $+Q$
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \phi(\rr) & = \frac{Q}{4\pi\varepsilon_0}\qty(\frac{1}{|\rr - \rr' - \bm{d}|} - \frac{1}{|\rr - \rr'|})                     \\
+              & = \frac{Q}{4\pi\varepsilon_0}\qty(\vnabla'\frac{1}{|\rr - \rr'|})\vdot\bm{d}                                    \\
+              & = \frac{1}{4\pi\varepsilon_0}\frac{\pp\vdot(\rr - \rr')}{|\rr - \rr'|^3}                                        \\
+    \EE(\rr)  & = -\vnabla\phi(\rr)                                                                                             \\
+              & = \frac{1}{4\pi\varepsilon_0}\frac{\qty(3\pp\vdot(\rr - \rr'))(\rr - \rr') - (\rr - \rr')^2\pp}{|\rr - \rr'|^5}
+  \end{align}
+\end{proof}
+
+\begin{proposition}[極座標で表した電気双極子]
+\end{proposition}
+
+\begin{theorem}
+  真空中での電磁場のエネルギー
+  \begin{align}
+    u_{em} = \frac{1}{2}\varepsilon_0\EE^2 + \frac{1}{2\mu_0}\BB^2
+  \end{align}
+\end{theorem}
+
+\begin{definition}[Poynting ベクトル]
+  エネルギーの流れの密度
+  単位時間に単位面積を通過するエネルギー
+  \begin{align}
+    \bm{S}(\rr) = \EE(\rr)\cross\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\cross\BB(\rr)
+  \end{align}
+\end{definition}
 
 \newcommand{\Et}{\tilde{E}}
 \newcommand{\ET}{\tilde{\bm{E}}}
@@ -273,7 +302,6 @@
 \newcommand{\ee}{\bm{\epsilon}}
 \renewcommand{\SS}{\bm{S}}
 \newcommand{\JJ}{\bm{J}}
-\newcommand{\ii}{i}
 \subsection{電磁波}
 \begin{proposition}
   $\rho = 0$ $\bm{j} = \bm{0}$ において $\EE, \BB$ は波動方程式を満たす。
@@ -284,10 +312,10 @@
 \end{align}
 
 \begin{theorem}[]
-  真空中に伝搬する電磁波の複素数解は波数 $\kk$ を用いて次のように表される。
+  真空中に伝搬する電磁波の複素数解は波数 $\kk\in\RR^3$ を用いて次のように表される。
   \begin{align}
-    \EE(t, \rr) & = \int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{\ii(\kk\cdot\rr - \omega(\kk)t)} \\
-    \BB(t, \rr) & = \int_{\RR^3}\dd{\kk}\BB_0(\kk)e^{\ii(\kk\cdot\rr - \omega(\kk)t)}
+    \EE(t, \rr) & = \int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)} \\
+    \BB(t, \rr) & = \int_{\RR^3}\dd{\kk}\BB_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}
   \end{align}
   ただし電磁波の分散関係は光速度 $c$ を用いて $\omega(\kk) = c|\kk|$ と与えられ、振動方向 $\EE_0(\kk)\in\CC^2$ は進行方向 $\kk$ と直交する。$\EE_0(\kk)\vdot\kk = 0$
   なお, 物理的な電場 $\EE(\rr, t)$, 磁場 $\BB(\rr, t)$ はそれらの複素表現の実部を取ることで求められる.
@@ -295,10 +323,10 @@
 \begin{proof}
   波動方程式に代入して成り立つことを示す。
   \begin{align}
-    \nabla^2\EE & = \nabla^2\int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{\ii(\kk\cdot\rr - \omega(\kk)t)}                      \\
-                & = \int_{\RR^3}\dd{\kk}\EE_0(\kk)(-|\kk|^2)e^{\ii(\kk\cdot\rr - \omega(\kk)t)}                    \\
-                & = \frac{1}{c^2}\int_{\RR^3}\dd{\kk}\EE_0(\kk)(-\omega^2(\kk))e^{\ii(\kk\cdot\rr - \omega(\kk)t)} \\
-                & = \frac{1}{c^2}\pdv[2]{t}\int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{\ii(\kk\cdot\rr - \omega(\kk)t)}       \\
+    \nabla^2\EE & = \nabla^2\int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}                      \\
+                & = \int_{\RR^3}\dd{\kk}\EE_0(\kk)(-|\kk|^2)e^{i(\kk\cdot\rr - \omega(\kk)t)}                    \\
+                & = \frac{1}{c^2}\int_{\RR^3}\dd{\kk}\EE_0(\kk)(-\omega^2(\kk))e^{i(\kk\cdot\rr - \omega(\kk)t)} \\
+                & = \frac{1}{c^2}\pdv[2]{t}\int_{\RR^3}\dd{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}       \\
                 & = \frac{1}{c^2}\pdv[2]{t}\EE
   \end{align}
   磁束密度も同様にして示せる。
@@ -306,8 +334,6 @@
 
 \begin{definition}[単色波]
   単色波 (monochromatic wave) とは1つの振動数しか持たない波のことである。
-  波数 $\kk\in\RR^3$ で定まった電場の振動方向 $\ee_i(\kk)$ を持つ単色波のとき, 複素振幅を $\tilde{E} = ae^{\ii\epsilon}$ とおくと, 電場の複素表示 $\tilde{\EE}(\rr, t)$ は次の通りとなる.
-  電場ベクトルの振動方向と電磁場の進行方向で定まる平面を電場の振動面という.
 \end{definition}
 
 \begin{definition}[偏光]
@@ -338,15 +364,18 @@
       a_2(\kk)e^{i\delta(\kk)}
     \end{pmatrix}e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))}
   \end{align}
+  ただし $\delta_i = - \varepsilon_i$ とする。
+  電場ベクトルの振動方向と電磁場の進行方向で定まる平面を電場の振動面という。
+  \begin{align}
+     & \sin\varepsilon > 0 \iff \sin\delta < 0 \iff \text{「楕円偏光は左偏光である。」} \\
+     & \iff \text{「円偏光の helicity は $+1$ である。」}                            \\
+     & \sin\varepsilon < 0 \iff \sin\delta > 0 \iff \text{「楕円偏光は右偏光である。」} \\
+     & \iff \text{「円偏光の helicity は $-1$ である。」}
+  \end{align}
 \end{definition}
-場所 $\rr$ に留まり、時間 $t$ の経過とともに、電場ベクトルの波動を観測する立場から見て、「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる。位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える。
-ただし $\delta_i = - \varepsilon_i (i = 1, 2), q = \omega(\kk)t - \kk\vdot\rr + \delta_1, \delta = \delta_2 - \delta_1$ とおく. すると $\delta = -\varepsilon$ という関係が成り立つ.
-\begin{align}
-   & \sin\varepsilon > 0 \iff \sin\delta < 0 \iff \text{「楕円偏光は左偏光である。」} \\
-   & \iff \text{「円偏光の helicity は $+1$ である。」}                            \\
-   & \sin\varepsilon < 0 \iff \sin\delta > 0 \iff \text{「楕円偏光は右偏光である。」} \\
-   & \iff \text{「円偏光の helicity は $-1$ である。」}
-\end{align}
+\begin{proposition}
+  場所 $\rr$ に留まり、時間 $t$ の経過とともに、電場ベクトルの波動を観測する立場から見て、「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる。位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える。
+\end{proposition}
 
 \begin{proposition}
   位置 $\rr$ を固定し、時間 $t$ を動かしたときに $(E_1, E_2)$ が作る軌跡の図形は Lissajous 図形、特に楕円となる。
@@ -370,19 +399,18 @@
 \end{table}
 
 \begin{definition}
-  偏光状態のパラメータ $(\psi, \chi)$ について次の事柄がわかっている。
-  光学では伝統的に楕円の形と偏光の回転の向きを記述するパラメータ $\chi$ が用いられている。
-
-  パラメータ $\psi$ は $(E_1, E_2)$ 面において $E_1$ 軸から計った偏光楕円の長軸の角度である。これより $0 \leq \psi < \pi$ の範囲の値を取る。偏光楕円が円に縮退していない場合は、パラメータ $\psi$ の値は一意に定まる。偏光楕円が円に縮退している場合は、パラメータ $\psi$ の値は定まらない。
-
-  パラメータ $\chi$ は偏光楕円の短半径 $a_\eta$ と長半径 $a_\xi$ を用いて次のように書ける。
-  \begin{align}
-    \tan|\chi| & = \frac{a_\eta}{a_\xi} \qquad \qty(-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4})
-  \end{align}
-  ただし $\chi$ が正ならば右偏光、負ならば左偏光である。特に $\chi = \pm \pi/4$ が円偏光、$\chi = 0$ が直線偏光である。
+  光学では伝統的に楕円の傾きを記述するパラメータ $\psi$ と楕円の形と偏光の回転の向きを記述するパラメータ $\chi$ が用いられている。
+  \begin{enumerate}
+    \item パラメータ $\psi$ は $(E_1, E_2)$ 面において $E_1$ 軸から計った偏光楕円の長軸の角度である。これより $0 \leq \psi < \pi$ の範囲の値を取る。偏光楕円が円に縮退していない場合は、パラメータ $\psi$ の値は一意に定まる。偏光楕円が円に縮退している場合は、パラメータ $\psi$ の値は定まらない。
+    \item パラメータ $\chi$ は偏光楕円の短半径 $a_\eta$ と長半径 $a_\xi$ を用いて次のように書ける。
+          \begin{align}
+            \tan|\chi| & = \frac{a_\eta}{a_\xi} \qquad \qty(-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4})
+          \end{align}
+          ただし $\chi$ が正ならば右偏光、負ならば左偏光である。特に $\chi = \pm\dfrac{\pi}{4}$ が円偏光、$\chi = 0$ が直線偏光である。
+  \end{enumerate}
 \end{definition}
 \subsection{Stokes パラメータ}
-波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は \eqref{E def} 式より4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{\ii \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
+波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は \eqref{E def} 式より4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{i \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
 
 \begin{enumerate}
   \item 時間の原点を指定する実パラメータ 1 個.場所 $\rr\in\RR^3$ に留まって観測するとします. 特定の時刻 $t\in\RR$ において, 電場の 1 成分と 2 成分で指定される点 $(E_1, E_2)$ が Lissajous 図形である偏光楕円上のどこにあるのかを, この実パラメータが指定します.このパラメータは $\varepsilon_1$ あるいは $\delta_1$ に取ることができます.
@@ -472,14 +500,14 @@
   \centering
   \begin{tabular}{|c|c|c|c|}
     \hline
-    偏光状態                   & 呼び名                                        & Stokesベクトル $\vb{S}$ & Jonesベクトル $\vb{J}$                                                             \\
+    偏光状態                   & 呼び名                                        & Stokesベクトル $\vb{S}$ & Jonesベクトル $\vb{J}$                                                           \\
     \hline \hline
-    直線偏光(水平)               & 水平 $\mathcal{P}$ 状態: LHP                   & $\mqty[1            & 1                  & 0  & 0]^\top$  & $\mqty[1                   & 0]^\top$    \\
-    直線偏光(垂直)               & 鉛直 $\mathcal{P}$ 状態: LNP                   & $\mqty[1            & -1                 & 0  & 0]^\top$  & $\mqty[0                   & 1]^\top$    \\
-    直線偏光($+45$\textdegree) & +45\textdegree の $\mathcal{P}$ 状態: L+45P   & $\mqty[1            & 0                  & 1  & 0]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & 1]^\top$    \\
-    直線偏光($-45$\textdegree) & $-45$\textdegree の $\mathcal{P}$ 状態: L-45P & $\mqty[1            & 0                  & -1 & 0]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & -1]^\top$   \\
-    円偏光(右回転)               & $\mathcal{R}$ 状態: RCP                      & $\mqty[1            & 0                  & 0  & 1]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & \ii]^\top$  \\
-    円偏光(左回転)               & $\mathcal{L}$ 状態: LCP                      & $\mqty[1            & 0                  & 0  & -1]^\top$ & $\frac{1}{\sqrt{2}}\mqty[1 & -\ii]^\top$ \\
+    直線偏光(水平)               & 水平 $\mathcal{P}$ 状態: LHP                   & $\mqty[1            & 1                  & 0  & 0]^\top$  & $\mqty[1                   & 0]^\top$  \\
+    直線偏光(垂直)               & 鉛直 $\mathcal{P}$ 状態: LNP                   & $\mqty[1            & -1                 & 0  & 0]^\top$  & $\mqty[0                   & 1]^\top$  \\
+    直線偏光($+45$\textdegree) & +45\textdegree の $\mathcal{P}$ 状態: L+45P   & $\mqty[1            & 0                  & 1  & 0]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & 1]^\top$  \\
+    直線偏光($-45$\textdegree) & $-45$\textdegree の $\mathcal{P}$ 状態: L-45P & $\mqty[1            & 0                  & -1 & 0]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & -1]^\top$ \\
+    円偏光(右回転)               & $\mathcal{R}$ 状態: RCP                      & $\mqty[1            & 0                  & 0  & 1]^\top$  & $\frac{1}{\sqrt{2}}\mqty[1 & i]^\top$  \\
+    円偏光(左回転)               & $\mathcal{L}$ 状態: LCP                      & $\mqty[1            & 0                  & 0  & -1]^\top$ & $\frac{1}{\sqrt{2}}\mqty[1 & -i]^\top$ \\
     \hline
   \end{tabular}
   \caption{重要な偏光状態の Stokes ベクトル}
@@ -527,65 +555,65 @@
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \tilde{E}_+ & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 - \ii\tilde{E}_2) \\
-    \tilde{E}_- & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 + \ii\tilde{E}_2)
+    \tilde{E}_+ & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 - i\tilde{E}_2) \\
+    \tilde{E}_- & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 + i\tilde{E}_2)
   \end{align}
   電場の複素表示 $\ET$ と一般の楕円偏光の基底ベクトル $\ee_i, \ee_j\in\CC^3\quad ((i, j) = (1, 2), (+, -))$ の直交性より
   \begin{align}
     \ee_i(\kk)^*\vdot\ET
-     & = \Et_ie^{\ii(\kk\vdot\rr - \omega(\kk)t)} = a_ie^{\ii(\kk\vdot\rr - \omega(\kk)t + \varepsilon_i)} \\
+     & = \Et_ie^{i(\kk\vdot\rr - \omega(\kk)t)} = a_ie^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_i)} \\
     \qty(\ee_i(\kk)^*\vdot\ET)^*\qty(\ee_j(\kk)^*\vdot\ET)
-     & = \Et_i^*\Et_j = a_ia_je^{\ii(\varepsilon_j - \varepsilon_i)} \label{Ei Ej}
+     & = \Et_i^*\Et_j = a_ia_je^{i(\varepsilon_j - \varepsilon_i)} \label{Ei Ej}
   \end{align}
   となる. 特に直線偏光の基底ベクトル $\ee_1, \ee_2\in\RR^3$ より, $\ee_i = \ee_i^*\quad(i=1,2)$ となる.
   式 \eqref{ET line def}, \eqref{ET circle def} に複素共役を取って新しい複素表示は次のように表される.
   \begin{align}
-    \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
-    \Ec_i       & = \Et_i^* = a_ie^{\ii\delta_i} \qquad (i = 1, 2)                                                               \\
-    \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
-    \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{\ii\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
+    \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
+    \Ec_i       & = \Et_i^* = a_ie^{i\delta_i} \qquad (i = 1, 2)                                                               \\
+    \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
+    \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{i\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
   \end{align}
   円偏光において新しい複素振幅 $\Ec_\pm$ と古い複素振幅 $\Et_\pm$ は成分の添字の $+$ と $-$ が反転して結びついていることに注意すべきである. また, これより次の式を導ける.
   \begin{align}
     \ee_i(\kk)\vdot\EC
-     & = \Ec_ie^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
+     & = \Ec_ie^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
     \ee_\pm(\kk)^*\vdot\EC
-     & = \Ec_\pm e^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
+     & = \Ec_\pm e^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
   \end{align}
   \begin{align}
-    s_0 & = a_1^2 + a_2^2                                                                                                                          \\
-        & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 + |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
-        & = |\tilde{E}_+|^2 + |\tilde{E}_+|^2                                                                                                      \\
-        & = a_+^2 + a_-^2                                                                                                                          \\
-        & = \qty|\ee_+(\kk)^*\vdot\ET|^2 + \qty|\ee_-(\kk)^*\vdot\ET|^2                                                                            \\
-        & = \qty|\ee_+(\kk)^*\vdot\EC|^2 + \qty|\ee_-(\kk)^*\vdot\EC|^2                                                                            \\
-    s_1 & = a_1^2 - a_2^2                                                                                                                          \\
-        & = \Re((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
-        & = \Re(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
-        & = 2a_+a_-\cos(\varepsilon_- - \varepsilon_+)                                                                                             \\
-        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                                       \\
-        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                                       \\
-    s_2 & = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)                                                                                             \\
-        & = \Im((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
-        & = \Im(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
-        & = 2a_+a_-\sin(\varepsilon_- - \varepsilon_+)                                                                                             \\
-        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                                       \\
-        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                                       \\
-    s_3 & = 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1)                                                                                             \\
-        & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 - |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
-        & = |\tilde{E}_+|^2 - |\tilde{E}_+|^2                                                                                                      \\
-        & = -\qty(a_+^2 - a_-^2)                                                                                                                   \\
-        & = -\qty{\qty|\ee_+(\kk)^*\vdot\ET|^2 - \qty|\ee_-(\kk)^*\vdot\ET|^2}                                                                     \\
+    s_0 & = a_1^2 + a_2^2                                                                                                              \\
+        & = \frac{1}{2}\qty(|a_1e^{i\varepsilon_1} - i a_2e^{i\varepsilon_2}|^2 + |a_1e^{i\varepsilon_1} + i a_2e^{i\varepsilon_2}|^2) \\
+        & = |\tilde{E}_+|^2 + |\tilde{E}_+|^2                                                                                          \\
+        & = a_+^2 + a_-^2                                                                                                              \\
+        & = \qty|\ee_+(\kk)^*\vdot\ET|^2 + \qty|\ee_-(\kk)^*\vdot\ET|^2                                                                \\
+        & = \qty|\ee_+(\kk)^*\vdot\EC|^2 + \qty|\ee_-(\kk)^*\vdot\EC|^2                                                                \\
+    s_1 & = a_1^2 - a_2^2                                                                                                              \\
+        & = \Re((a_1^2 - a_2^2) + i(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                       \\
+        & = \Re(2\tilde{E}_-\tilde{E}_+^*)                                                                                             \\
+        & = 2a_+a_-\cos(\varepsilon_- - \varepsilon_+)                                                                                 \\
+        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                           \\
+        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                           \\
+    s_2 & = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)                                                                                 \\
+        & = \Im((a_1^2 - a_2^2) + i(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                       \\
+        & = \Im(2\tilde{E}_-\tilde{E}_+^*)                                                                                             \\
+        & = 2a_+a_-\sin(\varepsilon_- - \varepsilon_+)                                                                                 \\
+        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                           \\
+        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                           \\
+    s_3 & = 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1)                                                                                 \\
+        & = \frac{1}{2}\qty(|a_1e^{i\varepsilon_1} - i a_2e^{i\varepsilon_2}|^2 - |a_1e^{i\varepsilon_1} + i a_2e^{i\varepsilon_2}|^2) \\
+        & = |\tilde{E}_+|^2 - |\tilde{E}_+|^2                                                                                          \\
+        & = -\qty(a_+^2 - a_-^2)                                                                                                       \\
+        & = -\qty{\qty|\ee_+(\kk)^*\vdot\ET|^2 - \qty|\ee_-(\kk)^*\vdot\ET|^2}                                                         \\
         & = \qty|\ee_+(\kk)^*\vdot\EC|^2 - \qty|\ee_-(\kk)^*\vdot\EC|^2
   \end{align}
 \end{proof}
 
 また上式の考察より次のように偏光の向きも逆転する.
 \begin{align}
-  \EC(\rr, t) = \Ec_+\ee_+(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}
+  \EC(\rr, t) = \Ec_+\ee_+(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}
    & \iff \textrm{「円偏光は右偏光である。」}          \\
    & \iff \textrm{「helicity が $-1$ である。」} \\
-  \EC(\rr, t) = \Ec_-\ee_-(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}
+  \EC(\rr, t) = \Ec_-\ee_-(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}
    & \iff \textrm{「円偏光は左偏光である。」}          \\
    & \iff \textrm{「helicity が $+1$ である。」}
 \end{align}
@@ -690,15 +718,15 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \begin{definition}
   遅相子 (wave retarder) は直線偏光成分のうちの片方をもう片方に対して一定の位相だけ遅らせる変換を行い出力する光学素子である.
   \begin{align}
-    T^{\textrm{遅相子}}(\phi) = \mqty[e^{\ii\frac{\phi}{2}} & 0 \\ 0 & e^{-\ii\frac{\phi}{2}}] = \mqty[1 & 0 \\ 0 & e^{-\ii\phi}]e^{\ii\frac{\phi}{2}}
+    T^{\textrm{遅相子}}(\phi) = \mqty[e^{i\frac{\phi}{2}} & 0 \\ 0 & e^{-i\frac{\phi}{2}}] = \mqty[1 & 0 \\ 0 & e^{-i\phi}]e^{i\frac{\phi}{2}}
   \end{align}
   $1/2$ 波長板の Jones 行列を次のように定義する。
   \begin{align}
-    T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty[\ii & 0 \\ 0 & -\ii]
+    T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty[i & 0 \\ 0 & -i]
   \end{align}
   $1/4$ 波長板の Jones 行列を次のように定義する。
   \begin{align}
-    T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty[e^{\ii\frac{\pi}{4}} & 0 \\ 0 & e^{-\ii\frac{\pi}{4}}] = \mqty[\frac{1 + \ii}{\sqrt{2}} & 0 \\ 0 & \frac{1 - \ii}{\sqrt{2}}]
+    T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty[e^{i\frac{\pi}{4}} & 0 \\ 0 & e^{-i\frac{\pi}{4}}] = \mqty[\frac{1 + i}{\sqrt{2}} & 0 \\ 0 & \frac{1 - i}{\sqrt{2}}]
   \end{align}
 \end{definition}
 
@@ -709,12 +737,12 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
       \hline
       偏光状態                       & Jones ベクトル                  & 1/2波長板 & 1/4波長板 \\
       \hline \hline
-      直線偏光                       & $\mqty[1                                      \\ 0]$ & $i\mqty(1 \\ 0)$ & $e^{\ii\frac{\pi}{4}}\mqty(1 \\ 0)$ \\
-      直線偏光                       & $\mqty[0                                      \\ 1]$ & $-i\mqty(0 \\ 1)$ & $e^{-\ii\frac{\pi}{4}}\mqty(0 \\ 1)$ \\
-      直線偏光 ($+45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ 1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ -1)$ & $\dfrac{1 + \ii}{2}\mqty(1 \\ -\ii)$     \\
-      直線偏光 ($-45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ 1)$  & $\dfrac{1 + \ii}{2}\mqty(1 \\ -1)$    \\
-      円偏光(左回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ \ii)$ & $\dfrac{\ii}{\sqrt{2}}\mqty[1 \\ -\ii]$ \\
-      円偏光(右回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -\ii)$ & $\dfrac{\ii}{\sqrt{2}}\mqty[1 \\ \ii]$ \\
+      直線偏光                       & $\mqty[1                                      \\ 0]$ & $i\mqty(1 \\ 0)$ & $e^{i\frac{\pi}{4}}\mqty(1 \\ 0)$ \\
+      直線偏光                       & $\mqty[0                                      \\ 1]$ & $-i\mqty(0 \\ 1)$ & $e^{-i\frac{\pi}{4}}\mqty(0 \\ 1)$ \\
+      直線偏光 ($+45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ 1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ -1)$ & $\dfrac{1 + i}{2}\mqty(1 \\ -i)$     \\
+      直線偏光 ($-45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ 1)$  & $\dfrac{1 + i}{2}\mqty(1 \\ -1)$    \\
+      円偏光(左回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ i)$ & $\dfrac{i}{\sqrt{2}}\mqty[1 \\ -i]$ \\
+      円偏光(右回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -i)$ & $\dfrac{i}{\sqrt{2}}\mqty[1 \\ i]$ \\
       \hline
     \end{tabular}
     \caption{偏光状態}
@@ -723,34 +751,34 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \begin{proof}
   遅相子に純粋に直線偏光した光を入れることを考える.
   \begin{align}
-    T^{\textrm{遅相子}}(\phi)\mqty[1 \\ 0] & = \mqty[e^{\ii\frac{\phi}{2}} \\ 0] \\
-    T^{\textrm{遅相子}}(\phi)\mqty[0 \\ 1] & = \mqty[0 \\ e^{-\ii\frac{\phi}{2}}]
+    T^{\textrm{遅相子}}(\phi)\mqty[1 \\ 0] & = \mqty[e^{i\frac{\phi}{2}} \\ 0] \\
+    T^{\textrm{遅相子}}(\phi)\mqty[0 \\ 1] & = \mqty[0 \\ e^{-i\frac{\phi}{2}}]
   \end{align}
   これらは回転する操作を行えば何も変化しないことが分かる。
 
   これに $+45$\textdegree 方向に直線偏光した光と $-45$\textdegree 方向に直線偏光した光を通すと
   \begin{align}
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -1] \\
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ 1]
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{i}{\sqrt{2}}\mqty[1 \\ -1] \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{i}{\sqrt{2}}\mqty[1 \\ 1]
   \end{align}
   となり, これは $1/2$ 波長板によって L+45P と L-45P は相互変換する. \\
 
   また 右円偏光した光と左円偏光した光を通すと
   \begin{align}
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -\ii] \\
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ \ii]
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ i] & = \frac{i}{\sqrt{2}}\mqty[1 \\ -i] \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -i] & = \frac{i}{\sqrt{2}}\mqty[1 \\ i]
   \end{align}
   となり, これは $1/2$ 波長板によって RCP と LCP は相互変換する. \\
 
   これに L+45P, L-45P を通すとそれぞれ LCP, RCP へ変換されることが分かる.
   \begin{align}
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{1 + \ii}{2}\mqty[1 \\ -\ii] \\
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{1 + \ii}{2}\mqty[1 \\ \ii]
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{1 + i}{2}\mqty[1 \\ -i] \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{1 + i}{2}\mqty[1 \\ i]
   \end{align}
   同様に RCP, LCP を通すとそれぞれ L+45P, L-45P へ変換されることが分かる.
   \begin{align}
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{1 + \ii}{2}\mqty[1 \\ 1] \\
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{1 + \ii}{2}\mqty[1 \\ -1]
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ i] & = \frac{1 + i}{2}\mqty[1 \\ 1] \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -i] & = \frac{1 + i}{2}\mqty[1 \\ -1]
   \end{align}
   光学領域での $1/4$ 波長板はサランラップを半ダースほど向きを揃えて重ねることにより自作できるらしい. \\
 \end{proof}
@@ -763,14 +791,14 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 波数 $\kk\in\RR^3$ を中心にして, 広がり $|\Delta\kk|\sim\Delta k = c^{-1}\Delta\nu$ を持つ準単色光を考える. このとき電場の複素表示 $\EC(\rr, t)$ は次のように Fourier 変換される.
 \begin{align}
   \EC(\rr, t)
-   & = \iiint_{|\kk' - \kk|\leq\Delta k}dV(\kk')\qty{\Ec_1(\kk')\ee_1(\kk') + \Ec_2(\kk')\ee_2(\kk')}e^{\ii(\omega(\kk')t - \kk'\vdot\rr)}                                                                                                                                           \\
-   & = \iiint_{|\delta\kk|\leq\Delta k}dV(\delta\kk)\qty{\Ec_1(\kk + \delta\kk)\ee_1(\kk + \delta\kk) + \Ec_2(\kk + \delta\kk)\ee_2(\kk + \delta\kk)}e^{\ii(\omega(\kk + \delta\kk)t - (\kk + \delta\kk)\vdot\rr)}                                                                   \\
-   & = e^{\ii(\omega(\kk)t - \kk\vdot\rr)}\iiint_{|\delta\kk|\leq\Delta k}dV(\delta\kk)\qty{\Ec_1(\kk + \delta\kk)\ee_1(\kk + \delta\kk) + \Ec_2(\kk + \delta\kk)\ee_2(\kk + \delta\kk)}e^{\ii\qty{(\omega(\kk + \delta\kk) - \omega(\kk))t - \delta\kk\vdot\rr}} \label{EC fourier} \\
+   & = \int_{|\kk' - \kk|\leq\Delta k}dV(\kk')\qty{\Ec_1(\kk')\ee_1(\kk') + \Ec_2(\kk')\ee_2(\kk')}e^{i(\omega(\kk')t - \kk'\vdot\rr)}                                                                                                                                         \\
+   & = \int_{|\delta\kk|\leq\Delta k}dV(\delta\kk)\qty{\Ec_1(\kk + \delta\kk)\ee_1(\kk + \delta\kk) + \Ec_2(\kk + \delta\kk)\ee_2(\kk + \delta\kk)}e^{i(\omega(\kk + \delta\kk)t - (\kk + \delta\kk)\vdot\rr)}                                                                 \\
+   & = e^{i(\omega(\kk)t - \kk\vdot\rr)}\int_{|\delta\kk|\leq\Delta k}dV(\delta\kk)\qty{\Ec_1(\kk + \delta\kk)\ee_1(\kk + \delta\kk) + \Ec_2(\kk + \delta\kk)\ee_2(\kk + \delta\kk)}e^{i\qty{(\omega(\kk + \delta\kk) - \omega(\kk))t - \delta\kk\vdot\rr}} \label{EC fourier} \\
 \end{align}
 ここでコヒーレンス時間 $t_c = \Delta\nu^{-1}$ より十分短い時間間隔 $\Delta t \ll t_c$ のとき $(\omega(\kk + \delta\kk) - \omega(\kk))\Delta t \sim \Delta\nu t_c \ll 1$ となるので式 \eqref{EC fourier} は単色光と見なすことができる. \\
 
 \textbf{Q 21B-49.}
-コヒーレンス時間を超える時間スケールではコヒーレンス時間 $t_c$ 程度の時間間毎ごとに定まる Stokes パラメータの時間平均を取ることによって, 準単色波の Stokes パラメータ $s_0, s_1, s_2, s_3$ を定義することが出来る. これより1, 2軸の複素振幅を $a_1e^{\ii\delta_1}, a_2e^{\ii\delta_2}$ とおくと平均値の線形性より
+コヒーレンス時間を超える時間スケールではコヒーレンス時間 $t_c$ 程度の時間間毎ごとに定まる Stokes パラメータの時間平均を取ることによって, 準単色波の Stokes パラメータ $s_0, s_1, s_2, s_3$ を定義することが出来る. これより1, 2軸の複素振幅を $a_1e^{i\delta_1}, a_2e^{i\delta_2}$ とおくと平均値の線形性より
 \begin{align}
   s_0 & = \langle a_1^2\rangle + \langle a_2^2\rangle \\
   s_1 & = \langle a_1^2\rangle - \langle a_2^2\rangle \\
@@ -803,12 +831,12 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
   \item 太陽の光や白熱電球の光はまったく偏光していない状態 ($p = 0$) にあります. それに比べて, レーザーの光は完全偏光状態にごく近いです ($p \approx 1$).
 \end{enumerate}
 
-\section{helicity とは何か？}
+\subsection{helicity とは何か？}
 \subsection{電磁波の角運動量のスピン部分と軌道部分}
 \textbf{Q 21B-50.}
 電磁波の角運動量 $\LL$ は次のようであった.
 \begin{align}
-  \LL & = \frac{1}{4\pi c}\iiint_{\RR^3}dV(\rr)\rr\times(\EE\times\BB)
+  \LL & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\rr\times(\EE\times\BB)
 \end{align}
 中身の部分を $\BB = \vnabla\times\AA$ を用いて展開すると
 \begin{align}
@@ -823,8 +851,8 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \end{align}
 ただし
 \begin{align}
-  \LL_{spin}  & = \frac{1}{4\pi c}\iiint_{\RR^3}dV(\rr)\EE\times\AA                             \\
-  \LL_{orbit} & = \frac{1}{4\pi c}\iiint_{\RR^3}dV(\rr)\sum_{j=x,y,z}\EE_j(\rr\times\vnabla)A_j
+  \LL_{spin}  & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\EE\times\AA                             \\
+  \LL_{orbit} & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\sum_{j=x,y,z}\EE_j(\rr\times\vnabla)A_j
 \end{align}
 である. \\
 
@@ -832,15 +860,15 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 円偏光の基底ベクトルの定義より,
 \begin{align}
   \ee_\pm(\kk)\times\frac{\kk}{|\kk|}
-   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm \ii\ee_2(\kk))\times\frac{\kk}{|\kk|}                                    \\
-   & = \frac{1}{\sqrt{2}}\qty(-\ee_2(\kk) \pm \ii\ee_1(\kk))                                                          \\
-   & = \pm\ii\ee_\pm(\kk)                                                                                             \\
+   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm i\ee_2(\kk))\times\frac{\kk}{|\kk|}                                  \\
+   & = \frac{1}{\sqrt{2}}\qty(-\ee_2(\kk) \pm i\ee_1(\kk))                                                        \\
+   & = \pm i\ee_\pm(\kk)                                                                                          \\
   \ee_\pm(\kk)\times\ee_\pm(\kk)
-   & = 0                                                                                                              \\
+   & = 0                                                                                                          \\
   \ee_\pm(\kk)\times\ee_\mp(\kk)
-   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm \ii\ee_2(\kk))\times\frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \mp \ii\ee_2(\kk)) \\
-   & = \mp\ii\ee_1(\kk)\times\ee_2(\kk)                                                                               \\
-   & = \mp\ii\frac{\kk}{|\kk|}
+   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm i\ee_2(\kk))\times\frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \mp i\ee_2(\kk)) \\
+   & = \mp i\ee_1(\kk)\times\ee_2(\kk)                                                                            \\
+   & = \mp i\frac{\kk}{|\kk|}
 \end{align}
 となる. \\
 
@@ -851,46 +879,46 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \end{align}
 このとき次の式が導かれる.
 \begin{align}
-  \ee_\pm(-\kk) & = \frac{1}{\sqrt{2}}\qty(\ee_1(-\kk)\pm\ii\ee_2(-\kk)) \\
-                & = \frac{1}{\sqrt{2}}\qty(\ee_2(\kk)\pm\ii\ee_1(\kk))   \\
-                & = \pm\ii\ee_\mp(\kk)
+  \ee_\pm(-\kk) & = \frac{1}{\sqrt{2}}\qty(\ee_1(-\kk)\pm i\ee_2(-\kk)) \\
+                & = \frac{1}{\sqrt{2}}\qty(\ee_2(\kk)\pm i\ee_1(\kk))   \\
+                & = \pm i\ee_\mp(\kk)
 \end{align}
 
 \textbf{Q 21B-53}
 $\AA$ について Fourier 変換すると次のようになる.
 \begin{align}
-  \AA(\rr, t) & = \sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}}
+  \AA(\rr, t) & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}
 \end{align}
 このとき $\vnabla\vdot\AA$ について基底ベクトルの直交性より
 \begin{align}
-  \vnabla\vdot\AA & = \sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ii\kk\vdot\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} - \ii\kk\vdot\ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}} \\
+  \vnabla\vdot\AA & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{i\kk\vdot\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - i\kk\vdot\ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}} \\
                   & = 0
 \end{align}
 また電場 $\EE$ と磁場 $\BB$ について
 \begin{align}
-  \EE(\rr, t) = -\frac{1}{c}\pdv{\AA}{t} & = \frac{1}{c}\sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\ii\omega(\kk)\qty{\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}} \\
-                                         & = \sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\ii|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}}                  \\
-  \BB(\rr, t) = \vnabla\times\AA         & = \sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}|\kk|\qty{j\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + j\ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}}
+  \EE(\rr, t) = -\frac{1}{c}\pdv{\AA}{t} & = \frac{1}{c}\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i\omega(\kk)\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}} \\
+                                         & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}                  \\
+  \BB(\rr, t) = \vnabla\times\AA         & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}|\kk|\qty{j\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + j\ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}
 \end{align}
 となる. \\
 
 \textbf{Q 21B-54.}
 Diracのデルタ関数の公式より
 \begin{align}
-         & \iiint_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)                                                                                                                                                                    \\
-  =      & \iiint_{\RR^3}dV(\rr)\qty(\sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}})                \\
-  \times & \qty(\sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\ii|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-\ii(\kk\vdot\rr - \omega(\kk)t)}})                             \\
-  =      & \iiint_{\RR^3}dV(\rr)\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\iiint_{\RR^3}\frac{dV(\kk')}{(2\pi)^3}\ii|\kk|\frac{\kk}{|\kk|}                                                                                          \\
-         & \sum_{j=\pm}\qty{2j(a_j(\kk)a_j^*(\kk'))e^{j\ii((\kk - \kk')\vdot\rr)} + ja_j(\kk)a_j(-\kk')e^{\ii(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)} - ja_j^*(\kk)a_j^*(-\kk')e^{-\ii(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)}} \\
-  =      & \sum_{j=\pm}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{2j|a_j(\kk)|^2 + \ii a_j(\kk)a_j(-\kk)e^{-2\ii\omega(\kk)t} - \ii a_j^*(\kk)a_j^*(-\kk)e^{2\ii\omega(\kk)t}}
+         & \int_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)                                                                                                                                                                \\
+  =      & \int_{\RR^3}dV(\rr)\qty(\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}})                  \\
+  \times & \qty(\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}})                               \\
+  =      & \int_{\RR^3}dV(\rr)\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\int_{\RR^3}\frac{dV(\kk')}{(2\pi)^3}i|\kk|\frac{\kk}{|\kk|}                                                                                            \\
+         & \sum_{j=\pm}\qty{2j(a_j(\kk)a_j^*(\kk'))e^{ji((\kk - \kk')\vdot\rr)} + ja_j(\kk)a_j(-\kk')e^{i(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)} - ja_j^*(\kk)a_j^*(-\kk')e^{-i(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)}} \\
+  =      & \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{2j|a_j(\kk)|^2 + i a_j(\kk)a_j(-\kk)e^{-2i\omega(\kk)t} - i a_j^*(\kk)a_j^*(-\kk)e^{2i\omega(\kk)t}}
 \end{align}
 これより, この時間平均は次のようになる.
 \begin{align}
-  \left\langle\iiint_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)\right\rangle = 2\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
+  \left\langle\int_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)\right\rangle = 2\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
 \end{align}
 したがって角運動量のスピン成分 $\LL_{spin}$ の時間平均は次のようになる.
 \begin{align}
-  \langle\LL_{spin}\rangle & = \frac{1}{2\pi c}\iiint_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
+  \langle\LL_{spin}\rangle & = \frac{1}{2\pi c}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
 \end{align}
 
 これより次のようなことを教えてくれる.
@@ -907,7 +935,7 @@ Diracのデルタ関数の公式より
 \textbf{Q21B-55.}
 このとき円偏光の近似的平面波の電場の複素表示 $\ET(x,y,z,t)$ を次のように与える.
 \begin{align}
-  \ET(x,y,z,t) & = \qty{f(x,y)(\vb{e}_x\pm\ii\vb{e}_y) + g(x,y)\vb{e}_z}e^{\ii(\kk z-\omega t)} \label{def ET D}
+  \ET(x,y,z,t) & = \qty{f(x,y)(\vb{e}_x\pm i\vb{e}_y) + g(x,y)\vb{e}_z}e^{i(\kk z-\omega t)} \label{def ET D}
 \end{align}
 また, 復号 $\pm$ により, 2つの円偏光を同時に考察する.
 \begin{align}
@@ -918,8 +946,8 @@ Diracのデルタ関数の公式より
 \end{align}
 このとき $f(x,y), g(x,y)$ にはMaxwellの方程式より次のような関係がある.
 \begin{align}
-  \nabla\vdot\ET(x,y,z,t) & = \pdv{f(x,y)}{x}\pm\ii\pdv{f(x,y)}{y} - \ii kg(x,y) = 0  \\
-  g(x,y)                  & = \frac{\ii}{k}\qty{\pdv{f(x,y)}{x}\pm\ii\pdv{f(x,y)}{y}}
+  \nabla\vdot\ET(x,y,z,t) & = \pdv{f(x,y)}{x}\pm i\pdv{f(x,y)}{y} - i kg(x,y) = 0  \\
+  g(x,y)                  & = \frac{i}{k}\qty{\pdv{f(x,y)}{x}\pm i\pdv{f(x,y)}{y}}
 \end{align}
 これより両辺を領域 D で積分すると近似によって
 \begin{align}
@@ -930,15 +958,15 @@ Diracのデルタ関数の公式より
 \textbf{Q 21B-56.}
 Coulomb ゲージよりベクトルポテンシャル $\tilde{\AA}$ について次の式が成り立つ.
 \begin{align}
-  \ET         & = -\frac{1}{c}\pdv{\tilde{\AA}}{t}      \\
-  \tilde{\AA} & = -c\int\ET dt = \frac{c}{\ii\omega}\ET
+  \ET         & = -\frac{1}{c}\pdv{\tilde{\AA}}{t}    \\
+  \tilde{\AA} & = -c\int\ET dt = \frac{c}{i\omega}\ET
 \end{align}
 
 \textbf{Q 21B-57.}
 同様に Coulomb ゲージより磁場 $\tilde{\BB}$ について次の式が成り立つ.
 \begin{align}
-  \tilde{\BB} & = \vnabla\times\tilde{\AA} = \frac{c}{\ii\omega}\vnabla\times\ET                                \\
-              & = \qty(\pm kf + \pdv{g}{y}, ikf -\pdv{g}{x}, \pm\ii\pdv{f}{x} - \pdv{f}{y})e^{\ii(kz-\omega t)} \\
+  \tilde{\BB} & = \vnabla\times\tilde{\AA} = \frac{c}{i\omega}\vnabla\times\ET                               \\
+              & = \qty(\pm kf + \pdv{g}{y}, ikf -\pdv{g}{x}, \pm i\pdv{f}{x} - \pdv{f}{y})e^{i(kz-\omega t)} \\
               & \sim \pm k\ET
 \end{align}
 ただしオーダー $O((\frac{1}{kL})^2)$ の項は無視する近似を用いた. \\
@@ -955,55 +983,55 @@ Coulomb ゲージよりベクトルポテンシャル $\tilde{\AA}$ について
 \textbf{Q 21B-59.}
 関数 $f(x,y)$ が円筒対称性を持つときを考える. つまり $f(x,y)$ は xy 平面の極座標 $(\rho, \varphi)$ として $\rho=\sqrt{x^2 + y^2}$ のみの関数となる. このとき関数 $g(x,y)$ は次のように表される.
 \begin{align}
-  g & = \frac{\ii}{k}\qty(\pdv{f}{\rho}\pdv{\rho}{x}\pm\ii\pdv{f}{\rho}\pdv{\rho}{y}) \\
-    & = \frac{\ii}{k}e^{\pm\ii\varphi}\dv{f}{\rho} \label{def g}
+  g & = \frac{i}{k}\qty(\pdv{f}{\rho}\pdv{\rho}{x}\pm i\pdv{f}{\rho}\pdv{\rho}{y}) \\
+    & = \frac{i}{k}e^{\pm i\varphi}\dv{f}{\rho} \label{def g}
 \end{align}
 
 \textbf{Q 21B-60.}
 角運動量のスピン部分 $\LL_{spin}$ を求める.
 \begin{align}
-  \EE \times \AA & = \frac{c}{\omega}\Re\ET\times\Im\ET                                                                                                                           \\
-                 & = \frac{c}{2\omega}\Im\qty(\ET^*\times\ET)                                                                                                                     \\
-                 & = \frac{c}{2\omega}\Im\qty(\qty(\mp 2\ii\Re(f^*g), -2\ii\Im(f^*g), \pm 2\ii|f|^2))                                                                             \\
-                 & = \frac{c}{2\omega}\qty(\mp 2\Re(f^*g), -2\Im(f^*g), \pm 2|f|^2)                                                                                               \\
-  \Re(f^*g)      & = \Re\qty(f^*\qty(\frac{\ii}{k}e^{\pm\ii\varphi}\dv{f}{\rho})) = \frac{1}{k}\qty{\mp\sin\varphi\Re\qty(f^*\dv{f}{\rho}) - \cos\varphi\Im\qty(f^*\dv{f}{\rho})} \\
-  \Im(f^*g)      & = \Im\qty(f^*\qty(\frac{\ii}{k}e^{\pm\ii\varphi}\dv{f}{\rho})) = \frac{1}{k}\qty{\cos\varphi\Re\qty(f^*\dv{f}{\rho}) \mp \sin\varphi\Im\qty(f^*\dv{f}{\rho})}
+  \EE \times \AA & = \frac{c}{\omega}\Re\ET\times\Im\ET                                                                                                                        \\
+                 & = \frac{c}{2\omega}\Im\qty(\ET^*\times\ET)                                                                                                                  \\
+                 & = \frac{c}{2\omega}\Im\qty(\qty(\mp 2i\Re(f^*g), -2i\Im(f^*g), \pm 2i|f|^2))                                                                                \\
+                 & = \frac{c}{2\omega}\qty(\mp 2\Re(f^*g), -2\Im(f^*g), \pm 2|f|^2)                                                                                            \\
+  \Re(f^*g)      & = \Re\qty(f^*\qty(\frac{i}{k}e^{\pm i\varphi}\dv{f}{\rho})) = \frac{1}{k}\qty{\mp\sin\varphi\Re\qty(f^*\dv{f}{\rho}) - \cos\varphi\Im\qty(f^*\dv{f}{\rho})} \\
+  \Im(f^*g)      & = \Im\qty(f^*\qty(\frac{i}{k}e^{\pm i\varphi}\dv{f}{\rho})) = \frac{1}{k}\qty{\cos\varphi\Re\qty(f^*\dv{f}{\rho}) \mp \sin\varphi\Im\qty(f^*\dv{f}{\rho})}
 \end{align}
 ここで $xy$ 面内では電磁波が実質的にゼロでない領域を内部に含み, $z$ 方向には十分に長い体積 $V$ を取る. このとき $xy$ 面内では円筒対称に近似的平面波となっているので相殺して十分小さくなる, よって次のようになる.
 \begin{align}
-  \LL_{spin} & = \frac{1}{4\pi c}\iiint_V dV(\rr)\EE\times\AA               \\
-             & = \pm\frac{1}{4\pi\omega}\qty(\iiint_V dV(\rr)|f|^2)\vb{e}_z
+  \LL_{spin} & = \frac{1}{4\pi c}\int_V dV(\rr)\EE\times\AA               \\
+             & = \pm\frac{1}{4\pi\omega}\qty(\int_V dV(\rr)|f|^2)\vb{e}_z
 \end{align}
 
 \textbf{Q 21B-61.}
 角運動量の軌道部分 $\LL_{orbit}$ を求める. Einsteinの縮約を用いて
 \begin{align}
   E_j(\rr\times\vnabla)A_j
-                    & = \frac{c}{\omega}\qty{\Re(\Et_j)(\rr\times\vnabla)\Im(\Et_j)}                                                                                                                                                                                                                                       \\
-                    & = \frac{c}{2\omega}\qty{\Im\qty(\Et_j(\rr\times\vnabla)\Et_j) + \Im\qty(\Et_j^*(\rr\times\vnabla)\Et_j)}                                                                                                                                                                                             \\
+                    & = \frac{c}{\omega}\qty{\Re(\Et_j)(\rr\times\vnabla)\Im(\Et_j)}                                                                                                                                                                                                                        \\
+                    & = \frac{c}{2\omega}\qty{\Im\qty(\Et_j(\rr\times\vnabla)\Et_j) + \Im\qty(\Et_j^*(\rr\times\vnabla)\Et_j)}                                                                                                                                                                              \\
   \Et_j(\rr\times\vnabla)\Et_j
-                    & = f\mqty|\vb{e}_x                                                                                                                                                                                                                                                              & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & \ii kf | e^{2\ii(\kk z-\omega t)} + \ii f\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \ii\pdv{f}{y} & \ii\pdv{f}{y} & -kf | e^{2\ii(\kk z-\omega t)} + g\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg | e^{2\ii(\kk z-\omega t)} \\
-                    & = g\mqty|\vb{e}_x                                                                                                                                                                                                                                                              & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg | e^{2\ii(\kk z-\omega t)} \\
+                    & = f\mqty|\vb{e}_x                                                                                                                                                                                                                                               & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & i kf | e^{2i(\kk z-\omega t)} + i f\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ i\pdv{f}{y} & i\pdv{f}{y} & -kf | e^{2i(\kk z-\omega t)} + g\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg | e^{2i(\kk z-\omega t)} \\
+                    & = g\mqty|\vb{e}_x                                                                                                                                                                                                                                               & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg | e^{2i(\kk z-\omega t)} \\
   \Et_j^*(\rr\times\vnabla)\Et_j
-                    & = f^*\mqty|\vb{e}_x                                                                                                                                                                                                                                                            & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & \ii kf | - \ii f^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \ii\pdv{f}{y} & \ii\pdv{f}{y} & - kf | + g^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg | \\
-                    & = 2f^*\mqty|\vb{e}_x                                                                                                                                                                                                                                                           & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & \ii kf | + g^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg | \\
-  g\mqty|\vb{e}_x   & \vb{e}_y                                                                                                                                                                                                                                                                       & \vb{e}_z            \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg |
-                    & = \frac{\ii}{k}\dv{f}{\rho}e^{\pm\ii\varphi}\frac{\ii}{k}\qty[\ii ky\dv{f}{\rho}e^{\pm\ii\varphi} - z\qty{\pdv{}{y}\dv{f}{\rho}e^{\pm\ii\varphi}}, z\qty{\pdv{}{x}\dv{f}{\rho}e^{\pm\ii\varphi}} - \ii kx\dv{f}{\rho}e^{\pm\ii\varphi}, \pm\ii\dv{f}{\rho}e^{\pm\ii\varphi}]^t                       \\
-                    & = -\frac{1}{k^2}\dv{f}{\rho}e^{\pm 2\ii\varphi}\left[\ii k\rho\sin\varphi\dv{f}{\rho} - z\qty{\sin\varphi\dv[2]{f}{\rho} \pm \frac{\ii\cos\varphi}{\rho}\dv{f}{\rho}},\right.                                                                                                                        \\
-                    & \quad \left. z\qty{\cos\varphi\dv[2]{f}{\rho} \mp \frac{\ii\sin\varphi}{\rho} \dv{f}{\rho}} - \ii k\rho\cos\varphi\dv{f}{\rho}, \pm\ii\dv{f}{\rho}\right]^t                                                                                                                                          \\
-  g^*\mqty|\vb{e}_x & \vb{e}_y                                                                                                                                                                                                                                                                       & \vb{e}_z            \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & \ii kg |
-                    & = \frac{1}{k^2}\qty(\dv{f}{\rho})^*\left[\ii k\rho\sin\varphi\dv{f}{\rho} - z\qty{\sin\varphi\dv[2]{f}{\rho} \pm \frac{\ii\cos\varphi}{\rho}\dv{f}{\rho}},\right.                                                                                                                                    \\
-                    & \quad \left. z\qty{\cos\varphi\dv[2]{f}{\rho} \mp \frac{\ii\sin\varphi}{\rho} \dv{f}{\rho}} - \ii k\rho\cos\varphi\dv{f}{\rho}, \pm\ii\dv{f}{\rho}\right]^t                                                                                                                                          \\
-  f^*\mqty|\vb{e}_x & \vb{e}_y                                                                                                                                                                                                                                                                       & \vb{e}_z            \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & \ii kf |
-                    & = f^* \qty[\ii kyf - z\pdv{f}{y}, z\pdv{f}{x} - \ii kxf, x\pdv{f}{y} - y\pdv{f}{x}]^t                                                                                                                                                                                                                \\
-                    & = f^* \qty(\ii k\rho f - z\dv{f}{\rho})\qty[\sin\varphi, -\cos\varphi, 0]^t
+                    & = f^*\mqty|\vb{e}_x                                                                                                                                                                                                                                             & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & i kf | - i f^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ i\pdv{f}{y} & i\pdv{f}{y} & - kf | + g^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg | \\
+                    & = 2f^*\mqty|\vb{e}_x                                                                                                                                                                                                                                            & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & i kf | + g^*\mqty|\vb{e}_x                                                                                        & \vb{e}_y & \vb{e}_z \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg | \\
+  g\mqty|\vb{e}_x   & \vb{e}_y                                                                                                                                                                                                                                                        & \vb{e}_z            \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg |
+                    & = \frac{i}{k}\dv{f}{\rho}e^{\pm i\varphi}\frac{i}{k}\qty[i ky\dv{f}{\rho}e^{\pm i\varphi} - z\qty{\pdv{}{y}\dv{f}{\rho}e^{\pm i\varphi}}, z\qty{\pdv{}{x}\dv{f}{\rho}e^{\pm i\varphi}} - i kx\dv{f}{\rho}e^{\pm i\varphi}, \pm i\dv{f}{\rho}e^{\pm i\varphi}]^t                       \\
+                    & = -\frac{1}{k^2}\dv{f}{\rho}e^{\pm 2i\varphi}\left[i k\rho\sin\varphi\dv{f}{\rho} - z\qty{\sin\varphi\dv[2]{f}{\rho} \pm \frac{i\cos\varphi}{\rho}\dv{f}{\rho}},\right.                                                                                                               \\
+                    & \quad \left. z\qty{\cos\varphi\dv[2]{f}{\rho} \mp \frac{i\sin\varphi}{\rho} \dv{f}{\rho}} - i k\rho\cos\varphi\dv{f}{\rho}, \pm i\dv{f}{\rho}\right]^t                                                                                                                                \\
+  g^*\mqty|\vb{e}_x & \vb{e}_y                                                                                                                                                                                                                                                        & \vb{e}_z            \\ x & y & z \\ \pdv{g}{x} & \pdv{g}{y} & i kg |
+                    & = \frac{1}{k^2}\qty(\dv{f}{\rho})^*\left[i k\rho\sin\varphi\dv{f}{\rho} - z\qty{\sin\varphi\dv[2]{f}{\rho} \pm \frac{i\cos\varphi}{\rho}\dv{f}{\rho}},\right.                                                                                                                         \\
+                    & \quad \left. z\qty{\cos\varphi\dv[2]{f}{\rho} \mp \frac{i\sin\varphi}{\rho} \dv{f}{\rho}} - i k\rho\cos\varphi\dv{f}{\rho}, \pm i\dv{f}{\rho}\right]^t                                                                                                                                \\
+  f^*\mqty|\vb{e}_x & \vb{e}_y                                                                                                                                                                                                                                                        & \vb{e}_z            \\ x & y & z \\ \pdv{f}{x} & \pdv{f}{y} & i kf |
+                    & = f^* \qty[i kyf - z\pdv{f}{y}, z\pdv{f}{x} - i kxf, x\pdv{f}{y} - y\pdv{f}{x}]^t                                                                                                                                                                                                     \\
+                    & = f^* \qty(i k\rho f - z\dv{f}{\rho})\qty[\sin\varphi, -\cos\varphi, 0]^t
 \end{align}
-となる. これらを角運動量の軌道部分の定義式に代入して $\sin\psi, \cos\psi, e^{\ii z}$ の依存性があるとき積分すると相殺されることから
+となる. これらを角運動量の軌道部分の定義式に代入して $\sin\psi, \cos\psi, e^{i z}$ の依存性があるとき積分すると相殺されることから
 \begin{align}
-  \LL_{orbit} & = \frac{1}{4\pi c}\iiint_VdV(\rr)E_j(\rr\times\nabla)A_j                                                                   \\
-              & = \frac{1}{8\pi\omega}\iiint_VdV(\rr)\qty{\Im\qty(\Et_j(\rr\times\vnabla)\Et_j) + \Im\qty(\Et_j^*(\rr\times\vnabla)\Et_j)} \\
-              & = \frac{1}{8\pi\omega}\iiint_VdV(\rr)\qty{\Im\qty(\pm\frac{1}{k^2}\qty(\dv{f}{\rho})^*\ii\dv{f}{\rho})}                    \\
-              & = \pm\frac{1}{8\pi\omega}\frac{1}{k^2}\qty(\iiint_VdV(\rr)\qty|\dv{f}{\rho}|^2)\vb{e}_z
+  \LL_{orbit} & = \frac{1}{4\pi c}\int_VdV(\rr)E_j(\rr\times\nabla)A_j                                                                   \\
+              & = \frac{1}{8\pi\omega}\int_VdV(\rr)\qty{\Im\qty(\Et_j(\rr\times\vnabla)\Et_j) + \Im\qty(\Et_j^*(\rr\times\vnabla)\Et_j)} \\
+              & = \frac{1}{8\pi\omega}\int_VdV(\rr)\qty{\Im\qty(\pm\frac{1}{k^2}\qty(\dv{f}{\rho})^*i\dv{f}{\rho})}                      \\
+              & = \pm\frac{1}{8\pi\omega}\frac{1}{k^2}\qty(\int_VdV(\rr)\qty|\dv{f}{\rho}|^2)\vb{e}_z
 \end{align}
 となる. \\
 
@@ -1017,7 +1045,7 @@ Coulomb ゲージよりベクトルポテンシャル $\tilde{\AA}$ について
         \end{align}
   \item よって、xy 平面内での電磁波の広がりを大きくする極限 $1/(kL) \to 0$ において、角運動量の軌道部分 $\LL_{orbit}$ はスピン部分 $\LL_{spin}$ に比べて無視できるようになって、電磁波の全角運動量 $\LL = \LL_{spin} + \LL_{orbit}$ はスピン部分 $\LL_{spin}$ だけからなるようになる:
         \begin{align}
-          \LL \to \LL_{spin} = \pm \frac{1}{4\pi\omega}\qty(\iiint_VdV(\rr)|f|^2)\vb{e}_z \label{L limit}
+          \LL \to \LL_{spin} = \pm \frac{1}{4\pi\omega}\qty(\int_VdV(\rr)|f|^2)\vb{e}_z \label{L limit}
         \end{align}
   \item この結果を見る限り、「平面波の角運動量ベクトルの方向は、偏光状態が左円偏光ならば進行方向に平行であり、偏光状態が右円偏光ならば進行方向に反平行である。」と言える。
 \end{enumerate}
@@ -1025,7 +1053,7 @@ Coulomb ゲージよりベクトルポテンシャル $\tilde{\AA}$ について
 \textbf{Q 21B-63.}
 CGSガウス単位系でのエネルギー密度の総和を考えると
 \begin{align}
-  U = \frac{1}{8\pi}\iiint_VdV(\rr)\qty(\qty|\EE|^2 + \qty|\BB|^2)
+  U = \frac{1}{8\pi}\int_VdV(\rr)\qty(\qty|\EE|^2 + \qty|\BB|^2)
 \end{align}
 式 \eqref{def ET D}, \eqref{B tilde E}, \eqref{def g} より
 \begin{align}
@@ -1035,9 +1063,9 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
 \end{align}
 となるので
 \begin{align}
-  U         & = U_{spin} + U_{orbit}                                 \\
-  U_{spin}  & = \frac{1}{4\pi}\iiint_VdV(\rr)|f|^2                   \\
-  U_{orbit} & = \frac{1}{8k^2\pi}\iiint_VdV(\rr)\qty|\dv{f}{\rho}|^2 \\
+  U         & = U_{spin} + U_{orbit}                               \\
+  U_{spin}  & = \frac{1}{4\pi}\int_VdV(\rr)|f|^2                   \\
+  U_{orbit} & = \frac{1}{8k^2\pi}\int_VdV(\rr)\qty|\dv{f}{\rho}|^2 \\
 \end{align}
 次の式より電磁場の広がりを十分大きくすると $U_{spin}$ が主要項となる.
 \begin{align}
@@ -1062,8 +1090,6 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
 \end{align}
 このように helicity とは光子の角運動量の進行方向の成分を $\hbar$ 単位で測った量である.
 
-\section{特殊相対論}
-
 \section{誘電体中の電磁気学}
 \subsection{導体}
 \begin{definition}[導体]
@@ -1072,6 +1098,7 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
     \item 導体内部に電場は存在しない。
     \item 導体内部に電荷はなく、表面のみに電荷が分布する。
   \end{enumerate}
+  等電位面、誘導電荷
 \end{definition}
 導体全体で電位は一定、
 
