@@ -381,7 +381,7 @@
   \end{align}
   ただし $\chi$ が正ならば右偏光、負ならば左偏光である。特に $\chi = \pm \pi/4$ が円偏光、$\chi = 0$ が直線偏光である。
 \end{definition}
-\section{Stokes パラメータ}
+\subsection{Stokes パラメータ}
 波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は \eqref{E def} 式より4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{\ii \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
 
 \begin{enumerate}
@@ -580,9 +580,6 @@
   \end{align}
 \end{proof}
 
-\subsection{電場の光学の規約による複素表示 $\EC$ を用いて}
-
-
 \textbf{Q 21B-31.}
 また上式の考察より次のように偏光の向きも逆転する.
 \begin{align}
@@ -593,7 +590,6 @@
    & \iff \textrm{「円偏光は左偏光である。」}          \\
    & \iff \textrm{「helicity が $+1$ である。」}
 \end{align}
-\\
 
 また光の強度 $I$ について Jones ベクトル $\JJ$ の絶対値の二乗に比例することが分かる.
 \begin{align}
@@ -603,7 +599,7 @@
     & = \frac{1}{2}|\JJ|^2 \label{Jones strength}
 \end{align}
 
-\section{Stokes パラメータの測定}
+\subsection{Stokes パラメータの測定}
 \begin{definition}[光学素子]
   \begin{enumerate}
     \item 直線偏光子（linear polarizer）とは、入力の電磁波をその透過軸（transmission asix）とそれに垂直な軸に沿った 2 つの直線偏光の成分に分解したとき、出力においては、前者の成分を透過するのに、後者の成分を遮断するような光学素子です。この作用は線形です。ですから、直線偏光子は対応する Jones 行列によって数学的には表現されます。
@@ -615,155 +611,155 @@
 
 Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれらが直接的に観測可能な物理量であることである. どのように測定可能なのかを学習する.
 
-\subsection{直線偏光子を用いると何が測定できるか？}
 
 任意の光学素子を取り上げると, Jones ベクトルの変換は表現論より行列 $M(2; \CC)$ で書ける. これを Jones 行列と呼ぶ. また素子の1つとして直線偏光子があり, 最も単純な直線偏光子は針金格子偏光子 (wire grid polarizer) でしょう. 電磁場の波よりもずっと細い直径を持つ直線状の伝導性の良い金属の針金を多数用意し, それらを波長 $\lambda$ よりずっと狭い間隔だけ離して等間隔に並行に板状に並べる.このような板状の物体が「針金格子偏光子」である. \\
 
-\textbf{Q 21B-37.}
-すきまと並行な成分において定常波を作ることができない為, 電磁波を通さない. よって「針金格子偏光子の透過軸は, 針金が並べられた面内で, すきまと垂直な方向である」. \\
+すきまと並行な成分において定常波を作ることができない為, 電磁波を通さない. よって「針金格子偏光子の透過軸は, 針金が並べられた面内で, すきまと垂直な方向である」
 
-\textbf{Q 21B-38.}
-1軸 $\ee_1(\kk)$ から測った角度が $\theta$ であるときの直線偏光子の Jones 行列を $T^{\textrm{直線偏光子}}(\theta)$ とおく. このとき, 直線偏光子の定義より
-\begin{align}
-  T^{\textrm{直線偏光子}}(0)                 & = \mqty[1 & 0 \\ 0 & 0] \\
-  T^{\textrm{直線偏光子}}\qty(\frac{\pi}{2}) & = \mqty[0 & 0 \\ 0 & 1]
-\end{align}
-となる. \\
+\begin{proposition}
+  Jones 行列が $T$ の光学素子 $d$ について角度 $\theta$ だけ回転させた光学素子を $d(\theta)$ として, その Jones 行列 $T(\theta)$ について回転させた座標系で $T$ を適用していると考えられる為, 次のような関係式が成り立つ.
+  \begin{align}
+    T(\theta) = R(\theta)TR(-\theta)
+  \end{align}
+\end{proposition}
+\begin{theorem}
+  直線偏光子は同じ角度で何度通しても同じ結果となる。
+  また次のように行列 $T^{\textrm{直線偏光子}}(\theta)$ は射影演算子を表す行列であることが分かる.
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    T^{\textrm{直線偏光子}}(\theta)         & = R(\theta)T^{\textrm{直線偏光子}}(0)R(-\theta)                        \\
+                                       & = \mqty(\cos\theta                         & -\sin\theta          \\ \sin\theta & \cos\theta)\mqty(1                                  & 0                    \\ 0 & 0)\mqty(\cos\theta & \sin\theta \\ -\sin\theta & \cos\theta) \\
+                                       & = \mqty(\cos^2\theta                       & \cos\theta\sin\theta \\ \sin\theta\cos\theta & \sin^2\theta) \\
+    \qty{T^{\textrm{直線偏光子}}(\theta)}^2 & = \mqty(\cos^2\theta                       & \cos\theta\sin\theta \\ \sin\theta\cos\theta & \sin^2\theta) \\
+                                       & = T^{\textrm{直線偏光子}}(\theta)
+  \end{align}
+\end{proof}
 
-\textbf{Q 21B-39.}
-Jones 行列が $T$ の光学素子 $d$ について角度 $\theta$ だけ回転させた光学素子を $d(\theta)$ として, その Jones 行列 $T(\theta)$ について回転させた座標系で $T$ を適用していると考えられる為, 次のような関係式が成り立つ.
-\begin{align}
-  T(\theta) = R(\theta)TR(-\theta)
-\end{align}
+\begin{theorem}
+  一般の偏光状態 $\JJ = [\Ec_1, \Ec_2]^t\in\CC^2$ の光を直線偏光子 $T^{\textrm{直線偏光子}}(\theta)$ に通したときの出力の光の強度 $I(\theta)$ を考える.
+  これを Malus の法則と呼ぶ
+  特に水平状態 $\JJ = [\Ec, 0]^t\in\CC^2$ の光のとき
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    I(\theta) & = \frac{1}{2}\qty|T^{\textrm{直線偏光子}}(\theta)\JJ|^2                                                                                     \\
+              & = \frac{1}{2}\JJ^\dagger\qty{T^{\textrm{直線偏光子}}(\theta)}^\dagger T^{\textrm{直線偏光子}}(\theta)\JJ                                         \\
+              & = \frac{1}{2}\JJ^\dagger T^{\textrm{直線偏光子}}(\theta)\JJ                                                                                 \\
+              & = \frac{1}{2}\qty(|\Ec_1|^2\cos^2\theta + |\Ec_2|^2\sin^2\theta + (\Ec_1^*\Ec_2 + \Ec_1\Ec_2^*)\cos\theta\sin\theta)                   \\
+              & = \frac{1}{4}\qty(|\Ec_1|^2 + |\Ec_2|^2) + \frac{1}{4}\qty(|\Ec_1|^2 - |\Ec_2|^2)\cos2\theta + \frac{1}{2}\Re(\Ec_1^*\Ec_2)\sin2\theta \\
+              & = \frac{1}{4}\qty(s_0 + s_1\cos2\theta + s_2\sin2\theta)                                                                               \\
+              & = \frac{1}{4}\qty(s_0 + \sqrt{s_1^2 + s_2^2}\cos(2\theta - \varphi))
+  \end{align}
+  ただし、
+  \begin{align}
+    \cos\varphi = \frac{s_1}{\sqrt{s_1^2 + s_2^2}}, \sin\varphi = \frac{s_2}{\sqrt{s_1^2 + s_2^2}}
+  \end{align}
+  である. これらは次の極めて重要な事実を教えてくれている.
+  「与えられた単色光の Stokes パラメータのうちの 3 個 $s_0, s_1, s_2$ は, その光をいろいろな角度 $\theta$ に傾けた直線偏光子に透過して強度を測定することによって決定できる.」 \\
+  \begin{align}
+    I(\theta) & = \frac{1}{2}\qty|T^{\textrm{直線偏光子}}(\theta)\mqty[\Ec \\ 0]|^2 \\
+              & = \frac{1}{2}\qty|\Ec\mqty[\cos^2\theta               \\ \cos\theta\sin\theta]|^2 \\
+              & = \frac{1}{2}|\Ec|^2\cos^2\theta                      \\
+              & = I(0)\cos^2\theta
+  \end{align}
+\end{proof}
+\begin{theorem}
+  \begin{align}
+    s_0 & \propto (\textrm{全強度})                                                        \\
+    s_1 & \propto (\textrm{水平偏光成分の強度}) - (\textrm{鉛直偏光成分の強度})                           \\
+    s_2 & \propto (+45\textrm{\textdegree 偏光成分の強度}) - (-45\textrm{\textdegree 偏光成分の強度})
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    I(0) & = s_0 + s_1, \qquad I\qty(\frac{\pi}{4}) = s_0 + s_2, \qquad I\qty(\frac{\pi}{2}) = s_0 - s_1, \qquad I\qty(\frac{3\pi}{4}) = s_0 - s_2
+  \end{align}
+  よって Stokes パラメータ $s_0, s_1, s_2$ は次のように表される。
+  \begin{align}
+    s_0 & = 2\qty{I(0) + I\qty(\frac{\pi}{2})}                  \\
+        & = 2\qty{I\qty(\frac{\pi}{4}) + I\qty(\frac{\pi}{2})}  \\
+    s_1 & = 2\qty{I(0) - I\qty(\frac{\pi}{2})}                  \\
+    s_2 & = 2\qty{I\qty(\frac{\pi}{4}) - I\qty(\frac{3\pi}{4})}
+  \end{align}
+  これらは次の意味を表す。
+\end{proof}
 
-\textbf{Q 21B-40.}
-直線偏光子の Jones 行列について上での考察より次のようになる.
-\begin{align}
-  T^{\textrm{直線偏光子}}(\theta) & = R(\theta)T^{\textrm{直線偏光子}}(0)R(-\theta)                        \\
-                             & = \mqty[\cos^2\theta                       & \cos\theta\sin\theta \\ \sin\theta\cos\theta & \sin^2\theta]
-\end{align}
-また次のように行列 $T^{\textrm{直線偏光子}}(\theta)$ は射影演算子を表す行列であることが分かる.
-\begin{align}
-  \qty{T^{\textrm{直線偏光子}}(\theta)}^2
-   & = \mqty[\cos^2\theta                       & \cos\theta\sin\theta \\ \sin\theta\cos\theta & \sin^2\theta] \\
-   & = \qty{T^{\textrm{直線偏光子}}(\theta)}^\dagger                        \\
-   & = T^{\textrm{直線偏光子}}(\theta)
-\end{align}
-
-\textbf{Q 21B-41.}
-水平状態 $\JJ = [\Ec, 0]^t\in\CC^2$ の光を直線偏光子 $T^{\textrm{直線偏光子}}(\theta)$ に通したときの出力の光の強度 $I(\theta)$ を考える. 式 \eqref{Jones strength} より Jones ベクトルを用いて光の強度を表せられる.
-\begin{align}
-  I(\theta) & = \frac{1}{2}\qty|T^{\textrm{直線偏光子}}(\theta)\mqty[\Ec \\ 0]|^2 \\
-            & = \frac{1}{2}\qty|\Ec\mqty[\cos^2\theta               \\ \cos\theta\sin\theta]|^2 \\
-            & = \frac{1}{2}|\Ec|^2\cos^2\theta                      \\
-            & = I(0)\cos^2\theta
-\end{align}
-これを Malus の法則と呼ぶ. \\
-
-\textbf{Q 21B-42.}
-一般の偏光状態 $\JJ = [\Ec_1, \Ec_2]^t\in\CC^2$ の光を直線偏光子 $T^{\textrm{直線偏光子}}(\theta)$ に通したときの出力の光の強度 $I(\theta)$ を考える.
-\begin{align}
-  I(\theta) & = \frac{1}{2}\qty|T^{\textrm{直線偏光子}}(\theta)\JJ|^2                                                                                     \\
-            & = \frac{1}{2}\JJ^\dagger\qty{T^{\textrm{直線偏光子}}(\theta)}^\dagger T^{\textrm{直線偏光子}}(\theta)\JJ                                         \\
-            & = \frac{1}{2}\JJ^\dagger T^{\textrm{直線偏光子}}(\theta)\JJ                                                                                 \\
-            & = \frac{1}{2}\qty(|\Ec_1|^2\cos^2\theta + |\Ec_2|^2\sin^2\theta + (\Ec_1^*\Ec_2 + \Ec_1\Ec_2^*)\cos\theta\sin\theta)                   \\
-            & = \frac{1}{4}\qty(|\Ec_1|^2 + |\Ec_2|^2) + \frac{1}{4}\qty(|\Ec_1|^2 - |\Ec_2|^2)\cos2\theta + \frac{1}{2}\Re(\Ec_1^*\Ec_2)\sin2\theta \\
-            & = \frac{1}{4}\qty{s_0 + s_1\cos2\theta + s_2\sin2\theta} \label{I s012}                                                                \\
-            & = \frac{1}{4}\qty{s_0 + \sqrt{s_1^2 + s_2^2}\cos(2\theta - \varphi)}
-\end{align}
-ただし,
-\begin{align}
-  \cos\varphi = \frac{s_1}{\sqrt{s_1^2 + s_2^2}}, \sin\varphi = \frac{s_2}{\sqrt{s_1^2 + s_2^2}}
-\end{align}
-である. これらは次の極めて重要な事実を教えてくれている.
-「与えられた単色光の Stokes パラメータのうちの 3 個 $s_0, s_1, s_2$ は, その光をいろいろな角度 $\theta$ に傾けた直線偏光子に透過して強度を測定することによって決定できる.」 \\
-
-\textbf{Q 21B-43.}
-上の事実について具体式を考える. 式 \eqref{I s012} より
-\begin{align}
-  I(0)                  & = s_0 + s_1 \\
-  I\qty(\frac{\pi}{4})  & = s_0 + s_2 \\
-  I\qty(\frac{\pi}{2})  & = s_0 - s_1 \\
-  I\qty(\frac{3\pi}{4}) & = s_0 - s_2
-\end{align}
-よって Stokes パラメータ $s_0, s_1, s_2$ は次のように表される.
-\begin{align}
-  s_0 & = 2\qty{I(0) + I\qty(\frac{\pi}{2})}                  \\
-      & = 2\qty{I\qty(\frac{\pi}{4}) + I\qty(\frac{\pi}{2})}  \\
-  s_1 & = 2\qty{I(0) - I\qty(\frac{\pi}{2})}                  \\
-  s_2 & = 2\qty{I\qty(\frac{\pi}{4}) - I\qty(\frac{3\pi}{4})}
-\end{align}
-これらは次の意味を表す.
-\begin{align}
-  s_0 & \propto (\textrm{全強度})                                                        \\
-  s_1 & \propto (\textrm{水平偏光成分の強度}) - (\textrm{鉛直偏光成分の強度})                           \\
-  s_2 & \propto (+45\textrm{\textdegree 偏光成分の強度}) - (-45\textrm{\textdegree 偏光成分の強度})
-\end{align}
-
-\subsection{$1/4$ 波長板も用いると何が測定できるか？}
-式 \eqref{s3 circle} より $s_3$ は次のような意味を持つ.
 \begin{align}
   s_3 \propto (\textrm{右円偏光成分の強度}) - (\textrm{左円偏光成分の強度})
 \end{align}
 これを測定するにはどうすればよいのか? これは円偏光成分を直線偏光成分に変換できれば測定できる. この変換が $1/4$ 波長板を用いて実行できることをここで学ぶ. \\
 
-遅相子 (wave retarder) は直線偏光成分のうちの片方をもう片方に対して一定の位相だけ遅らせる変換を行い出力する光学素子である.
-\begin{align}
-  T^{\textrm{遅相子}}(\phi) = \mqty[e^{\ii\frac{\phi}{2}} & 0 \\ 0 & e^{-\ii\frac{\phi}{2}}]
-\end{align}
-この行列は位相を回転する操作を行うと次と同等となる.
-\begin{align}
-  \mqty[1 & 0 \\ 0 & e^{-\ii\phi}]
-\end{align}
+\begin{definition}
+  遅相子 (wave retarder) は直線偏光成分のうちの片方をもう片方に対して一定の位相だけ遅らせる変換を行い出力する光学素子である.
+  \begin{align}
+    T^{\textrm{遅相子}}(\phi) = \mqty[e^{\ii\frac{\phi}{2}} & 0 \\ 0 & e^{-\ii\frac{\phi}{2}}] = \mqty[1 & 0 \\ 0 & e^{-\ii\phi}]e^{\ii\frac{\phi}{2}}
+  \end{align}
+  $1/2$ 波長板の Jones 行列を次のように定義する。
+  \begin{align}
+    T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty[\ii & 0 \\ 0 & -\ii]
+  \end{align}
+  $1/4$ 波長板の Jones 行列を次のように定義する。
+  \begin{align}
+    T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty[e^{\ii\frac{\pi}{4}} & 0 \\ 0 & e^{-\ii\frac{\pi}{4}}] = \mqty[\frac{1 + \ii}{\sqrt{2}} & 0 \\ 0 & \frac{1 - \ii}{\sqrt{2}}]
+  \end{align}
+\end{definition}
 
-\textbf{Q 21B-44.}
-遅相子に純粋に直線偏光した光を入れることを考える.
-\begin{align}
-  T^{\textrm{遅相子}}(\phi)\mqty[1 \\ 0] & = \mqty[e^{\ii\frac{\phi}{2}} \\ 0] \\
-  T^{\textrm{遅相子}}(\phi)\mqty[0 \\ 1] & = \mqty[0 \\ e^{-\ii\frac{\phi}{2}}]
-\end{align}
-これらは回転する操作を行えば何も変化しないことが分かる. \\
+\begin{proposition}
+  \begin{table}[hbtp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      偏光状態                       & Jones ベクトル                  & 1/2波長板 & 1/4波長板 \\
+      \hline \hline
+      直線偏光                       & $\mqty[1                                      \\ 0]$ & $i\mqty(1 \\ 0)$ & $e^{\ii\frac{\pi}{4}}\mqty(1 \\ 0)$ \\
+      直線偏光                       & $\mqty[0                                      \\ 1]$ & $-i\mqty(0 \\ 1)$ & $e^{-\ii\frac{\pi}{4}}\mqty(0 \\ 1)$ \\
+      直線偏光 ($+45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ 1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ -1)$ & $\dfrac{1 + \ii}{2}\mqty(1 \\ -\ii)$     \\
+      直線偏光 ($-45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ 1)$  & $\dfrac{1 + \ii}{2}\mqty(1 \\ -1)$    \\
+      円偏光(左回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ \ii)$ & $\dfrac{\ii}{\sqrt{2}}\mqty[1 \\ -\ii]$ \\
+      円偏光(右回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -\ii)$ & $\dfrac{\ii}{\sqrt{2}}\mqty[1 \\ \ii]$ \\
+      \hline
+    \end{tabular}
+    \caption{偏光状態}
+  \end{table}
+\end{proposition}
+\begin{proof}
+  遅相子に純粋に直線偏光した光を入れることを考える.
+  \begin{align}
+    T^{\textrm{遅相子}}(\phi)\mqty[1 \\ 0] & = \mqty[e^{\ii\frac{\phi}{2}} \\ 0] \\
+    T^{\textrm{遅相子}}(\phi)\mqty[0 \\ 1] & = \mqty[0 \\ e^{-\ii\frac{\phi}{2}}]
+  \end{align}
+  これらは回転する操作を行えば何も変化しないことが分かる。
 
-\textbf{Q 21B-45.}
-$1/2$ 波長板の Jones 行列を次のように定義する.
-\begin{align}
-  T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty[\ii & 0 \\ 0 & -\ii]
-\end{align}
-これに $+45$\textdegree 方向に直線偏光した光と $-45$\textdegree 方向に直線偏光した光を通すと
-\begin{align}
-  T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -1] \\
-  T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ 1]
-\end{align}
-となり, これは $1/2$ 波長板によって L+45P と L-45P は相互変換する. \\
+  これに $+45$\textdegree 方向に直線偏光した光と $-45$\textdegree 方向に直線偏光した光を通すと
+  \begin{align}
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -1] \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ 1]
+  \end{align}
+  となり, これは $1/2$ 波長板によって L+45P と L-45P は相互変換する. \\
 
-また 右円偏光した光と左円偏光した光を通すと
-\begin{align}
-  T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -\ii] \\
-  T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ \ii]
-\end{align}
-となり, これは $1/2$ 波長板によって RCP と LCP は相互変換する. \\
+  また 右円偏光した光と左円偏光した光を通すと
+  \begin{align}
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ -\ii] \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{\ii}{\sqrt{2}}\mqty[1 \\ \ii]
+  \end{align}
+  となり, これは $1/2$ 波長板によって RCP と LCP は相互変換する. \\
 
-\textbf{Q 21B-46.}
-$1/4$ 波長板の Jones 行列を次のように定義する.
-\begin{align}
-  T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty[e^{\ii\frac{\pi}{4}} & 0 \\ 0 & e^{-\ii\frac{\pi}{4}}] = \mqty[\frac{1 + \ii}{\sqrt{2}} & 0 \\ 0 & \frac{1 - \ii}{\sqrt{2}}]
-\end{align}
-これに L+45P, L-45P を通すとそれぞれ LCP, RCP へ変換されることが分かる.
-\begin{align}
-  T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{1 + \ii}{2}\mqty[1 \\ -\ii] \\
-  T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{1 + \ii}{2}\mqty[1 \\ \ii]
-\end{align}
-同様に RCP, LCP を通すとそれぞれ L+45P, L-45P へ変換されることが分かる.
-\begin{align}
-  T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{1 + \ii}{2}\mqty[1 \\ 1] \\
-  T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{1 + \ii}{2}\mqty[1 \\ -1]
-\end{align}
-光学領域での $1/4$ 波長板はサランラップを半ダースほど向きを揃えて重ねることにより自作できるらしい. \\
+  これに L+45P, L-45P を通すとそれぞれ LCP, RCP へ変換されることが分かる.
+  \begin{align}
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{1 + \ii}{2}\mqty[1 \\ -\ii] \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{1 + \ii}{2}\mqty[1 \\ \ii]
+  \end{align}
+  同様に RCP, LCP を通すとそれぞれ L+45P, L-45P へ変換されることが分かる.
+  \begin{align}
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ \ii] & = \frac{1 + \ii}{2}\mqty[1 \\ 1] \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -\ii] & = \frac{1 + \ii}{2}\mqty[1 \\ -1]
+  \end{align}
+  光学領域での $1/4$ 波長板はサランラップを半ダースほど向きを揃えて重ねることにより自作できるらしい. \\
+\end{proof}
+円偏光した光は $1/4$ 波長板により直線偏光に変換し, その光強度を求めることで右偏光, 左偏光の光強度が求まる。$s_3$ が求まる。
 
-\textbf{Q 21B-47.}
-円偏光した光は $1/4$ 波長板により直線偏光に変換し, その光強度を求めることで右偏光, 左偏光の光強度が求まる. 式 \eqref{s3 circle} より $s3$ が求まる.
-
-\section{準単色光と部分偏光}
+\subsection{準単色光と部分偏光}
 今まで単色光のときを考えていたが, 波数や角振動数に広がりを持つ場合を考える. 波数, スペクトル線の幅, 角振動数の広がり $\Delta k, \Delta\nu, \Delta\omega$ とおく. \\
 
 \textbf{Q 21B-48.}
