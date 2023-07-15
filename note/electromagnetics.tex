@@ -313,21 +313,21 @@
 \begin{definition}[偏光]
   振動方向 $\EE_0(\kk)$ に関して振幅 $a_1(\kk), a_2(\kk)\in\RR_{\geq 0}$ と位相 $\varepsilon_1(\kk), \varepsilon_2(\kk)\in\RR$ を用いてベクトル表現する。位相差については向かって来る光を観測する立場で見たときと進んで行く光子の立場で見たときでそれぞれ $\varepsilon(\kk), \delta(\kk)$ を用いる。
   \begin{align}
-    \EE_0(\kk)
+    \EE(\rr, t) & = \EE_0(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)}
     = \begin{pmatrix}
         E_1(\kk) \\
         E_2(\kk)
-      \end{pmatrix}
-     & = \begin{pmatrix}
-           a_1(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))} \\
-           a_2(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2(\kk))}
-         \end{pmatrix}
+      \end{pmatrix}                                                                                \\
+                & = \begin{pmatrix}
+                      a_1(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))} \\
+                      a_2(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2(\kk))}
+                    \end{pmatrix}
     =
     \begin{pmatrix}
       a_1(\kk) \\
       a_2(\kk)e^{i\varepsilon(\kk)}
-    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))}                  \\
-     & =
+    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))}                             \\
+                & =
     \begin{pmatrix}
       a_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))} \\
       a_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_2(\kk))}
@@ -338,15 +338,15 @@
       a_2(\kk)e^{i\delta(\kk)}
     \end{pmatrix}e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))}
   \end{align}
-  場所 $\rr$ に留まり、時間 $t$ の経過とともに、電場ベクトルの波動を観測する立場から見て、「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる。位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える。
-  ただし $\delta_i = - \varepsilon_i (i = 1, 2), q = \omega(\kk)t - \kk\vdot\rr + \delta_1, \delta = \delta_2 - \delta_1$ とおく. すると $\delta = -\varepsilon$ という関係が成り立つ.
-  \begin{align}
-     & \sin\varepsilon > 0 \iff \sin\delta < 0 \iff \text{「楕円偏光は左偏光である。」} \\
-     & \iff \text{「円偏光の helicity は $+1$ である。」}                            \\
-     & \sin\varepsilon < 0 \iff \sin\delta > 0 \iff \text{「楕円偏光は右偏光である。」} \\
-     & \iff \text{「円偏光の helicity は $-1$ である。」}
-  \end{align}
 \end{definition}
+場所 $\rr$ に留まり、時間 $t$ の経過とともに、電場ベクトルの波動を観測する立場から見て、「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる。位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える。
+ただし $\delta_i = - \varepsilon_i (i = 1, 2), q = \omega(\kk)t - \kk\vdot\rr + \delta_1, \delta = \delta_2 - \delta_1$ とおく. すると $\delta = -\varepsilon$ という関係が成り立つ.
+\begin{align}
+   & \sin\varepsilon > 0 \iff \sin\delta < 0 \iff \text{「楕円偏光は左偏光である。」} \\
+   & \iff \text{「円偏光の helicity は $+1$ である。」}                            \\
+   & \sin\varepsilon < 0 \iff \sin\delta > 0 \iff \text{「楕円偏光は右偏光である。」} \\
+   & \iff \text{「円偏光の helicity は $-1$ である。」}
+\end{align}
 
 \begin{proposition}
   位置 $\rr$ を固定し、時間 $t$ を動かしたときに $(E_1, E_2)$ が作る軌跡の図形は Lissajous 図形、特に楕円となる。
@@ -449,6 +449,23 @@
     \vb{S} = \mqty(s_0 \\ s_1 \\ s_2 \\ s_3)
   \end{align}
 \end{definition}
+
+\begin{definition}[Jones ベクトル]
+  電場の複素表示の複素共役 $\EC(\rr, t)$ を定義する。
+  \begin{align}
+    \EC(\rr, t) = \EE^*(\rr, t)
+  \end{align}
+  これを「光学の流儀の複素表示」と呼ぶこととする。
+  \begin{align}
+    \EC(\rr, t) = \mqty(\Ec_1(\rr, t) \\ \Ec_2(\rr, t)) = \mqty(\Ec_1 \\ \Ec_2)e^{i(\omega(\kk)t - \kk\vdot\rr)}
+  \end{align}
+  このとき次のベクトルを Jones ベクトルと呼び、それに作用する行列を Jones 行列という。
+  \begin{align}
+    \JJ = \mqty(\Ec_1 \\ \Ec_2) \in\CC^2
+  \end{align}
+\end{definition}
+アメリカの物理学者 R.C.Jones が Jones ベクトルと Jones 行列を提案したのは 1941 年のことです。
+
 このとき具体的な例として以下のようなものがある。
 \begin{table}[hbtp]
   \label{table:Stokes Jones}
@@ -467,23 +484,6 @@
   \end{tabular}
   \caption{重要な偏光状態の Stokes ベクトル}
 \end{table}
-
-次に Stokes パラメータを電場を用いて表現する。
-\begin{definition}[Jones ベクトル]
-  電場の複素表示の複素共役 $\EC(\rr, t)$ を定義する。
-  \begin{align}
-    \EC(\rr, t) = \EE(\rr, t)^*
-  \end{align}
-  これを「光学の流儀の複素表示」と呼ぶこととする。
-  \begin{align}
-    \EC(\rr, t) = \mqty(\Ec_1(\rr, t) \\ \Ec_2(\rr, t)) = \mqty(\Ec_1 \\ \Ec_2)e^{i(\omega(\kk)t - \kk\vdot\rr)}
-  \end{align}
-  このとき次のベクトルを Jones ベクトルと呼び、それに作用する行列を Jones 行列という。
-  \begin{align}
-    \JJ = \mqty(\Ec_1 \\ \Ec_2) \in\CC^2
-  \end{align}
-\end{definition}
-アメリカの物理学者 R.C.Jones が Jones ベクトルと Jones 行列を提案したのは 1941 年のことです。
 
 \begin{proposition}[(直線偏光の) Stokes パラメータの Jones ベクトルによる表現]
   Stokes パラメータは Jones ベクトルを用いて次のように表される。
@@ -580,7 +580,6 @@
   \end{align}
 \end{proof}
 
-\textbf{Q 21B-31.}
 また上式の考察より次のように偏光の向きも逆転する.
 \begin{align}
   \EC(\rr, t) = \Ec_+\ee_+(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}
@@ -601,16 +600,13 @@
 
 \subsection{Stokes パラメータの測定}
 \begin{definition}[光学素子]
-  \begin{enumerate}
-    \item 直線偏光子（linear polarizer）とは、入力の電磁波をその透過軸（transmission asix）とそれに垂直な軸に沿った 2 つの直線偏光の成分に分解したとき、出力においては、前者の成分を透過するのに、後者の成分を遮断するような光学素子です。この作用は線形です。ですから、直線偏光子は対応する Jones 行列によって数学的には表現されます。
-  \end{enumerate}
+  直線偏光子 (linear polarizer) とは、入力の電磁波をその透過軸 (transmission asix) とそれに垂直な軸に沿った 2 つの直線偏光の成分に分解したとき、出力においては、前者の成分を透過するのに、後者の成分を遮断するような光学素子です。この作用は線形です。ですから、直線偏光子は対応する Jones 行列によって数学的には表現されます。
   物理的に原理が最も単純な直線偏光子は「針金格子偏光子」（wire grid polarizer）でしょう。電磁波の波長 λ よりもずっと細い直径を持つ直線状の伝導性の良い金属の針金を多数用意します。その多数の針金を波長 $\lambda$ よりもずっと狭い間隔だけ離して等間隔に平行に板状に並べます。この多数の針金が並べられた「すだれ」あるいは「牢屋の鉄格子」のような板状の物体が「針金格子偏光子」です。
 \end{definition}
 
 可視光の領域での具体的な直線偏光子として便利なのは、「ポラロイド」のプラスチック板でしょう。ポラロイドは針金格子偏光子を近似的に実現していると考えることができます。最初のポラロイドはヨウ素を含む化合物である過ヨウ化硫酸キニーネ（ヘラパタイト）の多数の小さな針状結晶を方向を揃えて酢酸セルロースのフィルムに埋め込んだものです。ヘラパタイトの中のヨウ素が伝導性を担い、特定の方向の伝導性が高い針金のような状況が出来ていると考えられます。この「ポラロイド J 板」が E.H.Land によってつくられたのは 1928 年のことです。さらに、1938 年に Land は改良された「ポラロイド H 板」をつくり出しました。透明なポリビニルアルコールの板を熱してある方向に引き延ばします。すると、ポリビニルアルコールの高分子は伸ばした方向に整列します。その後、板を高濃度のヨウ素のインク液に浸します。すると、高分子が多数のヨウ素で修飾されます。取り込まれた多数のヨウ素は高分子の整列の方向につながって、１次元的な伝導性をもたらします。これは微視的な針金です。このようにしてできた「ポラロイド H 板」は針金格子を近似していると考えられます。ポラロイド H 板の透過軸はポリビニルアルコールの板を伸ばした方向に垂直になります。
 
 Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれらが直接的に観測可能な物理量であることである. どのように測定可能なのかを学習する.
-
 
 任意の光学素子を取り上げると, Jones ベクトルの変換は表現論より行列 $M(2; \CC)$ で書ける. これを Jones 行列と呼ぶ. また素子の1つとして直線偏光子があり, 最も単純な直線偏光子は針金格子偏光子 (wire grid polarizer) でしょう. 電磁場の波よりもずっと細い直径を持つ直線状の伝導性の良い金属の針金を多数用意し, それらを波長 $\lambda$ よりずっと狭い間隔だけ離して等間隔に並行に板状に並べる.このような板状の物体が「針金格子偏光子」である. \\
 
@@ -638,8 +634,14 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 
 \begin{theorem}
   一般の偏光状態 $\JJ = [\Ec_1, \Ec_2]^t\in\CC^2$ の光を直線偏光子 $T^{\textrm{直線偏光子}}(\theta)$ に通したときの出力の光の強度 $I(\theta)$ を考える.
-  これを Malus の法則と呼ぶ
-  特に水平状態 $\JJ = [\Ec, 0]^t\in\CC^2$ の光のとき
+  \begin{align}
+    I(\theta) & = \frac{1}{2}\qty(|\Ec_1|^2\cos^2\theta + |\Ec_2|^2\sin^2\theta + (\Ec_1^*\Ec_2 + \Ec_1\Ec_2^*)\cos\theta\sin\theta) \\
+              & = \frac{1}{4}\qty(s_0 + \sqrt{s_1^2 + s_2^2}\cos(2\theta - \varphi))
+  \end{align}
+  特に水平状態 $\JJ = [\Ec, 0]^t\in\CC^2$ の光のとき Malus の法則と呼ぶ
+  \begin{align}
+    I(\theta) & =  \frac{1}{2}|\Ec|^2\cos^2\theta
+  \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
@@ -655,15 +657,10 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
   \begin{align}
     \cos\varphi = \frac{s_1}{\sqrt{s_1^2 + s_2^2}}, \sin\varphi = \frac{s_2}{\sqrt{s_1^2 + s_2^2}}
   \end{align}
-  である. これらは次の極めて重要な事実を教えてくれている.
-  「与えられた単色光の Stokes パラメータのうちの 3 個 $s_0, s_1, s_2$ は, その光をいろいろな角度 $\theta$ に傾けた直線偏光子に透過して強度を測定することによって決定できる.」 \\
-  \begin{align}
-    I(\theta) & = \frac{1}{2}\qty|T^{\textrm{直線偏光子}}(\theta)\mqty[\Ec \\ 0]|^2 \\
-              & = \frac{1}{2}\qty|\Ec\mqty[\cos^2\theta               \\ \cos\theta\sin\theta]|^2 \\
-              & = \frac{1}{2}|\Ec|^2\cos^2\theta                      \\
-              & = I(0)\cos^2\theta
-  \end{align}
+  である。
 \end{proof}
+これらは次の極めて重要な事実を教えてくれている。 「与えられた単色光の Stokes パラメータのうちの 3 個 $s_0, s_1, s_2$ は、その光をいろいろな角度 $\theta$ に傾けた直線偏光子に透過して強度を測定することによって決定できる。」
+
 \begin{theorem}
   \begin{align}
     s_0 & \propto (\textrm{全強度})                                                        \\
