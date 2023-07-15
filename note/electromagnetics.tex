@@ -304,377 +304,84 @@
   磁束密度も同様にして示せる。
 \end{proof}
 
-\begin{definition}[偏光]
-  振動方向 $\EE_0(\kk)$ に関してある方向でベクトルを取って表現する。
-  \begin{align}
-    \EE_0(\kk) & = \begin{pmatrix}
-                     a_1(\kk)e^{i\varepsilon_1(\kk)} \\
-                     a_2(\kk)e^{i\varepsilon_2(\kk)}
-                   \end{pmatrix}
-    =
-    \begin{pmatrix}
-      a_1(\kk) \\
-      a_2(\kk)e^{i\varepsilon(\kk)}
-    \end{pmatrix}e^{i\varepsilon_1(\kk)}
-    =
-    \begin{pmatrix}
-      a_1(\kk)e^{i\delta(\kk)} \\
-      a_2(\kk)
-    \end{pmatrix}e^{i\varepsilon_1(\kk)}
-  \end{align}
-  $\varepsilon = 0$ のとき直線偏光、$\varepsilon = -\frac{\pi}{2}$ のとき + 円偏光 - 円偏光、それら以外のとき楕円偏光という。
-  $(a_i(\kk) \geq 0, \varepsilon_i(\kk) < \frac{\pi}{2})$
-
-  まず円偏光した基底を定義する.
-  \textbf{Q 21B-4.} 円偏光を持つ基底による電磁場の展開は次のように表される.
-  \begin{align}
-    \tilde{\EE}(\rr, t) & = \int_{\RR^3} dV(\kk)\qty{E_+(\kk)\ee_+(\kk) + E_-(\kk)\ee_-(\kk)}e^{\ii(\kk\vdot\rr - \omega(\kk)t)} \\
-    \tilde{\BB}(\rr, t) & = \int_{\RR^3} dV(\kk)\qty{B_+(\kk)\ee_+(\kk) + B_-(\kk)\ee_-(\kk)}e^{\ii(\kk\vdot\rr - \omega(\kk)t)}
-  \end{align}
-  ただし, 円偏光の複素振幅は次のように定義される.
-  \begin{align}
-    E_+(\kk) & = \frac{1}{\sqrt{2}}\qty(E_1(\kk) - \ii E_2(\kk)), & E_-(\kk) & = \frac{1}{\sqrt{2}}\qty(E_1(\kk) + \ii E_2(\kk)) \\
-    B_+(\kk) & = \frac{1}{\sqrt{2}}\qty(B_1(\kk) - \ii B_2(\kk)), & B_-(\kk) & = \frac{1}{\sqrt{2}}\qty(B_1(\kk) + \ii B_2(\kk))
-  \end{align}
-  \begin{align}
-    \ee_+(\kk) & e^{\ii(\kk\vdot\rr - \omega(\kk)t)},              & \ee_-(\kk) & e^{\ii(\kk\vdot\rr - \omega(\kk)t)}              & (\kk\in\RR^3) \\
-    \ee_+(\kk) & = \frac{1}{\sqrt{2}}(\ee_1(\kk) + \ii\ee_2(\kk)), & \ee_-(\kk) & = \frac{1}{\sqrt{2}}(\ee_1(\kk) - \ii\ee_2(\kk)) & (\kk\in\RR^3)
-  \end{align}
-  このとき
-  \begin{align}
-    \ee_\pm(\kk)^* = \ee_\mp(\kk)
-  \end{align}
-  が成り立つ.
-  各 $\kk\in\RR^3$ に対して, $\ee_+(\kk), \ee_-(\kk), \kk/|\kk|\in\CC^3$ は正規直交基底を成す.
-  古い位相差 $\varepsilon$ と新しい位相差 $\delta$
-\end{definition}
-\begin{theorem}
-  位置 $\rr$ を固定し, 時間 $t$ を動かしたときに $(E_1, E_2)$ が作る軌跡の図形は Lissajous 図形
-\end{theorem}
-\begin{proof}
-
-\end{proof}
-
 \begin{definition}[単色波]
   単色波 (monochromatic wave) とは1つの振動数しか持たない波のことである。
   波数 $\kk\in\RR^3$ で定まった電場の振動方向 $\ee_i(\kk)$ を持つ単色波のとき, 複素振幅を $\tilde{E} = ae^{\ii\epsilon}$ とおくと, 電場の複素表示 $\tilde{\EE}(\rr, t)$ は次の通りとなる.
   電場ベクトルの振動方向と電磁場の進行方向で定まる平面を電場の振動面という.
 \end{definition}
 
-
-\begin{equation}
-  \mqty[E_1 \\ E_2] = \frac{a}{\sqrt{2}}\mqty[\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon) \\ \mp\sin(\kk\vdot\rr - \omega(\kk)t + \varepsilon)] \quad (i = \pm). \label{circle E vector}
-\end{equation}
-となり, この軌跡である Lissajous 図形は次のように原点を中心とする半径 $a/\sqrt{2}$ の円となる.
-\begin{align}
-  \qty{\qty(E_1(\rr, t), E_2(\rr, t)):t\in\RR} = \qty{\qty(E_1, E_2)\in\RR^2:E_1^2 + E_2^2 = \frac{a^2}{2}} \quad (i=\pm)
-\end{align}
-これよりこのときの電場は円偏光を持つという. また $i = +$ と $i = -$ については \eqref{circle E vector} より $t$ が増加する方向を考えると次のように解釈できる.
-\begin{align}
-  i & = + \iff \text{「Lissajous 図形の円上を点 $(E_1, E_2)$ は左回りに周回する。」} \\
-  i & = - \iff \text{「Lissajous 図形の円上を点 $(E_1, E_2)$ は右回りに周回する。」}
-\end{align}
-また $\ee_1(\kk)\times\ee_2(\kk) = \kk/|\kk|$ より次のようにも解釈できる.
-\begin{align}
-  i & = + \iff \text{「やってくる光に向かって観測すると, 電場ベクトルは左回りに回転する。」} \\
-  i & = - \iff \text{「やってくる光に向かって観測すると, 電場ベクトルは右回りに回転する。」}
-\end{align}
-光の helicity という言葉を用いると
-\begin{align}
-  i & = + \iff \text{「円偏光の helicity は $+1$ である。」} \\
-  i & = - \iff \text{「円偏光の helicity は $-1$ である。」}
-\end{align}
-と説明する.
-
-\section{一般の偏光状態と偏光楕円}
-一般の偏光状態は複素係数 $\tilde{E}_1, \tilde{E}_2\in\CC$ を用いて
-\begin{align}
-  \tilde{\EE}(\rr, t) & = \tilde{E}_1\ee_1(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \tilde{E}_2\ee_2(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} \label{tilde E def}
-\end{align}
-で与えられる.
-
-\textbf{Q 21B-6.} 物理的な電場 $\EE(\rr, t)$ は複素振幅を $\tilde{E}_i = a_ie^{\ii\varepsilon_i}, a_i \geq 0, \varepsilon_i\in\RR \quad (i = 1, 2)$ とすると
-\begin{align}
-  \EE(\rr, t) & = \Re\tilde{\EE}(\rr, t)                                                                                                                      \\
-              & = \Re\qty(\tilde{E}_1\ee_1(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \tilde{E}_2\ee_2(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)})                \\
-              & = a_1\ee_1(\kk)\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1) + a_2\ee_2(\kk)\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2) \label{E def}
-\end{align}
-となる. これより, $\EE(\rr, t)$ の $\ee_1, \ee_2$ 方向の成分を $E_1(\rr, t), E_2(\rr, t)$ と書くとすると, $\ee_\pm$ 方向に進む場合について
-\begin{align}
-  \mqty[E_1 \\ E_2] = \mqty[a_1\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1) \\ a_2\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2)] \label{genral E vector}
-\end{align}
-となる.
-
-\textbf{Q 21B-8.} 式 \eqref{genral E vector} より
-\begin{align}
-  \mqty[E_1 \\ E_2] = \mqty[a_1\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1) \\ a_2\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1 + \varepsilon)] \label{E12 phase}
-\end{align}
-となるから「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる. \\
-
-\textbf{Q 21B-9.}
-\begin{align}
-  \qty(\frac{E_1}{a_1})^2 + \qty(\frac{E_2}{a_2})^2 - 2\cos\varepsilon\frac{E_1}{a_1}\frac{E_2}{a_2} & = \sin^2{\varepsilon}
-\end{align}
-を二次形式を用いて表すと
-\begin{align}
-  \mqty[E_1 & E_2]\mqty[\frac{1}{a_1^2} & -\frac{\cos\varepsilon}{a_1a_2} \\ -\frac{\cos\varepsilon}{a_1a_2} & \frac{1}{a_2^2}]\mqty[E_1 \\ E_2] & = \sin^2\varepsilon
-\end{align}
-となる. ここで対称行列において異なる固有ベクトルは直交するから直交行列で対角化できるから, 角度 $\psi$ を上手く選ぶと, 座標系 $(E_1, E_2)$ から角度 $\psi$ だけ回転させた座標系 $(\xi, \eta)$ では二次形式を標準化できる.
-
-座標系 $(\xi, \eta)$ は回転行列を用いて次のように表される.
-\begin{align}
-  \mqty[E_1 \\ E_2] = \mqty[\cos\psi & -\sin\psi \\ \sin\psi & \cos\psi]\mqty[\xi \\ \eta] \label{E12 xi eta}
-\end{align}
-これより座標系 $(\xi, \eta)$ での二次形式は次のようになる.
-\begin{align}
-  \sin^2\varepsilon & = \mqty[E_1 & E_2]\mqty[\frac{1}{a_1^2}                                                                                                                                                 & -\frac{\cos\varepsilon}{a_1a_2}                                                                            \\ -\frac{\cos\varepsilon}{a_1a_2} & \frac{1}{a_2^2}]\mqty[E_1 \\ E_2] \\
-                    & = \mqty[\xi & \eta]\mqty[\cos\psi                                                                                                                                                       & \sin\psi                                                                                                   \\ -\sin\psi & \cos\psi]\mqty[\frac{1}{a_1^2} & -\frac{\cos\varepsilon}{a_1a_2} \\ -\frac{\cos\varepsilon}{a_1a_2} & \frac{1}{a_2^2}]\mqty[\cos\psi & -\sin\psi \\ \sin\psi & \cos\psi]\mqty[\xi \\ \eta] \\
-                    & = \mqty[\xi & \eta]\mqty[\frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) + \frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\cos{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\sin{2\psi} & -\frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\sin{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\cos{2\psi} \\ -\frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\sin{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\cos{2\psi} & \frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) - \frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\cos{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\sin{2\psi}]\mqty[\xi \\ \eta] \label{xi eta}
-\end{align}
-これより二次形式を標準化するような角度 $\psi$ の条件は
-\begin{align}
-       & -\frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\sin{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\cos{2\psi} = 0 \\
-  \iff & \tan{2\psi} = \frac{2a_1a_2}{a_1^2 - a_2^2}\cos\varepsilon \label{psi condition}
-\end{align}
-である. 式変形すると
-\begin{align}
-  \tan^2{2\psi} = \frac{1}{\cos^2{2\psi}} - 1 & = \frac{4a_1^2a_2^2           }{(a_1^2 - a_2^2)^2}\cos^2\varepsilon \\
-  (a_1^2 - a_2^2)^2\sec{2\psi}                & = \qty{(a_1^2 - a_2^2)^2 + 4a_1^2a_2^2\cos^2\varepsilon}\cos{2\psi}
-\end{align}
-となる. このとき, $\xi$ と $\eta$ に対する方程式は
-\begin{align}
-  \qty(\frac{\xi}{a_\xi})^2 + \qty(\frac{\eta}{a_\eta})^2 = 1 \label{eclipse}
-\end{align}
-と書ける. ここで用いられる係数 $a_\xi, a_\eta$ については二次形式 \eqref{xi eta} から次のような条件を満たす.
-\begin{align}
-  \frac{1}{a_\xi^2}  & = \frac{1}{\sin^2\varepsilon}\qty(\frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) + \frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\cos{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\sin{2\psi})                                        \\
-                     & = \frac{1}{\sin^2\varepsilon}\qty(\frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) + \qty(\frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2}) - \frac{\cos\varepsilon}{a_1a_2}\tan{2\psi})\cos{2\psi})                                  \\
-                     & = \frac{1}{\sin^2\varepsilon}\qty(\frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) + \qty(\frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2}) - \frac{\cos\varepsilon}{a_1a_2}\frac{2a_1a_2}{a_1^2 - a_2^2}\cos\varepsilon)\cos{2\psi}) \\
-                     & = \frac{(a_1^2 + a_2^2)(a_1^2 - a_2^2) - \qty{(a_1^2 - a_2^2)^2 + 4a_1^2a_2^2\cos^2\varepsilon}\cos{2\psi}}{2a_1^2a_2^2(a_1^2 - a_2^2)\sin^2\varepsilon}                                                                                 \\
-                     & = \frac{a_1^2 + a_2^2 - (a_1^2 - a_2^2)\sec{2\psi}}{2a_1^2a_2^2\sin^2\varepsilon}                                                                                                                                                        \\
-  \frac{1}{a_\eta^2} & = \frac{1}{\sin^2\varepsilon}\qty(\frac{1}{2}\qty(\frac{1}{a_1^2} + \frac{1}{a_2^2}) - \frac{1}{2}\qty(\frac{1}{a_1^2} - \frac{1}{a_2^2})\cos{2\psi} - \frac{\cos\varepsilon}{a_1a_2}\sin{2\psi})                                        \\
-                     & = \frac{a_1^2 + a_2^2 + (a_1^2 - a_2^2)\sec{2\psi}}{2a_1^2a_2^2\sin^2\varepsilon}
-\end{align}
-これらを整理して $a_\xi, a_\eta$ の具体的でシンプルな表式を求める.
-\begin{align}
-  \frac{1}{a_\xi^2} + \frac{1}{a_\eta^2}     & = \frac{a_\xi^2 + a_\eta^2}{a_\xi^2a_\eta^2} = \frac{a_1^2 + a_2^2}{a_1^2a_2^2\sin^2\varepsilon}                                        \\
-  \frac{1}{a_\xi^2} - \frac{1}{a_\eta^2}     & = -\frac{a_\xi^2 - a_\eta^2}{a_\xi^2a_\eta^2} = -\frac{(a_1^2 - a_2^2)\sec{2\psi}}{a_1^2a_2^2\sin^2\varepsilon}                         \\
-  \frac{1}{a_\xi^2} \cdot \frac{1}{a_\eta^2} & = \frac{1}{a_\xi^2a_\eta^2} = \frac{(a_1^2 + a_2^2)^2 - (a_1^2 - a_2^2)^2\sec^2{2\psi}}{4a_1^4a_2^4\sin^4\varepsilon}                   \\
-                                             & = \frac{(a_1^2 + a_2^2)^2 - \qty{(a_1^2 - a_2^2)^2 + 4a_1^2a_2^2\cos^2\varepsilon}\cos{2\psi}\sec{2\psi}}{4a_1^4a_2^4\sin^4\varepsilon} \\
-                                             & = \frac{1}{a_1^2a_2^2\sin^2\varepsilon}                                                                                                 \\
-  a_\xi^2a_\eta^2                            & = a_1^2a_2^2\sin^2\varepsilon \label{axiaeta a1a2}                                                                                      \\
-  a_\xi^2 + a_\eta^2                         & = \qty(\frac{1}{a_\xi^2} + \frac{1}{a_\eta^2})a_\xi^2a_\eta^2 = a_1^2 + a_2^2 \label{a^2}                                               \\
-  a_\xi^2 - a_\eta^2                         & = - \qty(\frac{1}{a_\xi^2} - \frac{1}{a_\eta^2})a_\xi^2a_\eta^2 = (a_1^2 - a_2^2)\sec{2\psi}                                            \\
-                                             & = (a_1^2 - a_2^2)\frac{1}{\cos{2\psi}} \label{axi - aeta}                                                                               \\
-                                             & = (a_1^2 - a_2^2)\frac{\cos^2{2\psi} + \sin^2{2\psi}}{\cos{2\psi}}                                                                      \\
-                                             & = (a_1^2 - a_2^2)(\cos{2\psi} + \sin{2\psi}\tan{2\psi})                                                                                 \\
-                                             & = (a_1^2 - a_2^2)\cos{2\psi} + 2a_1a_2\cos\varepsilon\sin{2\psi}                                                                        \\
-  a_\xi^2                                    & = \frac{1}{2}\qty((a_\xi^2 + a_\eta^2) + (a_\xi^2 - a_\eta^2)) = \frac{1}{2}(1 + \sec{2\psi})a_1^2 + \frac{1}{2}(1 - \sec{2\psi})a_2^2  \\
-                                             & = a_1^2\cos^2\psi + a_2^2\sin^2\psi + 2a_1a_2\cos\varepsilon\cos\psi\sin\psi                                                            \\
-  a_\eta^2                                   & = \frac{1}{2}\qty((a_\xi^2 + a_\eta^2) - (a_\xi^2 - a_\eta^2)) = \frac{1}{2}(1 - \sec{2\psi})a_1^2 + \frac{1}{2}(1 + \sec{2\psi})a_2^2  \\
-                                             & = a_1^2\cos^2\psi + a_2^2\sin^2\psi - 2a_1a_2\cos\varepsilon\cos\psi\sin\psi
-\end{align}
-このようにして
-\begin{align}
-  a_\xi^2  & = a_1^2\cos^2\psi + a_2^2\sin^2\psi + 2a_1a_2\cos\varepsilon\cos\psi\sin\psi \\
-  a_\eta^2 & = a_1^2\cos^2\psi + a_2^2\sin^2\psi - 2a_1a_2\cos\varepsilon\cos\psi\sin\psi
-\end{align}
-が求まる. \\
-
-\textbf{Q 21B-10.}
-条件式 \eqref{psi condition} において $\tan{2\psi} = \tan{2\qty(\psi + \frac{\pi}{2})}$ より位相を $\pi/2$ ずらしたものも解となる. これより $\psi$ が解ならば $\psi, \psi + \pi/2, \psi + \pi, \psi + 3\pi/2$ は解となる. これは楕円を $\psi$ だけ回転させたときに $\psi, \psi + \pi$ と $\psi + \pi/2, \psi + 3\pi/2$ は主軸の方向は同じであり, $\psi + \pi/2, \psi + 3\pi/2$ は $\psi$ の軸方向の状態と比べ, 長軸と短軸が反対となった状態となる. これより $\psi\in[0,\pi)$ かつ長軸, 短軸は $\xi, \eta$ 軸があてがわれると制限すると $\psi$ は一意に決まる. \\
-
-\textbf{Q 21B-11.}
-楕円偏光の回転の向きは $E_1, E_2$ の位相差 $\varepsilon$ の正弦 $\sin\varepsilon$ の正負が関係していること, つまり次のような関係となることを示せ.
-\begin{align}
-  \sin\varepsilon > 0 & \iff \textrm{「楕円偏光は左偏光である。」} \\
-  \sin\varepsilon < 0 & \iff \textrm{「楕円偏光は右偏光である。」}
-\end{align}
-\begin{proof}
-  まず, $\xi,\eta$ は式 \eqref{E12 xi eta} より $E_1, E_2$ を用いて次のように表される.
+\begin{definition}[偏光]
+  振動方向 $\EE_0(\kk)$ に関して振幅 $a_1(\kk), a_2(\kk)\in\RR_{\geq 0}$ と位相 $\varepsilon_1(\kk), \varepsilon_2(\kk)\in\RR$ を用いてベクトル表現する。位相差については向かって来る光を観測する立場で見たときと進んで行く光子の立場で見たときでそれぞれ $\varepsilon(\kk), \delta(\kk)$ を用いる。
   \begin{align}
-    \mqty[\xi \\ \eta] = \mqty[\cos\psi & \sin\psi \\ -\sin\psi & \cos\psi]\mqty[E_1 \\ E_2] \label{xi eta E12}
+    \EE_0(\kk)
+    = \begin{pmatrix}
+        E_1(\kk) \\
+        E_2(\kk)
+      \end{pmatrix}
+     & = \begin{pmatrix}
+           a_1(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))} \\
+           a_2(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2(\kk))}
+         \end{pmatrix}
+    =
+    \begin{pmatrix}
+      a_1(\kk) \\
+      a_2(\kk)e^{i\varepsilon(\kk)}
+    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))}                  \\
+     & =
+    \begin{pmatrix}
+      a_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))} \\
+      a_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_2(\kk))}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      a_1(\kk) \\
+      a_2(\kk)e^{i\delta(\kk)}
+    \end{pmatrix}e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))}
   \end{align}
-  また, 式 \eqref{E12 phase} より $E_1, E_2$ は $p = \kk\vdot\rr - \omega(\kk)t + \varepsilon_1$ を用いて次のように表される.
+  場所 $\rr$ に留まり、時間 $t$ の経過とともに、電場ベクトルの波動を観測する立場から見て、「$E_2$ は $E_1$ より $\varepsilon$ だけ位相が遅れている。」または「$E_1$ は $E_2$ より $\varepsilon$ だけ位相が進んでいる。」といえる。位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える。
+  ただし $\delta_i = - \varepsilon_i (i = 1, 2), q = \omega(\kk)t - \kk\vdot\rr + \delta_1, \delta = \delta_2 - \delta_1$ とおく. すると $\delta = -\varepsilon$ という関係が成り立つ.
   \begin{align}
-    E_1 & = a_1\cos{p}            \label{E1 p}    \\
-    E_2 & = a_2\cos(p + \varepsilon) \label{E2 p}
+     & \sin\varepsilon > 0 \iff \sin\delta < 0 \iff \text{「楕円偏光は左偏光である。」} \\
+     & \iff \text{「円偏光の helicity は $+1$ である。」}                            \\
+     & \sin\varepsilon < 0 \iff \sin\delta > 0 \iff \text{「楕円偏光は右偏光である。」} \\
+     & \iff \text{「円偏光の helicity は $-1$ である。」}
   \end{align}
-  これより $\xi, \eta$ の表式 \eqref{xi eta E12} は三角関数の合成公式より $E_1, E_2$ の表式 \eqref{E1 p} \eqref{E2 p} を用いて次のように表される.
+\end{definition}
+
+\begin{proposition}
+  位置 $\rr$ を固定し、時間 $t$ を動かしたときに $(E_1, E_2)$ が作る軌跡の図形は Lissajous 図形、特に楕円となる。
   \begin{align}
-    \xi  & = E_1\cos\psi + E_2\sin\psi                                                                  \\
-         & = a_1\cos\psi\cos{p} + a_2\sin\psi\cos(p + \varepsilon)                                      \\
-         & = a_1\cos\psi\cos{p} + a_2\sin\psi(\cos{p}\cos\varepsilon - \sin{p}\sin\varepsilon)          \\
-         & = (\ \  a_1\cos\psi + a_2\cos\varepsilon\sin\psi)\cos{p} - a_2\sin\varepsilon\sin\psi\sin{p} \\
-         & = A_\xi\cos(p + \theta_\xi) \label{xi}                                                       \\
-    \eta & = -E_1\sin\psi + E_2\cos\psi                                                                 \\
-         & = (-a_1\sin\psi + a_2\cos\varepsilon\cos\psi)\cos{p} - a_2\sin\varepsilon\cos\psi\sin{p}     \\
-         & = A_\eta\cos(p + \theta_\eta) \label{eta}
+    \qty(\frac{E_1}{a_1})^2 + \qty(\frac{E_2}{a_2})^2 - 2\cos\varepsilon\frac{E_1}{a_1}\frac{E_2}{a_2} & = \sin^2{\varepsilon}
   \end{align}
-  ただし, 振幅因子 $A_\xi, A_\eta$ は次のように与える.
+\end{proposition}
+
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    偏光状態     & $\varepsilon$    \\
+    \hline \hline
+    直線偏光     & $0, \pi$         \\
+    円偏光(右回転) & $-\frac{\pi}{2}$ \\
+    円偏光(左回転) & $+\frac{\pi}{2}$ \\
+    \hline
+  \end{tabular}
+  \caption{偏光状態}
+\end{table}
+
+\begin{definition}
+  偏光状態のパラメータ $(\psi, \chi)$ について次の事柄がわかっている。
+  光学では伝統的に楕円の形と偏光の回転の向きを記述するパラメータ $\chi$ が用いられている。
+
+  パラメータ $\psi$ は $(E_1, E_2)$ 面において $E_1$ 軸から計った偏光楕円の長軸の角度である。これより $0 \leq \psi < \pi$ の範囲の値を取る。偏光楕円が円に縮退していない場合は、パラメータ $\psi$ の値は一意に定まる。偏光楕円が円に縮退している場合は、パラメータ $\psi$ の値は定まらない。
+
+  パラメータ $\chi$ は偏光楕円の短半径 $a_\eta$ と長半径 $a_\xi$ を用いて次のように書ける。
   \begin{align}
-    A_\xi  & = \sqrt{\qty(\ \ a_1\cos\psi + a_2\cos\varepsilon\sin\psi)^2 + (a_2\sin\varepsilon\sin\psi)^2} \\
-    A_\eta & = \sqrt{\qty(-a_1\sin\psi + a_2\cos\varepsilon\cos\psi)^2 + (a_2\sin\varepsilon\cos\psi)^2}
+    \tan|\chi| & = \frac{a_\eta}{a_\xi} \qquad \qty(-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4})
   \end{align}
-  また, 位相のずれ $\theta_\xi, \theta_\eta$ は次のように定められる.
-  \begin{align}
-    \cos\theta_\xi  & = \frac{\ \ a_1\cos\psi + a_2\cos\varepsilon\sin\psi}{A_\xi}, \quad \sin\theta_\xi = \frac{a_2\sin\varepsilon\sin\psi}{A_\xi}  \\
-    \cos\theta_\eta & = \frac{-a_1\sin\psi + a_2\cos\varepsilon\cos\psi}{A_\xi},    \quad \sin\theta_\eta = \frac{a_2\sin\varepsilon\cos\psi}{A_\xi}
-  \end{align}
-  ここで 振幅因子 $A_\xi, A_\eta$ は式変形を行うことで次のように $a_\xi, a_\eta$ と一致する.
-  \begin{align}
-    A_\xi^2  & = \qty(\ \ a_1\cos\psi + a_2\cos\varepsilon\sin\psi)^2 + (a_2\sin\varepsilon\sin\psi)^2 \\
-             & = a_1^2\cos^2\psi + a_2^2\sin^2\psi + 2a_1a_2\cos\varepsilon\cos\psi\sin\psi            \\
-             & = a_\xi^2                                                                               \\
-    A_\eta^2 & = \qty(-a_1\sin\psi + a_2\cos\varepsilon\cos\psi)^2 + (a_2\sin\varepsilon\cos\psi)^2    \\
-             & = a_\eta^2
-  \end{align}
-  これは, 楕円の方程式 \eqref{eclipse} から $\xi, \eta$ の振幅は $a_\xi, a_\eta$ であることが分かるので自明である.
-
-  次に位相差 $\theta_\eta - \theta_\xi$の表式を求める.
-  \begin{align}
-    \frac{A_\eta}{A_\xi}e^{\ii(\theta_\eta - \theta_\xi)}
-     & = \frac{A_\eta e^{\ii\theta_\eta}}{A_\xi e^{\ii\theta_\xi}}                                                                                                                                                                                                 \\
-     & = \frac{(-a_1\sin\psi + a_2\cos\varepsilon\cos\psi) + \ii a_2\sin\varepsilon\cos\psi}{(\quad a_1\cos\psi + a_2\cos\varepsilon\sin\psi) + \ii a_2\sin\varepsilon\sin\psi}                                                                                    \\
-     & = \frac{\qty((-a_1\sin\psi + a_2\cos\varepsilon\cos\psi) + \ii a_2\sin\varepsilon\cos\psi)\qty((a_1\cos\psi + a_2\cos\varepsilon\sin\psi) - \ii a_2\sin\varepsilon\sin\psi)}{(a_1\cos\psi + a_2\cos\varepsilon\sin\psi)^2 + (a_2\sin\varepsilon\sin\psi)^2} \\
-     & = \frac{\ii a_1a_2\sin\varepsilon}{(a_1\cos\psi + a_2\cos\varepsilon\sin\psi)^2 + (a_2\sin\varepsilon\sin\psi)^2}
-  \end{align}
-  これより, 絶対値と位相を考えると, 次のようになる.
-  \begin{align}
-    \frac{A_\eta}{A_\xi}              & = \frac{a_1a_2\lvert\sin\varepsilon\rvert}{(a_1\cos\psi + a_2\cos\varepsilon\sin\psi)^2 + (a_2\sin\varepsilon\sin\psi)^2} \\
-    e^{\ii(\theta_\eta - \theta_\xi)} & = \mathrm{sgn}(\sin\varepsilon)\ii
-  \end{align}
-  すると, 位相差 $\theta_\eta - \theta_\xi$ について
-  \begin{align}
-    \theta_\eta - \theta_\xi & =
-    \begin{dcases}
-      \frac{\pi}{2}  & (\sin\varepsilon > 0) \\
-      \frac{3\pi}{2} & (\sin\varepsilon < 0)
-    \end{dcases}
-  \end{align}
-  となるので $\xi, \eta$ の表式 \eqref{xi} \eqref{eta} は次のようになる.
-  \begin{align}
-    \xi  & = A_\xi\cos(p + \theta_\xi)                                          \\
-    \eta & = A_\eta\cos(p + \theta_\eta)                                        \\
-         & = \mp A_\eta\sin(p + \theta_\xi) \qquad (\sin\varepsilon \gtrless 0)
-  \end{align}
-  よって, 次の式が確立される.
-  \begin{align}
-    \sin\varepsilon > 0 & \iff \textrm{「楕円偏光は左偏光である。」} \\
-    \sin\varepsilon < 0 & \iff \textrm{「楕円偏光は右偏光である。」}
-  \end{align}
-\end{proof}
-
-\textbf{Q 21B-12.}
-光学では伝統的に楕円の形と偏光の回転の向きを記述するパラメータ $\chi$ が用いられている. この問題では $\chi$ について調べる.
-
-まずパラメータ $\chi\in\RR$ は短軸 $a_\eta$, 長軸 $a_\xi$ を用いて次のように定義される.
-\begin{align}
-  \tan{|\chi|} := \frac{a_\eta}{a_\xi}
-\end{align}
-楕円の軸の長さを一意に決定させるには $|\chi|$ の範囲は $0 \leq |\chi| \leq \frac{\pi}{4}$ である必要がある. このとき, 式 \eqref{axiaeta a1a2}, \eqref{a^2} と $a_\xi, a_\eta, a_1, a_2 > 0$ より
-\begin{align}
-  \sin{2|\chi|} & = 2\sin|\chi|\cos|\chi| = 2\tan|\chi|\cos^2|\chi|           \\
-                & = \frac{2\tan|\chi|}{1 + \tan^2|\chi|}                      \\
-                & = \frac{2a_\xi a_\eta}{a_\xi^2 + a_\eta^2}                  \\
-                & = \frac{2a_1 a_2}{a_1^2 + a_2^2}\lvert\sin\varepsilon\rvert
-\end{align}
-となる. この式を用いて $\chi$ を次のように再定義する.
-\begin{align}
-  \sin{2\chi} & := -\frac{2a_1 a_2}{a_1^2 + a_2^2}\sin\varepsilon \label{chi def}
-\end{align}
-これは $\chi$ の範囲が $-\frac{\pi}{4} \leq \chi \leq \frac{\pi}{4}$ を満たすとき, 元の定義の拡張となっている.
-\begin{align}
-  \sin2\chi = \frac{2\tan\chi}{1 + \tan^2\chi}
-  =        & -\frac{2a_1 a_2}{a_1^2 + a_2^2}\sin\varepsilon                                                                                                          \\
-  =        & \pm\frac{2a_1 a_2}{a_1^2 + a_2^2}\lvert\sin\varepsilon\rvert                                                             & (\sin\varepsilon \lessgtr 0) \\
-  =        & \pm\frac{2a_\xi a_\eta}{a_\xi^2 + a_\eta^2} = \frac{2\qty(\pm\frac{a_\eta}{a_\xi})}{1 + \qty(\pm\frac{a_\eta}{a_\xi})^2}                                \\
-  \iff     & \tan\chi = \pm\frac{a_\eta}{a_\xi}                                                                                       & (\sin\varepsilon \lessgtr 0) \\
-  \implies & \tan|\chi| = \frac{a_\eta}{a_\xi}
-\end{align}
-また, 次の対応が分かる.
-\begin{align}
-  \chi \gtrless 0 \iff \tan\chi \gtrless 0 \iff \sin\varepsilon \lessgtr 0 \iff
-  \begin{cases}
-    \textrm{「楕円偏光は右偏光である。」} \\
-    \textrm{「楕円偏光は左偏光である。」}
-  \end{cases}
-\end{align}
-これより $-\frac{\pi}{4} \leq \chi \leq \frac{\pi}{4}$ という範囲のとき, 楕円偏光の形と偏光の回転の向きを一意に決定できる. \\
-
-\textbf{Q 21B-13.}
-この問題では楕円偏光の中でも円偏光はどのような条件の下で生じるのかを考える.
-楕円偏光の方程式 \eqref{eclipse} は次のようであった.
-\begin{align}
-  \qty(\frac{\xi}{a_\xi})^2 + \qty(\frac{\eta}{a_\eta})^2 = 1
-\end{align}
-これより円偏光になる条件は $a_\xi = a_\eta$ のときである. $a_1, a_2$ の楕円偏光の方程式より
-\begin{align}
-  \textrm{「楕円偏光は円偏光である。」}
-   & \iff a_\xi = a_\eta \iff \tan\chi = \pm 1 \iff \chi = \pm \frac{\pi}{4}     \\
-   & \iff a_1 = a_2 \land -\frac{2a_1 a_2}{a_1^2 + a_2^2}\sin\varepsilon = \pm 1 \\
-   & \iff a_1 = a_2 \land \varepsilon\in\pi\qty(\ZZ + \frac{1}{2})
-\end{align}\\
-
-\textbf{Q 21B-14.}
-同様に直線偏光はどうのような条件の下で生じるのかを考える. 楕円偏光の方程式 \eqref{eclipse} と $\chi$ の定義より直線偏光となる条件は $a_\eta = 0$ となる.
-\begin{align}
-  \textrm{「楕円偏光は直線偏光である。」}
-   & \iff a_\eta = 0 \iff \tan\chi = 0 \iff \chi = 0 \\
-   & \iff a_1a_2 = 0 \lor \varepsilon\in\pi\ZZ
-\end{align}
-このとき振動面の角度 $\psi$ は $\varepsilon = n\pi \quad (n\in\ZZ)$ とおくと式 \eqref{psi condition} より
-\begin{align}
-  \tan2\psi & = \frac{2\tan\psi}{1 + \tan^2\psi} = \frac{2a_1a_2}{a_1^2 - a_2^2}\cos\varepsilon = \frac{2\qty(\pm\frac{a_2}{a_1})}{1 + \qty(\pm\frac{a_2}{a_1})^2} & \qty(nの偶奇) \\
-  \tan\psi  & = \pm\frac{a_2}{a_1}                                                                                                                                 & \qty(nの偶奇) \\
-  \psi      & =
-  \begin{cases}
-    \alpha       & (n: 偶数) \\
-    \pi - \alpha & (n: 奇数)
-  \end{cases}
-\end{align}
-となる. \\
-
-\textbf{Q 21B-15.}
-式 \eqref{axi - aeta} は次のようであった.
-\begin{align}
-  a_\xi^2 - a_\eta^2 & = \frac{a_1^2 - a_2^2}{\cos2\psi}
-\end{align}
-$a_\xi, a_\eta$ はそれぞれ長軸, 短軸の長さであるから左辺は正である. よって次のようになる.
-\begin{align}
-  \mathrm{sgn}(a_1 - a_2) = \mathrm{sgn}(\cos2\psi) \label{sgn psi}
-\end{align} \\
-
-\textbf{Q 21B-16.}
-式 \eqref{psi condition}, \eqref{chi def}, \eqref{sgn psi}, $-\frac{\pi}{4} \leq \chi \leq \frac{\pi}{4}$ より次の事がわかる.
-\begin{align}
-  \cos^22\chi & = 1 - \sin^22\chi = 1 - \qty(\frac{2a_1a_2}{a_1^2 + a_2^2}\sin\varepsilon)^2                                  \\
-              & = \qty(\frac{a_1^2 - a_2^2}{a_1^2 + a_2^2})^2\qty(1 - \qty(\frac{2a_1a_2}{a_1^2 - a_2^2}\cos^2\varepsilon)^2) \\
-              & = \qty(\frac{a_1^2 - a_2^2}{a_1^2 + a_2^2})^2\qty(1 - \tan^22\psi)                                            \\
-              & = \qty(\frac{a_1^2 - a_2^2}{a_1^2 + a_2^2}\frac{1}{\cos2\psi})^2                                              \\
-  \cos2\chi   & = \frac{a_1^2 - a_2^2}{a_1^2 + a_2^2}\frac{1}{\cos2\psi} \geq 0 \label{cos 2chi}
-\end{align} \\
-
-\section{位相のずれの規約: $\varepsilon$ と $\delta$}
-$E_1, E_2$ を次の表式で表すことがある.
-\begin{align}
-  \mqty[E_1                                                 \\ E_2] &= \mqty[a_1\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1) \\ a_2\cos(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2)] \\
-   & = \mqty[a_1\cos(\omega(\kk)t - \kk\vdot\rr + \delta_1) \\ a_2\cos(\omega(\kk)t - \kk\vdot\rr + \delta_2)] \\
-   & = \mqty[a_1\cos q                                      \\ a_2\cos(q + \delta)] \label{E12 delta}
-\end{align}
-ただし $\delta_i = - \varepsilon_i (i = 1, 2), q = \omega(\kk)t - \kk\vdot\rr + \delta_1, \delta = \delta_2 - \delta_1$ とおく. すると $\delta = -\varepsilon$ という関係が成り立つ. \\
-
-\textbf{Q 21B-17.}
-式 \eqref{E12 delta} より場所 $\rr$ に留まり, 時間 $t$ の経過とともに, 電場ベクトルの波動を観測する立場から見て, 位相差 $\delta$ について「$E_2$ は $E_1$ より $\delta$ だけ位相が進んでいる。」つまり「$E_1$ は $E_2$ より $\delta$ だけ位相が遅れている。」と言える.
-
-同様に楕円偏光の向きについても次のようになる.
-\begin{align}
-  \sin\delta < 0 \iff \sin\varepsilon > 0 \iff \textrm{「楕円偏光は左偏光である。」} \\
-  \sin\delta > 0 \iff \sin\varepsilon < 0 \iff \textrm{「楕円偏光は右偏光である。」}
-\end{align}
-
+  ただし $\chi$ が正ならば右偏光、負ならば左偏光である。特に $\chi = \pm \pi/4$ が円偏光、$\chi = 0$ が直線偏光である。
+\end{definition}
 \section{Stokes パラメータ}
-\textbf{Q 21B-18.}
 波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は \eqref{E def} 式より4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{\ii \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
 
 \begin{enumerate}
@@ -685,53 +392,64 @@ $E_1, E_2$ を次の表式で表すことがある.
 
 これらは互いに独立であることが明白であるから十分性は成り立つ. 必要性に関しては電場の定義となる実パラメータが4つと等しい数であることから成り立つ. よってこれら4つのパラメータで電場を表現できる.
 
-\textbf{Q 21B-19.}
-偏光状態のパラメータ $(\psi, \chi)$ について次の事柄がわかっている.
-\begin{enumerate}
-  \item パラメータ $\psi$ は $0\leq\psi<\pi$ の範囲の値を取る. $\psi$ は $(E_1, E_2)$ 面において $E_1$ 軸から計った偏光楕円の長軸の角度である. 偏光楕円が円に縮退していない場合は, パラメータ $\psi$ の値は一意に定まる。偏光楕円が円に縮退している場合は, パラメータ $\psi$ の値は定まらない(どの値でもかまわない).
-  \item  パラメータ $\chi$ は $-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4}$の範囲の値を取る. 偏光楕円の短半径 $a_\eta$ と長半径 $a_\xi$ を用いて $\tan|\chi| = a_\eta/a_\xi$ と書ける. $\chi$ が正ならば右偏光, 負ならば左偏光である. 特に $\chi = \pm \pi/4$ が円偏光, $\chi = 0$ が直線偏光である.
-\end{enumerate}
-$\psi = \pi$ のとき $\psi = 0$ と比べて, 軸の正の向きは逆であるが主軸の方向は同じなので偏光楕円の軌跡は等しく, 同一視できる. また, $\chi = \pm\frac{\pi}{4}$ のとき, 偏光楕円が円に縮退している為, 楕円偏光の長軸の角度を変えても楕円偏光の軌跡は等しく, 同一視できる. これより偏光楕円において同一視できる関係を $\sim$ とおくと, 次のように書ける.
-\begin{align}
-  (\psi = 0, \chi)              & \sim (\psi = \pi, \chi)             & (-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4}) \\
-  (\psi, \chi = \frac{\pi}{4})  & \sim (\psi', \chi = \frac{\pi}{4})  & (0\leq\psi,\psi'\leq\pi)                  \\
-  (\psi, \chi = -\frac{\pi}{4}) & \sim (\psi', \chi = -\frac{\pi}{4}) & (0\leq\psi,\psi'\leq\pi)
-\end{align}
-これより $\psi$ を球面の経度, $\chi$ を球面の緯度と捉えると $\sim$ による同値類は2次元球面 $S^2$ と同相になる. 例えば $\chi = \frac{\pi}{4}$ は北極, $\chi = 0$ は赤道, $\chi = -\frac{\pi}{4}$ は南極と対応する. また, $\psi = 0,\pi$ が Greenwich 子午線として同一視される.
-\begin{align}
-  \qty{(\psi, \chi):0\leq\psi\leq\pi \land -\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4}}/\sim\ \cong S^2
-\end{align}
-さらに電場の強度 $|E|^2$ のパラメータ空間は非負実数空間 $\RR_{\geq0}$ であり, 電場の強度と偏光状態は独立である為, 電場の強度を半径と見なすことができる. よって強度と偏光のパラメータ空間は 3 次元実 Euclid 空間 $\RR^3$ と同相である.
-\begin{align}
-  \RR_{\geq 0}\times S^2 \cong \RR^3
-\end{align}
-このことから強度と偏光状態のパラメータを 3 次元空間 $\RR^3$ 上の点と対応させて考える. その点を極座標 $(s_0, \theta, \phi)$ で表すこととする. 上での対応させ方から次のように定義できる.
-\begin{align}
-  s_0    & = a_1^2 + a_2^2         \\
-  \theta & = \frac{\pi}{2} - 2\chi \\
-  \phi   & = 2\psi
-\end{align}
-これより右手系の直交座標 $(s_1, s_2, s_3)$ で表すと
-\begin{align}
-  s_1 & = s_0\cos2\psi\cos2\chi \\
-  s_2 & = s_0\sin2\psi\cos2\chi \\
-  s_3 & = s_0\sin2\chi
-\end{align}
-である. このようにして用意された電場の強度と偏光を記述する 4 つの実パラメータの組 $(s_0, s_1, s_2, s_3)$ は「Stokesパラメータ」と呼ばれる. Stokesパラメータはパラメータ $a_1, a_2, \psi, \chi$ を用いて次のように表される.
-\begin{align}
-  s_0 & = a_1^2 + a_2^2                        \\
-  s_1 & = s_0\cos2\psi\cos2\chi \label{s1 def} \\
-  s_2 & = s_0\sin2\psi\cos2\chi \label{s2 def} \\
-  s_3 & = s_0\sin2\chi \label{s3 def}
-\end{align}
-このような状況を「完全偏光」と呼び, より一般的な「部分偏光」をこれから考える. また完全偏光において関係式 $s_0^2 = s_1^2 + s_2^2 + s_3^2$ を満たす. このように点 $(s_1, s_2, s_3)$ は原点を中心とする半径 $s_0$ の球面上にある. この球面を「Poincaré 球面」と呼ぶ. \\
+\begin{proposition}
+  さらに電場の強度 $|E|^2$ のパラメータ空間は非負実数空間 $\RR_{\geq0}$ であり, 電場の強度と偏光状態は独立である為, 電場の強度を半径と見なすことができる. よって強度と偏光のパラメータ空間は 3 次元実 Euclid 空間 $\RR^3$ と同相である.
+  \begin{align}
+    \RR_{\geq 0}\times S^2 \cong \RR^3
+  \end{align}
+  このことから強度と偏光状態のパラメータを 3 次元空間 $\RR^3$ 上の点と対応させて考える. その点を極座標 $(s_0, \theta, \phi)$ で表すこととする. 上での対応させ方から次のように定義できる.
+\end{proposition}
+\begin{proof}
+  $\psi = \pi$ のとき $\psi = 0$ と比べて, 軸の正の向きは逆であるが主軸の方向は同じなので偏光楕円の軌跡は等しく, 同一視できる. また, $\chi = \pm\frac{\pi}{4}$ のとき, 偏光楕円が円に縮退している為, 楕円偏光の長軸の角度を変えても楕円偏光の軌跡は等しく, 同一視できる. これより偏光楕円において同一視できる関係を $\sim$ とおくと, 次のように書ける.
+  \begin{align}
+    (\psi = 0, \chi)              & \sim (\psi = \pi, \chi)             & (-\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4}) \\
+    (\psi, \chi = \frac{\pi}{4})  & \sim (\psi', \chi = \frac{\pi}{4})  & (0\leq\psi,\psi'\leq\pi)                  \\
+    (\psi, \chi = -\frac{\pi}{4}) & \sim (\psi', \chi = -\frac{\pi}{4}) & (0\leq\psi,\psi'\leq\pi)
+  \end{align}
+  これより $\psi$ を球面の経度, $\chi$ を球面の緯度と捉えると $\sim$ による同値類は2次元球面 $S^2$ と同相になる. 例えば $\chi = \frac{\pi}{4}$ は北極, $\chi = 0$ は赤道, $\chi = -\frac{\pi}{4}$ は南極と対応する. また, $\psi = 0,\pi$ が Greenwich 子午線として同一視される.
+  \begin{align}
+    \qty{(\psi, \chi):0\leq\psi\leq\pi \land -\frac{\pi}{4}\leq\chi\leq\frac{\pi}{4}}/\sim\ \cong S^2
+  \end{align}
+  さらに電場の強度 $|E|^2$ のパラメータ空間は非負実数空間 $\RR_{\geq0}$ であり, 電場の強度と偏光状態は独立である為, 電場の強度を半径と見なすことができる. よって強度と偏光のパラメータ空間は 3 次元実 Euclid 空間 $\RR^3$ と同相である.
+  \begin{align}
+    \RR_{\geq 0}\times S^2 \cong \RR^3
+  \end{align}
+  このことから強度と偏光状態のパラメータを 3 次元空間 $\RR^3$ 上の点と対応させて考える. その点を極座標 $(s_0, \theta, \phi)$ で表すこととする. 上での対応させ方から次のように定義できる.
+  \begin{align}
+    s_0    & = a_1^2 + a_2^2         \\
+    \theta & = \frac{\pi}{2} - 2\chi \\
+    \phi   & = 2\psi
+  \end{align}
+  これより右手系の直交座標 $(s_1, s_2, s_3)$ で表すと
+  \begin{align}
+    s_1 & = s_0\cos2\psi\cos2\chi \\
+    s_2 & = s_0\sin2\psi\cos2\chi \\
+    s_3 & = s_0\sin2\chi
+  \end{align}
+  である. このようにして用意された電場の強度と偏光を記述する 4 つの実パラメータの組 $(s_0, s_1, s_2, s_3)$ は「Stokesパラメータ」と呼ばれる. Stokesパラメータはパラメータ $a_1, a_2, \psi, \chi$ を用いて次のように表される.
+  \begin{align}
+    s_0 & = a_1^2 + a_2^2                        \\
+    s_1 & = s_0\cos2\psi\cos2\chi \label{s1 def} \\
+    s_2 & = s_0\sin2\psi\cos2\chi \label{s2 def} \\
+    s_3 & = s_0\sin2\chi \label{s3 def}
+  \end{align}
+  このような状況を「完全偏光」と呼び, より一般的な「部分偏光」をこれから考える. また完全偏光において関係式 $s_0^2 = s_1^2 + s_2^2 + s_3^2$ を満たす. このように点 $(s_1, s_2, s_3)$ は原点を中心とする半径 $s_0$ の球面上にある. この球面を「Poincaré 球面」と呼ぶ. \\
+\end{proof}
 
-\textbf{Q 21B-22.}
-上の定義を用いて表される次のベクトルを「Stokesベクトル」と呼ぶ.
-\begin{align}
-  \vb{S} = \mqty[s_0 \\ s_1 \\ s_2 \\ s_3] = \mqty[s_0 & s_1 & s_2 & s_3]^\top
-\end{align}
-このとき具体的な例として以下のようなものがある.
+\begin{definition}[Stokes パラメータ]
+  このように用意された電場の強度と偏光を記述する 4 つの実パラメータの組 $(s_0, s_1, s_2, s_3)$ は「Stokesパラメータ」と呼ばれる。Stokesパラメータはパラメータ $a_1, a_2, \psi, \chi$ を用いて次のように表される。
+  \begin{align}
+    s_0 & = a_1^2 + a_2^2           \\
+    s_1 & = s_0\cos 2\psi\cos 2\chi \\
+    s_2 & = s_0\sin 2\psi\cos 2\chi \\
+    s_3 & = s_0\sin 2\chi
+  \end{align}
+  次のベクトルを「Stokesベクトル」と呼ぶ。
+  \begin{align}
+    \vb{S} = \mqty(s_0 \\ s_1 \\ s_2 \\ s_3)
+  \end{align}
+\end{definition}
+このとき具体的な例として以下のようなものがある。
 \begin{table}[hbtp]
   \label{table:Stokes Jones}
   \centering
@@ -748,123 +466,122 @@ $\psi = \pi$ のとき $\psi = 0$ と比べて, 軸の正の向きは逆であ�
     \hline
   \end{tabular}
   \caption{重要な偏光状態の Stokes ベクトル}
-\end{table} \\
+\end{table}
 
-\section{Stokesパラメータの応用}
-スピンの量子状態 $\ket{\Psi}$ は2つの基底状態 $\ket{\uparrow}, \ket{\downarrow}$ の重ね合わせで与えられる.
-\begin{align}
-  \ket{\Psi} = c_1\ket{\uparrow} + c_2\ket{\downarrow} \quad (c_1, c_2 \in \CC)
-\end{align}
-ここで次の $S^1$ gauge 変換に対し観測可能量の期待値は変化しない.
-\begin{align}
-  \ket{\Psi} \mapsto \ket{\Psi'} = e^{\ii\delta}\ket{\Psi} \quad (\delta\in\RR)
-\end{align}
-規格化条件と $S^1$ gauge 変換による同一視を課すと 2 つの実数パラメータにより指定でき, これは $S^2$ と同相であるという事実が知られている. よってスピンの量子状態と光の偏光状態は $S^2$ と同相な物理量であることがわかる. 近年, これらは量子計算の基礎的な資源と見なされている.
+次に Stokes パラメータを電場を用いて表現する。
+\begin{definition}[Jones ベクトル]
+  電場の複素表示の複素共役 $\EC(\rr, t)$ を定義する。
+  \begin{align}
+    \EC(\rr, t) = \EE(\rr, t)^*
+  \end{align}
+  これを「光学の流儀の複素表示」と呼ぶこととする。
+  \begin{align}
+    \EC(\rr, t) = \mqty(\Ec_1(\rr, t) \\ \Ec_2(\rr, t)) = \mqty(\Ec_1 \\ \Ec_2)e^{i(\omega(\kk)t - \kk\vdot\rr)}
+  \end{align}
+  このとき次のベクトルを Jones ベクトルと呼び、それに作用する行列を Jones 行列という。
+  \begin{align}
+    \JJ = \mqty(\Ec_1 \\ \Ec_2) \in\CC^2
+  \end{align}
+\end{definition}
+アメリカの物理学者 R.C.Jones が Jones ベクトルと Jones 行列を提案したのは 1941 年のことです。
 
-\section{Stokes パラメータの測定}
-Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれらが直接的に観測可能な物理量であることである. どのように測定可能なのかを学習する.
-\subsection{Stokes パラメータの $a_1, a_2$ と $\varepsilon$ (あるいは $\delta$) による表現}
-直線偏光と円偏光について以下のように定義していた.
-\begin{align}
-  \tilde{\EE}(\rr, t) & = \tilde{E}_1\ee_1(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \tilde{E}_2\ee_2(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} \label{ET line def}   \\
-                      & = \tilde{E}_+\ee_+(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} + \tilde{E}_-\ee_-(\kk)e^{\ii(\kk\vdot\rr - \omega(\kk)t)} \label{ET circle def} \\
-  \tilde{E}_i         & = a_ie^{\ii\varepsilon_i}, a_i \geq 0, \varepsilon_i\in\RR \quad (i = 1, 2, +, -)
-\end{align}
-このとき次の等式が成り立つ.
-\begin{align}
-  \tilde{E}_+ & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 - \ii\tilde{E}_2) \\
-  \tilde{E}_- & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 + \ii\tilde{E}_2)
-\end{align}
-\\
+\begin{proposition}[(直線偏光の) Stokes パラメータの Jones ベクトルによる表現]
+  Stokes パラメータは Jones ベクトルを用いて次のように表される。
+  \begin{align}
+    s_0 & = |\Ec_1|^2 + |\Ec_2|^2 \\
+    s_1 & = |\Ec_1|^2 - |\Ec_2|^2 \\
+    s_2 & = 2\Re(\Ec_1^*\Ec_2)    \\
+    s_3 & = 2\Im(\Ec_1^*\Ec_2)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    s_0 & = a_1^2 + a_2^2                                                                              \\
+        & = \qty|\ee_1(\kk)\vdot\ET|^2 + \qty|\ee_2(\kk)\vdot\ET|^2                                    \\
+        & = |\ee_1(\kk)\vdot\EC|^2 + |\ee_2(\kk)\vdot\EC|^2                                            \\
+        & = |\Ec_1|^2 + |\Ec_2|^2                                                                      \\
+    s_1 & = s_0\cos2\psi\cos2\chi = a_1^2 - a_2^2                                                      \\
+        & = \qty|\ee_1(\kk)\vdot\ET|^2 - \qty|\ee_2(\kk)\vdot\ET|^2                                    \\
+        & = |\ee_1(\kk)\vdot\EC|^2 - |\ee_2(\kk)\vdot\EC|^2                                            \\
+        & = |\Ec_1|^2 - |\Ec_2|^2                                                                      \\
+    s_2 & = s_0\sin2\psi\cos2\chi = s_0\cos2\psi\cos2\chi\cdot\tan2\psi                                \\
+        & = 2a_1a_2\cos\delta = 2a_1a_2\cos\varepsilon = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)    \\
+        & = 2\Re\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)}                               \\
+        & = 2\Re\qty{\qty(\ee_1(\kk)\vdot\EC)^*\qty(\ee_2(\kk)\vdot\EC)}                               \\
+        & = 2\Re(\Ec_1^*\Ec_2)                                                                         \\
+    s_3 & = s_0\sin2\chi                                                                               \\
+        & = 2a_1a_2\sin\delta = -2a_1a_2\sin\varepsilon = - 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1) \\
+        & = - 2\Im\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)}                             \\
+        & = 2\Im\qty{\qty(\ee_1(\kk)\vdot\EC)^*\qty(\ee_2(\kk)\vdot\EC)}                               \\
+        & = 2\Im(\Ec_1^*\Ec_2)
+  \end{align}
+\end{proof}
 
-\textbf{Q 21B-23.}
-このとき円偏光のパラメータを直線偏光のパラメータを用いて表すことを考える.
-\begin{align}
-  a_+^2 + a_-^2
-   & = |\tilde{E}_+|^2 + |\tilde{E}_+|^2                                                                                                      \\
-   & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 + |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
-   & = a_1^2 + a_2^2                                                                                                                          \\
-  a_+^2 - a_-^2
-   & = |\tilde{E}_+|^2 - |\tilde{E}_+|^2                                                                                                      \\
-   & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 - |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
-   & = 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1)                                                                                             \\
-  2a_+a_-\cos(\varepsilon_- - \varepsilon_+)
-   & = \Re(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
-   & = \Re((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
-   & = a_1^2 - a_2^2                                                                                                                          \\
-  2a_+a_-\sin(\varepsilon_- - \varepsilon_+)
-   & = \Im(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
-   & = \Im((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
-   & = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)
-\end{align}
-
-\textbf{Q 21B-24.}
-Stokesパラメータを直線偏光のパラメータで表現することを考える. 式 \eqref{cos 2chi}, \eqref{chi def} より
-\begin{align}
-  s_0 & = a_1^2 + a_2^2                               \\
-  s_1 & = s_0\cos2\psi\cos2\chi                       \\
-      & = a_1^2 - a_2^2                               \\
-  s_2 & = s_0\sin2\psi\cos2\chi                       \\
-      & = s_0\cos2\psi\cos2\chi\cdot\tan2\psi         \\
-      & = 2a_1a_2\cos\delta = 2a_1a_2\cos\varepsilon  \\
-  s_3 & = s_0\sin2\chi                                \\
-      & = 2a_1a_2\sin\delta = -2a_1a_2\sin\varepsilon
-\end{align}
-
-\subsection{電場の通常の規約による複素表示 $\tilde{E}$ を用いて}
-\textbf{Q 21B-25, Q 21B-26.}
-電場の複素表示 $\ET$ と一般の楕円偏光の基底ベクトル $\ee_i, \ee_j\in\CC^3\quad ((i, j) = (1, 2), (+, -))$ の直交性より
-\begin{align}
-  \ee_i(\kk)^*\vdot\ET
-   & = \Et_ie^{\ii(\kk\vdot\rr - \omega(\kk)t)} = a_ie^{\ii(\kk\vdot\rr - \omega(\kk)t + \varepsilon_i)} \\
-  \qty(\ee_i(\kk)^*\vdot\ET)^*\qty(\ee_j(\kk)^*\vdot\ET)
-   & = \Et_i^*\Et_j = a_ia_je^{\ii(\varepsilon_j - \varepsilon_i)} \label{Ei Ej}
-\end{align}
-となる. 特に直線偏光の基底ベクトル $\ee_1, \ee_2\in\RR^3$ より, $\ee_i = \ee_i^*\quad(i=1,2)$ となる. \\
-
-\textbf{Q 21B-27.}
-式 \eqref{Ei Ej} よりStokesパラメータは直線偏光のパラメータを用いて
-\begin{align}
-  s_0 & = a_1^2 + a_2^2 = \qty|\ee_1(\kk)\vdot\ET|^2 + \qty|\ee_2(\kk)\vdot\ET|^2                                      \\
-  s_1 & = a_1^2 - a_2^2 = \qty|\ee_1(\kk)\vdot\ET|^2 - \qty|\ee_2(\kk)\vdot\ET|^2                                      \\
-  s_2 & = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1) = 2\Re\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)}    \\
-  s_3 & = - 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1) = -2\Im\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)}
-\end{align}
-と表される. \\
-
-\textbf{Q 21B-28.}
-さらに Q 21B-23 より円偏光のパラメータを用いて
-\begin{align}
-  s_0 & = a_+^2 + a_-^2 = \qty|\ee_+(\kk)^*\vdot\ET|^2 + \qty|\ee_-(\kk)^*\vdot\ET|^2                                   \\
-  s_1 & = 2a_+a_-\cos(\varepsilon_- - \varepsilon_+) = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)} \\
-  s_2 & = 2a_+a_-\sin(\varepsilon_- - \varepsilon_+) = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)} \\
-  s_3 & = -\qty(a_+^2 - a_-^2) = -\qty{\qty|\ee_+(\kk)^*\vdot\ET|^2 - \qty|\ee_-(\kk)^*\vdot\ET|^2}
-\end{align}
-と表される. これらの $s_3$ にマイナスが含まれているところが気に入らないらしく, 光学で使われる電場の複素表示を用いることで対称性のよい形にできることを次の節で示す.
+\begin{proposition}[円偏光の Stokes パラメータの Jones ベクトルによる表現]
+  \begin{align}
+    s_0 & = \qty|\ee_+(\kk)^*\vdot\EC|^2 + \qty|\ee_-(\kk)^*\vdot\EC|^2      \\
+    s_1 & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)} \\
+    s_2 & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)} \\
+    s_3 & = \qty|\ee_+(\kk)^*\vdot\EC|^2 - \qty|\ee_-(\kk)^*\vdot\EC|^2
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \tilde{E}_+ & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 - \ii\tilde{E}_2) \\
+    \tilde{E}_- & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 + \ii\tilde{E}_2)
+  \end{align}
+  電場の複素表示 $\ET$ と一般の楕円偏光の基底ベクトル $\ee_i, \ee_j\in\CC^3\quad ((i, j) = (1, 2), (+, -))$ の直交性より
+  \begin{align}
+    \ee_i(\kk)^*\vdot\ET
+     & = \Et_ie^{\ii(\kk\vdot\rr - \omega(\kk)t)} = a_ie^{\ii(\kk\vdot\rr - \omega(\kk)t + \varepsilon_i)} \\
+    \qty(\ee_i(\kk)^*\vdot\ET)^*\qty(\ee_j(\kk)^*\vdot\ET)
+     & = \Et_i^*\Et_j = a_ia_je^{\ii(\varepsilon_j - \varepsilon_i)} \label{Ei Ej}
+  \end{align}
+  となる. 特に直線偏光の基底ベクトル $\ee_1, \ee_2\in\RR^3$ より, $\ee_i = \ee_i^*\quad(i=1,2)$ となる.
+  式 \eqref{ET line def}, \eqref{ET circle def} に複素共役を取って新しい複素表示は次のように表される.
+  \begin{align}
+    \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
+    \Ec_i       & = \Et_i^* = a_ie^{\ii\delta_i} \qquad (i = 1, 2)                                                               \\
+    \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
+    \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{\ii\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
+  \end{align}
+  円偏光において新しい複素振幅 $\Ec_\pm$ と古い複素振幅 $\Et_\pm$ は成分の添字の $+$ と $-$ が反転して結びついていることに注意すべきである. また, これより次の式を導ける.
+  \begin{align}
+    \ee_i(\kk)\vdot\EC
+     & = \Ec_ie^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
+    \ee_\pm(\kk)^*\vdot\EC
+     & = \Ec_\pm e^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
+  \end{align}
+  \begin{align}
+    s_0 & = a_1^2 + a_2^2                                                                                                                          \\
+        & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 + |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
+        & = |\tilde{E}_+|^2 + |\tilde{E}_+|^2                                                                                                      \\
+        & = a_+^2 + a_-^2                                                                                                                          \\
+        & = \qty|\ee_+(\kk)^*\vdot\ET|^2 + \qty|\ee_-(\kk)^*\vdot\ET|^2                                                                            \\
+        & = \qty|\ee_+(\kk)^*\vdot\EC|^2 + \qty|\ee_-(\kk)^*\vdot\EC|^2                                                                            \\
+    s_1 & = a_1^2 - a_2^2                                                                                                                          \\
+        & = \Re((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
+        & = \Re(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
+        & = 2a_+a_-\cos(\varepsilon_- - \varepsilon_+)                                                                                             \\
+        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                                       \\
+        & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                                       \\
+    s_2 & = 2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)                                                                                             \\
+        & = \Im((a_1^2 - a_2^2) + \ii(2a_1a_2\cos(\varepsilon_2 - \varepsilon_1)))                                                                 \\
+        & = \Im(2\tilde{E}_-\tilde{E}_+^*)                                                                                                         \\
+        & = 2a_+a_-\sin(\varepsilon_- - \varepsilon_+)                                                                                             \\
+        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)}                                                                       \\
+        & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                                                                       \\
+    s_3 & = 2a_1a_2\sin(\varepsilon_2 - \varepsilon_1)                                                                                             \\
+        & = \frac{1}{2}\qty(|a_1e^{\ii\varepsilon_1} - \ii a_2e^{\ii\varepsilon_2}|^2 - |a_1e^{\ii\varepsilon_1} + \ii a_2e^{\ii\varepsilon_2}|^2) \\
+        & = |\tilde{E}_+|^2 - |\tilde{E}_+|^2                                                                                                      \\
+        & = -\qty(a_+^2 - a_-^2)                                                                                                                   \\
+        & = -\qty{\qty|\ee_+(\kk)^*\vdot\ET|^2 - \qty|\ee_-(\kk)^*\vdot\ET|^2}                                                                     \\
+        & = \qty|\ee_+(\kk)^*\vdot\EC|^2 - \qty|\ee_-(\kk)^*\vdot\EC|^2
+  \end{align}
+\end{proof}
 
 \subsection{電場の光学の規約による複素表示 $\EC$ を用いて}
-電場の複素表示の複素共役 $\EC(\rr, t)$ を定義する.
-\begin{align}
-  \EC(\rr, t) = \ET(\rr, t)^*
-\end{align}
-これを「光学の流儀の複素表示」あるいは「新しい複素表示」と呼ぶこととする. \\
 
-\textbf{Q 21B-29, Q 21B-30.}
-式 \eqref{ET line def}, \eqref{ET circle def} に複素共役を取って新しい複素表示は次のように表される.
-\begin{align}
-  \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
-  \Ec_i       & = \Et_i^* = a_ie^{\ii\delta_i} \qquad (i = 1, 2)                                                               \\
-  \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{\ii(\omega(\kk)t - \kk\vdot\rr)}      \\
-  \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{\ii\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
-\end{align}
-円偏光において新しい複素振幅 $\Ec_\pm$ と古い複素振幅 $\Et_\pm$ は成分の添字の $+$ と $-$ が反転して結びついていることに注意すべきである. また, これより次の式を導ける.
-\begin{align}
-  \ee_i(\kk)\vdot\EC
-   & = \Ec_ie^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
-  \ee_\pm(\kk)^*\vdot\EC
-   & = \Ec_\pm e^{\ii(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{\ii(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
-\end{align}
-\\
 
 \textbf{Q 21B-31.}
 また上式の考察より次のように偏光の向きも逆転する.
@@ -878,42 +595,6 @@ Stokesパラメータを直線偏光のパラメータで表現することを�
 \end{align}
 \\
 
-\textbf{Q 21B-32.}
-式 \eqref{EC ET converter 12} より Stokes パラメータは $\EC$ を用いて次のように表される.
-\begin{align}
-  s_0 & = \qty|\ee_1(\kk)\vdot\ET|^2 + \qty|\ee_2(\kk)\vdot\ET|^2 = |\ee_1(\kk)\vdot\EC|^2 + |\ee_2(\kk)\vdot\EC|^2                    \\
-  s_1 & = \qty|\ee_1(\kk)\vdot\ET|^2 - \qty|\ee_2(\kk)\vdot\ET|^2 = |\ee_1(\kk)\vdot\EC|^2 - |\ee_2(\kk)\vdot\EC|^2                    \\
-  s_2 & = 2\Re\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)} = 2\Re\qty{\qty(\ee_1(\kk)\vdot\EC)^*\qty(\ee_2(\kk)\vdot\EC)}  \\
-  s_3 & = -2\Im\qty{\qty(\ee_1(\kk)\vdot\ET)^*\qty(\ee_2(\kk)\vdot\ET)} = 2\Im\qty{\qty(\ee_1(\kk)\vdot\EC)^*\qty(\ee_2(\kk)\vdot\EC)}
-\end{align}
-\\
-
-\textbf{Q 21B-33.}
-式 \eqref{EC ET converter +-} より Stokes パラメータは $\EC$ を用いて次のように表される.
-\begin{align}
-  s_0 & = \qty|\ee_+(\kk)^*\vdot\ET|^2 + \qty|\ee_-(\kk)^*\vdot\ET|^2 = \qty|\ee_+(\kk)^*\vdot\EC|^2 + \qty|\ee_-(\kk)^*\vdot\EC|^2                          \\
-  s_1 & = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)} = 2\Re\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                \\
-  s_2 & = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\ET)^*\qty(\ee_-(\kk)^*\vdot\ET)} = 2\Im\qty{\qty(\ee_+(\kk)^*\vdot\EC)^*\qty(\ee_-(\kk)^*\vdot\EC)}                \\
-  s_3 & = -\qty{\qty|\ee_+(\kk)^*\vdot\ET|^2 - \qty|\ee_-(\kk)^*\vdot\ET|^2} = \qty|\ee_+(\kk)^*\vdot\EC|^2 - \qty|\ee_-(\kk)^*\vdot\EC|^2 \label{s3 circle}
-\end{align}
-
-\subsection{直線偏光子を用いると何が測定できるか？}
-まず一般的な楕円偏光の電場において, 次のように Jones ベクトル $\JJ$ を定義する.
-\begin{align}
-  \JJ         & = \mqty[\Ec_1         \\ \Ec_2]\in\CC^2 \\
-  \EC(\rr, t) & = \mqty[\Ec_1(\rr, t) \\ \Ec_2(\rr, t)] = \mqty[\Ec_1 \\ \Ec_2]e^{\ii(\omega(\kk)t - \kk\vdot\rr)}
-\end{align}
-
-\textbf{Q 21B-34.}
-このとき Stokes ベクトル $\SS$ を Jones ベクトル $\JJ$ を用いて次のように表される.
-\begin{align}
-  s_0 & = |\Ec_1|^2 + |\Ec_2|^2 \\
-  s_1 & = |\Ec_1|^2 - |\Ec_2|^2 \\
-  s_2 & = 2\Re(\Ec_1^*\Ec_2)    \\
-  s_3 & = 2\Im(\Ec_1^*\Ec_2)
-\end{align}
-
-\textbf{Q 21B-35.}
 また光の強度 $I$ について Jones ベクトル $\JJ$ の絶対値の二乗に比例することが分かる.
 \begin{align}
   I & = \left\langle\EE(\rr, t)\right\rangle                   \\
@@ -922,8 +603,19 @@ Stokesパラメータを直線偏光のパラメータで表現することを�
     & = \frac{1}{2}|\JJ|^2 \label{Jones strength}
 \end{align}
 
-\textbf{Q 21B-36.}
-以上の定義を用いて \ref{table:Stokes Jones} での Jones ベクトルの正当性が分かる. \\
+\section{Stokes パラメータの測定}
+\begin{definition}[光学素子]
+  \begin{enumerate}
+    \item 直線偏光子（linear polarizer）とは、入力の電磁波をその透過軸（transmission asix）とそれに垂直な軸に沿った 2 つの直線偏光の成分に分解したとき、出力においては、前者の成分を透過するのに、後者の成分を遮断するような光学素子です。この作用は線形です。ですから、直線偏光子は対応する Jones 行列によって数学的には表現されます。
+  \end{enumerate}
+  物理的に原理が最も単純な直線偏光子は「針金格子偏光子」（wire grid polarizer）でしょう。電磁波の波長 λ よりもずっと細い直径を持つ直線状の伝導性の良い金属の針金を多数用意します。その多数の針金を波長 $\lambda$ よりもずっと狭い間隔だけ離して等間隔に平行に板状に並べます。この多数の針金が並べられた「すだれ」あるいは「牢屋の鉄格子」のような板状の物体が「針金格子偏光子」です。
+\end{definition}
+
+可視光の領域での具体的な直線偏光子として便利なのは、「ポラロイド」のプラスチック板でしょう。ポラロイドは針金格子偏光子を近似的に実現していると考えることができます。最初のポラロイドはヨウ素を含む化合物である過ヨウ化硫酸キニーネ（ヘラパタイト）の多数の小さな針状結晶を方向を揃えて酢酸セルロースのフィルムに埋め込んだものです。ヘラパタイトの中のヨウ素が伝導性を担い、特定の方向の伝導性が高い針金のような状況が出来ていると考えられます。この「ポラロイド J 板」が E.H.Land によってつくられたのは 1928 年のことです。さらに、1938 年に Land は改良された「ポラロイド H 板」をつくり出しました。透明なポリビニルアルコールの板を熱してある方向に引き延ばします。すると、ポリビニルアルコールの高分子は伸ばした方向に整列します。その後、板を高濃度のヨウ素のインク液に浸します。すると、高分子が多数のヨウ素で修飾されます。取り込まれた多数のヨウ素は高分子の整列の方向につながって、１次元的な伝導性をもたらします。これは微視的な針金です。このようにしてできた「ポラロイド H 板」は針金格子を近似していると考えられます。ポラロイド H 板の透過軸はポリビニルアルコールの板を伸ばした方向に垂直になります。
+
+Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれらが直接的に観測可能な物理量であることである. どのように測定可能なのかを学習する.
+
+\subsection{直線偏光子を用いると何が測定できるか？}
 
 任意の光学素子を取り上げると, Jones ベクトルの変換は表現論より行列 $M(2; \CC)$ で書ける. これを Jones 行列と呼ぶ. また素子の1つとして直線偏光子があり, 最も単純な直線偏光子は針金格子偏光子 (wire grid polarizer) でしょう. 電磁場の波よりもずっと細い直径を持つ直線状の伝導性の良い金属の針金を多数用意し, それらを波長 $\lambda$ よりずっと狭い間隔だけ離して等間隔に並行に板状に並べる.このような板状の物体が「針金格子偏光子」である. \\
 
