@@ -150,4 +150,112 @@
 \begin{document}
 \maketitle
 
+\begin{definition}
+  体 $K$ について自然な環準同型 $\phi:\mathbb{Z}\ni n\mapsto n\cdot 1\in K$ の核 $\mathrm{Ker}(\phi)\subset\mathbb{Z}$ は準同型定理 $\mathbb{Z}/\mathrm{Ker}(\phi)\cong\Im(\phi)$ と $\Im(\phi)$ は整域であることから素イデアルである. $\mathbb{Z}$ の素イデアルは $(0)$ または素数 $p$ があり $(p)$ であるから $\mathrm{Ker}(\phi)$ も $(0)$ または $(p)$ である. このとき標数 $\mathrm{ch}\ K$ は それぞれ $0$, $p$ であるという.
+\end{definition}
+\begin{theorem}
+  標数に対応する体の性質
+  \begin{enumerate}
+    \item 標数 $0$ の体なら, $\mathbb{Q}$ を含む.
+    \item 標数 $p > 0$ の体なら, $\mathbb{F}_p$ を含む.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  $K$ が標数 $p>0$ の体, $n$ が正の整数で $q = p^n$ とおくと $\mathrm{Frob}_q:K\ni x\mapsto x^q\in K$ をフロベニウス準同型という.
+\end{definition}
+
+\begin{theorem}
+  フロベニウス準同型は体の準同型である.
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \mathrm{Frob}_q(x + y) & = (x + y)^q = x^q + y^q = \mathrm{Frob}_q(x) + \mathrm{Frob}_q(y) \\
+    \mathrm{Frob}_q(xy)    & = (xy)^q = x^qy^q = \mathrm{Frob}_q(x)\mathrm{Frob}_q(y)          \\
+    \mathrm{Frob}_q(0)     & = 0                                                               \\
+    \mathrm{Frob}_q(1)     & = 1
+  \end{align}
+\end{proof}
+
+
+\begin{definition}
+  体の拡大の定義
+  \begin{enumerate}
+    \item $L/K$ が体の拡大とする. $L$ の $K$ 上のベクトル空間としての次元を $[L:K]$ と書く. 拡大次数 $[L:K]$ が有限なら $L/K$ を有限次拡大, そうでなければ無限次拡大という.
+    \item $n$ 変数有理式. $\alpha\in L$ により $K(\alpha)$ となるとき, $L$ を $K$ の単拡大という. 有限個の元 $\alpha_1,\cdots,\alpha_n\in L$ により $L = K(\alpha_1,\cdots,\alpha_n)$ となるとき, $L$ は $K$ 上有限生成であるという.
+    \item $L/K$ が体の拡大とする. $L$ のすべての元が $K$ 上代数的なら $L/K$ は代数拡大という. そうでなければ, 超越拡大という.
+    \item $K$ を任意の定数でない1変数多項式 $f(x)\in K[x]$ に対し $\alpha\in K$ があり, $f(\alpha) = 0$ となるとき, $K$ を代数閉体という. $L/K$ が代数拡大であり $L$ が代数閉体であるとき, $L$ を $K$ の代数閉包という.
+    \item $L/K$ が代数拡大とする. $L$ のすべての元が $K$ 上分離的なら $L/K$ を分離拡大という.
+    \item $L/K$ が代数拡大とする. $\alpha\in L$ なら $\alpha$ の $K$ 上の最小多項式が $L$ 上では1次式の積になるとき, $L/K$ を正規拡大という.
+    \item $L/K$ が分離拡大かつ正規拡大ならガロア拡大という.
+  \end{enumerate}
+\end{definition}
+
+
+\begin{proposition}
+  $L/M$, $M/K$ が有限次拡大なら $L/K$ も有限次拡大で $[L:K] = [L:M][M:K]$ となる.
+\end{proposition}
+\begin{proof}
+  $l = [L:M]$, $m = [M:K]$, $\lbrace x_1,\cdots,x_l \rbrace$ を $L$ の $M$ 上の基底, $\lbrace y_1,\cdots,y_m \rbrace$ を $M$ の $K$ 上の基底とする. \\
+  このとき $z\in L$ なら $a_i\in M$ があり, $z = \sum_ia_ix_i$ となる. また $b_{ij}\in K$ があり $z = \sum_{i,j}b_{ij}x_iy_j$ となる. よって, $B=\lbrace x_iy_j\mid i=1,\cdots,l, j = 1,\cdots,m\rbrace$ は $K$ 加群として $L$ を生成する.
+\end{proof}
+
+\begin{proposition}
+  既約な最小多項式
+  \begin{enumerate}
+    \item $L = K[x]/(f(x))$ は体で $[L:K] = \deg f(x)$ である.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+\end{proof}
+
+\begin{theorem}
+  以下は互いに同値である.
+  \begin{enumerate}
+    \item $L/K$ が有限生成かつ代数拡大である.
+    \item $L/K$ が有限個の代数的な元から生成している.
+    \item $L/K$ が有限次拡大である.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  (1$\implies$2) \\
+  代数的でない元から生成すれば超越拡大となることから代数的な元から生成している. \\
+  (2$\implies$3) \\
+  代数的な元から生成するとその最小多項式の次数が拡大次数となることから $n$ に関する帰納法を用いて $L/K$ は有限次拡大である. \\
+  (3$\implies$1) \\
+  $n = [L : K]$ として $x\in L$ なら $1, x, \cdots, x^n$ は一次従属である. よって, $a_0+\cdots+a_nx^n = 0$ となる $a_0,\cdots,a_n$ が存在する. つまり, $x$ は代数的な元である. これより $L/K$ は代数拡大である. \\
+  また, 無限生成ならば無限次拡大であるから有限生成である. \\
+\end{proof}
+
+\begin{proposition}
+  $L/K$ が代数拡大, $\alpha\in L$ で, $L\supset M\supset K$ を中間体とする. $\alpha$ が $K$ 上分離的なら $M$ 上でも分離的である.
+\end{proposition}
+\begin{proof}
+  $\alpha\in\overline{K}$ の $K$ 上の最小多項式 $f(x)$ が分離多項式であり, $\overline{K} = \overline{M}$ かつ $M$ 上の最小多項式は $f(x)$ を割り切るから分離多項式となり, $M$ 上でも分離的である.
+\end{proof}
+
+\begin{proposition}
+  $f(x)\in K[x]$ を $K$ 上既約な多項式とする. このとき以下は互いに同値である.
+  \begin{enumerate}
+    \item $f(x)$ は $\overline{K}$ 上で重根を持つ
+    \item $f'(x) = 0$
+    \item $\ch K = p > 0$ であり, $K$ 上既約な分離多項式 $g(x)$ と $n > 0$ があり, $f(x) = g(x^{p^n})$ となる.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  ($1\iff 2$) \\
+  $f'(x) = 0$ ならば \\
+  ($2\iff 3$)
+\end{proof}
+
+\begin{theorem}
+  Steinitzの定理
+  \begin{enumerate}
+    \item $K$ の代数拡大 $L$ で, 代数閉体であるものが存在する.
+    \item $L_1\supseteq M_1\supseteq K$, $L_2\supseteq M_2\supseteq K$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+\end{proof}
+
 \end{document}
