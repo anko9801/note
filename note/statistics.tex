@@ -15,6 +15,7 @@
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
+\usepackage{siunitx}
 % \usepackage[dvipdfmx,hiresbb,final]{graphicx}
 \usepackage{hyperref}
 \usepackage{pxjahyper}
@@ -26,7 +27,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{物理数学}
+\title{統計力学}
 \author{Anko}
 \makeatletter
 %
@@ -157,6 +158,10 @@
 \maketitle
 \tableofcontents
 \clearpage
+
+\section{ミクロカノニカル分布}
+
+\section{カノニカル分布}
 
 \section{構成要素である 1 個の二準位系の統計力学}
 絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする：
@@ -364,13 +369,7 @@ fn _f(x: f64) -> f64 {
 
 図 \ref{fig:2level} のように描ける。
 
-\begin{figure}[htbp]
-  \begin{center}
-    \includegraphics[height=8cm]{2level_system.jpg}
-    \caption{二準位系におけるそれぞれの熱力学量の温度 $T$ に関するグラフ}
-    \label{fig:2level}
-  \end{center}
-\end{figure}
+
 
 \begin{itembox}[l]{Q 15-9.}
   $N$ 個の独立な二準位系からなる系の熱力学量を求めよ。
@@ -393,7 +392,7 @@ fn _f(x: f64) -> f64 {
 \end{align}
 ここで、$m$ は粒子の質量であり、$\omega$ は調和振動の角振動数です。また、$\hat{q}$ は粒子の位置座標演算子であり、$\hat{p}$ は運動量演算子です。それらは、次の正準交換関係を満たします：
 \begin{align}
-  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = \ii\hbar
+  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = i\hbar
 \end{align}
 ここで、$\hbar$ は Planck 定数です。
 
@@ -519,13 +518,7 @@ fn _f(x: f64) -> f64 {
 
 図 \ref{fig:oscillator} のように描ける。
 
-\begin{figure}[htbp]
-  \begin{center}
-    \includegraphics[height=8cm]{oscillator_system.jpg}
-    \caption{振動子系におけるそれぞれの熱力学量の温度 $T$ に関するグラフ}
-    \label{fig:oscillator}
-  \end{center}
-\end{figure}
+
 
 \section{固体の比熱の Einstein 模型}
 \begin{itembox}[l]{Q 16-5.}
@@ -590,6 +583,9 @@ fn _f(x: f64) -> f64 {
 \end{align}
 これより $C \propto T^3$ とはならない為、固体の比熱の Einstein 模型は実験事実と合致しない。
 
+\section{グランドカノニカル分布}
+
+\section{Bose 統計と Fermi 統計}
 
 
 \end{document}
