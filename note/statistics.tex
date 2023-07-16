@@ -141,6 +141,7 @@
 \newqedtheorem{problem}{問題}
 \newqedtheorem{algorithm}{アルゴリズム}
 
+\newscreentheorem*{axiom}{公理}
 \newscreentheorem*{definition}{定義}
 
 \renewenvironment{proof}[1][\proofname]{\par
@@ -159,11 +160,17 @@
 \tableofcontents
 \clearpage
 
+\section{統計力学の基礎}
+エルゴード理論により次の原理が成り立つこととする。
+\begin{axiom}[等確率の原理]
+  孤立系を十分に長時間放置しておくと物体の実現可能な量子状態はエネルギーのゆらぎを除いてすべて等確率で実現する。
+\end{axiom}
+
 \section{ミクロカノニカル分布}
 
 \section{カノニカル分布}
 
-\section{構成要素である 1 個の二準位系の統計力学}
+\subsection{構成要素である 1 個の二準位系の統計力学}
 絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする：
 \begin{align}
   \hat{h}_X\ket{\varphi_i} & = E_i\ket{\varphi_i} \qquad (i = 1, 2)。
@@ -384,7 +391,7 @@ fn _f(x: f64) -> f64 {
   C        & = c = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2.
 \end{align}
 
-\section{調和振動子の量子力学のまとめ}
+\subsection{調和振動子の量子力学のまとめ}
 
 1次元の空間を運動する粒子が、次の調和振動子の Hamilton 演算子 $\hat{H}$ に従っているとします：
 \begin{align}
@@ -412,7 +419,7 @@ fn _f(x: f64) -> f64 {
   H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}.
 \end{align}
 
-\section{1 個の調和振動子の統計力学}
+\subsection{1 個の調和振動子の統計力学}
 \begin{itembox}[l]{Q 16-1.}
   1 個の調和振動子の統計力学における熱力学量を明らかにせよ。
 \end{itembox}
@@ -520,7 +527,7 @@ fn _f(x: f64) -> f64 {
 
 
 
-\section{固体の比熱の Einstein 模型}
+\subsection{固体の比熱の Einstein 模型}
 \begin{itembox}[l]{Q 16-5.}
   独立な調和振動子の集まりの系として記述される系 $X$ において$\dd{\omega}$ が十分小さいとして、角振動数が $\omega$ から $\omega + \dd{\omega}$ の範囲にある調和振動子の個数を $g(\omega)\dd{\omega}$ と定義する。つまり $g(\omega)$ は調和振動子の角振動数の個数分布関数である。
 \end{itembox}
@@ -585,7 +592,7 @@ fn _f(x: f64) -> f64 {
 
 \section{グランドカノニカル分布}
 
-\section{Bose 統計と Fermi 統計}
+\subsection{Bose 統計と Fermi 統計}
 
 
 \end{document}
