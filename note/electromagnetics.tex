@@ -64,6 +64,14 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\newcommand{\Et}{\tilde{E}}
+\newcommand{\ET}{\tilde{\bm{E}}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\EC}{\vb*{\mathcal{E}}}
+\newcommand{\LL}{\bm{L}}
+\newcommand{\ee}{\bm{\epsilon}}
+\renewcommand{\SS}{\bm{S}}
+\newcommand{\JJ}{\bm{J}}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -252,6 +260,10 @@
   \end{align}
 \end{proof}
 
+\begin{definition}
+  $\vnabla\vdot\AA = 0$ を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
+\end{definition}
+
 \begin{theorem}[ゲージ変換]
   任意の関数 $\chi(\rr, t)$ として次のゲージ変換は不変に保つ。
   \begin{align}
@@ -316,6 +328,7 @@
 \end{align}
 
 \subsection{遅延ポテンシャル}
+\subsection{電気双極子放射}
 
 \subsection{具体的な電場}
 \begin{theorem}
@@ -360,19 +373,11 @@
   エネルギーの流れの密度
   単位時間に単位面積を通過するエネルギー
   \begin{align}
-    \bm{S}(\rr) = \EE(\rr)\cross\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\cross\BB(\rr)
+    \SS(\rr) = \EE(\rr)\cross\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\cross\BB(\rr)
   \end{align}
 \end{definition}
 
-\newcommand{\Et}{\tilde{E}}
-\newcommand{\ET}{\tilde{\bm{E}}}
-\newcommand{\Ec}{\mathcal{E}}
-\newcommand{\EC}{\vb*{\mathcal{E}}}
-\newcommand{\LL}{\bm{L}}
-\newcommand{\ee}{\bm{\epsilon}}
-\renewcommand{\SS}{\bm{S}}
-\newcommand{\JJ}{\bm{J}}
-\section{電磁波}
+\section{真空中の電磁波}
 \begin{proposition}
   $\rho = 0$ $\bm{j} = \bm{0}$ において $\EE, \BB$ は波動方程式を満たす。
 \end{proposition}
@@ -1122,6 +1127,9 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
   D_{1\parallel} & = D_{2\parallel} \\
   E_{1\perp}     & = E_{2\perp}
 \end{align}
+
+\section{特殊相対論と電磁場}
+
 
 \section{誘電体中の電磁気学}
 \subsection{導体}
