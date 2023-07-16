@@ -178,54 +178,6 @@
 \end{definition}
 これらの法則で電磁気学が完結する。
 
-\subsection{電磁ポテンシャルとゲージ変換}
-\begin{theorem}[電位とベクトルポテンシャル]
-  次を満たす $\phi$, $\AA$ が存在し、
-  \begin{align}
-    \EE & = - \vnabla\phi - \pdv{\AA}{t} \\
-    \BB & = \vnabla\cross\AA
-  \end{align}
-\end{theorem}
-\begin{proof}
-\end{proof}
-
-\begin{theorem}[ゲージ変換]
-  任意の関数 $\chi(\rr, t)$ として次のゲージ変換は不変に保つ。
-  \begin{align}
-    \AA  & \to \AA + \vnabla\chi    \\
-    \phi & \to \phi - \pdv{\chi}{t}
-  \end{align}
-  ゲージ条件
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    \vnabla\vdot\BB = 0
-  \end{align}
-  より
-
-\end{proof}
-
-\begin{definition}
-  $\vnabla\vdot\AA = 0$ を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
-\end{definition}
-
-\begin{proposition}
-  静電場においてクーロンゲージ条件を満たすとき
-  \begin{align}
-    \phi(\rr) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr')}{|\rr - \rr'|}\dd{\rr'} \\
-    \AA(\rr)  & = \frac{\mu_0}{4\pi}\int_V\frac{\bm{j}(\rr')}{|\rr - \rr'|}\dd{\rr'}
-  \end{align}
-\end{proposition}
-\begin{proof}
-
-\end{proof}
-
-\begin{definition}
-  次の式を満たすゲージをローレンツゲージ (Lorenz gauge) と呼ぶ。
-  \begin{align}
-    \frac{1}{c^2}\pdv{\phi}{t} + \vnabla\vdot\AA = 0
-  \end{align}
-\end{definition}
 
 \subsection{電荷}
 \begin{theorem}[電荷の保存則]
@@ -248,6 +200,124 @@
   \end{align}
 \end{proof}
 
+
+\subsection{電磁ポテンシャルとゲージ変換}
+\begin{theorem}[電位とベクトルポテンシャル]
+  次を満たす $\phi$, $\AA$ が存在し、$\phi$ を電位、$\AA$ をベクトルポテンシャルという。
+  \begin{align}
+    \EE & = - \vnabla\phi - \pdv{\AA}{t} \\
+    \BB & = \vnabla\cross\AA
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \EE & = - \vnabla\phi - \pdv{\AA}{t} \\
+    \BB & = \vnabla\cross\AA
+  \end{align}
+  Maxwell の方程式に代入すると
+  \begin{align}
+     & \vnabla\vdot\BB = 0                       \\
+     & \vnabla\vdot(\vnabla\cross\AA) = 0        \\
+     & \vnabla\cross\EE = -\pdv{\BB}{t}          \\
+     & \vnabla\cross\qty(\EE + \pdv{\AA}{t}) = 0 \\
+     & \vnabla\cross\qty(-\vnabla\phi) = 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  Maxwell の方程式は電磁ポテンシャルを用いて次のように表される。
+  \begin{align}
+     & \EE = - \vnabla\phi - \pdv{\AA}{t}                                                                                      \\
+     & \BB = \vnabla\cross\AA                                                                                                  \\
+     & -\laplacian\phi - \pdv{t}(\vnabla\vdot\AA) = \frac{\rho}{\epsilon_0}                                                    \\
+     & -\laplacian\AA + \vnabla\qty(\frac{1}{c^2}\pdv{\phi}{t} + \vnabla\vdot\AA) + \frac{1}{c^2}\pdv[2]{\AA}{t} = \mu_0\bm{j}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  Maxwell の方程式に電磁ポテンシャルを代入すると次のようになる。
+  \begin{align}
+    \begin{dcases}
+      \vnabla\vdot\EE  = \frac{\rho}{\epsilon_0} \\
+      \vnabla\vdot\BB  = 0                       \\
+      \vnabla\cross\EE = -\pdv{\BB}{t}           \\
+      \vnabla\cross\BB = \mu_0\bm{j} + \frac{1}{c^2}\pdv{\EE}{t}
+    \end{dcases}
+    \iff
+    \begin{dcases}
+      \EE = - \vnabla\phi - \pdv{\AA}{t}                                   \\
+      \BB = \vnabla\cross\AA                                               \\
+      -\laplacian\phi - \pdv{t}(\vnabla\vdot\AA) = \frac{\rho}{\epsilon_0} \\
+      -\laplacian\AA + \vnabla\qty(\frac{1}{c^2}\pdv{\phi}{t} + \vnabla\vdot\AA) + \frac{1}{c^2}\pdv[2]{\AA}{t} = \mu_0\bm{j}
+    \end{dcases}
+  \end{align}
+\end{proof}
+
+\begin{theorem}[ゲージ変換]
+  任意の関数 $\chi(\rr, t)$ として次のゲージ変換は不変に保つ。
+  \begin{align}
+    \AA  & \to \AA + \vnabla\chi    \\
+    \phi & \to \phi - \pdv{\chi}{t}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  電磁場に代入すると不変に保つことがわかる。
+  \begin{align}
+    \EE & = - \vnabla\qty(\phi - \pdv{\chi}{t}) - \pdv{t}(\AA + \vnabla\chi)         \\
+        & = - \vnabla\phi + \vnabla\pdv{\chi}{t} - \pdv{\AA}{t} - \pdv{t}\vnabla\chi \\
+        & = - \vnabla\phi - \pdv{\AA}{t}                                             \\
+    \BB & = \vnabla\cross(\AA + \vnabla\chi)                                         \\
+        & = \vnabla\cross\AA + \vnabla\cross\vnabla\chi                              \\
+        & = \vnabla\cross\AA
+  \end{align}
+\end{proof}
+
+\begin{definition}
+  $\vnabla\vdot\AA = 0$ を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
+\end{definition}
+
+\begin{proposition}
+  元々の $\AA$ に対して適切に $\chi$ を選んでゲージ変換後のベクトルポテンシャル $\AA' = \AA + \vnabla\chi$ がクーロンゲージ条件を満たすようにする。
+\end{proposition}
+\begin{proof}
+  クーロンゲージのとき Maxwell 方程式は次のようになる。
+  \begin{align}
+     & -\laplacian\phi = \frac{\rho}{\varepsilon_0}                                                          \\
+     & \qty(\frac{1}{c^2}\pdv[2]{t} - \laplacian)\AA + \vnabla\qty(\frac{1}{c^2}\pdv{\phi}{t}) = \mu_0\bm{j}
+  \end{align}
+  特に静電磁場においてベクトルポテンシャル $\AA(\rr)$ は Poisson 方程式を満たす。
+  \begin{align}
+    -\laplacian\AA & = \mu_0\bm{j}
+  \end{align}
+  また $\chi(\rr, t)$ について Poisson 方程式を満たす。
+  \begin{align}
+    \vnabla\vdot\AA' = 0 \iff \laplacian\chi = -\vnabla\vdot\AA
+  \end{align}
+  これより $\chi(\rr, t)$, $\phi(\rr, t)$ は次のように表される。
+  \begin{align}
+    \chi(\rr, t) & = \frac{1}{4\pi}\int_V\frac{\vnabla_{\rr'}\vdot\AA(\rr', t)}{|\rr - \rr'|}\dd{\rr'} \\
+    \phi(\rr, t) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr', t)}{|\rr - \rr'|}\dd{\rr'}
+  \end{align}
+  特に静電磁場のときベクトルポテンシャル $\AA$ は次のように書ける。
+  \begin{align}
+    \AA(\rr, t) & = \frac{\mu_0}{4\pi}\int_V\frac{\bm{j}(\rr', t)}{|\rr - \rr'|}\dd{\rr'}
+  \end{align}
+\end{proof}
+
+\begin{definition}
+  次の式を満たすゲージをローレンツゲージ (Lorenz gauge) と呼ぶ。
+  \begin{align}
+    \frac{1}{c^2}\pdv{\phi}{t} + \vnabla\vdot\AA = 0
+  \end{align}
+\end{definition}
+\begin{align}
+   & \qty(\frac{1}{c^2}\pdv[2]{t} - \laplacian)\chi = \frac{1}{c^2}\pdv{\phi}{t} + \vnabla\vdot\AA \\
+   & \qty(\frac{1}{c^2}\pdv[2]{t} - \laplacian)\phi = \frac{\rho}{\epsilon_0}                      \\
+   & \qty(\frac{1}{c^2}\pdv[2]{t} - \laplacian)\AA = \mu_0\bm{j}
+\end{align}
+
+\subsection{遅延ポテンシャル}
+
+\subsection{具体的な電場}
 \begin{theorem}
   位置 $\rr'$ にある点電荷 $Q$ が位置 $\rr$ にある点電荷 $q$ に及ぼす Coulomb 力 $\bm{F}$ は次のように表される。
   \begin{align}
