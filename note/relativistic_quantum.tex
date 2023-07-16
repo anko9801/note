@@ -1,0 +1,216 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{量子力学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{axiom}{公理}
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\subsection{電磁場中の荷電粒子}
+スカラーポテンシャル $\phi$, ベクトルポテンシャル $\bm{A}$ の中での電荷 $q$ を持つ粒子の運動は次の置き換えで記述できる。
+\begin{align}
+  H      & \mapsto H - q\phi(\rr, t)        \\
+  \bm{p} & \mapsto \bm{p} - q\bm{A}(\rr, t)
+\end{align}
+一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\cross\rr$ (対称ゲージ) と置くことができるので
+\begin{align}
+  \frac{1}{2m}(\bm{p} - q\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{q}{2m}\bm{B}\vdot\bm{L} + \frac{q^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
+\end{align}
+$\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
+\begin{align}
+  H & = \frac{(\bm{\sigma}\vdot\bm{p})^2}{2m}                                                                         \\
+    & = \frac{(\bm{\sigma}\vdot\bm{p - q\bm{A}})^2}{2m}                                                               \\
+    & = \frac{1}{2m}(\bm{p - q\bm{A}})^2 - 2\frac{q\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
+\end{align}
+となる。
+ゼーマン相互作用
+
+\section{相対論的量子力学}
+\begin{theorem}
+  \begin{align}
+    L           & = \frac{m}{2}\dot{\rr}^2 - q\phi(t, \rr) + q\dot{\rr}\vdot\AA(t, \rr) \\
+    m\ddot{\rr} & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                          \\
+    \pp         & = m\dot{\rr} + q\AA(t, \rr)                                           \\
+    H           & = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \pdv{t}(\pdv{L}{\dot{\rr}}) - \pdv{L}{\rr} & = 0                                                                         \\
+    m\ddot{\rr}                                & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                                \\
+    \pp                                        & = \pdv{L}{\dot{\rr}} = m\dot{\rr} + q\AA(t, \rr)                            \\
+    H                                          & = \pp\vdot\dot{\rr} - L = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+  \end{align}
+\end{proof}
+\begin{align}
+  i\hbar\pdv{t}\psi(t, \rr)                       & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
+  \qty(i\hbar\pdv{t} - q\phi(t, \rr))\psi(t, \rr) & = \frac{(-i\hbar\vnabla - q\AA(t, \rr))^2}{2m}
+\end{align}
+\begin{align}
+  i\hbar\pdv{t}  & \to i\hbar\pdv{t} - q\phi(t, \rr) \\
+  -i\hbar\vnabla & \to -i\hbar\vnabla - q\AA(t, \rr)
+\end{align}
+\begin{theorem}
+  \begin{align}
+    \pdv{\rho(t,\rr)}{t} + \vnabla\vdot\bm{j}(t,\rr) = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    i\hbar\pdv{t}\psi(t, \rr) & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
+  \end{align}
+\end{proof}
+\end{document}
