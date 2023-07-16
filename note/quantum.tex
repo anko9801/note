@@ -994,69 +994,6 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 
 
-\subsection{摂動論}
-近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
-\begin{proposition}
-  1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
-  \begin{align}
-    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
-    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
-  \end{align}
-  \begin{align}
-    \hat{H}_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
-  \end{align}
-\end{proposition}
-\begin{proof}
-  \begin{align}
-    \hat{H}\ket{\phi_n} & = E_n\ket{\phi_n}                                  \\
-    \hat{H}             & = \hat{H}_0 + \lambda V                            \\
-    \ket{\phi_n}        & = \sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}} \\
-    E_n                 & = \sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}
-  \end{align}
-  \begin{align}
-    (H - E_n)\ket{\phi_n} & = \qty(\qty(H_0 + \lambda V) - \qty(\sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}}) \\
-                          & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}}) = 0
-  \end{align}
-  これより各 $\lambda$ の次数について比較して次のようになる。
-  \begin{align}
-    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}} = 0
-  \end{align}
-  ここでは 0, 1, 2 次についてのみ考える。
-  \begin{align}
-     & \begin{dcases}
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(0)}} = 0                                     \\
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - E_n^{(2)}\ket{\phi_n^{(0)}}
-       \end{dcases}\label{perturbation}
-  \end{align}
-  まず 0 次については次のように書ける。
-  \begin{align}
-    H_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
-  \end{align}
-  式 \eqref{perturbation} に $\bra{\phi_m^{(0)}}$ を掛けると
-  \begin{align}
-         & \begin{dcases}
-             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
-             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - \bra{\phi_m^{(0)}}E_n^{(2)}\ket{\phi_n^{(0)}}
-           \end{dcases}          \\
-    \iff & \begin{dcases}
-             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}} - E_n^{(1)}\delta_{mn} \\
-             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(1)}} - E_n^{(1)}\braket{\phi_m^{(0)}}{\phi_n^{(1)}} - E_n^{(2)}\delta_{mn}
-           \end{dcases}
-  \end{align}
-  よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
-  \begin{align}
-    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
-    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
-  \end{align}
-\end{proof}
-
-
-
 \section{ヒルベルト空間}
 これからは固有関数を状態として抽象化を行う。
 \begin{definition}
@@ -1339,33 +1276,102 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
   \end{align}
 \end{definition}
 
+\begin{proposition}[パウリ行列の性質]
+  エルミート性を満たす。
+  \begin{align}
+    \sigma_i^\dagger         & = \sigma_i                                  \\
+    \sigma_i\sigma_j         & = \delta_{ij}I + i\varepsilon_{ijk}\sigma_k \\
+    [\sigma_i, \sigma_j]     & = 2i\varepsilon_{ijk}\sigma_k               \\
+    \qty{\sigma_i, \sigma_j} & = 2\delta_{ij}I
+  \end{align}
+\end{proposition}
+\begin{proof}
+  1, 2 は調べることで成り立つ。
+  \begin{align}
+    [\sigma_i, \sigma_j]     & = \sigma_i\sigma_j - \sigma_j\sigma_i                                                       \\
+                             & = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) - (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) \\
+                             & = 2i\varepsilon_{ijk}\sigma_k                                                               \\
+    \qty{\sigma_i, \sigma_j} & = \sigma_i\sigma_j + \sigma_j\sigma_i                                                       \\
+                             & = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) + (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) \\
+                             & = 2\delta_{ij}I
+  \end{align}
+\end{proof}
+
 \begin{proposition}
   スピン演算子の表現は次のようになる。
   \begin{align}
-    \ket{\uparrow} = \begin{pmatrix}
-                       1 \\
-                       0
-                     \end{pmatrix}, \qquad
-    \ket{\downarrow} = \begin{pmatrix}
-                         0 \\
-                         1
-                       \end{pmatrix}
+    \ket{\uparrow} = \mqty(1   \\ 0), \qquad
+    \ket{\downarrow} = \mqty(0 \\ 1)
   \end{align}
   \begin{align}
     \hat{s}_i = \frac{1}{2}\sigma_i, \qquad
-    \hat{s}_+ = \begin{pmatrix}
-                  0 & 1 \\
-                  0 & 0
-                \end{pmatrix}, \qquad
-    \hat{s}_- = \begin{pmatrix}
-                  0 & 0 \\
-                  1 & 0
-                \end{pmatrix}, \qquad
-    \hat{\bm{s}}^2 = \frac{3}{4}\begin{pmatrix}
-                                  1 & 0 \\
-                                  0 & 1
-                                \end{pmatrix}
+    \hat{s}_+ = \mqty(0                 & 1 \\ 0 & 0), \qquad
+    \hat{s}_- = \mqty(0                 & 0 \\ 1 & 0), \qquad
+    \hat{\bm{s}}^2 = \frac{3}{4}\mqty(1 & 0 \\ 0 & 1)
   \end{align}
 \end{proposition}
+
+
+
+\section{摂動論}
+近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
+\begin{proposition}
+  1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+  \begin{align}
+    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+  \end{align}
+  \begin{align}
+    \hat{H}_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \hat{H}\ket{\phi_n} & = E_n\ket{\phi_n}                                  \\
+    \hat{H}             & = \hat{H}_0 + \lambda V                            \\
+    \ket{\phi_n}        & = \sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}} \\
+    E_n                 & = \sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}
+  \end{align}
+  \begin{align}
+    (H - E_n)\ket{\phi_n} & = \qty(\qty(H_0 + \lambda V) - \qty(\sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}}) \\
+                          & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}}) = 0
+  \end{align}
+  これより各 $\lambda$ の次数について比較して次のようになる。
+  \begin{align}
+    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}} = 0
+  \end{align}
+  ここでは 0, 1, 2 次についてのみ考える。
+  \begin{align}
+     & \begin{dcases}
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(0)}} = 0                                     \\
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
+         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - E_n^{(2)}\ket{\phi_n^{(0)}}
+       \end{dcases}\label{perturbation}
+  \end{align}
+  まず 0 次については次のように書ける。
+  \begin{align}
+    H_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+  \end{align}
+  式 \eqref{perturbation} に $\bra{\phi_m^{(0)}}$ を掛けると
+  \begin{align}
+         & \begin{dcases}
+             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
+             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - \bra{\phi_m^{(0)}}E_n^{(2)}\ket{\phi_n^{(0)}}
+           \end{dcases}          \\
+    \iff & \begin{dcases}
+             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}} - E_n^{(1)}\delta_{mn} \\
+             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(1)}} - E_n^{(1)}\braket{\phi_m^{(0)}}{\phi_n^{(1)}} - E_n^{(2)}\delta_{mn}
+           \end{dcases}
+  \end{align}
+  よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+  \begin{align}
+    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+  \end{align}
+\end{proof}
 
 \end{document}
