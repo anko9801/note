@@ -140,6 +140,7 @@
 \newqedtheorem{problem}{問題}
 \newqedtheorem{algorithm}{アルゴリズム}
 
+\newscreentheorem*{axiom}{公理}
 \newscreentheorem*{definition}{定義}
 
 \renewenvironment{proof}[1][\proofname]{\par
@@ -160,16 +161,17 @@
 
 \section{量子力学の基礎}
 TODO: 実験的背景: 電子線を用いた二重スリット実験など
-\begin{definition}
+\begin{axiom}[粒子の波動性]
   すべての粒子は波動性を持つ。
-\end{definition}
+\end{axiom}
 
-\begin{definition}
-  波動方程式を満たす関数 $\psi(\rr, t)\in C^1(\CC)$ を粒子の場とし、これを波動関数 (wave function) という。また $\rho(\rr, t) = |\psi(\rr, t)|^2$ を粒子の確率密度 (probability density) と解釈し、この規格化条件を満たすように波動関数を定義する。
+\begin{definition}[波動関数]
+  波動方程式を満たす関数 $\psi(\rr, t)\in C^1(\CC)$ を粒子の場とし、これを波動関数 (wave function) という。また $\rho(\rr, t) = |\psi(\rr, t)|^2$ を粒子の確率密度 (probability density) と解釈し、次の規格化条件を満たすように波動関数を定義する。
   \begin{align}
     \int\rho(\rr, t)\dd{\rr} = 1
   \end{align}
 \end{definition}
+
 光子や電子の性質から粒子の性質と対応付ける。
 \begin{definition}[ド・ブロイの関係式]
   光子と同様に任意の粒子は次のような関係式が成り立つとする。
@@ -341,6 +343,10 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \hat{H}\varphi(\rr)     & = E\varphi(\rr)
 \end{align}
 
+\begin{definition}[エネルギーの縮退]
+  基底状態はエネルギーが最小となるパラメータの状態、第 $n$ 励起状態は基底状態の次に $n$ 番目に低いエネルギーの状態である。3 次元系の場合、異なる状態で同じエネルギーを持つことがある。これをエネルギーの縮退という。
+\end{definition}
+
 \subsection{有限ポテンシャル}
 ポテンシャルが有限のとき
 \begin{align}
@@ -477,6 +483,28 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   のように離散化される。
 \end{proof}
+
+
+\subsection{立方体剛体壁ポテンシャル}
+\begin{proposition}
+  立方体中にしか粒子が存在しないようなポテンシャルを考える。
+  \begin{align}
+    V(x) & = \begin{cases}
+               0        & (0 < x, y, z < L) \\
+               + \infty & (otherwise)
+             \end{cases}
+  \end{align}
+  このとき固有関数、固有エネルギーは次のようになる。
+  \begin{align}
+    \varphi(x, y, z) & = \qty(\frac{2}{L})^{3/2}\sin(\frac{n_x\pi}{L}x)\sin(\frac{n_y\pi}{L}y)\sin(\frac{n_z\pi}{L}z) \\
+    E                & = \frac{\pi^2\hbar^2}{2mL^2}\qty(n_x^2 + n_y^2 + n_z^2)
+  \end{align}
+\end{proposition}
+\begin{proof}
+  波動関数を $\psi(\rr) = X(x)Y(y)Z(z)$ と変数分離すると剛体壁ポテンシャルと同様に解ける。
+\end{proof}
+
+状態 $(n_x, n_y, n_z)$ について基底状態は $(1, 1, 1)$ の状態であり、第 1 励起状態は $(2, 1, 1), (1, 2, 1), (1, 1, 2)$ の 3 つの状態があり、エネルギーの縮退を起こしている。
 
 \subsection{井戸型ポテンシャル}
 \begin{proposition}
@@ -966,27 +994,6 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 
 
-\subsection{電磁場中の荷電粒子}
-スカラーポテンシャル $\phi$, ベクトルポテンシャル $\bm{A}$ の中での電荷 $q$ を持つ粒子の運動は次の置き換えで記述できる。
-\begin{align}
-  H      & \mapsto H - q\phi(\rr, t)        \\
-  \bm{p} & \mapsto \bm{p} - q\bm{A}(\rr, t)
-\end{align}
-一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\cross\rr$ (対称ゲージ) と置くことができるので
-\begin{align}
-  \frac{1}{2m}(\bm{p} - q\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{q}{2m}\bm{B}\vdot\bm{L} + \frac{q^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
-\end{align}
-$\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
-\begin{align}
-  H & = \frac{(\bm{\sigma}\vdot\bm{p})^2}{2m}                                                                         \\
-    & = \frac{(\bm{\sigma}\vdot\bm{p - q\bm{A}})^2}{2m}                                                               \\
-    & = \frac{1}{2m}(\bm{p - q\bm{A}})^2 - 2\frac{q\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
-\end{align}
-となる。
-ゼーマン相互作用
-
-
-
 \subsection{摂動論}
 近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
 \begin{proposition}
@@ -1049,6 +1056,7 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 \end{proof}
 
 
+
 \section{ヒルベルト空間}
 これからは固有関数を状態として抽象化を行う。
 \begin{definition}
@@ -1099,6 +1107,16 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 
 内積
 
+\begin{definition}[交換関係・反交換関係]
+  2 つの演算子 $\hat{A}$, $\hat{B}$ について交換関係 $[\hat{A}, \hat{B}]$ と反交換関係 $\lbrace\hat{A}, \hat{B}\rbrace$ は次のように定義する。
+  \begin{align}
+    \qty[\hat{A}, \hat{B}] & = \hat{A}\hat{B} - \hat{B}\hat{A} \\
+    \qty{\hat{A}, \hat{B}} & = \hat{A}\hat{B} + \hat{B}\hat{A}
+  \end{align}
+  $[\hat{A}, \hat{B}] = 0$ のとき $\hat{A}$ と $\hat{B}$ は交換可能であるという。このとき $\hat{A}$ の固有状態であり、同時に $\hat{B}$ の固有状態でもある状態を作ることができる。これを同時対角化可能という。
+\end{definition}
+
+
 \section{時間発展のあるシュレーディンガー方程式}
 \begin{align}
   i\hbar\pdv{t}\ket{\phi(t)} & = \hat{H}\ket{\phi(t)}
@@ -1126,10 +1144,7 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
   \begin{align}
     \hat{\bm{L}} & = \hat{\rr}\cross\hat{\pp}
   \end{align}
-  これは次のように無次元化できる。
-  \begin{align}
-    \hat{\bm{j}} & = \frac{\hat{\bm{L}}}{\hbar}
-  \end{align}
+  その無次元量 $\hat{\bm{j}}$ は $\hbar\hat{\bm{j}} = \hat{\bm{L}}$ と書ける。
 \end{definition}
 
 \begin{proposition}
@@ -1269,21 +1284,25 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
   \ket{0, 0}\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})
 \end{align}
 
-\begin{definition}
-  角運動量演算子の固有値は整数だけであったが、スピン演算子は半整数と成り得る。
-  量子力学的粒子にはスピンという内部自由度がある。スピン角運動量演算子 $\hat{\bm{S}}$ は位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、角運動量演算子 $\hat{\bm{L}}$ と交換する。
+\begin{definition}[スピン角運動量]
+  量子力学的粒子にはスピンという内部自由度がある。この演算子をスピン角運動量演算子 $\hat{\bm{S}}$ といい、位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、角運動量演算子 $\hat{\bm{L}}$ と交換する。
   \begin{align}
     [\hat{r}_i, \hat{S}_j] = 0, \qquad [\hat{p}_i, \hat{S}_j] = 0, \qquad [\hat{L}_i, \hat{S}_j] = 0
   \end{align}
+  全角運動量 $\hat{\bm{J}}$ は軌道角運動量 $\hat{\bm{L}}$ とスピン角運動量 $\hat{\bm{S}}$ の和で与えられる。
+  \begin{align}
+    \hat{\bm{J}} & = \hat{\bm{L}} + \hat{\bm{S}}
+  \end{align}
   無次元化されたスピン角運動量演算子 $\hat{\bm{s}}$ は次の交換関係を満たす。
   \begin{align}
-    [\hat{s}_x, \hat{s}_y] = i\hat{s}_z, \qquad [\hat{s}_y, \hat{s}_z] = i\hat{s}_x, \qquad [\hat{s}_z, \hat{s}_x] = i\hat{s}_y
+    [\hat{s}_i, \hat{s}_j] = i\varepsilon_{ijk}\hat{s}_k
   \end{align}
   スピン演算子の 2 乗 $\hat{\bm{s}}^2$ や昇降演算子 $\hat{s}_\pm$ を次のように定義する。
   \begin{align}
     \hat{\bm{s}}^2 = \hat{s}_x + \hat{s}_y + \hat{s}_z, \qquad \hat{s}_\pm = \hat{s}_x \pm i\hat{s}_y
   \end{align}
 \end{definition}
+角運動量演算子の固有値は整数だけであったが、スピン角運動量演算子は半整数と成り得る。
 
 \begin{proposition}
   \begin{align}
@@ -1348,45 +1367,5 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
                                 \end{pmatrix}
   \end{align}
 \end{proposition}
-
-
-
-\section{相対論的量子力学}
-\begin{theorem}
-  \begin{align}
-    L           & = \frac{m}{2}\dot{\rr}^2 - q\phi(t, \rr) + q\dot{\rr}\vdot\AA(t, \rr) \\
-    m\ddot{\rr} & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                          \\
-    \pp         & = m\dot{\rr} + q\AA(t, \rr)                                           \\
-    H           & = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
-  \end{align}
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    \pdv{t}(\pdv{L}{\dot{\rr}}) - \pdv{L}{\rr} & = 0                                                                         \\
-    m\ddot{\rr}                                & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                                \\
-    \pp                                        & = \pdv{L}{\dot{\rr}} = m\dot{\rr} + q\AA(t, \rr)                            \\
-    H                                          & = \pp\vdot\dot{\rr} - L = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
-  \end{align}
-\end{proof}
-\begin{align}
-  i\hbar\pdv{t}\psi(t, \rr)                       & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
-  \qty(i\hbar\pdv{t} - q\phi(t, \rr))\psi(t, \rr) & = \frac{(-i\hbar\vnabla - q\AA(t, \rr))^2}{2m}
-\end{align}
-\begin{align}
-  i\hbar\pdv{t}  & \to i\hbar\pdv{t} - q\phi(t, \rr) \\
-  -i\hbar\vnabla & \to -i\hbar\vnabla - q\AA(t, \rr)
-\end{align}
-\begin{theorem}
-  \begin{align}
-    \pdv{\rho(t,\rr)}{t} + \vnabla\vdot\bm{j}(t,\rr) = 0
-  \end{align}
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    i\hbar\pdv{t}\psi(t, \rr) & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
-  \end{align}
-\end{proof}
-
-
 
 \end{document}
