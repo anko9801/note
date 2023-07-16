@@ -739,11 +739,11 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 \subsection{3次元中心力(球対称)ポテンシャル}
 \begin{proposition}
-  3次元中心力ポテンシャルのとき、波動関数は $\psi_{lm}(r, \theta, \phi) = r\chi_l(r)\Theta_{lm}(\theta)e^{im\phi}$ となり、$\Theta_{lm}(\theta)$ は次のようになり、$\chi_l(r)$ は次の微分方程式を満たす。
-  $l, m\in\ZZ$
+  3次元中心力ポテンシャルのとき、波動関数は $\psi_{lm}(r, \theta, \phi) = R_l(r)\Theta_{lm}(\theta)\Phi_m(\phi)$ と変数分離するとそれぞれ次のようになる。
   \begin{align}
-     & \Theta_{lm}(\theta) = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
-     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)
+    \Phi_m(\phi)                               & = \frac{1}{\sqrt{2\pi}}e^{im\phi}                                                                        & (m\in\ZZ) \\
+    \Theta_{lm}(\theta)                        & = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) & (l\in\ZZ) \\
+    - \frac{\hbar^2}{2\mu r}\dv[2]{r}(rR_l(r)) & + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})rR_l(r) = ErR_l(r)
   \end{align}
 \end{proposition}
 \begin{proof}
@@ -755,17 +755,13 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   と書ける。波動関数 $\psi(r, \theta, \phi)$ を $\psi(r, \theta, \phi) = R(r)Y(\theta, \phi)$ と変数分離すると定数 $\lambda$ を用いて
   \begin{align}
-    \begin{dcases}
-      \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r) \\
-      \qty(\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi)
-    \end{dcases}
+     & \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                                                               \\
+     & \qty(\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi)
   \end{align}
   となる。また $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ と変数分離すると定数 $m$ を用いて
   \begin{align}
-    \begin{dcases}
-      \qty(\sin\theta\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \lambda \sin^2\theta)\Theta(\theta)  = m^2\Theta(\theta) \\
-      \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
-    \end{dcases}
+     & \qty(\sin\theta\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) = m^2\Theta(\theta) \\
+     & \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
   \end{align}
   となる。よって次の 3 式を解けばよい。
   \begin{align}
@@ -798,16 +794,19 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
      & a_{k+2} = \frac{k(k+1) - \lambda}{(k+2)(k+1)}a_k
   \end{align}
   となる。よって $z$ について一般に発散しない為には $\lambda = l(l+1)\ (l\in\ZZ_{>0})$ とならければならない。すると $m\neq 0$ のときはルジャンドルの陪微分方程式となる。
+  \begin{align}
+    \dv{z}\qty((1 - z^2)\dv{\Theta}{z}) + \qty(l(l+1) - \frac{m^2}{1 - z^2})\Theta(z) & = 0
+  \end{align}
   これよりルジャンドルの陪関数 $P_l^m(z)$ と規格化条件から
   \begin{align}
     \Theta_{lm}(\theta) & = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
     P_l^m(z)            & = (1 - z^2)^{\frac{m}{2}}\dv[m]{P_l(z)}{z}                                                               \\
+    P_l^{-m}(z)         & = (-1)^m\frac{(l - |m|)!}{(l + |m|)!}P_l^m(z)                                                            \\
     P_l(z)              & = \frac{1}{2^l}\dv[l]{z}(z^2 - 1)^l
   \end{align}
-  と書けるらしい。また $R_l(r)$ については $R_l(r) = \dfrac{\chi_l(r)}{r}$ とおくと
+  と書ける。また $R_l(r)$ については $R_l(r) = \dfrac{\chi_l(r)}{r}$ とおくと
   \begin{align}
-     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)                                                  \\
-     & - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + V_{\mathrm{eff}}(r)\chi_l(r) = E\chi_l(r) \qquad \qty(V_{\mathrm{eff}}(r) = V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})
+    - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)
   \end{align}
   となり, 1 次元のシュレーディンガー方程式に帰着する。
 \end{proof}
@@ -863,10 +862,33 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
 \end{proposition}
 \begin{proof}
-  これは境界条件 $R_{nl}(L) = 0$ から $\xi_{nl}$ を定めて となる。
+  $r > L$ のとき $\xi_{nl} = 0$ となる。$0 \leq r < L$ において考える。
+
+  $l = 0$ のとき
   \begin{align}
-    \psi_{nlm}(r, \theta, \phi) & = C_{nl}j_l(\xi_{nl})Y_l^m(\theta,\phi) \\
-    E_{ln}                      & = \dfrac{\hbar^2}{2\mu L^2}\xi_{ln}^2
+    - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_0(r) + V(r)\chi_0(r) = E\chi_0(r)
+  \end{align}
+  となるので境界条件と規格化条件より
+  \begin{align}
+    R_{n0}(r) = \frac{\chi_{n0}(r)}{r} & = \begin{dcases}
+                                             \frac{1}{r}\sqrt{\frac{2}{L}}\cos(\frac{n\pi}{2L}r) & (n: 奇数) \\
+                                             \frac{1}{r}\sqrt{\frac{2}{L}}\sin(\frac{n\pi}{2L}r) & (n: 偶数)
+                                           \end{dcases} \\
+    E_{n0}                             & = \dfrac{\hbar^2}{2\mu}\qty(\frac{n\pi}{2L})^2
+  \end{align}
+  $n$ が奇数のときは $r\to 0$ で発散する。これより $n$ が偶数のときに限る。
+  \begin{align}
+    R_{n0}(r) & = \frac{1}{r}\sqrt{\frac{2}{L}}\sin(\frac{n\pi}{2L}r) \qquad (n: 偶数)
+  \end{align}
+  $l \neq 0$ のとき $k^2 = \dfrac{2\mu E}{\hbar^2}$, $\xi = kr$ とおくと $R_{nl}(r)$ について球ベッセル微分方程式となる。
+  \begin{align}
+    \xi^2\dv[2]{R_l}{\xi} + 2\xi\dv{R_l}{\xi} + (\xi^2 - l(l + 1))R_l(\xi) = 0
+  \end{align}
+  これより境界条件 $\xi_{nl}$ を定めて となる。
+  球ベッセル関数 $j_l(\xi)$ のゼロ点 $\xi_{l,n}$ におけるエネルギー固有値を $E_{l,n}$ とおくと
+  \begin{align}
+    R_l(r) & =  j_l(\xi_{nl})                      \\
+    E_{ln} & = \dfrac{\hbar^2\xi_{ln}^2}{2\mu L^2}
   \end{align}
 \end{proof}
 
@@ -874,18 +896,22 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 \subsection{3次元等方調和振動子}
 \begin{proposition}
+  ポテンシャルが次のような 3 次元等方調和振動子のとき
   \begin{align}
     V(r) = \frac{1}{2}\mu\omega^2r^2
   \end{align}
+  半径成分の波動方程式は次のようになる。
   \begin{align}
     R_l(x) = x^{l/2}e^{-x/2}S_n^\alpha(x)
   \end{align}
 \end{proposition}
 \begin{proof}
-  まず無次元化するために $\rho = \sqrt{\dfrac{\mu\omega}{\hbar}}r$ とおくと
   \begin{align}
-     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{1}{2}\mu\omega^2r^2 - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0                                          \\
-     & \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) = 0                         & \qty(\lambda = \frac{2E}{\hbar\omega})
+    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E - \frac{1}{2}\mu\omega^2r^2 - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
+  \end{align}
+  まず $\rho = \sqrt{\dfrac{\mu\omega}{\hbar}}r$ と無次元化する。
+  \begin{align}
+    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \qty(\lambda = \frac{2E}{\hbar\omega})
   \end{align}
   となる。$x = \rho^2$ と変数変換すると
   \begin{align}
@@ -913,10 +939,12 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
 \end{proposition}
 \begin{proof}
-  まず無次元化するために $\rho = \alpha r$, $\alpha = 2\sqrt{\dfrac{2\mu|E|}{\hbar^2}}$ とすると
   \begin{align}
-     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{e^2}{4\pi\epsilon_0r} - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0                                                                              \\
-     & \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\frac{1}{4} + \frac{\lambda}{\rho} - \frac{l(l+1)}{\rho^2})R_l(\rho) = 0         & \qty(\lambda = \frac{e^2}{8\pi\epsilon_0E}\sqrt{\dfrac{2\mu|E|}{\hbar^2}})
+    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{e^2}{4\pi\epsilon_0r} - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
+  \end{align}
+  まず $\rho = \alpha r$, $\alpha = 2\sqrt{\dfrac{2\mu|E|}{\hbar^2}}$ と無次元化する。
+  \begin{align}
+    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\frac{1}{4} + \frac{\lambda}{\rho} - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \qty(\lambda = \frac{e^2}{8\pi\epsilon_0E}\sqrt{\dfrac{2\mu|E|}{\hbar^2}})
   \end{align}
   $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-\rho/2}$, $\rho^l$ となるので $R_l(\rho) = \rho^le^{-\rho/2}L(\rho)$ と分離すると
   \begin{align}
@@ -924,7 +952,8 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   となりラゲールの陪多項式となる。ここで級数展開法より $r\to\infty$ で発散しない為には非負整数 $n$ を用いて $\lambda = n + l + 1$ とかける。これより水素原子のエネルギー準位はボーア半径 $a_B$ を用いて
   \begin{align}
-    E_n & = - \frac{\mu e^4}{2(4\pi\epsilon_0)^2\hbar^2}\frac{1}{n^2} =  - \frac{e^2}{8\pi\epsilon_0a_B}\frac{1}{n^2} & a_B = \frac{4\pi\epsilon_0\hbar^2}{\mu e^2}
+    E_n & = - \frac{\mu e^4}{2(4\pi\epsilon_0)^2\hbar^2}\frac{1}{n^2} =  - \frac{e^2}{8\pi\epsilon_0a_B}\frac{1}{n^2} \\
+    a_B & = \frac{4\pi\epsilon_0\hbar^2}{\mu e^2}
   \end{align}
   とかける。よって規格化条件を加えると
   \begin{align}
@@ -936,20 +965,20 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 
 \subsection{電磁場中の荷電粒子}
-スカラーポテンシャル $\phi$, ベクトルポテンシャル $\bm{A}$ の中での電荷 $e$ を持つ粒子の運動は次の置き換えで記述できる。
+スカラーポテンシャル $\phi$, ベクトルポテンシャル $\bm{A}$ の中での電荷 $q$ を持つ粒子の運動は次の置き換えで記述できる。
 \begin{align}
-  H      & \mapsto H - e\phi(\rr, t)        \\
-  \bm{p} & \mapsto \bm{p} - e\bm{A}(\rr, t)
+  H      & \mapsto H - q\phi(\rr, t)        \\
+  \bm{p} & \mapsto \bm{p} - q\bm{A}(\rr, t)
 \end{align}
 一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\cross\rr$ (対称ゲージ) と置くことができるので
 \begin{align}
-  \frac{1}{2m}(\bm{p} - e\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{e}{2m}\bm{B}\vdot\bm{L} + \frac{e^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
+  \frac{1}{2m}(\bm{p} - q\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{q}{2m}\bm{B}\vdot\bm{L} + \frac{q^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
 \end{align}
 $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 \begin{align}
   H & = \frac{(\bm{\sigma}\vdot\bm{p})^2}{2m}                                                                         \\
-    & = \frac{(\bm{\sigma}\vdot\bm{p - e\bm{A}})^2}{2m}                                                               \\
-    & = \frac{1}{2m}(\bm{p - e\bm{A}})^2 - 2\frac{e\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
+    & = \frac{(\bm{\sigma}\vdot\bm{p - q\bm{A}})^2}{2m}                                                               \\
+    & = \frac{1}{2m}(\bm{p - q\bm{A}})^2 - 2\frac{q\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
 \end{align}
 となる。
 ゼーマン相互作用
