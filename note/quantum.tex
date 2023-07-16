@@ -165,6 +165,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   すべての粒子は波動性を持つ。
 \end{axiom}
 
+\subsection{波動関数}
 \begin{definition}[波動関数]
   波動方程式を満たす関数 $\psi(\rr, t)\in C^1(\CC)$ を粒子の場とし、これを波動関数 (wave function) という。また $\rho(\rr, t) = |\psi(\rr, t)|^2$ を粒子の確率密度 (probability density) と解釈し、次の規格化条件を満たすように波動関数を定義する。
   \begin{align}
@@ -183,6 +184,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     E & = \frac{p^2}{2m} + V(\rr)
   \end{align}
 \end{definition}
+
 \begin{theorem}[Schrödinger の方程式]
   このとき波動関数 $\psi(\rr, t)$ について次の関係式が成り立つ。
   \begin{align}
@@ -206,6 +208,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     i\hbar\pdv{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
   \end{align}
 \end{proof}
+
 \begin{theorem}
   粒子の確率密度について連続の方程式を満たす。
   \begin{align}
@@ -229,6 +232,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     \pdv{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
   \end{align}
 \end{proof}
+
 \begin{theorem}
   粒子の全存在確率は保存する。
 \end{theorem}
@@ -237,6 +241,8 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     \dv{t}\int\rho(\rr, t)\dd{V} & = -\int\vnabla\vdot\bm{j}(\rr, t)\dd{V} = -\lim_{|\rr|\to\infty}\int\bm{j}(\rr, t)\vdot\bm{n}\dd{S} = 0
   \end{align}
 \end{proof}
+
+\subsection{期待値と演算子}
 \begin{definition}
   物理量 $F$ に対する期待値を次のように定義する。
   \begin{align}
@@ -997,52 +1003,65 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \section{ヒルベルト空間}
 これからは固有関数を状態として抽象化を行う。
 \begin{definition}
-  無限次元の複素ベクトル空間をヒルベルト空間
+  複素内積空間で内積によって誘導される距離関数に関して完備距離空間となるときヒルベルト空間という。
 \end{definition}
-\begin{definition}[ケット空間]
-  状態ベクトル (state vector) をケット (ket) と呼び $\ket{\alpha}$ と記そう。この状態ケットは物理的状態の完全な情報を含んでいるものと仮定しておく。すなわち状態に関して問われるすべての事項がこのケットの中に含まれているとする。
+\begin{definition}[ブラケット]
+  すべての量子状態はヒルベルト空間上のベクトルに対応する。このベクトルをケット (ket) と呼び、$\ket{\alpha}$ と記す。ベクトル空間よりケットの線形性は成り立ち、ケットのスカラー倍は同じ状態を表すと要請する。
+
+  ケットの双対としてブラ (bra) をエルミート共役 (Hermitian adjoint) を用いて次のように定義する。
   \begin{align}
-    \ket{\alpha} + \ket{\beta} = \ket{\gamma} \\
-    c\ket{\alpha} = \ket{\alpha}c
+    \bra{\alpha}                         & := \ket{\alpha}^\dagger                       \\
+    c_1^*\bra{\alpha} + c_2^*\bra{\beta} & := (c_1\ket{\alpha} + c_2\ket{\beta})^\dagger \\
+    \bra{\alpha}X^\dagger                & := (X\ket{\alpha})^\dagger
   \end{align}
-  特別な場合として $c$ がゼロのとき掛けてできるケットは零ケット (null ket) といわれる。物理的要請の 1 つとして $\ket{\alpha}$ と $c\ket{\alpha}$ は同じ状態を表すことにする。
+  ブラ $\bra{\beta}$ とケット $\ket{\alpha}$ との内積 (inner product) は複素数を返し、$\braket{\beta|\alpha}\in\CC$ と記す。ただし交換すると複素共役となり、正値計量の要請を満たすとする。
+  \begin{align}
+    \braket{\beta|\alpha}  & = \braket{\alpha|\beta}^* \\
+    \braket{\alpha|\alpha} & \geq 0
+  \end{align}
+  ケット $\ket{\beta}$ とブラ $\bra{\alpha}$ との外積 (outer product) は演算子を返し、$\ket{\beta}\bra{\alpha}$ と記す。
 \end{definition}
 
 \begin{definition}[演算子]
-  一般に演算子はケットに左から作用し、別のケットになる。
+  演算子 $A$ はケット $\ket{\alpha}$ に左から作用して別のケット $A\ket{\alpha}$ となる。演算子同士の同値性、和、積を次のように定義される。
   \begin{align}
-    A\cdot(\ket{\alpha}) = A\ket{\alpha}
+    A = B               & \iff \forall \ket{\alpha}, A\ket{\alpha} = B\ket{\alpha} \\
+    (A + B)\ket{\alpha} & := A\ket{\alpha} + B\ket{\alpha}                         \\
+    (AB)\ket{\alpha}    & := A(B\ket{\alpha})
   \end{align}
+  演算子 $A$ に対して固有ケット(eigenkets) と呼ばれる特別なケット $\ket{a^{(n)}}$ があり、スカラー値 $a^{(n)}\in\CC$ を用いて次のような関係が成り立つ。
   \begin{align}
-    A = B     & \iff \forall \ket{\alpha}, A\ket{\alpha} = B\ket{\alpha}                                       \\
-    C = A + B & \iff \forall \ket{\alpha}, C\ket{\alpha} = (A + B)\ket{\alpha} = A\ket{\alpha} + B\ket{\alpha}
+    A\ket{a^{(n)}} = a^{(n)}\ket{a^{(n)}}
   \end{align}
-  一般に $A\ket{\alpha}$ は $\ket{\alpha}$ の定数倍ではない。しかし演算子の固有ケット (eigenkets) と呼ばれ
-  \begin{align}
-    \ket{a'},\ket{a''},\ket{a'''},\ldots
-  \end{align}
-  の記号で表される重要な特別のケットがあり、これらは数 $a',a'',\ldots\in\CC$ を用いて
-  \begin{align}
-    A\ket{a'} = a'\ket{a'},A\ket{a''} = a''\ket{a''},\ldots
-  \end{align}
-  という性質を持つ。固有ケットに相応する物理的状態は固有状態 (eigenstate) と呼ばれる。
+  固有ケットに対応する物理的状態を固有状態 (eigenstate) という。
 \end{definition}
 
-\begin{definition}[ブラ空間]
-  \begin{align}
-    \bra{\alpha} & := \ket{\alpha}^\dagger
-  \end{align}
-  $\ket{\alpha}^\dagger$ には線形性があり、
-  \begin{align}
-    c_{\alpha}^*\bra{\alpha} + c_{\beta}^*\bra{\beta} & = (c_{\alpha}\ket{\alpha} + c_{\beta}\ket{\beta})^\dagger
-  \end{align}
-\end{definition}
+\begin{axiom}
+  運動量やスピン成分といった観測可能量 (observable) は演算子 (operator) によって表せられる。
+\end{axiom}
 
-\begin{definition}
-  運動量やスピン成分といった観測可能量 (observable) は扱っているベクトル空間の演算子 (operator) によって表せられる。
-\end{definition}
+\begin{proposition}
+  \begin{align}
+    \braket{\alpha|\alpha}            & \in\RR                               \\
+    (XY)^\dagger                      & = Y^\dagger X^\dagger                \\
+    (\ket{\beta}\bra{\alpha})^\dagger & = \ket{\alpha}\bra{\beta}            \\
+    \bra{\beta}X\ket{\alpha}          & = \bra{\alpha}X^\dagger\ket{\beta}^*
+  \end{align}
+\end{proposition}
+\begin{proof}
+  $\braket{\alpha|\alpha} = \braket{\alpha|\alpha}^*$ より $\braket{\alpha|\alpha}\in\RR$ となる。
+  \begin{align}
+    (XY\ket{\alpha})^\dagger                    & = (X(Y\ket{\alpha}))^\dagger = (\bra{\alpha}Y^\dagger)X^\dagger = \bra{\alpha}Y^\dagger X^\dagger                 \\
+    (\ket{\beta}\braket{\alpha|\gamma})^\dagger & = \braket{\alpha|\gamma}^*\bra{\beta} = \braket{\gamma|\alpha}\bra{\beta} = \bra{\gamma}(\ket{\alpha}\bra{\beta}) \\
+    \bra{\beta}X\ket{\alpha}                    & = \bra{\beta}(X\ket{\alpha}) = \qty{(\bra{\alpha}X^\dagger)\ket{\beta}}^* = \bra{\alpha}X^\dagger\ket{\beta}^*
+  \end{align}
+\end{proof}
 
-内積
+\begin{theorem}[エルミート演算子の固有ケットの直交性]
+\end{theorem}
+\begin{proof}
+
+\end{proof}
 
 \begin{definition}[交換関係・反交換関係]
   2 つの演算子 $\hat{A}$, $\hat{B}$ について交換関係 $[\hat{A}, \hat{B}]$ と反交換関係 $\lbrace\hat{A}, \hat{B}\rbrace$ は次のように定義する。
@@ -1298,17 +1317,27 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{proof}
 
 \begin{proposition}
-  スピン演算子の表現は次のようになる。
+  $\hat{s}_z$ の固有状態は次のように表現される。
   \begin{align}
     \ket{\uparrow} = \mqty(1   \\ 0), \qquad
     \ket{\downarrow} = \mqty(0 \\ 1)
   \end{align}
+  スピン演算子は次のように表現される。
   \begin{align}
     \hat{s}_i = \frac{1}{2}\sigma_i, \qquad
     \hat{s}_+ = \mqty(0                 & 1 \\ 0 & 0), \qquad
     \hat{s}_- = \mqty(0                 & 0 \\ 1 & 0), \qquad
     \hat{\bm{s}}^2 = \frac{3}{4}\mqty(1 & 0 \\ 0 & 1)
   \end{align}
+\end{proposition}
+
+\begin{proposition}
+  完全系を貼るので任意の状態 $\ket{\sigma}$ はその線形結合で書ける。
+  \begin{align}
+    \ket{\sigma} & = c_1\ket{\uparrow} + c_2\ket{\downarrow}
+  \end{align}
+
+
 \end{proposition}
 
 
