@@ -1,0 +1,274 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{量子力学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+\section{ベクトル解析}
+
+\begin{definition}[Kronecker のデルタ]
+  \begin{align}
+    \delta_{ij} = \begin{cases}
+                    1 & (i = j)    \\
+                    0 & (i \neq j)
+                  \end{cases}
+  \end{align}
+\end{definition}
+\begin{definition}[レビ・チビタの完全反対称テンソル (Levi-Civita antisymmetric tensor)]
+  $\epsilon_{ijk}$ は $1,-1,0$ の値を取る. ${\epsilon_{xyz} = 1}$ であり, 任意の2つの添字の交換に対して符号を変え, また任意の2つの添字の値が等しければ $0$ となる.
+  \begin{align}
+    \epsilon_{\mu_1\cdots\mu_k} & :=
+    \begin{dcases}
+      \sgn\begin{pmatrix}
+            1     & \cdots & k     \\
+            \mu_1 & \cdots & \mu_k
+          \end{pmatrix} & (\mu_1\cdots\mu_k が順列のとき) \\
+      0                         & (else)
+    \end{dcases} \\
+                                & =
+    \begin{dcases}
+      1  & (\mu_1\cdots\mu_k が偶置換のとき) \\
+      -1 & (\mu_1\cdots\mu_k が奇置換のとき) \\
+      0  & (else)
+    \end{dcases}
+  \end{align}
+\end{definition}
+
+\begin{definition}[Einstein の縮約記法]
+  同じ項で添字が重なる場合はその添字について和を取る.
+  \begin{align}
+    A_iB_i = \sum_{i=x,y,z}A_iB_i
+  \end{align}
+\end{definition}
+
+\begin{definition}
+  ベクトルについて内積と外積を定義する。
+  \begin{align}
+    \bm{A}\vdot\bm{B}  & = A_xB_x + A_yB_y + A_zB_z = A_iB_i                                                  \\
+    \bm{A}\cross\bm{B} & = (A_yB_z - A_zB_y, A_zB_x - A_xB_z, A_xB_y - A_yB_x) = \bm{e}_i\epsilon_{ijk}A_jB_k
+  \end{align}
+\end{definition}
+\begin{definition}
+  \begin{align}
+    \grad{\bm{A}} & = \qty(\pdv{A_x}{x}, \pdv{A_y}{y}, \pdv{A_z}{z})                                                                                    \\
+    \div{\bm{A}}  & = \pdv{A_x}{x} + \pdv{A_y}{y} + \pdv{A_z}{z} = \partial_iA_i                                                                        \\
+    \rot{\bm{A}}  & = \qty(\pdv{A_z}{y} - \pdv{A_y}{z}, \pdv{A_x}{z} - \pdv{A_z}{x}, \pdv{A_y}{x} - \pdv{A_x}{y}) = \bm{e}_i\epsilon_{ijk}\partial_jA_k
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \grad{(f+g)}               & = \grad{f} + \grad{g}                                                                                               \\
+    \grad{(fg)}                & = f\grad{g} + g\grad{f}                                                                                             \\
+    \grad{(\bm{A}\vdot\bm{B})} & = \bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A} \\
+    \div{(\bm{A}+\bm{B})}      & = \div{\bm{A}} + \div{\bm{B}}                                                                                       \\
+    \div{(f\bm{A})}            & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                                                                           \\
+    \div{(\bm{A}\cross\bm{B})} & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                             \\
+    \rot{(\bm{A}+\bm{B})}      & = \rot{\bm{A}} + \rot{\bm{B}}                                                                                       \\
+    \rot{(f\bm{A})}            & = f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f})                                                                          \\
+    \rot{(\bm{A}\cross\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}             \\
+    \div{(\rot{\bm{A}})}       & = 0                                                                                                                 \\
+    \rot{(\grad{f})}           & = \bm{0}                                                                                                            \\
+    \rot{(\rot{\bm{A}})}       & = \div{(\grad{\bm{A}})} - \laplacian{\bm{A}}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  ベクトルのときは各要素について考える。
+  \begin{align}
+    (\grad{(f+g)})_i               & = \partial_i(f+g) = \partial_i f + \partial_i g = (\grad{f} + \grad{g})_i                                                           \\
+    (\grad{(fg)})_i                & = \partial_i(fg) = f\partial_i g + g\partial_i f = (f\grad{g} + g\grad{f})_i                                                        \\
+    (\grad{(\bm{A}\vdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                \\
+                                   & = (A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i)             \\
+                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)    \\
+                                   & = \epsilon_{kij}\epsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                         \\
+                                   & = \epsilon_{ijk}A_j\epsilon_{klm}\partial_lB_m + \epsilon_{ijk}B_j\epsilon_{klm}\partial_lA_m + A_j\partial_jB_i + B_j\partial_jA_i \\
+                                   & = (\bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A})_i
+  \end{align}
+  \begin{align}
+    \div{(\bm{A}+\bm{B})}      & = \partial_i(A_i + B_i) = \partial_i A_i + \partial_i B_i         \\
+                               & = \div{\bm{A}}+\div{\bm{B}}                                       \\
+    \div{(f\bm{A})}            & = \partial_i(fA_i) = f\partial_iA_i + A_i\partial_if              \\
+                               & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                         \\
+    \div{(\bm{A}\cross\bm{B})} & = \partial_i(\epsilon_{ijk}A_jB_k)                                \\
+                               & = \epsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)             \\
+                               & = B_k\epsilon_{kij}\partial_iA_j - A_j\epsilon_{jik}\partial_iB_k \\
+                               & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})
+  \end{align}
+  \begin{align}
+    (\rot{(\bm{A} + \bm{B})})_i    & = \epsilon_{ijk}\partial_j(A_k + B_k)                                                                   \\
+                                   & = \epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}\partial_jB_k                                             \\
+                                   & = \rot{\bm{A}} + \rot{\bm{B}}                                                                           \\
+    (\rot{(f\bm{A})})_i            & = \epsilon_{ijk}\partial_j(fA_k)                                                                        \\
+                                   & = f\epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}A_k\partial_jf                                           \\
+                                   & = f\epsilon_{ijk}\partial_jA_k - \epsilon_{ikj}A_k\partial_jf                                           \\
+                                   & = (f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f}))_i                                                          \\
+    (\rot{(\bm{A}\cross\bm{B})})_i & = \epsilon_{ijk}\partial_j\epsilon_{klm}A_lB_m                                                          \\
+                                   & = \epsilon_{kij}\epsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                     \\
+                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                \\
+                                   & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                         \\
+                                   & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                             \\
+                                   & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
+  \end{align}
+  \begin{align}
+    \div{(\rot{\bm{A}})}     & = \partial_i(\epsilon_{ijk}\partial_jA_k) = \epsilon_{ijk}\partial_i\partial_jA_k = 0 \\
+    (\rot{(\grad{f})})_i     & = \epsilon_{ijk}\partial_j\partial_kf = 0                                             \\
+    (\rot{(\rot{\bm{A}})})_i & = \epsilon_{ijk}\partial_j(\epsilon_{klm}\partial_lA_m)                               \\
+                             & = \epsilon_{kij}\epsilon_{klm}\partial_j\partial_lA_m                                 \\
+                             & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m            \\
+                             & = \partial_j\partial_iA_j - \partial_j^2A_i                                           \\
+                             & = (\div{(\grad{\bm{A}})} - \laplacian{\bm{A}})_i
+  \end{align}
+\end{proof}
+
+\end{document}

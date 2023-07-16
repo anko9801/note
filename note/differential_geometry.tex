@@ -1,0 +1,220 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{物理数学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+
+\section{微分積分学}
+\subsection{測度}
+測度とはある範囲の集合に非負の実数あるいは $\infty$ を対応させる集合関数である。
+\begin{definition}[加法族]
+  集合 $X$ の部分集合の族 $\bm{B}$ が次の条件を満たすとき、$X$ 上の加法族と呼ぶ。
+  \begin{enumerate}
+    \item $\emptyset\in\bm{B}$
+    \item $A\in\bm{B}$ ならば $A^c\in\bm{B}$
+    \item $A_n\in\bm{B}$ ならば $\bigcup_{n=1}^\infty A_n\in\bm{B}$
+  \end{enumerate}
+\end{definition}
+\begin{definition}[測度]
+  $\bm{B}$ を $X$ 上の加法族とするとき $\mu$ が $(X, \bm{B})$ 上の測度であるとは
+  \begin{enumerate}
+    \item $A\in\bm{B}$ に対し $0\leq \mu(A)\leq\infty$ $\mu(\emptyset) = 0$
+    \item $A_n$
+  \end{enumerate}
+\end{definition}
+
+\section{微分幾何学}
+\subsection{多様体}
+接ベクトル
+接ベクトル束
+\subsection{微分形式}
+\begin{definition}[微分形式]
+  $\land:$
+  \begin{align}
+    u\land v := u\otimes v - v\otimes u
+  \end{align}
+  $0$-形式 \\
+  $k$-形式$\omega_{\mu_1\cdots\mu_k}\in C^\infty(U)$
+  \begin{align}
+    \omega = \frac{1}{k!}\omega_{\mu_1\cdots\mu_k}dx^{\mu_1}\land\cdots\land dx^{\mu_k}
+  \end{align}
+\end{definition}
+\begin{definition}[外微分]
+  外微分 (exterior derivative) $d: \Omega^k(M)\to\Omega^{k+1}(M)$ を次のように定義する。
+  \begin{align}
+    d\omega & := d\qty(\frac{1}{k!}\omega_{\mu_1\cdots\mu_k})\land dx^{\mu_1}\land\cdots\land dx^{\mu_k}                \\
+            & = \frac{1}{k!}\pdv{\omega_{\mu_1\cdots\mu_k}}{x^{\nu}}dx^{\nu}\land dx^{\mu_1}\land\cdots\land dx^{\mu_k}
+  \end{align}
+\end{definition}
+\begin{align}
+  dx\land dy & = d(r\cos\theta)\land d(r\sin\theta)                                                                                                                  \\
+             & = (dr\cos\theta - r\sin\theta d\theta)\land (dr\sin\theta + r\cos\theta d\theta)                                                                      \\
+             & = (\cos\theta\sin\theta)dr\land dr + (r\cos^2\theta)dr\land d\theta - (r\sin^2\theta) d\theta\land dr - (r^2\sin\theta\cos\theta)d\theta\land d\theta \\
+             & = r dr\land d\theta
+\end{align}
+
+\begin{definition}[1 の分割 (partition of unity)]
+\end{definition}
+
+\begin{theorem}[ストークスの定理]
+\end{theorem}
+
+
+
+
+
+
+\end{document}

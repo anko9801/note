@@ -1,0 +1,310 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{物理数学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{フーリエ解析}
+\subsection{フーリエ級数}
+\begin{definition}[内積]
+  関数の正規直交関数系による展開
+  区間 $[a, b]$ 上の
+\end{definition}
+
+
+\begin{definition}[複素フーリエ級数]
+  $\TT = \RR/(2\pi\ZZ)$ 上 関数 $f: \TT\to\CC$ に対し
+  区間 $[-\pi, \pi]$ において定義された実数値関数 $f(x)$ が連続かつ区分的に $C^1$ 級かつ周期的である ($f(-\pi) = f(\pi)$) ならば $f(x)$ は
+  \begin{align}
+    f(x) & = \sum_{n\in\ZZ}c_ne^{inx}                          \\
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+  \end{align}
+\end{definition}
+例
+\begin{theorem}[Bessel の不等式]
+  \begin{align}
+    \sum_{n\in\ZZ}|\hat{f}(n)|^2 \leq \|f\|_2^2
+  \end{align}
+\end{theorem}
+
+
+\begin{theorem}[平均値の定理]
+  区間 $[a, b]$ で連続、 $(a, b)$ で微分可能な関数 $f(x)$ について $a < c < b$ となる $c$ が存在して次のようになる。
+  \begin{align}
+    \frac{f(b) - f(a)}{b - a} = f'(c)
+  \end{align}
+\end{theorem}
+
+\begin{proposition}
+  \begin{align}
+     & \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} = 0               \\
+     & \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \cos(nx)\dd{x} = 2\pi\delta_{n,0}        \\
+     & \int_{-\pi}^\pi \sin(nx)\dd{x} = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\sin(m + n)x + \sin(m - n)x]\dd{x}                           \\
+                                           & = \frac{1}{2}\qty[- \frac{\cos(m + n)x}{m + n} - \frac{\cos(m - n)x}{m - n}]_{-\pi}^\pi        \\
+                                           & = 0                                                                                            \\
+    \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x + \cos(m + n)x]\dd{x}                           \\
+                                           & = \begin{dcases}
+                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\qty[x + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                               \end{dcases} \\
+                                           & = \pi\delta_{m,n}                                                                              \\
+    \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x - \cos(m + n)x]\dd{x}                           \\
+                                           & = \begin{dcases}
+                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\qty[x - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                               \end{dcases} \\
+                                           & = \pi\delta_{m,n}
+  \end{align}
+  \begin{align}
+    \int_{-\pi}^\pi \cos(nx)\dd{x} & = \begin{dcases}
+                                         \qty[\frac{\sin(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \qty[x]_{-\pi}^\pi                  & (n = 0)
+                                       \end{dcases}  \\
+                                   & = 2\pi\delta_{n,0}                                      \\
+    \int_{-\pi}^\pi \sin(nx)\dd{x} & = \begin{dcases}
+                                         \qty[-\frac{\cos(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \qty[0]_{-\pi}^\pi                   & (n = 0)
+                                       \end{dcases} \\
+                                   & = 0
+  \end{align}
+\end{proof}
+
+\begin{definition}[$2\pi$ の周期をもつ関数のフーリエ級数]
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx)) \\
+    a_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\dd{x}                  \\
+    b_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\dd{x}
+  \end{align}
+\end{definition}
+
+\begin{definition}[$2\pi$ の周期をもつ関数の複素フーリエ級数]
+  \begin{align}
+    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{inx}               \\
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+  \end{align}
+\end{definition}
+\begin{proof}
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx))                                               \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n}{2}(e^{inx} + e^{-inx}) + \frac{b_n}{2i}(e^{inx} - e^{-inx})) \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n - ib_n}{2}e^{inx} + \frac{a_n + ib_n}{2}e^{-inx})             \\
+         & = \sum_{n=-\infty}^{\infty}c_ne^{inx}
+  \end{align}
+  ただし $c_n$ は次のように定める。
+  \begin{align}
+    c_n & := \begin{dcases}
+               \frac{a_n - ib_n}{2} & (n > 0) \\
+               \frac{a_0}{2}        & (n = 0) \\
+               \frac{a_n - ib_n}{2} & (n < 0)
+             \end{dcases}
+  \end{align}
+  \begin{align}
+    \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x} & = \frac{1}{2\pi}\int_{-\pi}^\pi\sum_{m=-\infty}^{\infty}c_me^{imx}e^{-inx}\dd{x} \\
+                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m\int_{-\pi}^\pi e^{i(m - n)x}\dd{x}  \\
+                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m 2\pi\delta_{m,n}                    \\
+                                                     & = c_n
+  \end{align}
+\end{proof}
+
+\begin{definition}[一般の周期をもつ関数のフーリエ級数]
+  \begin{align}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l}) \\
+    a_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\cos\frac{n\pi x}{l}\dd{x}                                      \\
+    b_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\sin\frac{n\pi x}{l}\dd{x}
+  \end{align}
+\end{definition}
+\begin{definition}[一般の周期をもつ関数の複素フーリエ級数]
+  \begin{align}
+    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi}{l}x}         \\
+    c_n  & := \frac{1}{2l}\int_{-l}^l f(x)e^{-i\frac{n\pi}{l}x}\dd{x}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \lim_{n\to\infty}a_n = 0
+  \end{align}
+\end{theorem}
+
+\begin{lemma}[コーシーの不等式]
+  実数の数列 $\lbrace p_n\rbrace_n, \lbrace q_n\rbrace_n$ について次の不等式が成立する。
+  \begin{align}
+    \qty(\sum_{n=1}^{N}p_n^2)\qty(\sum_{n=1}^{N}q_n^2) \geq \qty(\sum_{n=1}^{N}p_nq_n)^2
+  \end{align}
+\end{lemma}
+\begin{proof}
+  $x$ について次の 2 次関数の判別式を考えることで求まる。
+  \begin{align}
+    \sum_{n=1}^{N}(p_nx + q_n)^2 \geq 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}[ワイエルシュトラスの M テスト]
+  区間 $[a, b]$ で定義された関数列の無限級数 $s(x)$ の各項の絶対値が上界 $M_n$ をもち、 $M_n$ の総和が収束するならばもとの級数は $[a, b]$ で一様収束する。
+  \begin{align}
+    s(x) = \sum_{n=1}^{\infty}f_n(x)
+  \end{align}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+\end{document}

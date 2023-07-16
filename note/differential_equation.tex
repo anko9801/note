@@ -1,0 +1,371 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{物理数学}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{特殊関数}
+\begin{definition}
+  複素平面上で $\Re z > 1$ を満たす領域内にある閉曲線 $C$ 上の点 $z$ に対して次の関数は一様収束し正則な関数となる.
+  \begin{align}
+    \Gamma(z) := \int_0^\infty e^{-t}t^{z-1}\dd{t}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    \Gamma(z + 1)           & = z\Gamma(z) \\
+    \Gamma(1)               & = 1          \\
+    \Gamma(n + 1)           & = n!         \\
+    \Gamma\qty(\frac{1}{2}) & = \sqrt{\pi}
+  \end{align}
+\end{proposition}
+
+\begin{proposition}[スターリングの公式 (Stirling's formula)]
+  \begin{align}
+    \Gamma(x + 1) & = \sqrt{2\pi x}e^{-x}x^x \qquad (x \gg 1)
+  \end{align}
+\end{proposition}
+
+\begin{proposition}
+  ガウスの公式 (Gauss's formula)
+  \begin{align}
+    \Gamma(z) & = \lim_{n\to\infty}\frac{n!n^z}{z(z+1)\cdots(z+n)} \\
+  \end{align}
+\end{proposition}
+\begin{proposition}
+  ワイエルシュトラスの公式 (Weierstrass' formula) $\gamma$ はオイラーの定数 (Euler's constant) とする.
+  \begin{align}
+    \frac{1}{\Gamma(z)} & = ze^{\gamma z}\prod_{n=1}^{\infty}\qty(1 + \frac{z}{n})e^{-z/n}              \\
+    \gamma              & := \lim_{n\to\infty}\qty(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  ベータ関数 (Beta function)
+  \begin{align}
+    B(z, \zeta) := \int_{0}^{1}t^{z-1}(1-t)^{\zeta-1}\dd{t}
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  \begin{align}
+    B(z, \zeta)            & = B(\zeta, z)                                                          \\
+    B(z, \zeta)            & = 2\int_0^{\pi/2}\sin^{2z - 1}\theta\cos^{2\zeta - 1}\theta\dd{\theta} \\
+    B(z, \zeta)            & = \int_0^{\infty}\frac{u^{z-1}}{(1 + u)^{z + \zeta}}\dd{\theta}        \\
+    B(z, \zeta)            & = \frac{\Gamma(z)\Gamma(\zeta)}{\Gamma(z + \zeta)}                     \\
+    \Gamma(z)\Gamma(1 - z) & = \frac{\pi}{\sin\pi z}
+  \end{align}
+\end{proposition}
+
+\begin{definition}[ルジャンドル微分方程式]
+  \begin{align}
+    (1 - x^2)y'' - 2xy' + \lambda y = 0
+  \end{align}
+\end{definition}
+
+\begin{align}
+  y = \sum_{j=0}^{\infty}a_jx^j
+\end{align}
+
+\begin{definition}[ルジャンドルの陪微分方程式]
+  ルジャンドルの陪微分方程式
+  \begin{align}
+    (1 - x^2)y'' - 2xy' + \qty(n(n + 1) - \frac{m^2}{1 - x^2})y = 0
+  \end{align}
+  これを満たす独立な 2 つの解 $P_n^m(x)$ と $Q_n^m(x)$ を第一種および第二種ルジャンドル陪関数はルジャンドル関数で表される。
+\end{definition}
+
+\begin{definition}
+  ベッセルの微分方程式 (Bessel's equation)
+  \begin{align}
+    x^2y'' + xy' + (x^2 - \nu^2)y = 0
+  \end{align}
+\end{definition}
+\begin{definition}
+  ベッセルの微分方程式 (Bessel's equation)
+  \begin{align}
+    x^2y'' + xy' + (x^2 - \nu^2)y = 0
+  \end{align}
+\end{definition}
+
+\begin{definition}
+  ラゲール多項式
+  \begin{align}
+    \frac{e^{-xz/(1-z)}}{1-z} & = \sum_{n=0}^{\infty}L_n(x)\frac{z^n}{n!}
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    L_n(x)     & = e^x\dv[n]{x}(x^ne^{-x})                            \\
+    L_n(x)     & = \sum_{l=0}^{n}\frac{(-1)^l(n!)^2}{(l!)^2(n-l)!}x^l \\
+    L_{n+1}(x) & = (2n + 1 - x)L_n(x) - n^2L_{n-1}(x)                 \\
+    xL_n'(x)   & = nL_n(x) - n^2L_{n-1}(x)                            \\
+    L_n(0)     & = n!
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  次の級数展開の右辺に現れる $H_n(x)$ をエルミート多項式 (Hermite polynomials) という.
+  \begin{align}
+    e^{-t^2 + 2tx} = \sum_{n=0}^{\infty}\frac{1}{n!}H_n(x)t^n
+  \end{align}
+  また, 左辺の関数はエルミート多項式の母関数 (generating function) という.
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    H_n(x) = (-1)^ne^{x^2}\dv[n]{x}
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+  超幾何関数
+  \begin{align}
+    x(1 - x)y'' + [c - (a + b + 1)x]y' - aby = 0
+  \end{align}
+\end{definition}
+\begin{proposition}
+  \begin{align}
+    e^x         & = \lim_{b\to\infty}{}_2F_1\qty(1,b,1;\frac{x}{b}) \\
+    \log(1 + x) & = x\cdot{}_2F_1(1,1,2;-x)
+  \end{align}
+\end{proposition}
+
+\subsection{境界値問題}
+\begin{definition}
+  ラプラス方程式 (Laplace equation)
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+  \end{align}
+  ポアソン方程式 (Poisson equation)
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = -\rho(x, y)
+  \end{align}
+  波動方程式 (wave equation)
+  \begin{align}
+    \frac{1}{c^2}\pdv[2]{u}{t} = \pdv[2]{u}{x}
+  \end{align}
+  熱伝導方程式 (heat conduction equation) \\
+  $\kappa$ を熱伝導率 (thermal conductivity)
+  \begin{align}
+    \pdv{u}{t} & = \kappa\pdv[2]{u}{x} + q(x)
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  ラプラス方程式を満たし
+  \begin{align}
+    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+  \end{align}
+  次の境界条件を満たす関数 $u(x, y)$ を求める。
+  \begin{align}
+    u(0, y) = 0, u(a, y) = 0, u(x, 0) = f(x), u(x, b) = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  これは変数分離法が使えないと思う。
+  \begin{align}
+    u(x, y) = X(x)Y(y)
+  \end{align}
+  ラプラス方程式
+  \begin{align}
+    X''(x)Y(y)          & + X(x)Y''(y) = 0                                                      \\
+    \frac{X''(x)}{X(x)} & = - \frac{Y''(y)}{Y(y)}                                               \\
+    X''(x)              & = - \lambda^2X(x)                                                     \\
+    Y''(y)              & = \lambda^2Y(y)                                                       \\
+    X(x)                & = \sin(\frac{n\pi x}{a})                                              \\
+    \lambda             & = \frac{n\pi}{a}                                                      \\
+    f(x)                & = \sum_{n=1}^{\infty}A_n\sin(\frac{n\pi x}{a})\sinh(\frac{n\pi b}{a})
+  \end{align}
+\end{proof}
+\begin{theorem}[ガウス積分]
+  \begin{align}
+     & \int_0^{\infty} e^{-\alpha x^2}\dd{x} = \frac{1}{2}\sqrt{\frac{\pi}{a}}                     \\
+     & \int_0^{\infty} x^{2n}e^{-x^2/a^2}\dd{x} = \sqrt{\pi}(2n - 1)!!\frac{a^{2n + 1}}{2^{n + 1}} \\
+     & \int_0^{\infty} x^{2n + 1}e^{-x^2/a^2}\dd{x} = \frac{n!}{2}a^{2n + 2}                       \\
+     & \int_{-\infty}^{\infty} e^{-k^2/4}e^{ikx}\dd{k} = 2\sqrt{\pi}e^{-x^2}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  まず積分値を $I$ とおく。
+  \begin{align}
+    I & := \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x}
+  \end{align}
+  ここで $I^2$ を変数変換して計算する。
+  \begin{align}
+    I^2 & = \qty(\int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x})\qty(\int_0^{\infty} e^{-\alpha x^2}\dd{x}) \\
+        & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-\alpha (x^2 + y^2)}\dd{x}\dd{y}             \\
+        & = \int_{0}^{\infty}\int_{0}^{2\pi} e^{-\alpha r^2}r\dd{\theta}\dd{r}                             \\
+        & = 2\pi\qty[-\frac{e^{-\alpha r^2}}{2\alpha}]_{0}^{\infty} = \frac{\pi}{a}
+  \end{align}
+  よって
+  \begin{align}
+    I & = \sqrt{\frac{\pi}{a}}
+  \end{align}
+  また
+  \begin{align}
+    \int_0^{\infty} x^{2n}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty} \pdv[n]{\alpha}e^{-\alpha x^2}\dd{x}      \\
+                                                & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty} e^{-\alpha x^2}\dd{x}      \\
+                                                & = (-1)^n\pdv[n]{\alpha}\qty(\frac{1}{2}\sqrt{\frac{\pi}{\alpha}}) \\
+                                                & = \sqrt{\pi}\frac{(2n - 1)!!}{2^{n+1}}\alpha^{-(2n + 1)/2}
+  \end{align}
+  \begin{align}
+    \int_0^{\infty} x^{2n + 1}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty}\pdv[n]{\alpha}xe^{-\alpha x^2}\dd{x} \\
+                                                    & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty}xe^{-\alpha x^2}\dd{x} \\
+                                                    & = (-1)^n\pdv[n]{\alpha}\frac{1}{2\alpha}                     \\
+                                                    & = \frac{n!}{2}\alpha^{-(n + 1)}
+  \end{align}
+\end{proof}
+\end{document}
