@@ -1102,14 +1102,66 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
 \end{proof}
 
+\begin{proposition}
+  \begin{align}
+    \ket{\alpha}           & = \int\dd{x'}\ket{x'}\braket{x'|\alpha}           \\
+    \braket{x'|\alpha}     & = \psi_\alpha(x')                                 \\
+    \braket{\beta|\alpha}  & = \int\dd{x'}\braket{\beta|x'}\braket{x'|\alpha}  \\
+                           & = \int\dd{x'}\psi_\beta^*(x')\psi_\alpha(x')      \\
+    \braket{\alpha|\alpha} & = \int\dd{x'}\braket{\alpha|x'}\braket{x'|\alpha} \\
+                           & = \int\dd{x'}\psi_\alpha^*(x')\psi_\alpha(x')     \\
+                           & = 1
+  \end{align}
+\end{proposition}
+\begin{definition}[平行移動]
+  無限小平行移動演算子
+  \begin{align}
+    \mathfrak{J}(\dd{\rr'})\ket{\rr'} = \ket{\rr' + \dd{\rr'}}
+  \end{align}
+  平行移動生成演算子
+\end{definition}
+\begin{align}
+  \mathfrak{J}(\dd{\rr'})\ket{\alpha} = \mathfrak{J}(\dd{\rr'})\int\dd{\rr'}\ket{\rr'}\braket{\rr'|\alpha} = \int\dd{\rr'}\ket{\rr' + \dd{\rr'}}\braket{\rr'|\alpha} = \int\dd{\rr'}\ket{\rr'}\braket{\rr' - \dd{\rr'}|\alpha}
+\end{align}
+
 \begin{definition}[交換関係・反交換関係]
-  2 つの演算子 $\hat{A}$, $\hat{B}$ について交換関係 $[\hat{A}, \hat{B}]$ と反交換関係 $\lbrace\hat{A}, \hat{B}\rbrace$ は次のように定義する。
+  2 つの演算子 $\hat{A}$, $\hat{B}$ について交換関係 (commutation relation) $[\hat{A}, \hat{B}]$ と反交換関係 (anticommutation relations) $\lbrace\hat{A}, \hat{B}\rbrace$ は次のように定義する。
   \begin{align}
     \qty[\hat{A}, \hat{B}] & = \hat{A}\hat{B} - \hat{B}\hat{A} \\
     \qty{\hat{A}, \hat{B}} & = \hat{A}\hat{B} + \hat{B}\hat{A}
   \end{align}
   $[\hat{A}, \hat{B}] = 0$ のとき $\hat{A}$ と $\hat{B}$ は交換可能であるという。このとき $\hat{A}$ の固有状態であり、同時に $\hat{B}$ の固有状態でもある状態を作ることができる。これを同時対角化可能という。
 \end{definition}
+
+\begin{proposition}
+  ヤコビ恒等式
+  \begin{align}
+    [A, A]      & = 0                             \\
+    [A, B]      & = - [B, A]                      \\
+    [A, c]      & = 0                             \\
+    [A + B, C]  & = [A, C] + [B, C]               \\
+    [A, BC]     & = [A, B]C + B[A, C]             \\
+    [A, [B, C]] & + [B, [C, A]] + [C, [A, B]] = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    [A, A]     & = AA - AA = 0             \\
+    [A, B]     & = AB - BA = - [B, A]      \\
+    [A, c]     & = Ac - cA = 0             \\
+    [A + B, C] & = (A + B)C - C(A + B)     \\
+               & = (AC - CA) + (BC - CB)   \\
+               & = [A, C] + [B, C]         \\
+    [A, BC]    & = ABC - BCA               \\
+               & = (AB - BA)C + B(AC - CA) \\
+               & = [A, B]C + B[A, C]
+  \end{align}
+  \begin{align}
+     & [A, [B, C]] + [B, [C, A]] + [C, [A, B]]                                       \\
+     & = A(BC - CB) - (BC - CB)A + B(CA - AC) - (CA - AC)B + C(AB - BA) - (AB - BA)C \\
+     & = 0
+  \end{align}
+\end{proof}
 
 \section{時間発展のあるシュレーディンガー方程式}
 \begin{align}
