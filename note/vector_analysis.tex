@@ -26,7 +26,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{量子力学}
+\title{ベクトル解析}
 \author{Anko}
 \makeatletter
 %
@@ -155,8 +155,8 @@
 
 \begin{document}
 \maketitle
-\section{ベクトル解析}
 
+\section{記法・記号}
 \begin{definition}[Kronecker のデルタ]
   \begin{align}
     \delta_{ij} = \begin{cases}
@@ -166,7 +166,7 @@
   \end{align}
 \end{definition}
 \begin{definition}[レビ・チビタの完全反対称テンソル (Levi-Civita antisymmetric tensor)]
-  $\epsilon_{ijk}$ は $1,-1,0$ の値を取る. ${\epsilon_{xyz} = 1}$ であり, 任意の2つの添字の交換に対して符号を変え, また任意の2つの添字の値が等しければ $0$ となる.
+  $\epsilon_{\mu_1\cdots\mu_k}$ は $\mu_1\cdots\mu_k$ が順列のとき $1\cdots k$ の偶置換なら $1$、奇置換なら $-1$ とする。順列ではないときは $0$ とする。
   \begin{align}
     \epsilon_{\mu_1\cdots\mu_k} & :=
     \begin{dcases}
@@ -192,6 +192,13 @@
   \end{align}
 \end{definition}
 
+
+\section{ベクトル空間}
+
+\begin{definition}[ベクトル空間]
+  体 $K$ における加群をベクトル空間である。
+\end{definition}
+
 \begin{definition}
   ベクトルについて内積と外積を定義する。
   \begin{align}
@@ -199,7 +206,10 @@
     \bm{A}\cross\bm{B} & = (A_yB_z - A_zB_y, A_zB_x - A_xB_z, A_xB_y - A_yB_x) = \bm{e}_i\epsilon_{ijk}A_jB_k
   \end{align}
 \end{definition}
+
+\section{ベクトル解析}
 \begin{definition}
+  ベクトル $\bm{A} = (A_x, A_y, A_z)$ について勾配 $\grad{\bm{A}}$ と発散 $\div{\bm{A}}$、回転 $\rot{\bm{A}}$ を次のように定義する。
   \begin{align}
     \grad{\bm{A}} & = \qty(\pdv{A_x}{x}, \pdv{A_y}{y}, \pdv{A_z}{z})                                                                                    \\
     \div{\bm{A}}  & = \pdv{A_x}{x} + \pdv{A_y}{y} + \pdv{A_z}{z} = \partial_iA_i                                                                        \\
@@ -207,66 +217,106 @@
   \end{align}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}[勾配・発散・回転の線形性]
   \begin{align}
-    \grad{(f+g)}               & = \grad{f} + \grad{g}                                                                                               \\
-    \grad{(fg)}                & = f\grad{g} + g\grad{f}                                                                                             \\
-    \grad{(\bm{A}\vdot\bm{B})} & = \bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A} \\
-    \div{(\bm{A}+\bm{B})}      & = \div{\bm{A}} + \div{\bm{B}}                                                                                       \\
-    \div{(f\bm{A})}            & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                                                                           \\
-    \div{(\bm{A}\cross\bm{B})} & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                             \\
-    \rot{(\bm{A}+\bm{B})}      & = \rot{\bm{A}} + \rot{\bm{B}}                                                                                       \\
-    \rot{(f\bm{A})}            & = f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f})                                                                          \\
-    \rot{(\bm{A}\cross\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}             \\
-    \div{(\rot{\bm{A}})}       & = 0                                                                                                                 \\
-    \rot{(\grad{f})}           & = \bm{0}                                                                                                            \\
-    \rot{(\rot{\bm{A}})}       & = \div{(\grad{\bm{A}})} - \laplacian{\bm{A}}
+    \grad{(f+g)}          & = \grad{f} + \grad{g}         \\
+    \div{(\bm{A}+\bm{B})} & = \div{\bm{A}} + \div{\bm{B}} \\
+    \rot{(\bm{A}+\bm{B})} & = \rot{\bm{A}} + \rot{\bm{B}}
   \end{align}
 \end{theorem}
 \begin{proof}
-  ベクトルのときは各要素について考える。
   \begin{align}
-    (\grad{(f+g)})_i               & = \partial_i(f+g) = \partial_i f + \partial_i g = (\grad{f} + \grad{g})_i                                                           \\
-    (\grad{(fg)})_i                & = \partial_i(fg) = f\partial_i g + g\partial_i f = (f\grad{g} + g\grad{f})_i                                                        \\
+    (\grad{(f+g)})_i            & = \partial_i(f+g)                                           \\
+                                & = \partial_i f + \partial_i g                               \\
+                                & = (\grad{f} + \grad{g})_i                                   \\
+    \div{(\bm{A}+\bm{B})}       & = \partial_i(A_i + B_i)                                     \\
+                                & = \partial_i A_i + \partial_i B_i                           \\
+                                & = \div{\bm{A}}+\div{\bm{B}}                                 \\
+    (\rot{(\bm{A} + \bm{B})})_i & = \epsilon_{ijk}\partial_j(A_k + B_k)                       \\
+                                & = \epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}\partial_jB_k \\
+                                & = \rot{\bm{A}} + \rot{\bm{B}}
+  \end{align}
+\end{proof}
+
+\begin{theorem}[勾配・発散・回転のスカラー倍]
+  \begin{align}
+    \grad{(fg)}     & = f\grad{g} + g\grad{f}                    \\
+    \div{(f\bm{A})} & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})  \\
+    \rot{(f\bm{A})} & = f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f})
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    (\grad{(fg)})_i     & = \partial_i(fg)                                              \\
+                        & = f\partial_i g + g\partial_i f                               \\
+                        & = (f\grad{g} + g\grad{f})_i                                   \\
+    \div{(f\bm{A})}     & = \partial_i(fA_i)                                            \\
+                        & = f\partial_iA_i + A_i\partial_if                             \\
+                        & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                     \\
+    (\rot{(f\bm{A})})_i & = \epsilon_{ijk}\partial_j(fA_k)                              \\
+                        & = f\epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}A_k\partial_jf \\
+                        & = f\epsilon_{ijk}\partial_jA_k - \epsilon_{ikj}A_k\partial_jf \\
+                        & = (f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f}))_i
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  \begin{align}
+    \grad{(\bm{A}\vdot\bm{B})} & = \bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A} \\
+    \div{(\bm{A}\cross\bm{B})} & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                             \\
+    \rot{(\bm{A}\cross\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
     (\grad{(\bm{A}\vdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                \\
                                    & = (A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i)             \\
                                    & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)    \\
                                    & = \epsilon_{kij}\epsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                         \\
                                    & = \epsilon_{ijk}A_j\epsilon_{klm}\partial_lB_m + \epsilon_{ijk}B_j\epsilon_{klm}\partial_lA_m + A_j\partial_jB_i + B_j\partial_jA_i \\
-                                   & = (\bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A})_i
-  \end{align}
-  \begin{align}
-    \div{(\bm{A}+\bm{B})}      & = \partial_i(A_i + B_i) = \partial_i A_i + \partial_i B_i         \\
-                               & = \div{\bm{A}}+\div{\bm{B}}                                       \\
-    \div{(f\bm{A})}            & = \partial_i(fA_i) = f\partial_iA_i + A_i\partial_if              \\
-                               & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                         \\
-    \div{(\bm{A}\cross\bm{B})} & = \partial_i(\epsilon_{ijk}A_jB_k)                                \\
-                               & = \epsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)             \\
-                               & = B_k\epsilon_{kij}\partial_iA_j - A_j\epsilon_{jik}\partial_iB_k \\
-                               & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})
-  \end{align}
-  \begin{align}
-    (\rot{(\bm{A} + \bm{B})})_i    & = \epsilon_{ijk}\partial_j(A_k + B_k)                                                                   \\
-                                   & = \epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}\partial_jB_k                                             \\
-                                   & = \rot{\bm{A}} + \rot{\bm{B}}                                                                           \\
-    (\rot{(f\bm{A})})_i            & = \epsilon_{ijk}\partial_j(fA_k)                                                                        \\
-                                   & = f\epsilon_{ijk}\partial_jA_k + \epsilon_{ijk}A_k\partial_jf                                           \\
-                                   & = f\epsilon_{ijk}\partial_jA_k - \epsilon_{ikj}A_k\partial_jf                                           \\
-                                   & = (f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f}))_i                                                          \\
-    (\rot{(\bm{A}\cross\bm{B})})_i & = \epsilon_{ijk}\partial_j\epsilon_{klm}A_lB_m                                                          \\
-                                   & = \epsilon_{kij}\epsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                     \\
-                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                \\
-                                   & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                         \\
-                                   & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                             \\
+                                   & = (\bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A})_i             \\
+    \div{(\bm{A}\cross\bm{B})}     & = \partial_i(\epsilon_{ijk}A_jB_k)                                                                                                  \\
+                                   & = \epsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)                                                                               \\
+                                   & = B_k\epsilon_{kij}\partial_iA_j - A_j\epsilon_{jik}\partial_iB_k                                                                   \\
+                                   & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                                             \\
+    (\rot{(\bm{A}\cross\bm{B})})_i & = \epsilon_{ijk}\partial_j\epsilon_{klm}A_lB_m                                                                                      \\
+                                   & = \epsilon_{kij}\epsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                                                 \\
+                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                                            \\
+                                   & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                                                     \\
+                                   & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                                                         \\
                                    & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
   \end{align}
+\end{proof}
+
+\begin{theorem}
   \begin{align}
-    \div{(\rot{\bm{A}})}     & = \partial_i(\epsilon_{ijk}\partial_jA_k) = \epsilon_{ijk}\partial_i\partial_jA_k = 0 \\
-    (\rot{(\grad{f})})_i     & = \epsilon_{ijk}\partial_j\partial_kf = 0                                             \\
-    (\rot{(\rot{\bm{A}})})_i & = \epsilon_{ijk}\partial_j(\epsilon_{klm}\partial_lA_m)                               \\
-                             & = \epsilon_{kij}\epsilon_{klm}\partial_j\partial_lA_m                                 \\
-                             & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m            \\
-                             & = \partial_j\partial_iA_j - \partial_j^2A_i                                           \\
+    \div{(\rot{\bm{A}})} & = 0                                          \\
+    \rot{(\grad{f})}     & = \bm{0}                                     \\
+    \rot{(\rot{\bm{A}})} & = \div{(\grad{\bm{A}})} - \laplacian{\bm{A}}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \div{(\rot{\bm{A}})} & = \partial_i(\epsilon_{ijk}\partial_jA_k) \\
+                         & = \epsilon_{ijk}\partial_i\partial_jA_k
+  \end{align}
+  このとき対称性から $i$, $j$ を交換しても等しい。
+  \begin{align}
+         & \epsilon_{ijk}\partial_i\partial_jA_k = \epsilon_{jik}\partial_j\partial_iA_k  \\
+    \iff & \epsilon_{ijk}\partial_i\partial_jA_k = -\epsilon_{ijk}\partial_i\partial_jA_k \\
+    \iff & \epsilon_{ijk}\partial_i\partial_jA_k = 0
+  \end{align}
+  よって
+  \begin{align}
+    \div{(\rot{\bm{A}})} & = 0
+  \end{align}
+  他も同様にして
+  \begin{align}
+    (\rot{(\grad{f})})_i     & = \epsilon_{ijk}\partial_j\partial_kf = 0                                  \\
+    (\rot{(\rot{\bm{A}})})_i & = \epsilon_{ijk}\partial_j(\epsilon_{klm}\partial_lA_m)                    \\
+                             & = \epsilon_{kij}\epsilon_{klm}\partial_j\partial_lA_m                      \\
+                             & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m \\
+                             & = \partial_j\partial_iA_j - \partial_j^2A_i                                \\
                              & = (\div{(\grad{\bm{A}})} - \laplacian{\bm{A}})_i
   \end{align}
 \end{proof}
