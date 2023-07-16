@@ -334,6 +334,9 @@
 
 \begin{definition}[単色波]
   単色波 (monochromatic wave) とは1つの振動数しか持たない波のことである。
+  \begin{align}
+    \EE(t, \rr) & = \EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}
+  \end{align}
 \end{definition}
 
 \begin{definition}[偏光]
@@ -343,21 +346,21 @@
     = \begin{pmatrix}
         E_1(\kk) \\
         E_2(\kk)
-      \end{pmatrix}                                                                                \\
+      \end{pmatrix}                                                    \\
                 & = \begin{pmatrix}
-                      a_1(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))} \\
-                      a_2(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_2(\kk))}
-                    \end{pmatrix}
+                      a_1(\kk)e^{i\varepsilon_1(\kk)} \\
+                      a_2(\kk)e^{i\varepsilon_2(\kk)}
+                    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t)}
     =
     \begin{pmatrix}
       a_1(\kk) \\
       a_2(\kk)e^{i\varepsilon(\kk)}
-    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))}                             \\
+    \end{pmatrix}e^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_1(\kk))} \\
                 & =
     \begin{pmatrix}
-      a_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_1(\kk))} \\
-      a_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr + \delta_2(\kk))}
-    \end{pmatrix}
+      a_1(\kk)e^{i\delta_1(\kk)} \\
+      a_2(\kk)e^{i\delta_2(\kk)}
+    \end{pmatrix}e^{i(\omega(\kk)t - \kk\vdot\rr)}
     =
     \begin{pmatrix}
       a_1(\kk) \\
@@ -410,7 +413,7 @@
   \end{enumerate}
 \end{definition}
 \subsection{Stokes パラメータ}
-波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は \eqref{E def} 式より4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{i \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
+波数 $\kk\in\RR^3$ を持つ一般の単色波の電場は 4つのパラメータ $a_1, a_2 \geq 0; \varepsilon = -\delta_1, \varepsilon = -\delta\in\RR$ によって記述される. これらは関係式 $\tilde{E}_i = a_ie^{i \varepsilon_i}$ によって結びついている. 一般の単色波の電場の状態を記述する 4 個のパラメータは, 上手く用意すれば, 次のように異なる役割を持つ 3 個のグループに分けられる.
 
 \begin{enumerate}
   \item 時間の原点を指定する実パラメータ 1 個.場所 $\rr\in\RR^3$ に留まって観測するとします. 特定の時刻 $t\in\RR$ において, 電場の 1 成分と 2 成分で指定される点 $(E_1, E_2)$ が Lissajous 図形である偏光楕円上のどこにあるのかを, この実パラメータが指定します.このパラメータは $\varepsilon_1$ あるいは $\delta_1$ に取ることができます.
@@ -555,32 +558,6 @@
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \tilde{E}_+ & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 - i\tilde{E}_2) \\
-    \tilde{E}_- & = \frac{1}{\sqrt{2}}\qty(\tilde{E}_1 + i\tilde{E}_2)
-  \end{align}
-  電場の複素表示 $\ET$ と一般の楕円偏光の基底ベクトル $\ee_i, \ee_j\in\CC^3\quad ((i, j) = (1, 2), (+, -))$ の直交性より
-  \begin{align}
-    \ee_i(\kk)^*\vdot\ET
-     & = \Et_ie^{i(\kk\vdot\rr - \omega(\kk)t)} = a_ie^{i(\kk\vdot\rr - \omega(\kk)t + \varepsilon_i)} \\
-    \qty(\ee_i(\kk)^*\vdot\ET)^*\qty(\ee_j(\kk)^*\vdot\ET)
-     & = \Et_i^*\Et_j = a_ia_je^{i(\varepsilon_j - \varepsilon_i)} \label{Ei Ej}
-  \end{align}
-  となる. 特に直線偏光の基底ベクトル $\ee_1, \ee_2\in\RR^3$ より, $\ee_i = \ee_i^*\quad(i=1,2)$ となる.
-  式 \eqref{ET line def}, \eqref{ET circle def} に複素共役を取って新しい複素表示は次のように表される.
-  \begin{align}
-    \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
-    \Ec_i       & = \Et_i^* = a_ie^{i\delta_i} \qquad (i = 1, 2)                                                               \\
-    \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
-    \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{i\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
-  \end{align}
-  円偏光において新しい複素振幅 $\Ec_\pm$ と古い複素振幅 $\Et_\pm$ は成分の添字の $+$ と $-$ が反転して結びついていることに注意すべきである. また, これより次の式を導ける.
-  \begin{align}
-    \ee_i(\kk)\vdot\EC
-     & = \Ec_ie^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
-    \ee_\pm(\kk)^*\vdot\EC
-     & = \Ec_\pm e^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
-  \end{align}
-  \begin{align}
     s_0 & = a_1^2 + a_2^2                                                                                                              \\
         & = \frac{1}{2}\qty(|a_1e^{i\varepsilon_1} - i a_2e^{i\varepsilon_2}|^2 + |a_1e^{i\varepsilon_1} + i a_2e^{i\varepsilon_2}|^2) \\
         & = |\tilde{E}_+|^2 + |\tilde{E}_+|^2                                                                                          \\
@@ -616,6 +593,20 @@
   \EC(\rr, t) = \Ec_-\ee_-(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}
    & \iff \textrm{「円偏光は左偏光である。」}          \\
    & \iff \textrm{「helicity が $+1$ である。」}
+\end{align}
+となる. 特に直線偏光の基底ベクトル $\ee_1, \ee_2\in\RR^3$ より, $\ee_i = \ee_i^*\quad(i=1,2)$ となる.
+\begin{align}
+  \EC(\rr, t) & = \Ec_1\ee_1(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_2\ee_2(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
+  \Ec_i       & = \Et_i^* = a_ie^{i\delta_i} \qquad (i = 1, 2)                                                               \\
+  \EC(\rr, t) & = \Ec_+\ee_+(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)} + \Ec_-\ee_-(\kk)e^{i(\omega(\kk)t - \kk\vdot\rr)}        \\
+  \Ec_\pm     & = \Et_\mp^* = \mathcal{A}_\pm e^{i\delta_\pm} \quad (\mathcal{A}_\pm = a_\mp, \delta_\pm = -\varepsilon_\mp)
+\end{align}
+円偏光において新しい複素振幅 $\Ec_\pm$ と古い複素振幅 $\Et_\pm$ は成分の添字の $+$ と $-$ が反転して結びついていることに注意すべきである. また, これより次の式を導ける.
+\begin{align}
+  \ee_i(\kk)\vdot\EC
+   & = \Ec_ie^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_i e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_i(\kk)\vdot\ET)^* \label{EC ET converter 12}          \\
+  \ee_\pm(\kk)^*\vdot\EC
+   & = \Ec_\pm e^{i(\omega(\kk)t - \kk\vdot\rr)} = \qty(\Et_\mp e^{i(\kk\vdot\rr - \omega(\kk)t)})^* = \qty(\ee_\mp(\kk)^*\vdot\ET)^* \label{EC ET converter +-}
 \end{align}
 
 また光の強度 $I$ について Jones ベクトル $\JJ$ の絶対値の二乗に比例することが分かる.
@@ -718,15 +709,12 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \begin{definition}
   遅相子 (wave retarder) は直線偏光成分のうちの片方をもう片方に対して一定の位相だけ遅らせる変換を行い出力する光学素子である.
   \begin{align}
-    T^{\textrm{遅相子}}(\phi) = \mqty[e^{i\frac{\phi}{2}} & 0 \\ 0 & e^{-i\frac{\phi}{2}}] = \mqty[1 & 0 \\ 0 & e^{-i\phi}]e^{i\frac{\phi}{2}}
+    T^{\textrm{遅相子}}(\phi) = \mqty(e^{i\frac{\phi}{2}} & 0 \\ 0 & e^{-i\frac{\phi}{2}}) = \mqty(1 & 0 \\ 0 & e^{-i\phi})e^{i\frac{\phi}{2}}
   \end{align}
-  $1/2$ 波長板の Jones 行列を次のように定義する。
+  $1/2$ 波長板と $1/4$ 波長板の Jones 行列を次のように定義する。
   \begin{align}
-    T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty[i & 0 \\ 0 & -i]
-  \end{align}
-  $1/4$ 波長板の Jones 行列を次のように定義する。
-  \begin{align}
-    T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty[e^{i\frac{\pi}{4}} & 0 \\ 0 & e^{-i\frac{\pi}{4}}] = \mqty[\frac{1 + i}{\sqrt{2}} & 0 \\ 0 & \frac{1 - i}{\sqrt{2}}]
+    T^{1/2\textrm{波長板}} & = T^{\textrm{遅相子}}(\pi) = \mqty(i                                & 0 \\ 0 & -i) \\
+    T^{1/4\textrm{波長板}} & = T^{\textrm{遅相子}}\qty(\frac{\pi}{2}) = \mqty(e^{i\frac{\pi}{4}} & 0 \\ 0 & e^{-i\frac{\pi}{4}}) = \mqty(\frac{1 + i}{\sqrt{2}} & 0 \\ 0 & \frac{1 - i}{\sqrt{2}})
   \end{align}
 \end{definition}
 
@@ -737,12 +725,12 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
       \hline
       偏光状態                       & Jones ベクトル                  & 1/2波長板 & 1/4波長板 \\
       \hline \hline
-      直線偏光                       & $\mqty[1                                      \\ 0]$ & $i\mqty(1 \\ 0)$ & $e^{i\frac{\pi}{4}}\mqty(1 \\ 0)$ \\
-      直線偏光                       & $\mqty[0                                      \\ 1]$ & $-i\mqty(0 \\ 1)$ & $e^{-i\frac{\pi}{4}}\mqty(0 \\ 1)$ \\
+      直線偏光                       & $\mqty(1                                      \\ 0)$ & $i\mqty(1 \\ 0)$ & $e^{i\frac{\pi}{4}}\mqty(1 \\ 0)$ \\
+      直線偏光                       & $\mqty(0                                      \\ 1)$ & $-i\mqty(0 \\ 1)$ & $e^{-i\frac{\pi}{4}}\mqty(0 \\ 1)$ \\
       直線偏光 ($+45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ 1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ -1)$ & $\dfrac{1 + i}{2}\mqty(1 \\ -i)$     \\
       直線偏光 ($-45$\textdegree 方向) & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -1)$ & $\dfrac{1}{\sqrt{2}}\mqty(1                         \\ 1)$  & $\dfrac{1 + i}{2}\mqty(1 \\ -1)$    \\
-      円偏光(左回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ i)$ & $\dfrac{i}{\sqrt{2}}\mqty[1 \\ -i]$ \\
-      円偏光(右回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -i)$ & $\dfrac{i}{\sqrt{2}}\mqty[1 \\ i]$ \\
+      円偏光(左回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ i)$ & $\dfrac{i}{\sqrt{2}}\mqty(1 \\ -i)$ & \\
+      円偏光(右回転)                   & $\dfrac{1}{\sqrt{2}}\mqty(1                   \\ -i)$ & $\dfrac{i}{\sqrt{2}}\mqty(1 \\ i)$ & \\
       \hline
     \end{tabular}
     \caption{偏光状態}
@@ -751,34 +739,34 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
 \begin{proof}
   遅相子に純粋に直線偏光した光を入れることを考える.
   \begin{align}
-    T^{\textrm{遅相子}}(\phi)\mqty[1 \\ 0] & = \mqty[e^{i\frac{\phi}{2}} \\ 0] \\
-    T^{\textrm{遅相子}}(\phi)\mqty[0 \\ 1] & = \mqty[0 \\ e^{-i\frac{\phi}{2}}]
+    T^{\textrm{遅相子}}(\phi)\mqty(1 \\ 0) & = \mqty(e^{i\frac{\phi}{2}} \\ 0) \\
+    T^{\textrm{遅相子}}(\phi)\mqty(0 \\ 1) & = \mqty(0 \\ e^{-i\frac{\phi}{2}})
   \end{align}
   これらは回転する操作を行えば何も変化しないことが分かる。
 
   これに $+45$\textdegree 方向に直線偏光した光と $-45$\textdegree 方向に直線偏光した光を通すと
   \begin{align}
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{i}{\sqrt{2}}\mqty[1 \\ -1] \\
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{i}{\sqrt{2}}\mqty[1 \\ 1]
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ 1) & = \frac{i}{\sqrt{2}}\mqty(1 \\ -1) \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ -1) & = \frac{i}{\sqrt{2}}\mqty(1 \\ 1)
   \end{align}
   となり, これは $1/2$ 波長板によって L+45P と L-45P は相互変換する. \\
 
   また 右円偏光した光と左円偏光した光を通すと
   \begin{align}
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ i] & = \frac{i}{\sqrt{2}}\mqty[1 \\ -i] \\
-    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -i] & = \frac{i}{\sqrt{2}}\mqty[1 \\ i]
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ i) & = \frac{i}{\sqrt{2}}\mqty(1 \\ -i) \\
+    T^{1/2\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ -i) & = \frac{i}{\sqrt{2}}\mqty(1 \\ i)
   \end{align}
   となり, これは $1/2$ 波長板によって RCP と LCP は相互変換する. \\
 
   これに L+45P, L-45P を通すとそれぞれ LCP, RCP へ変換されることが分かる.
   \begin{align}
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ 1] & = \frac{1 + i}{2}\mqty[1 \\ -i] \\
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -1] & = \frac{1 + i}{2}\mqty[1 \\ i]
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ 1) & = \frac{1 + i}{2}\mqty(1 \\ -i) \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ -1) & = \frac{1 + i}{2}\mqty(1 \\ i)
   \end{align}
   同様に RCP, LCP を通すとそれぞれ L+45P, L-45P へ変換されることが分かる.
   \begin{align}
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ i] & = \frac{1 + i}{2}\mqty[1 \\ 1] \\
-    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty[1 \\ -i] & = \frac{1 + i}{2}\mqty[1 \\ -1]
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ i) & = \frac{1 + i}{2}\mqty(1 \\ 1) \\
+    T^{1/4\textrm{波長板}}\frac{1}{\sqrt{2}}\mqty(1 \\ -i) & = \frac{1 + i}{2}\mqty(1 \\ -1)
   \end{align}
   光学領域での $1/4$ 波長板はサランラップを半ダースほど向きを揃えて重ねることにより自作できるらしい. \\
 \end{proof}
@@ -831,106 +819,75 @@ Stokes パラメータ $s_0, s_1, s_2, s_3$ の最も重要な性質はこれら
   \item 太陽の光や白熱電球の光はまったく偏光していない状態 ($p = 0$) にあります. それに比べて, レーザーの光は完全偏光状態にごく近いです ($p \approx 1$).
 \end{enumerate}
 
-\subsection{helicity とは何か？}
-\subsection{電磁波の角運動量のスピン部分と軌道部分}
-\textbf{Q 21B-50.}
-電磁波の角運動量 $\LL$ は次のようであった.
-\begin{align}
-  \LL & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\rr\times(\EE\times\BB)
-\end{align}
-中身の部分を $\BB = \vnabla\times\AA$ を用いて展開すると
-\begin{align}
-  \rr\times(\EE\times\BB) & = \rr\times(\EE\times(\vnabla\times\AA))                 \\
-                          & = \rr\times(\vnabla(\EE\vdot\AA) - (\EE\vdot\vnabla)\AA) \\
-                          & ... \textrm{分からなかった}                                     \\
-                          & = \EE\times\AA + \EE_j(\rr\times\vnabla)A_j
-\end{align}
-よって角運動量は次のように書ける.
-\begin{align}
-  \LL & = \LL_{spin} + \LL_{orbit}
-\end{align}
-ただし
-\begin{align}
-  \LL_{spin}  & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\EE\times\AA                             \\
-  \LL_{orbit} & = \frac{1}{4\pi c}\int_{\RR^3}dV(\rr)\sum_{j=x,y,z}\EE_j(\rr\times\vnabla)A_j
-\end{align}
-である. \\
+\subsection{電磁波の角運動量}
+\begin{theorem}
+  電磁波の角運動量 $\LL$ はスピン角運動量 $\LL_{spin}$ と軌道角運動量 $\LL_{orbit}$ の和で表される。
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \LL & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\rr\times(\EE\times\BB)                                                       \\
+        & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\rr\times(\EE\times(\vnabla\times\AA))                                        \\
+        & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\rr\times(\vnabla(\EE\vdot\AA) - (\EE\vdot\vnabla)\AA)                        \\
+        & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\qty(\EE\times\AA + \EE_j(\rr\times\vnabla)A_j)                               \\
+        & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\EE\times\AA + \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\EE_j(\rr\times\vnabla)A_j \\
+        & = \LL_{spin} + \LL_{orbit}
+  \end{align}
+\end{proof}
 
-\textbf{Q 21B-51.}
-円偏光の基底ベクトルの定義より,
-\begin{align}
-  \ee_\pm(\kk)\times\frac{\kk}{|\kk|}
-   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm i\ee_2(\kk))\times\frac{\kk}{|\kk|}                                  \\
-   & = \frac{1}{\sqrt{2}}\qty(-\ee_2(\kk) \pm i\ee_1(\kk))                                                        \\
-   & = \pm i\ee_\pm(\kk)                                                                                          \\
-  \ee_\pm(\kk)\times\ee_\pm(\kk)
-   & = 0                                                                                                          \\
-  \ee_\pm(\kk)\times\ee_\mp(\kk)
-   & = \frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \pm i\ee_2(\kk))\times\frac{1}{\sqrt{2}}\qty(\ee_1(\kk) \mp i\ee_2(\kk)) \\
-   & = \mp i\ee_1(\kk)\times\ee_2(\kk)                                                                            \\
-   & = \mp i\frac{\kk}{|\kk|}
-\end{align}
-となる. \\
-
-\textbf{Q 21B-52}
-波数 $\kk$ について対称性が成り立つようにすることで矛盾なく次のように定義できる.
-\begin{align}
-  \ee_1(-\kk) = \ee_2(\kk), \ee_2(-\kk) = \ee_1(\kk)
-\end{align}
-このとき次の式が導かれる.
-\begin{align}
-  \ee_\pm(-\kk) & = \frac{1}{\sqrt{2}}\qty(\ee_1(-\kk)\pm i\ee_2(-\kk)) \\
-                & = \frac{1}{\sqrt{2}}\qty(\ee_2(\kk)\pm i\ee_1(\kk))   \\
-                & = \pm i\ee_\mp(\kk)
-\end{align}
-
-\textbf{Q 21B-53}
-$\AA$ について Fourier 変換すると次のようになる.
-\begin{align}
-  \AA(\rr, t) & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}
-\end{align}
-このとき $\vnabla\vdot\AA$ について基底ベクトルの直交性より
-\begin{align}
-  \vnabla\vdot\AA & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{i\kk\vdot\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - i\kk\vdot\ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}} \\
-                  & = 0
-\end{align}
-また電場 $\EE$ と磁場 $\BB$ について
-\begin{align}
-  \EE(\rr, t) = -\frac{1}{c}\pdv{\AA}{t} & = \frac{1}{c}\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i\omega(\kk)\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}} \\
-                                         & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}                  \\
-  \BB(\rr, t) = \vnabla\times\AA         & = \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}|\kk|\qty{j\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + j\ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}}
-\end{align}
-となる. \\
-
-\textbf{Q 21B-54.}
-Diracのデルタ関数の公式より
-\begin{align}
-         & \int_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)                                                                                                                                                                \\
-  =      & \int_{\RR^3}dV(\rr)\qty(\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} + \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}})                  \\
-  \times & \qty(\sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}i|\kk|\qty{\ee_j(\kk)a_j(\kk)e^{i(\kk\vdot\rr - \omega(\kk)t)} - \ee_j^*(\kk)a_j^*(\kk)e^{-i(\kk\vdot\rr - \omega(\kk)t)}})                               \\
-  =      & \int_{\RR^3}dV(\rr)\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\int_{\RR^3}\frac{dV(\kk')}{(2\pi)^3}i|\kk|\frac{\kk}{|\kk|}                                                                                            \\
-         & \sum_{j=\pm}\qty{2j(a_j(\kk)a_j^*(\kk'))e^{ji((\kk - \kk')\vdot\rr)} + ja_j(\kk)a_j(-\kk')e^{i(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)} - ja_j^*(\kk)a_j^*(-\kk')e^{-i(j(\kk + \kk')\vdot\rr - 2\omega(\kk)t)}} \\
-  =      & \sum_{j=\pm}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{2j|a_j(\kk)|^2 + i a_j(\kk)a_j(-\kk)e^{-2i\omega(\kk)t} - i a_j^*(\kk)a_j^*(-\kk)e^{2i\omega(\kk)t}}
-\end{align}
-これより, この時間平均は次のようになる.
-\begin{align}
-  \left\langle\int_{\RR^3}dV(\rr)\EE(\rr, t)\times\AA(\rr, t)\right\rangle = 2\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
-\end{align}
-したがって角運動量のスピン成分 $\LL_{spin}$ の時間平均は次のようになる.
-\begin{align}
-  \langle\LL_{spin}\rangle & = \frac{1}{2\pi c}\int_{\RR^3}\frac{dV(\kk)}{(2\pi)^3}\kk\qty{|a_+(\kk)|^2 - |a_-(\kk)|^2}
-\end{align}
-
-これより次のようなことを教えてくれる.
-\begin{enumerate}
-  \item 電磁場の角運動量のスピン部分 $L_{spin}$ の時間平均 $\langle\LL_{spin}\rangle$ に対して、各 Fourier モード $(k, \pm)$ は波数ベクトル $\kk$ に重みづけをした形で寄与する。つまり、各 Fourier モードは縦波として $\langle\LL_{spin}\rangle$ へ寄与する。
-  \item 波数 $\kk$ のモードの寄与する重みは、左円偏光の強度 $|a_+(\kk)|^2$ から右円偏光の強度 $|a_-(\kk)|^2$ を引いた差 $|a_+(\kk)|^2 - |a_-(\kk)|^2$ に比例する。
-  \item つまり、波数 $\kk$ の左円偏光のモードは方向 $\kk/|\kk|$ のスピン角運動量にプラスの寄与をする。一方、波数 $\kk$ の右円偏光のモードは方向 $\kk/|\kk|$ のスピン角運動量にマイナスの寄与をする。
-  \item (直線偏光ではなく)円偏光による分解が、電磁波の角運動量に直結している。
-\end{enumerate}
+\begin{theorem}
+  スピン角運動量 $\LL_{spin}$ の期待値は次のように表される。
+  \begin{align}
+    \langle\LL_{spin}\rangle & = \frac{1}{2\pi c}\int_{\RR^3}\frac{\dd{\kk}}{(2\pi)^3}\kk\qty(|a_+(\kk)|^2 - |a_-(\kk)|^2)
+  \end{align}
+  これより次のようなことを教えてくれる.
+  \begin{enumerate}
+    \item 電磁場の角運動量のスピン部分 $L_{spin}$ の時間平均 $\langle\LL_{spin}\rangle$ に対して、各 Fourier モード $(k, \pm)$ は波数ベクトル $\kk$ に重みづけをした形で寄与する。つまり、各 Fourier モードは縦波として $\langle\LL_{spin}\rangle$ へ寄与する。
+    \item 波数 $\kk$ のモードの寄与する重みは、左円偏光の強度 $|a_+(\kk)|^2$ から右円偏光の強度 $|a_-(\kk)|^2$ を引いた差 $|a_+(\kk)|^2 - |a_-(\kk)|^2$ に比例する。
+    \item つまり、波数 $\kk$ の左円偏光のモードは方向 $\kk/|\kk|$ のスピン角運動量にプラスの寄与をする。一方、波数 $\kk$ の右円偏光のモードは方向 $\kk/|\kk|$ のスピン角運動量にマイナスの寄与をする。
+    \item (直線偏光ではなく)円偏光による分解が、電磁波の角運動量に直結している。
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  $\AA$ について Fourier 変換すると次のようになる。
+  \begin{align}
+    \AA(\rr, t)   & = \sum_{j=\pm}\int_{\RR^3}\frac{\dd{\kk}}{(2\pi)^3}\qty(\bm{a}_j(\kk)e^{i\kk\vdot\rr} + \bm{a}_j^*(\kk)e^{-i\kk\vdot\rr}) \\
+    \bm{a}_j(\kk) & = \ee_j(\kk)a_j(\kk)e^{-i\omega(\kk)t}
+  \end{align}
+  波数 $\kk$ について対称性が成り立つようにすることで矛盾なく次のように定義できる.
+  \begin{align}
+    \ee_1(-\kk) = \ee_2(\kk), \ee_2(-\kk) = \ee_1(\kk)
+  \end{align}
+  このとき次の式が導かれる.
+  \begin{align}
+     & \ee_\pm(\kk)\cross\ee_\pm(\kk) = 0, \qquad \ee_\pm(\kk)\cross\ee_\mp(\kk) = \mp i\frac{\kk}{|\kk|} \\
+     & \ee_\mp(\kk) = \ee_\pm^*(\kk), \qquad \ee_\pm(-\kk) = \pm i\ee_\mp(\kk)                            \\
+     & \frac{1}{(2\pi)^3}\int_{\RR^3}\dd{\rr}e^{i(\kk - \kk')\vdot\rr} = \delta(\kk - \kk')               \\
+     & \vnabla\vdot\AA = 0
+  \end{align}
+  Dirac のデルタ関数の公式より角運動量のスピン成分 $\LL_{spin}$ は次のようになる.
+  \begin{align}
+     & \LL_{spin} = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\EE\cross\AA = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\qty(-\frac{1}{c}\pdv{\AA}{t})\cross\AA                                                                                                                                                                              \\
+     & = \frac{1}{4\pi c}\int_{\RR^3}\dd{\rr}\qty(\sum_{j=\pm}\int_{\RR^3}\frac{i|\kk|\dd{\kk}}{(2\pi)^3}\qty(\bm{a}_j(\kk)e^{i\kk\vdot\rr} - \bm{a}_j^*(\kk)e^{-i\kk\vdot\rr}))\cross\qty(\sum_{j'=\pm}\int_{\RR^3}\frac{\dd{\kk'}}{(2\pi)^3}\qty(\bm{a}_{j'}(\kk')e^{i\kk'\vdot\rr} + \bm{a}_{j'}^*(\kk')e^{-i\kk'\vdot\rr})) \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\rr}\dd{\kk}\dd{\kk'}}{(2\pi)^6}i|\kk|\sum_{j=\pm}\sum_{j'=\pm}\big(\bm{a}_j(\kk)\cross\bm{a}_{j'}(\kk')e^{i(\kk + \kk')\vdot\rr}                                                                                                                                                        \\
+     & + \bm{a}_j(\kk)\cross\bm{a}_{j'}^*(\kk')e^{i(\kk - \kk')\vdot\rr} - \bm{a}_j^*(\kk)\cross\bm{a}_{j'}(\kk')e^{-i(\kk - \kk')\vdot\rr} - \bm{a}_j^*(\kk)\cross\bm{a}_{j'}^*(\kk')e^{-i(\kk+\kk')\vdot\rr}\big)                                                                                                             \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\kk}\dd{\kk'}}{(2\pi)^3}i|\kk|\sum_{j=\pm}\sum_{j'=\pm}\big(\bm{a}_j(\kk)\cross\bm{a}_{j'}(\kk')\delta(\kk + \kk')                                                                                                                                                                       \\
+     & + \bm{a}_j(\kk)\cross\bm{a}_{j'}^*(\kk')\delta(\kk - \kk') - \bm{a}_j^*(\kk)\cross\bm{a}_{j'}(\kk')\delta(\kk - \kk') + \bm{a}_j^*(\kk)\cross\bm{a}_{j'}^*(\kk')\delta(\kk + \kk')\big)                                                                                                                                  \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\kk}}{(2\pi)^3}i|\kk|\sum_{j=\pm, j'=\pm}\qty(\bm{a}_j(\kk)\cross\bm{a}_{j'}(-\kk) + \bm{a}_j(\kk)\cross\bm{a}_{j'}^*(\kk) - \bm{a}_j^*(\kk)\cross\bm{a}_{j'}(\kk) + \bm{a}_j^*(\kk)\cross\bm{a}_{j'}^*(-\kk))                                                                           \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\kk}}{(2\pi)^3}i|\kk|\sum_{j=\pm}\qty(\bm{a}_j(\kk)\cross\bm{a}_j(-\kk) + \bm{a}_j(\kk)\cross\bm{a}_j^*(\kk) - \bm{a}_j^*(\kk)\cross\bm{a}_j(\kk) + \bm{a}_j^*(\kk)\cross\bm{a}_j^*(-\kk))                                                                                               \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\kk}}{(2\pi)^3}|\kk|\frac{\kk}{|\kk|}\sum_{j=\pm}\qty(ia_j(\kk)a_j(-\kk)e^{-2i\omega(\kk)t} + j|a_j(\kk)|^2 + j|a_j(\kk)|^2 - ia_j^*(\kk)a_j^*(-\kk)e^{2i\omega(\kk)t})                                                                                                                  \\
+     & = \frac{1}{4\pi c}\int\frac{\dd{\kk}}{(2\pi)^3}\kk\sum_{j=\pm}\qty(2j|a_j(\kk)|^2 + ia_j(\kk)a_j(-\kk)e^{-2i\omega(\kk)t} - ia_j^*(\kk)a_j^*(-\kk)e^{2i\omega(\kk)t})
+  \end{align}
+  時間平均を取ると次のようになる。
+  \begin{align}
+    \ev{\LL_{spin}} & = \ev{\frac{1}{4\pi c}\int\frac{\dd{\kk}}{(2\pi)^3}\kk\sum_{j=\pm}\qty(2j|a_j(\kk)|^2 + ia_j(\kk)a_j(-\kk)e^{-2i\omega(\kk)t} - ia_j^*(\kk)a_j^*(-\kk)e^{2i\omega(\kk)t})} \\
+                    & = \frac{1}{2\pi c}\int_{\RR^3}\frac{\dd{\kk}}{(2\pi)^3}\kk\qty(|a_+(\kk)|^2 - |a_-(\kk)|^2)
+  \end{align}
+\end{proof}
 
 \subsection{有限の広がりを持つ円偏光の近似的平面波の角運動量}
 積分値が発散しないように波長 $\lambda=2\pi/k$ よりずっと大きな $L$ 程度の有限の領域 $D\subseteq\RR^2$ だけで振幅がゼロでなく, ほぼ一定であるような近似的平面波を考える. \\
+\begin{proposition}[円筒対称性]
+\end{proposition}
 
 \textbf{Q21B-55.}
 このとき円偏光の近似的平面波の電場の複素表示 $\ET(x,y,z,t)$ を次のように与える.
@@ -1089,6 +1046,11 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
   \end{cases}
 \end{align}
 このように helicity とは光子の角運動量の進行方向の成分を $\hbar$ 単位で測った量である.
+\subsection{導波管での電磁場の伝搬}
+\begin{align}
+  D_{1\parallel} & = D_{2\parallel} \\
+  E_{1\perp}     & = E_{2\perp}
+\end{align}
 
 \section{誘電体中の電磁気学}
 \subsection{導体}
