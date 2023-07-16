@@ -26,7 +26,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{物理数学}
+\title{集合論}
 \author{Anko}
 \makeatletter
 %
@@ -134,6 +134,7 @@
 \newqedtheorem{problem}{問題}
 \newqedtheorem{algorithm}{アルゴリズム}
 
+\newscreentheorem*{axiom}{公理}
 \newscreentheorem*{definition}{定義}
 
 \renewenvironment{proof}[1][\proofname]{\par
@@ -149,5 +150,273 @@
 
 \begin{document}
 \maketitle
+
+\section{公理的集合論の基礎}
+\subsection{論理}
+\begin{axiom}[外延性]
+  \begin{align}
+    \forall x\forall y(\forall z(z\in x\iff z\in y)\implies x=y)
+  \end{align}
+\end{axiom}
+\begin{axiom}[内包性図式]
+  変数 $y$ を自由変数として用いない任意の論理式 $\phi$ を用いて次のように表せられる。
+  \begin{align}
+    \exists y\forall x(x\in y\iff x\in z\land \phi)
+  \end{align}
+\end{axiom}
+
+\begin{definition}[内包性図式]
+  $\qty{x\in z:\phi}\coloneq y \thickspace\text!{s.t.}\thickspace \forall x(x\in y\longleftrightarrow x\in z\land \phi)$。これは外延性より唯一つに定まる.
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \exists y\forall x(x\notin y)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  内包性より $\exists y\forall x(x\in y\iff x\in z\land x\neq x)$ となる。
+  $z$ には真のクラスは含まれないから1つも元のない集合となる $\exists y\forall x(x\in y\iff x\notin z)$。
+  これより、$\forall x(x\notin y)$ となる $y$ の存在が正当化される。
+\end{proof}
+
+\begin{definition}
+  上の集合 $y$ を空集合 $\emptyset$ と呼ぶ。
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \lnot\exists z\forall x(x\in z)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $\forall x(x\in z)$ となる $z$ が存在すると仮定すると, 内包性より $\qty{x\in z: x\notin x} = \qty{x: x\notin x}$ が存在, つまり $\exists y\forall x(x\in y\longleftrightarrow x\notin x)$ となる。しかし $x$ に $y$ を代入することで $y\in y\longleftrightarrow y\notin y$ より矛盾。よってそのような $z$ は存在しない.
+\end{proof}
+
+\begin{axiom}[対]
+  \begin{align}
+    \forall x\forall y\exists z(x\in z\land y\in z)
+  \end{align}
+\end{axiom}
+
+\begin{definition}
+  対
+  \begin{align}
+    \qty{x, y}\coloneq\qty{v\in z:v=x\lor v=y}
+  \end{align}
+  単集合
+  \begin{align}
+    \qty{x}\coloneq\qty{x, x}
+  \end{align}
+  順序対
+  \begin{align}
+    \ev{x, y}\coloneq\qty{\qty{x}, \qty{x,y}}
+  \end{align}
+\end{definition}
+\begin{axiom}[和集合]
+  \begin{align}
+    \forall\mathcal{F}\exists A\forall Y\forall x(x\in Y\land Y\in\mathcal{F}\to x\in A)
+  \end{align}
+\end{axiom}
+\begin{definition}
+  和集合
+  \begin{align}
+    \bigcup\mathcal{F}\coloneq\qty{x:\exists Y\in\mathcal{F}(x\in Y)}
+  \end{align}
+  共通部分
+  \begin{align}
+    \bigcap\mathcal{F}\coloneq\qty{x:\forall Y\in\mathcal{F}(x\in Y)}
+  \end{align}
+  和集合
+  \begin{align}
+    A\cup B\coloneq\bigcup\qty{A, B}
+  \end{align}
+  積集合
+  \begin{align}
+    A\cap B\coloneq\bigcap\qty{A, B}
+  \end{align}
+  差集合
+  \begin{align}
+    A\setminus B\coloneq\qty{x\in A:x\notin B}
+  \end{align}
+\end{definition}
+\begin{axiom}[置換図式]
+  \begin{align}
+    \forall x\in A\exists!y\phi(x,y)\to\exists Y\forall x\in A\exists y\in Y\phi(x,y)
+  \end{align}
+\end{axiom}
+
+\begin{theorem}[置換図式]
+  \begin{align}
+    \forall x\in A\exists!y\phi(x,y)\to\exists\qty{y:\exists x\in A\phi(x,y)}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $\forall x\in A\exists!y\phi(x,y)$ を仮定すると, 置換公理より $\forall x\in A\exists y\in Y\phi(x,y)$ を満たす集合 $Y$ が存在し, 内包性公理より $\qty{y\in Y:\exists x\in A\phi(x,y)}$ が存在する。これは $Y'=\qty{y:\exists x\in A\phi(x,y)}$ とおくと, $Y'$ の濃度は $A$ の濃度以下であるから集合として存在し, $Y = Y'$ となる。
+\end{proof}
+
+\begin{definition}[直積集合]
+  $A\times B\coloneq\qty{\ev{x,y}:x\in A\land y\in B}$
+\end{definition}
+\begin{proof}
+  置換公理と内包性公理より, 各 $y\in B$ に対し,
+  \begin{align}
+    \forall x\in A\exists!z\qty{z=\ev{x,y}}
+    \mathrm{prod}(A,y) \coloneq \qty{z:\exists x\in A(z=\ev{x, y})}
+  \end{align}
+  また, 次のように定義できる。
+  \begin{align}
+    \forall y\in B\exists!z\qty{z=\mathrm{prod}\qty{A,y}}
+    \mathrm{prod}'(A,B) \coloneq \qty{\mathrm{prod}\qty{A,y}: y\in B}
+  \end{align}
+  $A\times B\coloneq\bigcup\mathrm{prod}'(A, B)$ と置くことで定義の正当性が分かる。
+\end{proof}
+
+\begin{definition}
+  関係
+
+  任意の要素が順序対となる集合.
+
+  定義域, 値域
+
+  関係 $R$ に対し, 定義域 $\mathrm{dom}(R)$ と値域 $\mathrm{ran}(R)$ は次のように定義する。
+  \begin{align}
+    \mathrm{dom}(R) & = \qty{x:\exists y\qty{\ev{x,y}\in R}} \\
+    \mathrm{ran}(R) & = \qty{y:\exists x\qty{\ev{x,y}\in R}}
+  \end{align}
+  関係 $R$ は通常 $R\subset \mathrm{dom}(R)\times\mathrm{ran}(R)$ となる場合だけに使われる。
+
+  $R^{-1}\coloneq\qty{\ev{x, y}:\ev{y, x}\in R}$
+\end{definition}
+
+\begin{theorem}
+  関係 $R$ に対し $\qty{R^{-1}}^{-1} = R$ となる。
+\end{theorem}
+\begin{proof}
+  $R$ は関係であるから任意の $R$ の元は順序対であり, それぞれに対し反転を2回行えば元に戻る。
+\end{proof}
+
+\begin{definition}[関数]
+  関係 $f$ が $\forall x\in\mathrm{dom}(f),\exists\!y\in\mathrm{ran}(f)\qty{\ev{x,y}\in f}$ を満たすとき $f$ を関数と呼ぶ。また, 関数 $f$ について $A=\mathrm{dom}(f), B\supset\mathrm{ran}(f)$ を満たすとき, $f:A\to B$ と書く。
+
+  関数の制限
+\end{definition}
+\begin{definition}[狭義全順序]
+  集合 $A$ 関係 $R$ に対し, 次を満たす組 $\ev{A, R}$ を狭義全順序と呼ぶ。
+  \begin{align}
+    \text{推移律}\quad  & \forall x,y,z\in A(xRy\land yRz\to xRz) \\
+    \text{三分律}\quad  & \forall x, y\in A(x=y\lor xRy\lor yRx)  \\
+    \text{非反射律}\quad & \forall x\in A\qty{\lnot\qty{xRx}}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  $\ev{A, R}$ が狭義全順序ならば, 任意の $B\subset A$ について $\ev{B, R}$ は狭義全順序となる。
+\end{theorem}
+\begin{proof}
+  $R\subset \mathrm{dom}(R)\times\mathrm{ran}(R)$ より集合に対して関係の集合は依存していない。また推移律, 三分律, 非反射律は存在を示している訳ではないので $B$ に対しても成立する。よって $\ev{B, R}$ は狭義全順序となる。
+\end{proof}
+
+\begin{definition}
+  同型写像
+  集合と関係の対 $\ev{A, R}, \ev{B, S}$ について
+  全単射 $f:A\to B$ が存在し $\forall x,y\in A(xRy\iff f(x)Sf(y))$ となるとき $\ev{A,R}\cong\ev{B,S}$ と書き, $f$ を同型写像と呼ぶ。
+
+  整列順序
+  全順序 $\ev{A,R}$ について $A$ の空でない任意の部分集合に必ず $R$-最小の要素があるとき, $\ev{A,R}$ が整列順序であるという。
+
+  切片
+  $\mathrm{pred}(A,x,R)\coloneq\qty{y\in A:yRx}$
+\end{definition}
+
+\begin{theorem}
+  $\ev{A,R}$ を整列順序とするとき, 任意の $x\in A$ に対して $\ev{A,R}\ncong\ev{\mathrm{pred}(A,x,R), R}$ である。
+\end{theorem}
+\begin{proof}
+  $f:A\to\mathrm{pred}(A,x,R)$ が同型写像であると仮定すると, 集合 $\qty{y\in A:f(y)\neq y}$ の $R$-最小要素 $y$ が。
+\end{proof}
+
+\begin{theorem}
+  $\ev{A,R}, \ev{B,S}$ を互いに同型な整列順序とするとき, この間の同型写像は唯一つ存在する。
+\end{theorem}
+\begin{proof}
+  仮に2つの同型写像 $f, g$ が存在したとき $f(y)\neq g(y)$ であるような $y\in A$ のうち $R$-最小の $y$ を考えると矛盾。
+\end{proof}
+
+\begin{theorem}
+  $\ev{A,R}, \ev{B,S}$ を整列順序とするとき, 次の3つの命題は互いに背反である。
+  \begin{align}
+    \text{(a)}\quad & \ev{A,R}\cong\ev{B,S}                                        \\
+    \text{(b)}\quad & \exists y\in B\qty{\ev{A,R}\cong\ev{\mathrm{pred}(B,y,S),S}} \\
+    \text{(c)}\quad & \exists x\in A\qty{\ev{\mathrm{pred}(A,x,R),R}\cong\ev{B,S}}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  次のように $f$ を定める。
+  \begin{align}
+    f & = \qty{\ev{v, w}: v\in A\land w\in B\land\ev{\mathrm{pred}(A,v,R), R}\cong\ev{\mathrm{pred}(B,w,S),S}}
+  \end{align}
+  このとき, $f$ は $A$ のある切片から $B$ のある切片への同型写像となるが, これら二つの切片の両方が真の切片となることはありえない。
+\end{proof}
+
+\begin{axiom}[選択公理]
+  $\forall A\exists R(\text{RはAを整列順序づけする})$
+\end{axiom}
+
+
+\subsection{順序数}
+\begin{definition}[推移的]
+  集合 $x$ の任意の要素が同時に $x$ の部分集合でもあるとき $x$ が推移的であると呼ぶ。
+\end{definition}
+\begin{definition}[順序数]
+  推移的な集合 $x$ が $\in$ によって整列順序づけされるとき, $x$ を順序数と呼ぶ。
+\end{definition}
+
+\begin{theorem}
+  \begin{enumerate}
+    \item $x$ が順序数で $y\in x$ なら, $y$ も順序数で $y=\mathrm{pred}(x,y)$。
+    \item $x$ と $y$ が順序数で $x\cong y$ なら, $x=y$。
+    \item $x$ と $y$ が順序数なら, $x\in y, y\in x, y=x$ のどれか1つだけが成立する。
+    \item $x$ と $y$ と $z$ が順序数で $x\in y, y\in z$ であれば, $x\in z$ である。
+    \item $C$ が順序数の空でない集合であれば, $\exists x\in C\forall y\in C(x\in y\lor x=y)$。
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item 推移的であるから $y$ も順序数であり $\mathrm{pred}(x,y) = \qty{z\in x:z \in y} = y$ となる。
+    \item 具体的な集合は空集合しか定義されていないから $x, y$ が同じように推移的であるならば $x = y$ であることが分かる。
+    \item (1), (2) と定理(ref)より成立する。$x=\qty{x}$ などの自分自身の元となる推移的な集合は順序数でないから2つ同時に成立することはない。
+    \item 推移的である為, 成り立つ。
+    \item $C$ の $\in$-最小 $x$ について $x\cap C = 0$ となる。よって $0$ に含まれる元は存在しないことと(3)より $x$ は条件を満たす。
+  \end{enumerate}
+  よって全て示された。
+\end{proof}
+
+\begin{theorem}
+  $\lnot\exists z\forall x(x\text!{は順序数}\to x\in z)$
+\end{theorem}
+\begin{proof}
+  仮に任意の順序数を含む集合 $z$ があるとすると, 集合
+  \begin{align}
+    ON & = \qty{x:x\text{は順序数}}
+  \end{align}
+  が存在し, これは順序数となるが, $ON \in ON$ となり, 整列順序付けできない為, 順序数ではない。よって矛盾し, そのような集合 $z$ は存在しない。
+\end{proof}
+
+\begin{lemma}
+  順序数の集合 $A$ が $\forall x\in A\forall y\in x(y\in A)$ ならば $A$ は順序数である。
+\end{lemma}
+
+\begin{theorem}
+  $\ev{A, R}$ が整列順序であれば, あるただ一つに定まる順序数 $C$ について $\ev{A, R}\cong C$ となる。
+\end{theorem}
+\begin{proof}
+  定理(ref)(3)より唯一性はわかる。$B = \qty{a\in A:\exists x(x\text!{は順序数} \land x\cong\ev{\mathrm{pred}(A, a, R)})}$ とおくと, 置換公理より
+  \begin{align}
+    \forall a\in B\exists!x(x\cong\ev{\mathrm{pred}(A, a, R)}) \\
+    C\coloneq\qty{x:\exists a\in B\qty{x\cong\ev{\mathrm{pred}(A, a, R)}}}
+  \end{align}
+  となる $C$ が存在し, 関数 $f$ を $f:a\mapsto x$ とおくと $f\subset B\times C$ となる。
+\end{proof}
 
 \end{document}
