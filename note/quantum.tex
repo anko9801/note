@@ -1021,7 +1021,6 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   ケット $\ket{\beta}$ とブラ $\bra{\alpha}$ との外積 (outer product) は演算子を返し、$\ket{\beta}\bra{\alpha}$ と記す。
 \end{definition}
-
 \begin{definition}[演算子]
   演算子 $A$ はケット $\ket{\alpha}$ に左から作用して別のケット $A\ket{\alpha}$ となる。演算子同士の同値性、和、積を次のように定義される。
   \begin{align}
@@ -1035,10 +1034,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   固有ケットに対応する物理的状態を固有状態 (eigenstate) という。
 \end{definition}
-
-\begin{axiom}
-  運動量やスピン成分といった観測可能量 (observable) は演算子 (operator) によって表せられる。
-\end{axiom}
+観測可能量 (observable) は演算子 (operator) で表される。
 
 \begin{proposition}
   \begin{align}
@@ -1058,9 +1054,52 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \end{proof}
 
 \begin{theorem}[エルミート演算子の固有ケットの直交性]
+  エルミート演算子の固有値は実数であり、異なる固有値を持つ固有ケットは互いに直交する。
 \end{theorem}
 \begin{proof}
+  \begin{align}
+    A\ket{a'} = a'\ket{a'}      & \iff \bra{a''}A\ket{a'} = a'\braket{a''|a'}    \\
+    \bra{a''}A = a''^*\bra{a''} & \iff \bra{a''}A\ket{a'} = a''^*\braket{a''|a'} \\
+    (a' - a''^*)\braket{a''|a'} & = 0
+  \end{align}
+  $a' = a''$ かつ $\braket{a'|a'} \neq 0$ のとき $a', a''\in\RR$ である。これより
+  \begin{align}
+    (a' - a'')\braket{a''|a'} & = 0
+  \end{align}
+  となる。よって $a' \neq a''$ のとき $\braket{a''|a'} = 0$ である。
+\end{proof}
 
+これよりエルミート演算子の固有ケットは完全系を成す。状態は観測でしか分からないので固有ケットにより全てのケットは生成される。
+
+\begin{align}
+  \ket{\alpha} & = \sum_{a'}c_{a'}\ket{a'}             \\
+               & = \sum_{a'}\ket{a'}\braket{a'|\alpha}
+\end{align}
+これより完備関係式 (completeness relation) と呼ばれる式が成り立つ。
+\begin{align}
+  \sum_{a'}\ket{a'}\bra{a'} = 1
+\end{align}
+
+\begin{proposition}[行列表現]
+  演算子やブラケットは行列で表現できる。
+\end{proposition}
+\begin{proof}
+  ある演算子の固有ケットによる完備関係式を用いることで演算子とその和積、ブラケット $\ket{\alpha}$, $\bra{\alpha}$ は次のように書ける。
+  \begin{align}
+    X                        & = \sum_{a''}\sum_{a'}\ket{a''}\bra{a''}X\ket{a'}\bra{a'} \\
+    \bra{a''}(X + Y)\ket{a'} & = \bra{a''}X\ket{a'} + \bra{a''}Y\ket{a'}                \\
+    \bra{a''}XY\ket{a'}      & = \sum_{a'''}\bra{a''}X\ket{a'''}\bra{a'''}Y\ket{a'}     \\
+    \bra{a'}X\ket{\alpha}    & = \sum_{a''}\bra{a'}X\ket{a''}\braket{a''|\alpha}        \\
+    \bra{\alpha}X\ket{a'}    & = \sum_{a''}\braket{\alpha|a''}\bra{a''}X\ket{a'}
+  \end{align}
+  これより行列として表現すると次のようになる。
+  \begin{align}
+    X                                            & = \mqty(\bra{a^{(1)}}X\ket{a^{(1)}} & \bra{a^{(1)}}X\ket{a^{(2)}} & \cdots \\
+    \bra{a^{(2)}}X\ket{a^{(1)}}                  & \bra{a^{(2)}}X\ket{a^{(2)}}         & \cdots                               \\
+    \vdots                                       & \vdots                              & \ddots)                              \\
+    \ket{\alpha}                                 & = \mqty(\braket{a^{(1)}|\alpha}                                            \\ \braket{a^{(2)}|\alpha} \\ \vdots), \qquad
+    \bra{\alpha} = \mqty(\braket{\alpha|a^{(1)}} & \braket{\alpha|a^{(2)}}             & \cdots)
+  \end{align}
 \end{proof}
 
 \begin{definition}[交換関係・反交換関係]
@@ -1071,7 +1110,6 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   $[\hat{A}, \hat{B}] = 0$ のとき $\hat{A}$ と $\hat{B}$ は交換可能であるという。このとき $\hat{A}$ の固有状態であり、同時に $\hat{B}$ の固有状態でもある状態を作ることができる。これを同時対角化可能という。
 \end{definition}
-
 
 \section{時間発展のあるシュレーディンガー方程式}
 \begin{align}
