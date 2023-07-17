@@ -216,15 +216,44 @@
 
 \begin{proposition}
   \begin{align}
-    \Gamma(z + 1) & = z\Gamma(z), \qquad \Gamma(n + 1) = n!, \qquad \Gamma(1)= 1, \qquad \Gamma\qty(\frac{1}{2}) = \sqrt{\pi}
+    \Gamma(z + 1) & = z\Gamma(z), \qquad \Gamma(n + 1) = n!, \qquad \Gamma(1) = 1, \qquad \Gamma\qty(\frac{1}{2}) = \sqrt{\pi}
   \end{align}
 \end{proposition}
+\begin{proof}
+  \begin{align}
+    \Gamma(z + 1)           & = \int_0^\infty t^{z}e^{-t}\dd{t}                              \\
+                            & = [-t^{z}e^{-t}]_0^\infty + z\int_0^\infty t^{z-1}e^{-t}\dd{t} \\
+                            & = z\Gamma(z)                                                   \\
+    \Gamma(1)               & = \int_0^\infty e^{-t}\dd{t}                                   \\
+                            & = [-e^{-t}]_0^\infty                                           \\
+                            & = 1                                                            \\
+    \Gamma\qty(\frac{1}{2}) & = \int_0^\infty t^{-1/2}e^{-t}\dd{t}                           \\
+                            & = \int_0^\infty s^{-1}e^{-s^2}2s\dd{s}                         \\
+                            & = 2\int_0^\infty e^{-s^2}\dd{s}                                \\
+                            & = \sqrt{\pi}
+  \end{align}
+\end{proof}
 
 \begin{proposition}[スターリングの公式 (Stirling's formula)]
   \begin{align}
     \Gamma(x + 1) & = \sqrt{2\pi x}e^{-x}x^x \qquad (x \gg 1)
   \end{align}
 \end{proposition}
+\begin{proof}
+  \begin{align}
+    \Gamma(x) & = \int_0^\infty t^{x - 1}e^{-t}\dd{t}                                                    \\
+              & = \int_0^\infty e^{s(x - 1)}e^{-e^s}e^s\dd{s}                                            \\
+              & = \int_0^\infty e^{sx - e^s}\dd{s}                                                       \\
+              & \approx \int_0^\infty e^{(x\ln x - x) - \frac{x}{2}(s - \ln x)^2}\dd{s} \qquad (x \gg 1) \\
+              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}(s - \ln x)^2}\dd{s}                             \\
+              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}s^2}\dd{s}                                       \\
+              & = \sqrt{\frac{2\pi}{x}}x^xe^{-x}
+  \end{align}
+  これより
+  \begin{align}
+    \Gamma(x + 1) & = x\Gamma(x) = \sqrt{2\pi x}x^xe^{-x}
+  \end{align}
+\end{proof}
 
 \begin{proposition}[ガンマ関数の特異点]
   \begin{align}
@@ -233,14 +262,8 @@
   \end{align}
 \end{proposition}
 
-\begin{proposition}
-  ガウスの公式 (Gauss's formula)
-  \begin{align}
-    \Gamma(z) & = \lim_{n\to\infty}\frac{n!n^z}{z(z+1)\cdots(z+n)} \\
-  \end{align}
-\end{proposition}
-\begin{proposition}
-  ワイエルシュトラスの公式 (Weierstrass' formula) $\gamma$ はオイラーの定数 (Euler's constant) とする.
+\begin{proposition}[ワイエルシュトラスの公式 (Weierstrass' formula)]
+  $\gamma$ はオイラーの定数 (Euler's constant) とする.
   \begin{align}
     \frac{1}{\Gamma(z)} & = ze^{\gamma z}\prod_{n=1}^{\infty}\qty(1 + \frac{z}{n})e^{-z/n}              \\
     \gamma              & := \lim_{n\to\infty}\qty(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
@@ -248,10 +271,6 @@
 \end{proposition}
 ガンマ関数 $\Gamma(s)$ について次のような性質が知られている.
 \begin{align}
-  \Gamma(s)                                    & = \int_0^\infty \dd{x}x^{s-1}e^{-x} \qquad (\real s > 0),         \\
-  \Gamma(s + 1)                                & = s\Gamma(s),                                                     \\
-  \Gamma(1)                                    & = 1, \quad \Gamma\qty(\frac{1}{2}) = \sqrt{\pi},                  \\
-  \Gamma(n + 1)                                & = n! \qquad (n = 0,1,2,\ldots),                                   \\
   \Res[\Gamma(s); s = -n]                      & = \frac{(-1)^n}{n!} \qquad (n = 0,1,2,\ldots),                    \\
   \lbrace\Gamma(s) = 0\mid |s| < \infty\rbrace & = \emptyset,                                                      \\
   \Gamma(s)\Gamma(1-s)                         & = \frac{\pi}{\sin\pi s},                                          \\
@@ -268,17 +287,80 @@
 
 \begin{proposition}
   \begin{align}
-    B(z, \zeta)            & = B(\zeta, z)                                                          \\
-    B(z, \zeta)            & = 2\int_0^{\pi/2}\sin^{2z - 1}\theta\cos^{2\zeta - 1}\theta\dd{\theta} \\
-    B(z, \zeta)            & = \int_0^{\infty}\frac{u^{z-1}}{(1 + u)^{z + \zeta}}\dd{\theta}        \\
-    B(z, \zeta)            & = \frac{\Gamma(z)\Gamma(\zeta)}{\Gamma(z + \zeta)}                     \\
+    B(z, \zeta) & = B(\zeta, z)                                                          \\
+    B(z, \zeta) & = 2\int_0^{\pi/2}\sin^{2z - 1}\theta\cos^{2\zeta - 1}\theta\dd{\theta} \\
+    B(z, \zeta) & = \int_0^{\infty}\frac{u^{z-1}}{(1 + u)^{z + \zeta}}\dd{\theta}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    B(z, \zeta) & = \int_{0}^{1}t^{z-1}(1-t)^{\zeta-1}\dd{t}                                                                             \\
+                & = \int_{1}^{0}(1 - s)^{z-1}s^{\zeta-1}(-\dd{t}) \qquad (s = 1 - t)                                                     \\
+                & = \int_{0}^{1}s^{\zeta-1}(1 - s)^{z-1}\dd{t}                                                                           \\
+                & = B(\zeta, z)                                                                                                          \\
+    B(z, \zeta) & = \int_{0}^{1}t^{z-1}(1-t)^{\zeta-1}\dd{t}                                                                             \\
+                & = \int_{0}^{\pi/2}\sin^{2(z-1)}\theta\cos^{2(\zeta-1)}\theta2\sin\theta\cos\theta\dd{\theta} \qquad (t = \sin^2\theta) \\
+                & = 2\int_0^{\pi/2}\sin^{2z - 1}\theta\cos^{2\zeta - 1}\theta\dd{\theta}                                                 \\
+    B(z, \zeta) & = \int_{0}^{1}t^{z-1}(1-t)^{\zeta-1}\dd{t}                                                                             \\
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  \begin{align}
+    B(a, b)     & = \frac{b - 1}{a}B(a + 1, b - 1)  \\
+    B(a, n + 1) & = \frac{n!}{\prod_{k=0}^n(a + k)}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    B(a, b)     & = \int_{0}^{1}t^{a-1}(1-t)^{b-1}\dd{t}                                                \\
+                & = \qty[\frac{1}{a}t^a(1-t)^{b-1}]_0^1 + \frac{b-1}{a}\int_{0}^{1}t^a(1-t)^{b-2}\dd{t} \\
+                & = \frac{b - 1}{a}B(a + 1, b - 1)                                                      \\
+    B(a, n + 1) & = \frac{n\cdot(n - 1)\cdots 1}{a\cdot(a + 1)\cdots(a + n - 1)}B(a + n, 1)             \\
+                & = \frac{n!}{\prod_{k = 0}^{n-1}(a + k)}\frac{1}{a + n}                                \\
+                & = \frac{n!}{\prod_{k = 0}^{n}(a + k)}
+  \end{align}
+\end{proof}
+
+\begin{proposition}[ガンマ関数とベータ関数との関係]
+  \begin{align}
+    B(z, \zeta)            & = \frac{\Gamma(z)\Gamma(\zeta)}{\Gamma(z + \zeta)} \\
     \Gamma(z)\Gamma(1 - z) & = \frac{\pi}{\sin\pi z}
   \end{align}
 \end{proposition}
+\begin{proof}
+  \begin{align}
+    \Gamma(z)\Gamma(\zeta) & = \int_0^\infty s^{z-1}e^{-s}\dd{s}\int_0^\infty t^{\zeta-1}e^{-t}\dd{t}                                                                                          \\
+                           & = \int_0^\infty q^{2(z-1)}e^{-q^2}2q\dd{q}\int_0^\infty p^{2(\zeta-1)}e^{-p^2}2p\dd{p}                                       & (s = q^2, t = p^2)                 \\
+                           & = 4\int_0^\infty \int_0^\infty e^{-(q^2 + p^2)}q^{2z-1}p^{2\zeta-1}\dd{p}\dd{q}                                                                                   \\
+                           & = 4\int_0^{\frac{\pi}{2}}\int_0^\infty e^{-r^2}r^{2(z + \zeta - 1)}\cos^{2z-1}\theta\sin^{2\zeta-1}\theta r\dd{r}\dd{\theta} & (q = r\cos\theta, p = r\sin\theta) \\
+                           & = 4\int_0^\infty e^{-r^2}r^{2(z + \zeta) - 1}\dd{r}\int_0^{\frac{\pi}{2}}\cos^{2z-1}\theta\sin^{2\zeta-1}\theta\dd{\theta}                                        \\
+                           & = 2\int_0^\infty e^{-R}R^{z + \zeta - 1}r\frac{1}{2r}\dd{R}B(z, \zeta)                                                       & (R = r^2)                          \\
+                           & = \int_0^\infty e^{-R}R^{z + \zeta - 1}\dd{R}B(z, \zeta)                                                                                                          \\
+                           & = \Gamma(z + \zeta)B(z, \zeta)
+  \end{align}
+  これより
+  \begin{align}
+    B(z, \zeta) & = \frac{\Gamma(z)\Gamma(\zeta)}{\Gamma(z + \zeta)}
+  \end{align}
+  \begin{align}
+    \Gamma(z)\Gamma(1 - z) & = \Gamma(1)B(z, 1 - z)                \\
+                           & = \int_{0}^{1}t^{z-1}(1-t)^{-z}\dd{t} \\
+                           & = \frac{\pi}{\sin\pi z}
+  \end{align}
+\end{proof}
+
+\begin{proposition}[ガウスの公式 (Gauss's formula)]
+  \begin{align}
+    \Gamma(z) & = \lim_{n\to\infty}\frac{n!n^z}{z(z+1)\cdots(z+n)} \\
+  \end{align}
+\end{proposition}
+\begin{proof}
+\end{proof}
 
 \begin{proposition}[Legendre の倍数公式]
   \begin{align}
-    \Gamma(2z) & = \frac{2^{2z}}{2\sqrt{\pi}}\Gamma(z)\Gamma(z + \frac{1}{2})
+    \Gamma(2z) & = \frac{2^{2z}}{2\sqrt{\pi}}\Gamma(z)\Gamma\qty(z + \frac{1}{2})
   \end{align}
 \end{proposition}
 
