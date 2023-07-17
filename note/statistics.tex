@@ -167,8 +167,111 @@
 \end{axiom}
 
 \section{ミクロカノニカル分布}
+2 つの系 $A, B$ があるとする。系 $A$ のエネルギー $E_A$ と系 $B$ のエネルギー $E_B$ の和が一定で $A, B$ の間にエネルギーのやり取りができるとする。
+\begin{align}
+  E_A + E_B = const.
+\end{align}
+
+例えると子どもたちが 12 人居て $A$ と $B$ のグループにそれぞれ 4 人、8 人で分ける。そして 6 個あるリンゴを 1 人複数個もらっても良いとして等確率に配ったとき、それぞれのグループに配られるリンゴで最も確率の高いものは何か。
+\begin{table}[hbtp]
+  \label{table:micro}
+  \centering
+  \begin{tabular}{|c|c|l|}
+    \hline
+    A   & B   & 組合せ                                                         \\
+    \hline
+    0 個 & 6 個 & ${}_4H_0\times {}_{8}H_6 = {}_3C_0\times {}_{13}C_6 = 1716$ \\
+    1 個 & 5 個 & ${}_4H_1\times {}_{8}H_5 = {}_4C_1\times {}_{12}C_5 = 3168$ \\
+    2 個 & 4 個 & ${}_4H_2\times {}_{8}H_4 = {}_5C_2\times {}_{11}C_4 = 3300$ \\
+    3 個 & 3 個 & ${}_4H_3\times {}_{8}H_3 = {}_6C_3\times {}_{10}C_3 = 2406$ \\
+    4 個 & 2 個 & ${}_4H_4\times {}_{8}H_2 = {}_7C_4\times {}_{9}C_2 = 1260$  \\
+    5 個 & 1 個 & ${}_4H_5\times {}_{8}H_1 = {}_8C_5\times {}_{8}C_1 = 448$   \\
+    6 個 & 0 個 & ${}_4H_6\times {}_{8}H_0 = {}_9C_6\times {}_{7}C_0 = 84$    \\
+    \hline
+  \end{tabular}
+  \caption{組合せ}
+\end{table}
+
+より $A$, $B$ のグループにそれぞれ 2 個、4 個で分ける確率が最も高い。
+この分布を二項分布という。
+
+\begin{proposition}
+  二項分布の極限が正規分布である。
+\end{proposition}
+\begin{proof}
+\end{proof}
+
+\begin{definition}
+  あるエネルギー $E$ のときに実現可能な量子状態数を $W(E)$ とおき、その対数を取ったものをエントロピー $S(E)$ という。
+  \begin{align}
+    S(E) & = k_B\log W(E)                     \\
+    k_B  & = 1.380658\times 10^{-23} \si{J/K}
+  \end{align}
+  ただし $k_B$ をボルツマン定数 (Boltzmann constant) という。ある系 $X$ のエネルギーを $E_X$、状態数を $W_X(E_X)$、エントロピーを $S_X(E_X)$ と書くことにする。
+\end{definition}
+状態数で計算すると指数が出がちなのでエントロピーで計算すると簡単になる。
+
+\begin{theorem}
+  $N$ 次元の調和振動子で $E = M\hbar\omega$ とおくと状態数とエントロピーは次のように書ける。
+  \begin{align}
+    W(E) & = \mqty(M + N - 1                                                                      \\ N - 1) \\
+    S(E) & \sim k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $N$ 次元の調和振動子系では $(n_1,\ldots,n_N)$ が全体の量子状態を決める量子数となる。このときのエネルギーは次のように表される。
+  \begin{align}
+    E_{(n_1,\ldots,n_N)} & = n_1\hbar\omega + \cdots + n_N\hbar\omega
+  \end{align}
+  等しいエネルギーの状態の条件は $M = n_1 + \cdots + n_N$ と書ける。これより状態数の組合せは次のように書ける。
+  \begin{align}
+    W(E) & = \mqty(M + N - 1 \\ N - 1) = \frac{(M + N - 1)!}{(N - 1)!M!}
+  \end{align}
+  またエントロピーは Stirling の公式 $\log n! \sim n(\log n - 1)$ を用いて
+  \begin{align}
+    S(E) & = k_B\log W(E)                                                                      \\
+         & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                            \\
+         & \sim k_B\qty((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))              \\
+         & = k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  熱平衡の条件は系 $A$ の温度 $T_A$ と系 $B$ の温度 $T_B$ が一致すること。
+\end{theorem}
+\begin{proof}
+  各系の状態数の積が全体系の状態数となるので各系と全体系のエントロピーの関係は
+  \begin{align}
+    S(E_A, E_B) & = k_B\log W(E_A, E_B)                 \\
+                & = k_B\log W_A(E_A)W_B(E_B)            \\
+                & = k_B\log W_A(E_A) + k_B\log W_B(E_B) \\
+                & = S_A(E_A) + S_B(E_B)
+  \end{align}
+  となる。このとき熱平衡状態とはエントロピーが最大の状態であるから $\dv*{S}{E_A} = 0$ となるエネルギー $E_A, E_B$ を考えると
+  \begin{align}
+    \dv{S(E_A, E_B)}{E_A}   & = \dv{S_A(E_A)}{E_A} + \dv{S_A(E_B)}{E_A} = \dv{S_A(E_A)}{E_A} - \dv{S_A(E_B)}{E_B} = 0 \\
+    \iff \dv{S_A(E_A)}{E_A} & = \dv{S_A(E_B)}{E_B}
+  \end{align}
+  よりエントロピーのエネルギー微分を温度の逆数 $1/T$ と定義すると温度が一致するときに熱平衡状態となる。
+\end{proof}
+
+\begin{definition}
+  絶対温度 (absolute temperature) $T$ を次のように定義する。
+  \begin{align}
+    \frac{1}{T} & := \dv{S}{E}
+  \end{align}
+\end{definition}
+
+この温度の定義は理想気体で正当化される。
+
+\begin{theorem}[理想気体]
+  \begin{align}
+    E & = \frac{3}{2}Nk_BT
+  \end{align}
+\end{theorem}
 
 \section{カノニカル分布}
+ある温度の環境の中で理想気体や
 
 \subsection{構成要素である 1 個の二準位系の統計力学}
 絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする：
@@ -594,5 +697,7 @@ fn _f(x: f64) -> f64 {
 
 \subsection{Bose 統計と Fermi 統計}
 
+
+\subsection{相転移}
 
 \end{document}
