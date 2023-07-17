@@ -415,4 +415,272 @@
     f(x)                & = \sum_{n=1}^{\infty}A_n\sin(\frac{n\pi x}{a})\sinh(\frac{n\pi b}{a})
   \end{align}
 \end{proof}
+
+
+\section{その17-A: ゼータ関数 $\zeta(s)$ 入門}
+\subsection{Bernoulli 数}
+Bernoulli 数 $B_n$ を次のように定義する.
+\begin{itembox}[l]{Definition. Bernoulli 数}
+  Bernoulli 数 $B_n$ は以下の正則関数の多項式展開の係数として定義される.
+  \begin{align}
+    \frac{x}{e^x - 1} = \sum_{n=0}^{\infty}\frac{B_n}{n!}x^n.
+  \end{align}
+\end{itembox}
+
+\begin{itembox}[l]{Q 17A-1.}
+  \begin{align}
+    B_1 = -\frac{1}{2}, B_{2n+1} = 0 \qquad (n = 1,2,3,\ldots).
+  \end{align}
+\end{itembox}
+
+(i) まず Bernoulli の定義式の左辺に $x/2$ を加えると次のようになる.
+\begin{align}
+  \frac{x}{e^x - 1} + \frac{x}{2} & = \frac{x(e^x + 1)}{2(e^x - 1)} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2}).
+\end{align}
+
+(ii) ここでこの関数は偶関数であることがわかる.
+\begin{align}
+  \frac{-x}{2}\coth(\frac{-x}{2}) & = \frac{-x}{2}\frac{e^{-x/2} + e^{x/2}}{e^{-x/2} - e^{x/2}} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2}).
+\end{align}
+これより次の右辺は偶関数であることがわかり, 一致の定理から右辺について奇数次の項は現れない.
+\begin{align}
+  \frac{x}{2}\coth(\frac{x}{2}) = \frac{x}{2} + \sum_{n=0}^{\infty}\frac{B_n}{n!}x^n.
+\end{align}
+よって 3 以上の奇数を添え字に持つ Bernoulli 数はゼロとなる.
+\begin{align}
+  B_{2n+1} = 0 \qquad (n = 1,2,3,\ldots).
+\end{align}
+
+(iii) また 1 次の項もゼロとなる為, $B_1$ について次のようになる.
+\begin{align}
+  B_1 = -\frac{1}{2}.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-2.}
+  \begin{align}
+    \sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n = \delta_{n,1} \qquad (n = 1,2,3,\ldots).
+  \end{align}
+\end{itembox}
+
+(i)
+左辺の分母を払うと次のようになる.
+\begin{align}
+  x & = (e^x - 1)\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n                                     \\
+    & = \qty(\sum_{k=1}^{\infty}\frac{x^k}{k!})\qty(\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n) \\
+    & = \sum_{k=1}^{\infty}\sum_{n=0}^{\infty}\frac{B_n}{k!n!}x^{k+n}                     \\
+    & = \sum_{n=1}^{\infty}\sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n.
+\end{align}
+よって両辺の係数を比較することで次のようになる.
+\begin{align}
+  \sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n = \delta_{n,1} \qquad (n = 1,2,3,\ldots).
+\end{align}
+
+(ii)
+これを小さな値の場合について具体的な式で表すと次のようになる.
+\begin{align}
+  \begin{dcases}
+    B_0 = 1                                                                                                                                 \\
+    \frac{1}{2}B_0 + B_1 = 0                                                                                                                \\
+    \frac{1}{6}B_0 + \frac{1}{2}B_1 + \frac{1}{2}B_2 = 0                                                                                    \\
+    \frac{1}{24}B_0 + \frac{1}{6}B_1 + \frac{1}{4}B_2 + \frac{1}{6}B_3 = 0                                                                  \\
+    \frac{1}{120}B_0 + \frac{1}{24}B_1 + \frac{1}{12}B_2 + \frac{1}{12}B_3 + \frac{1}{24}B_4 = 0                                            \\
+    \frac{1}{720}B_0 + \frac{1}{120}B_1 + \frac{1}{48}B_2 + \frac{1}{36}B_3 + \frac{1}{48}B_4 + \frac{1}{120}B_5 = 0                        \\
+    \frac{1}{5040}B_0 + \frac{1}{720}B_1 + \frac{1}{240}B_2 + \frac{1}{144}B_3 + \frac{1}{144}B_4 + \frac{1}{240}B_5 + \frac{1}{720}B_6 = 0 \\
+    \cdots
+  \end{dcases}.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-3.}
+  \begin{align}
+    B_0 = 1, B_1 = -\frac{1}{2}, B_2 = \frac{1}{6}, B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \cdots.
+  \end{align}
+\end{itembox}
+
+Q 17A-2 (ii) より $B_0 = 1$ であることがわかる. そして既に求めた添字が 0 と奇数のものを代入すると次のようになる.
+\begin{align}
+  \begin{dcases}
+    1 = 1                                                                                        \\
+    \frac{1}{2} - \frac{1}{2} = 0                                                                \\
+    \frac{1}{6} - \frac{1}{4} + \frac{1}{2}B_2 = 0                                               \\
+    \frac{1}{24} - \frac{1}{12} + \frac{1}{4}B_2 = 0                                             \\
+    \frac{1}{120} - \frac{1}{48} + \frac{1}{12}B_2 + \frac{1}{24}B_4 = 0                         \\
+    \frac{1}{720} - \frac{1}{240} + \frac{1}{48}B_2 + \frac{1}{48}B_4 = 0                        \\
+    \frac{1}{5040} - \frac{1}{1440} + \frac{1}{240}B_2 + \frac{1}{144}B_4 + \frac{1}{720}B_6 = 0 \\
+    \cdots
+  \end{dcases}.
+\end{align}
+これより $B_2, B_4, B_6$ について上の数式から求められる.
+\begin{align}
+  B_2 = \frac{1}{6}, \quad B_4 = -\frac{1}{30}, \quad B_6 = \frac{1}{42}.
+\end{align}
+よってこれまでの結果をまとめると次のようになる.
+\begin{align}
+  B_0 = 1, B_1 = -\frac{1}{2}, B_2 = \frac{1}{6}, B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \cdots.
+\end{align}
+
+\subsection{ガンマ関数 $\Gamma(s)$ のまとめ}
+ガンマ関数 $\Gamma(s)$ について次のような性質が知られている.
+\begin{align}
+  \Gamma(s)                                    & = \int_0^\infty \dd{x}x^{s-1}e^{-x} \qquad (\real s > 0),         \\
+  \Gamma(s + 1)                                & = s\Gamma(s),                                                     \\
+  \Gamma(1)                                    & = 1, \quad \Gamma\qty(\frac{1}{2}) = \sqrt{\pi},                  \\
+  \Gamma(n + 1)                                & = n! \qquad (n = 0,1,2,\ldots),                                   \\
+  \Res[\Gamma(s); s = -n]                      & = \frac{(-1)^n}{n!} \qquad (n = 0,1,2,\ldots),                    \\
+  \lbrace\Gamma(s) = 0\mid |s| < \infty\rbrace & = \emptyset,                                                      \\
+  \Gamma(s)\Gamma(1-s)                         & = \frac{\pi}{\sin\pi s},                                          \\
+  \Gamma(2s)                                   & = \frac{2^{2s}}{2\sqrt{\pi}}\Gamma(s)\Gamma\qty(s + \frac{1}{2}).
+\end{align}
+
+\subsection{ゼータ関数 $\zeta(s)$ の定義と基礎的性質}
+\begin{itembox}[l]{Definition. ゼータ関数}
+  ゼータ関数 $\zeta(s)$ は次のように定義される.
+  \begin{align}
+    \zeta(s) & := \sum_{n=1}^{\infty}\frac{1}{n^s} \qquad (\real s > 1).
+  \end{align}
+\end{itembox}
+
+\begin{itembox}[l]{Q 17A-4.}
+  $\zeta(s)$ が $\real s > 1$ において一様絶対収束することを示す.
+\end{itembox}
+
+$s = a + bi\ (a > 1)$ とおく. すると次のようになる.
+\begin{align}
+  |\zeta(s)| & \leq \sum_{n=1}^{\infty}\qty|\frac{1}{n^s}| = \sum_{n=1}^{\infty}\frac{1}{n^a} \approx \int_{1}^{\infty}\dd{x}x^{-a} = \qty[\frac{1}{1 - a}x^{1-a}]_1^\infty < \infty.
+\end{align}
+よってゼータ関数 $\zeta(s)$ は一様絶対収束する.
+
+\begin{itembox}[l]{Q 17A-5.}
+  \begin{align}
+    \zeta(s) & = \prod_{p:prime}\frac{1}{1 - p^{-s}} \qquad (\real s > 1).
+  \end{align}
+\end{itembox}
+素因数分解の一意性より次のようにゼータ関数 $\zeta(s)$ は式変形できる.
+\begin{align}
+  \zeta(s) & = \sum_{n=1}^{\infty}\frac{1}{n^s}                                                                                   \\
+           & = \frac{1}{1^s} + \frac{1}{2^s} + \frac{1}{3^s} + \frac{1}{2^{2s}} + \frac{1}{5^s} + \frac{1}{(2\cdot 3)^s} + \cdots \\
+           & = \qty(1 + 2^{-s} + 2^{-2s} + \cdots)\qty(1 + 3^{-s} + 3^{-2s} + \cdots)\qty(1 + 5^{-s} + 5^{-2s} + \cdots)\cdots    \\
+           & = \prod_{p:prime}(1 + p^{-s} + p^{-2s} + \cdots)                                                                     \\
+           & = \prod_{p:prime}\frac{1}{1 - p^{-s}}.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-6.}
+  \begin{align}
+    \zeta(s) & = 0 \implies \real s \leq 1.
+  \end{align}
+\end{itembox}
+
+$\real s > 1$ において $s = a + b\sqrt{-1}\ (a > 1)$ とおくと $p^{-s}$ の大きさは次のように評価される.
+\begin{align}
+  |p^{-s}| = |p^{-a-b\sqrt{-1}}| = |p^{-a}|\cdot|e^{-\sqrt{-1}b\ln p}| = p^{-a}.
+\end{align}
+これより $\zeta(s)$ の大きさは次のように評価される.
+\begin{align}
+  |\zeta(s)| & = \qty|\prod_{p:prime}\frac{1}{1 - p^{-s}}| \geq \prod_{p:prime}\frac{1}{1 - |p^{-s}|} = \prod_{p:prime}\frac{1}{1 - p^{-a}} > 0.
+\end{align}
+よって $\real s > 1$ において $\zeta(s)$ はゼロとならない. つまり次のようになる.
+\begin{align}
+  \zeta(s) & = 0 \implies \real s \leq 1.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-7.}
+  素数が無限に存在することを示す.
+\end{itembox}
+ゼータ関数 $\zeta(s)\ (\real s > 1)$ について $s\to 1$ の極限を取ると発散する.
+\begin{align}
+  \lim_{s\to 1}\zeta(s) & = \lim_{s\to 1}\sum_{n=1}^{\infty}\frac{1}{n^s} = \infty.
+\end{align}
+また Euler 積表示についても極限を取る.
+\begin{align}
+  \lim_{s\to 1}\zeta(s) & = \prod_{p:prime}\frac{1}{1 - 1/p}.
+\end{align}
+ここで素数が有限個しかないならば発散しない. ただゼータ関数は極限を取ると発散するので素数は無限個存在する.
+
+\subsection{ゼータ関数 $\zeta(s)$ の基本的性質 : 関数等式ほか}
+\begin{itembox}[l]{Q 17A-8.}
+  \begin{align}
+    \Gamma(s)\zeta(s) = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1} \qquad (\real s > 1).
+  \end{align}
+\end{itembox}
+
+ガンマ関数の定義式について $x := nx$ と置換積分することで次のように式変形できる.
+\begin{align}
+  \Gamma(s)         & = \int_0^\infty \dd{x}x^{s-1}e^{-x}                     \\
+                    & = \int_0^\infty n\dd{x}\qty(nx)^{s-1}e^{-nx},           \\
+  \Gamma(s)\zeta(s) & = \sum_{n=1}^{\infty}\frac{\Gamma(s)}{n^s}              \\
+                    & = \sum_{n=1}^{\infty}\int_0^\infty \dd{x}x^{s-1}e^{-nx} \\
+                    & = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+\end{align}
+この積分値を求める為に複素解析を用いる. 積分路 $C$ を $C = C(\delta) = C_+(\delta) + C_0(\delta) + C_+(\delta)$ として $C_+(\delta)$ は実軸上無限遠から原点から $\delta$ の距離にある点まで, $C_0(\delta)$ は中心を原点とする半径 $\delta$ の円を反時計回りに 1 周し, $C_-(\delta)$ は実軸上原点から $\delta$ の距離にある点から無限遠までを積分する. また次の関数 $I(s; C)$ を定義しておく.
+\begin{align}
+  I(s; C) & := \int_C\dd{z}\frac{z^{s-1}}{e^z - 1}.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-9.}
+  $0 <\delta < 2\pi$ を満たす範囲で $\delta$ を動かしても積分値は一定である.
+\end{itembox}
+被積分関数は $2n\pi\sqrt{-1}$ について 1 位の極がある. これより留数定理から積分路の内部の極の数が変化しないなら積分値は一定である. よって $0 <\delta < 2\pi$ を満たす範囲で $\delta$ を動かしても極の数は変化しないから積分値は一定である.
+
+\begin{itembox}[l]{Q 17A-10.}
+  $\real s > 1$ のとき $\delta\to 0$ とすると $C_0(\delta)$ に沿った積分 $I(s;C_0(\delta))$ がゼロになる.
+\end{itembox}
+\begin{align}
+  |I(s;C_0(\delta))| & = \qty|\int_{C_0(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}|                                                                        \\
+                     & = \qty|\int_0^{2\pi}\delta ie^{i\theta}\dd{\theta}\frac{(\delta e^{i\theta})^{s-1}}{e^{\delta(\cos\theta + i\sin\theta)} - 1}| \\
+                     & \leq \int_0^{2\pi}\dd{\theta}\frac{|\delta^s|}{e^{\delta\cos\theta} - 1}                                                       \\
+                     & < |\delta^{s-1}|\pi.
+\end{align}
+これより $\delta\to 0$ のとき積分値 $I(s; C_0(\delta))$ は $0$ となる.
+
+\begin{itembox}[l]{Q 17A-11.}
+  \begin{align}
+    I(s; C) & = (e^{2\pi is} - 1)\int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+  \end{align}
+\end{itembox}
+Q 17A-10 の考察から $\delta\to 0$ の極限において積分 $I(s; C)$ を考える.
+\begin{align}
+  I(s; C) & = \int_{C(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}                                                                               \\
+          & = \int_{C_- + C_0 + C_+}\dd{z}\frac{z^{s-1}}{e^z - 1}                                                                         \\
+          & = \int_{C_-}\dd{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_0}\dd{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1} \\
+          & = e^{2\pi is}\int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1} + 0 + \int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1}                            \\
+          & = (e^{2\pi is} - 1)\int_{0}^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+\end{align}
+
+\begin{itembox}[l]{Q 17A-12.}
+  \begin{align}
+    \zeta(s) & = \frac{1}{(e^{2\pi is} - 1)\Gamma(s)}I(s; C).
+  \end{align}
+\end{itembox}
+
+(i) 17A-11 より$\real s > 1$ において次が成り立つ.
+\begin{align}
+  \Gamma(s)\zeta(s) & = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}                        \\
+                    & = \frac{I(s; C)}{e^{2\pi is} - 1},                                  \\
+  \zeta(s)          & = \frac{1}{(e^{2\pi is} - 1)\Gamma(s)}I(s; C) \qquad (\real s > 1).
+\end{align}
+
+(ii)
+$I(s; C)$ は次のように定義された.
+\begin{align}
+  I(s; C) & = \int_{C(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}.
+\end{align}
+これは複素平面全体 $s\in\CC$ に対して正則である. よって (i) で求めた式は $\real s > 1$ の条件を取り外すことができ, 解析接続となる.
+
+\begin{itembox}[l]{Q 17A-13.}
+  \begin{align}
+    \zeta(s) & = e^{-\pi is}\Gamma(1 - s)\frac{1}{2\pi i}I(s; C).
+  \end{align}
+\end{itembox}
+
+さらに次のガンマ関数 $\Gamma(s)$ の反転公式より
+\begin{align}
+  \Gamma(s)\Gamma(1-s) & = \frac{\pi}{\sin\pi s}.
+\end{align}
+ゼータ関数は次のように表される.
+\begin{align}
+  \zeta(s) & = \frac{1}{(e^{2\pi is} - 1)\Gamma(s)}I(s; C)                                          \\
+           & = \frac{\sin\pi s}{\pi(e^{2\pi is} - 1)}\Gamma(1 - s)I(s; C)                           \\
+           & = \frac{e^{i\pi s} - e^{-i\pi s}}{e^{2\pi is} - 1}\Gamma(1 - s)\frac{1}{2\pi i}I(s; C) \\
+           & = e^{-\pi is}\Gamma(1 - s)\frac{1}{2\pi i}I(s; C).
+\end{align}
+
 \end{document}
