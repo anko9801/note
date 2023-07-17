@@ -166,7 +166,6 @@
   孤立系を十分に長時間放置しておくと物体の実現可能な量子状態はエネルギーのゆらぎを除いてすべて等確率で実現する。
 \end{axiom}
 
-\section{ミクロカノニカル分布}
 2 つの系 $A, B$ があるとする。系 $A$ のエネルギー $E_A$ と系 $B$ のエネルギー $E_B$ の和が一定で $A, B$ の間にエネルギーのやり取りができるとする。
 \begin{align}
   E_A + E_B = const.
@@ -214,8 +213,8 @@
 \begin{theorem}
   $N$ 次元の調和振動子で $E = M\hbar\omega$ とおくと状態数とエントロピーは次のように書ける。
   \begin{align}
-    W(E) & = \mqty(M + N - 1                                                                      \\ N - 1) \\
-    S(E) & \sim k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+    W(E) & = \mqty(M + N - 1                                                                         \\ N - 1) \\
+    S(E) & \approx k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -227,11 +226,11 @@
   \begin{align}
     W(E) & = \mqty(M + N - 1 \\ N - 1) = \frac{(M + N - 1)!}{(N - 1)!M!}
   \end{align}
-  またエントロピーは Stirling の公式 $\log n! \sim n(\log n - 1)$ を用いて
+  またエントロピーは Stirling の公式 $\log n! \approx n(\log n - 1)$ を用いて
   \begin{align}
     S(E) & = k_B\log W(E)                                                                      \\
          & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                            \\
-         & \sim k_B\qty((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))              \\
+         & \approx k_B\qty((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))           \\
          & = k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
   \end{align}
 \end{proof}
@@ -265,59 +264,285 @@
 この温度の定義は理想気体で正当化される。
 
 \begin{theorem}[理想気体]
+  理想気体、つまり 3 次元箱型ポテンシャル中の独立な区別できない $N$ 個の粒子について
   \begin{align}
+    S & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \ln\alpha + \mathcal{O}(N^{-1}\ln N)) & \qty(\alpha = \qty(\frac{me}{3\pi\hbar^2})^{\frac{3}{2}}) \\
     E & = \frac{3}{2}Nk_BT
   \end{align}
 \end{theorem}
+\begin{proof}
+  部分系の固有状態と固有エネルギーが分かれば全体系のも分かる。
+  \begin{align}
+    E_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}}    & = E_0\sum_{i=1}^{N}\sum_{a=x,y,z}n_{i,a}^2                                                \\
+    \psi_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}} & = \qty(\frac{2}{L})^{3N/2}\prod_{i=1}^{N}\prod_{a=x,y,z}\sin(\frac{n_{i,a}\pi}{L}x_{i,a})
+  \end{align}
+  これよりあるエネルギー $E > 0$ 以下である区別できる固有状態数 $\Omega(E)$ について
+  \begin{align}
+    \Omega(E) & = \qty(半径 \sqrt{\frac{E}{E_0}} の 3N 次元超球の第一象限に含まれる格子点の個数)                                                         \\
+              & \approx \frac{1}{2^{3N}}\sqrt{\frac{E}{E_0}}^{3N}\frac{\pi^{3N/2}}{(3N/2)!}                                       \\
+              & = \frac{1}{(3N/2)!}\frac{\pi^{3N/2}}{2^{3N}}\qty(\frac{2mL^2}{\pi^2\hbar^2})^{3N/2}E^{3N/2}                       \\
+              & = \frac{1}{(3N/2)!}\qty(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                                                  \\
+              & = \frac{1}{\sqrt{3\pi N}(3N/2)^{3N/2}e^{-3N/2}}\qty(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                      \\
+              & = \frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2} \\
+  \end{align}
+  これを区別しないから
+  \begin{align}
+    \Omega^{区別できない}(E) & =\frac{1}{N!}\Omega(E)                                                                                                                            \\
+                       & = \frac{1}{N!}\frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2}                     \\
+                       & = \frac{1}{\sqrt{2\pi N}N^Ne^{-N}}\frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2} \\
+                       & = \frac{e^N}{\sqrt{6}\pi N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2}
+  \end{align}
+  これよりエントロピーは
+  \begin{align}
+    S(E) & = k_B\ln\Omega^{区別できない}(E)                                                                                                                     \\
+         & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1)
+  \end{align}
+  よって温度を計算すると式が示せる。
+  \begin{align}
+    \frac{1}{T} = \dv{S}{E} & = \frac{3}{2}Nk_B\frac{1}{E} \\
+    E                       & = \frac{3}{2}Nk_BT
+  \end{align}
+\end{proof}
+
+\section{ミクロカノニカル分布}
+\subsection{エネルギーシェル}
+\begin{axiom}[等重率の原理]
+  孤立した物理系 $X$ において、外部から指定されたある狭いエネルギー範囲 $[U - ∆U, U]$ に固有エネルギー $E_i$ が属するような微視的なエネルギー固有状態 $\ket{\phi_i}$ のひとつひとつが実現される等しい確からしさを持っている。
+\end{axiom}
+エネルギーの低い順にエネルギーシェル $E$ から $E + \Delta E$ までの中の状態を 1 つのグループでまとめてラベル付けする。
+\begin{align}
+  N = \sum_{l}N_l, \qquad E = \sum_{l}E_lN_l, \qquad W = \prod_{l}\frac{M_l^{N_l}}{N_l!}, \qquad S = k_B\sum_{l}N_l\qty(\log\frac{M_l}{N_l} + 1)
+\end{align}
+
+\begin{align}
+  \tilde{S}            & = k_B\sum_{l}N_l\qty(\log\frac{M_l}{N_l} + 1) - k_B\alpha\sum_{l}N_l - k_B\beta\sum_{l}E_lN_l \\
+  \pdv{\tilde{S}}{N_l} & = 0 \iff \frac{M_l}{N_l} = e^{\alpha + \beta E_l}
+\end{align}
+
+\begin{align}
+  N & = \sum_{l}M_le^{-\alpha-\beta E_l}    \\
+  E & = \sum_{l}M_lE_le^{-\alpha-\beta E_l} \\
+  S & = k_B\qty((1 + \alpha)N + \beta E)
+\end{align}
+エネルギーで微分すると
+\begin{align}
+  0         & = \sum_{l}M_l\qty(\dv{\alpha}{E} + \dv{\beta}{E}E_l)e^{-\alpha-\beta E_l} = \dv{\alpha}{E}N + \dv{\beta}{E}E \\
+  \dv{S}{E} & = k_B\qty(\dv{\alpha}{E}N + \dv{\beta}{E}E + \beta) = k_B\beta
+\end{align}
+より $\alpha, \beta$ は次のように表される。
+\begin{align}
+  \beta       & = \frac{1}{k_BT}                            \\
+  e^{-\alpha} & = \frac{N}{\sum_{i}e^{-\varepsilon_i/k_BT}}
+\end{align}
+
+
+\subsection{熱と仕事}
+\begin{definition}
+  内部エネルギー $E(S, V)$ とその束縛変数を変更させたエンタルピー $H(S, p)$ と Helmholtz 自由エネルギー $F(T, V)$ と Gibbs 自由エネルギー $G(T, p)$ を次のように定義する。
+  \begin{align}
+               & \qquad \dd{E} = T\dd{S} - p\dd{V}  \\
+    H = E + pV & \qquad \dd{H} = T\dd{S} + V\dd{p}  \\
+    F = E - TS & \qquad \dd{F} = -S\dd{T} - p\dd{V} \\
+    G = F + pV & \qquad \dd{G} = -S\dd{T} + V\dd{p}
+  \end{align}
+\end{definition}
+特に扱いやすい変数 $T$, $V$ を持つ Helmholtz 自由エネルギー $F(T, V)$ は重宝される。
+\begin{proposition}
+  定義より次の関係式を満たす。
+  \begin{align}
+    T = \qty(\pdv{E}{S})_V,  & \qquad p = -\qty(\pdv{E}{V})_S \\
+    T = \qty(\pdv{H}{S})_p,  & \qquad V = \qty(\pdv{H}{p})_S  \\
+    S = -\qty(\pdv{F}{T})_V, & \qquad p = -\qty(\pdv{F}{V})_T \\
+    S = -\qty(\pdv{G}{T})_p, & \qquad V = \qty(\pdv{G}{p})_T
+  \end{align}
+\end{proposition}
+
+\begin{proposition}[Maxwell の関係式]
+  \begin{align}
+    \qty(\pdv{T}{V})_S  & = -\qty(\pdv{p}{S})_V \\
+    \qty(\pdv{T}{p})_S  & = \qty(\pdv{V}{S})_p  \\
+    -\qty(\pdv{S}{V})_T & = -\qty(\pdv{p}{T})_V \\
+    -\qty(\pdv{S}{p})_T & = \qty(\pdv{V}{T})_p
+  \end{align}
+\end{proposition}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[理想気体の状態方程式]
+  \begin{align}
+    pV & = Nk_BT
+  \end{align}
+\end{theorem}
+\begin{align}
+  S(E, V) & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1) \\
+  0       & = Nk_B\qty(\frac{3}{2}\frac{1}{E}\qty(\pdv{E}{V})_S + \frac{1}{V})                                                                             \\
+  p       & = -\qty(\pdv{E}{V})_S = \frac{2}{3}\frac{E}{V} = \frac{Nk_BT}{V}                                                                               \\
+  pV      & = Nk_BT
+\end{align}
+
+\begin{align}
+  C_V = \frac{3}{2}R
+\end{align}
+
+\begin{definition}[比熱]
+  \begin{align}
+    C   & = T\dv{S}{T}          \\
+    C_X & = \qty(T\pdv{S}{T})_X
+  \end{align}
+\end{definition}
+これ以降の話は熱力学の方で書きたい。
 
 \section{カノニカル分布}
 ある温度の環境の中で理想気体や
+\subsection{ミクロカノニカル分布からカノニカル分布へ}
 
-\subsection{構成要素である 1 個の二準位系の統計力学}
+\begin{definition}
+  \begin{align}
+    \beta    & = \frac{1}{k_BT}                  \\
+    Z(\beta) & = \sum_{i}e^{-\beta E_i}          \\
+    p        & = \frac{e^{-\beta E_i}}{Z(\beta)} \\
+    F        & = -k_BT\ln Z                      \\
+    S        & =
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  $N$ 個の独立な部分系からなる全体系の熱力学量は次のようになる。
+  \begin{align}
+    Z(\beta) = z(\beta)^N, \qquad F = Nf, \qquad S = Ns, \qquad U = Nu, \qquad C = c
+  \end{align}
+\end{theorem}
+
+\subsection{二準位系}
 絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする：
 \begin{align}
   \hat{h}_X\ket{\varphi_i} & = E_i\ket{\varphi_i} \qquad (i = 1, 2)。
 \end{align}
 ただし $0 < E_1 < E_2$ $\beta = 1/k_BT$ とする。
 
-\begin{itembox}[l]{Q 15-1.}
-  このとき正準集団にもとづく統計力学を用いて解析を進めなさい。具体的には分配関数 $z(\beta)$, Helmholtz 自由エネルギー $f$, エントロピー $s$, 内部エネルギー $u$, 比熱 $c$ を求めよ。
-\end{itembox}
-
-まず分配関数 $z(\beta)$ について定義より次のようになる。
-\begin{align}
-  z(\beta) & = \sum_{i} e^{-\beta E_i} = e^{-\beta E_1} + e^{-\beta E_2}.
-\end{align}
-これより Helmholtz 自由エネルギー $f$ は次のようになる。
-\begin{align}
-  f & = -k_BT\ln z(\beta) = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2}).
-\end{align}
-Helmholtz 自由エネルギーが求まれば後は熱力学の公式を用いてエントロピー $s$, 内部エネルギー $u$, 比熱 $c$ は次のように求まる。
-\begin{align}
-  s & = - \qty(\pdv{f}{T})_{V,N} = - \qty(\pdv{f}{\beta}\pdv{\beta}{T})_{V,N} = k_B\beta^2\qty(\pdv{f}{\beta})_{V,N}                                                          \\
-    & = k_B\beta^2\qty(\frac{1}{\beta^2}\ln(e^{-\beta E_1} + e^{-\beta E_2}) - \frac{1}{\beta}\frac{-E_1e^{-\beta E_1} - E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
-    & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})
-\end{align}
-\begin{align}
-  u & = f + Ts = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}.
-\end{align}
-\begin{align}
-  c & = \pdv{u}{T} = \pdv{u}{\beta}\pdv{\beta}{T} = -k_B\beta^2\pdv{u}{\beta}                                                                                                         \\
-    & = -k_B\beta^2\pdv{\beta}\qty(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}})                                                                                    \\
-    & = -k_B\beta^2\frac{E_2(E_1 - E_2)e^{\beta(E_1 - E_2)}(1 + e^{\beta(E_1 - E_2)}) - (E_1 + E_2e^{\beta(E_1 - E_2)})(E_1 - E_2)e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} \\
-    & = k_B\beta^2\frac{(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2}                                                                                              \\
-    & = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2.
-\end{align}
-$\Box$
-a
+\begin{theorem}[1個の二準位系]
+  二準位系における熱力学的量を考える。低温の漸近領域 ($\beta(E_2 - E_1) \gg 1$, $\beta E_1 \gg 1$) と高温の漸近領域 ($\beta(E_2 - E_1) \ll 1$, $\beta E_1 \ll 1$) は次のようになる。
+  \begin{align}
+    Z(\beta) & = e^{-\beta E_1} + e^{-\beta E_2}                                                                                                           \\
+             & = \begin{dcases}
+                   e^{-\frac{E_1}{k_BT}} \to 0      & (低温) \\
+                   2 - \frac{E_1 + E_2}{k_BT} \to 2 & (高温)
+                 \end{dcases}                                                                                                   \\
+    F        & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                      \\
+             & = \begin{dcases}
+                   E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}} \to E_1  & (低温) \\
+                   \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty & (高温)
+                 \end{dcases}                                                                                     \\
+    S        & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
+             & = \begin{dcases}
+                   k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0            & (低温) \\
+                   k_B\qty(\ln 2 - \frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 & (高温)
+                 \end{dcases}                                                     \\
+    U        & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                             \\
+             & = \begin{dcases}
+                   E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     & (低温) \\
+                   \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) & (高温)
+                 \end{dcases}                                         \\
+    C        & = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                                           \\
+             & = \begin{dcases}
+                   k_B\qty(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 & (低温) \\
+                   \frac{k_B}{4}\qty(\frac{E_2 - E_1}{k_BT})^2 \to 0                  & (高温)
+                 \end{dcases}
+  \end{align}
+  TODO: グラフ
+\end{theorem}
+\begin{proof}
+  $x \to 0$ において $(1 + x)^{-1} \approx 1 - x$, $e^x \approx 1 + x$ と近似できる。
+  \begin{align}
+    Z(\beta) & = \sum_{i} e^{-\beta E_i} = e^{-\beta E_1} + e^{-\beta E_2} \\
+             & = e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)})                \\
+             & \approx \begin{dcases}
+                         e^{-\frac{E_1}{k_BT}}                 \\
+                         (1 - \beta E_1)(2 -\beta (E_2 - E_1)) \\
+                       \end{dcases}               \\
+             & = \begin{dcases}
+                   e^{-\frac{E_1}{k_BT}} \to 0      & (低温) \\
+                   2 - \frac{E_1 + E_2}{k_BT} \to 2 & (高温)
+                 \end{dcases}
+  \end{align}
+  \begin{align}
+    F & = -k_BT\ln Z(\beta)                                                                                                                                                                \\
+      & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                                                             \\
+      & = \begin{dcases}
+            -\frac{1}{\beta}\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) \\
+            -\frac{1}{\beta}\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)})
+          \end{dcases} \\
+      & \approx \begin{dcases}
+                  E_1 - \frac{1}{\beta}e^{-\beta (E_2 - E_1)} \approx E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}} \to E_1 \\
+                  \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty                                                    \\
+                \end{dcases}
+  \end{align}
+  \begin{align}
+    S & = - \qty(\pdv{F}{T})_{V,N} = - \qty(\pdv{F}{\beta}\pdv{\beta}{T})_{V,N} = k_B\beta^2\qty(\pdv{F}{\beta})_{V,N}                                                                                                                                                                                                                                                                         \\
+      & = k_B\beta^2\qty(\frac{1}{\beta^2}\ln(e^{-\beta E_1} + e^{-\beta E_2}) - \frac{1}{\beta}\frac{-E_1e^{-\beta E_1} - E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                \\
+      & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                                            \\
+      & = \begin{dcases}
+            k_B\qty(\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) + \frac{\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}})                                                                                                                                                   \\
+            k_B\qty(\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) + \frac{\beta E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + \beta E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}) \\
+          \end{dcases} \\
+      & \approx
+    \begin{dcases}
+      k_B\qty(-\beta E_1 + e^{-\beta (E_2 - E_1)} + (\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)}))                                   \\
+      k_B\qty(\ln 2 - \frac{1}{2}\beta (E_1 + E_2) + \frac{\beta}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1)))) \\
+    \end{dcases}                                                                                                                                                                                                                     \\
+      & \approx
+    \begin{dcases}
+      k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0            \\
+      k_B\qty(\ln 2 - \frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 \\
+    \end{dcases}
+  \end{align}
+  \begin{align}
+    U & = F + TS                                                                                                                                                                                      \\
+      & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                                                                               \\
+      & = \begin{dcases}
+            \frac{E_1 + E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}}                                                                                      \\
+            \frac{E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}} \\
+          \end{dcases} \\
+      & \approx \begin{dcases}
+                  (E_1 + E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)})                                          \\
+                  \frac{1}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1))) \\
+                \end{dcases}                                                                          \\
+      & \approx \begin{dcases}
+                  E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     \\
+                  \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) \\
+                \end{dcases}
+  \end{align}
+  \begin{align}
+    C & = \pdv{U}{T} = \pdv{U}{\beta}\pdv{\beta}{T} = -k_B\beta^2\pdv{U}{\beta}                                                                                                         \\
+      & = -k_B\beta^2\pdv{\beta}\qty(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}})                                                                                    \\
+      & = -k_B\beta^2\frac{E_2(E_1 - E_2)e^{\beta(E_1 - E_2)}(1 + e^{\beta(E_1 - E_2)}) - (E_1 + E_2e^{\beta(E_1 - E_2)})(E_1 - E_2)e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} \\
+      & = k_B\beta^2\frac{(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2            \\
+      & = \begin{dcases}
+            k_B\qty(\frac{\beta(E_2 - E_1)}{1 + e^{-\beta(E_2 - E_1)}})^2e^{-\beta(E_2 - E_1)} \\
+            k_B\qty(\frac{\beta(E_2 - E_1)}{e^{\frac{1}{2}\beta(E_2 - E_1)} + e^{-\frac{1}{2}\beta(E_2 - E_1)}})^2
+          \end{dcases}                                                         \\
+      & \approx \begin{dcases}
+                  k_B\qty(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 \\
+                  \frac{k_B}{4}\qty(\frac{E_2 - E_1}{k_BT})^2 \to 0
+                \end{dcases}
+  \end{align}
+  各固有状態の実現確率について高温極限 ($\beta(E_2 - E_1) \ll 1$) のときそれぞれの固有状態は同じ確率で実現し、低温極限 ($\beta(E_2 - E_1) \gg 1$) のとき固有エネルギーの低い固有状態にほぼ確実に実現する。
+  \begin{align}
+    \quad p_\beta(i) & = \frac{e^{-\beta (E_i - E_1)}}{1 + e^{-\beta(E_2 - E_1)}} \approx \begin{dcases}
+                                                                                            e^{-\beta (E_i - E_1)} & (\beta(E_2 - E_1) \gg 1) \\
+                                                                                            \frac{1}{2}            & (\beta(E_2 - E_1) \ll 1)
+                                                                                          \end{dcases}
+  \end{align}
+  $F = E - TS$ の最小化を考える。低温極限でエントロピーを上げるよりエネルギーが低いものを選んだ方がエネルギーが得となる為に固有エネルギーの低い状態に集まる。高温極限でエントロピーを増大させるとエネルギーが得となる為に半々となる。
+\end{proof}
 
 \begin{itembox}[l]{Q 15-2.}
   Q 15-1.では Helmholtz 自由エネルギーを計算して、後は熱力学の公式を用いて計算しましたが、今回は正準集団の理論における固有状態の実現確率を与える確率関数 $p_\beta^{正準}(i)\ (i = 1, 2)$ を計算して、内部エネルギー $u$ とエントロピー $s$ を求める。
 \end{itembox}
-
-まず確率関数 $p_\beta^{正準}(i)$ は定義より次のようになる。
+まず確率関数 $p_\beta(i)$ は定義より次のようになる。
 \begin{align}
-  p_\beta^{正準}(i) & = \frac{e^{-\beta E_i}}{z(\beta)}.
+  p_\beta(i) & = \frac{e^{-\beta E_i}}{z(\beta)}.
 \end{align}
 内部エネルギー $u$ はエネルギーの平均を取ることで分かる。
 \begin{align}
@@ -330,91 +555,6 @@ a
   s & = -k_B\sum_{i = 1,2}p_\beta^{正準}(i)\ln p_\beta^{正準}(i)                                                                                       \\
     & = -k_B\sum_{i = 1,2}\frac{e^{-\beta E_i}}{z(\beta)}(- \ln z(\beta) - \beta E_i)                                                              \\
     & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}).
-\end{align}
-
-\begin{itembox}[l]{Q 15-3.}
-  低温極限 ($\beta(E_2 - E_1) \gg 1$) において系は固有エネルギーのより小さい固有状態 1 にほぼ確実に実現され、より大きい固有状態 2 に実現されることはほぼないことを説明せよ。
-\end{itembox}
-
-低温極限では $F = E - TS$ よりエントロピーを上げるよりエネルギーが低いものを選んだ方がエネルギーが得となる為に固有エネルギーの低い状態に集まる。実際式でも次のように計算できる。
-
-実際式でも次のようになる。
-\begin{align}
-   & \quad p_\beta^{正準}(i) = \frac{e^{-\beta E_i}}{z(\beta)} = \frac{e^{-\beta (E_i - E_1)}}{1 + e^{-\beta(E_2 - E_1)}} \approx e^{-\beta (E_i - E_1)} \\
-   & \begin{cases}
-       p_\beta^{正準}(1) \approx 1 \\
-       p_\beta^{正準}(2) \approx e^{-\beta (E_2 - E_1)} \ll 1
-     \end{cases}
-\end{align}
-
-\begin{itembox}[l]{Q 15-4.}
-  高温極限 ($\beta(E_2 - E_1) \ll 1$) において系は固有状態 1, 2 にほぼ同じ確率 $1/2$ で実現されることを説明せよ。
-\end{itembox}
-
-高温極限では $F = E - TS$ よりエントロピーを増大させるとエネルギーが得となる為に半々となる。実際式でも次のように計算できる。
-
-\begin{align}
-   & \quad p_\beta^{正準}(i) = \frac{e^{-\beta E_i}}{z(\beta)} = \frac{e^{-\beta (E_i - E_1)}}{1 + e^{-\beta(E_2 - E_1)}} \approx \frac{e^{-\beta (E_i - E_1)}}{2} \\
-   & \begin{dcases}
-       p_\beta^{正準}(1) \approx \frac{1}{2} \\
-       p_\beta^{正準}(2) \approx \frac{e^{-\beta (E_2 - E_1)}}{2} \approx \frac{1}{2}
-     \end{dcases}
-\end{align}
-
-\begin{itembox}[l]{Q 15-5.}
-  低温の漸近領域 ($\beta(E_2 - E_1) \gg 1$, $\beta E_1 \gg 1$) において解析せよ。
-\end{itembox}
-
-$x \to 0$ において $(1 + x)^{-1} \approx 1 - x$ と近似できることを用いて、それぞれの熱力学量は次のように計算できる。
-\begin{align}
-  z & = e^{-\beta E_1} + e^{-\beta E_2}                                                                                                           \\
-    & = e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)})                                                                                                \\
-    & \approx e^{-\frac{E_1}{k_BT}}                                                                                                               \\
-    & \to 0                                                                                                                                       \\
-  f & = -\frac{1}{\beta}\ln (e^{-\beta E_1} + e^{-\beta E_2})                                                                                     \\
-    & = -\frac{1}{\beta}\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)})                                                                            \\
-    & \approx E_1 - \frac{1}{\beta}e^{-\beta (E_2 - E_1)}                                                                                         \\
-    & \approx E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}}                                                                                               \\
-    & \to E_1                                                                                                                                     \\
-  s & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
-    & = k_B\qty(\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) + \frac{\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}})  \\
-    & \approx k_B\qty(-\beta E_1 + e^{-\beta (E_2 - E_1)} + (\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)}))            \\
-    & \approx k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}}                                                                              \\
-    & \to 0                                                                                                                                       \\
-  u & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                             \\
-    & = \frac{E_1 + E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}}                                                                        \\
-    & \approx (E_1 + E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)})                                                                       \\
-    & \approx E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}}                                                                                       \\
-    & \to E_1                                                                                                                                     \\
-  c & = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                                           \\
-    & = k_B\qty(\frac{\beta(E_2 - E_1)}{1 + e^{-\beta(E_2 - E_1)}})^2e^{-\beta(E_2 - E_1)}                                                        \\
-    & \approx k_B\qty(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}}                                                                        \\
-    & \to 0
-\end{align}
-
-\begin{itembox}[l]{Q 15-6.}
-  高温の漸近領域 ($\beta(E_2 - E_1) \ll 1$, $\beta E_1 \ll 1$) において解析せよ。
-\end{itembox}
-$x \to 0$ において $e^x \approx 1 + x$ と近似できることを用いて、それぞれの熱力学量は次のように計算できる。
-\begin{align}
-  z & = e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)})                                                                                                                                                                                                                                                 \\
-    & \approx (1 - \beta E_1)(2 -\beta (E_2 - E_1))                                                                                                                                                                                                                                                \\
-    & \approx 2 - \frac{E_1 + E_2}{k_BT}                                                                                                                                                                                                                                                           \\
-    & \to 2                                                                                                                                                                                                                                                                                        \\
-  f & = -\frac{1}{\beta}\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)})                                                                                                                                                                \\
-    & \approx \frac{1}{2}(E_1 + E_2) - k_BT\ln 2                                                                                                                                                                                                                                                   \\
-    & \to -\infty                                                                                                                                                                                                                                                                                  \\
-  s & = k_B\qty(\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) + \frac{\beta E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + \beta E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}) \\
-    & \approx k_B\qty(\ln 2 - \frac{1}{2}\beta (E_1 + E_2) + \frac{\beta}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1))))                                                                                                                           \\
-    & \approx k_B\qty(\ln 2 - \frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2)                                                                                                                                                                                                                           \\
-    & \to k_B\ln 2                                                                                                                                                                                                                                                                                 \\
-  u & = \frac{E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}                                                                                                                                    \\
-    & \approx \frac{1}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1)))                                                                                                                                                                               \\
-    & \approx \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT}                                                                                                                                                                                                                       \\
-    & \to \frac{1}{2}(E_1 + E_2)                                                                                                                                                                                                                                                                   \\
-  c & = k_B\qty(\frac{\beta(E_2 - E_1)}{e^{\frac{1}{2}\beta(E_2 - E_1)} + e^{-\frac{1}{2}\beta(E_2 - E_1)}})^2                                                                                                                                                                                     \\
-    & \approx k_B\frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2                                                                                                                                                                                                                                         \\
-    & \to 0
 \end{align}
 
 \begin{itembox}[l]{Q 15-7.}
@@ -443,191 +583,88 @@ $x \to 0$ において $e^x \approx 1 + x$ と近似できることを用いて�
 
 低温、高温で比熱が 0 となる理由は比熱が $C = \dv{E}{T}$ であることより Q15-3, Q15-4 よりエネルギーの確率が極限的に定数となることから比熱は 0 となることが分かる。
 
-\begin{lstlisting}[caption=Newton 法による,label=newton]
-fn main() {
-    let x0 = newton();
-    println!("{}", x0);
-    println!("{}", 1.0 / (2.0 * x0));
-}
+\subsection{調和振動子系の統計力学}
 
-fn newton() -> f64 {
-    let mut x = 1.0;
-    for _i in 0..5 {
-        x = _newton(x);
-    }
-    x
-}
-
-fn _newton(x: f64) -> f64 {
-    x - f(x) / _f(x)
-}
-
-// f(x) = x tanh x - 1
-fn f(x: f64) -> f64 {
-    x * x.tanh() - 1.0
-}
-
-// f'(x) = x / cosh^2 x + tanh x
-fn _f(x: f64) -> f64 {
-    x * x.cosh().powi(-2) + x.tanh()
-}
-\end{lstlisting}
-
-\begin{itembox}[l]{Q 15-8.}
-  二準位系の熱力学量のグラフを描け。
-\end{itembox}
-
-図 \ref{fig:2level} のように描ける。
-
-
-
-\begin{itembox}[l]{Q 15-9.}
-  $N$ 個の独立な二準位系からなる系の熱力学量を求めよ。
-\end{itembox}
-
-独立な部分系からなる全体系に対する正準集団の理論を用いて次のようになることが分かる。
-\begin{align}
-  Z(\beta) & = z(\beta)^N = (e^{-\beta E_1} + e^{-\beta E_2})^N                                                                                                \\
-  F        & = Nf = -\frac{N}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                       \\
-  S        & = Ns = Nk_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
-  U        & = Nu = N\frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                             \\
-  C        & = c = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2.
-\end{align}
-
-\subsection{調和振動子の量子力学のまとめ}
-
-1次元の空間を運動する粒子が、次の調和振動子の Hamilton 演算子 $\hat{H}$ に従っているとします：
-\begin{align}
-  \hat{H} & = \frac{1}{2m}\hat{p}^2 + \frac{1}{2}m\omega^2\hat{q}^2.
-\end{align}
-ここで、$m$ は粒子の質量であり、$\omega$ は調和振動の角振動数です。また、$\hat{q}$ は粒子の位置座標演算子であり、$\hat{p}$ は運動量演算子です。それらは、次の正準交換関係を満たします：
-\begin{align}
-  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = i\hbar
-\end{align}
-ここで、$\hbar$ は Planck 定数です。
-
-この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket{n}$ は固有方程式
-\begin{align}
-  \hat{H}\ket{n} = E_n\ket{n}
-\end{align}
-を解くことにより定まります。解いた結果は $n = 0, 1, 2, \ldots$ に対して次のとおりです：
-\begin{align}
-  \begin{dcases}
-    E_n        = \qty(n + \frac{1}{2})\hbar\omega \\
-    \Psi_n(q) = \braket{q}{n} = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
-  \end{dcases}.
-\end{align}
-ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義されます：
-\begin{align}
-  H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}.
-\end{align}
-
-\subsection{1 個の調和振動子の統計力学}
-\begin{itembox}[l]{Q 16-1.}
-  1 個の調和振動子の統計力学における熱力学量を明らかにせよ。
-\end{itembox}
-
-熱力学量である分配関数 $z(\beta)$、Helmholtz 自由エネルギー $f$、エントロピー $s$、内部エネルギー $u$、比熱 $c$ について定義や熱力学の公式を用いて次のように求まる。
-
-\begin{align}
-  z(\beta) & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\qty(n + \frac{1}{2})\hbar\omega}                                                                                  \\
-           & = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}}                                                                                                                     \\
-           & = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                                                                                           \\
-  f        & = -k_BT\ln z(\beta)                                                                                                                                                                      \\
-           & = -\frac{1}{\beta}\ln \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}}                                                                                                 \\
-           & = -\frac{1}{\beta}\ln \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                                                                       \\
-           & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega                                                                                                                 \\
-           & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega)                                                                                                                             \\
-  s        & = - \qty(\pdv{f}{T})_{V,N} = k_B\beta^2\qty(\pdv{f}{\beta})_{V,N}                                                                                                                        \\
-           & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln(1 - e^{-\beta\hbar\omega}) + \frac{\hbar\omega}{\beta(1 - e^{-\beta\hbar\omega})})                                                                \\
-           & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{\frac{1}{2}\hbar\omega\cosh \frac{1}{2}\beta\hbar\omega}{\beta\sinh \frac{1}{2}\beta\hbar\omega}) \\
-           & = k_B\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})                                                                                           \\
-           & = k_B\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega)                                                                     \\
-\end{align}
-\begin{align}
-  u & = f + Ts                                                                                                                                                                                      \\
-    & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega + \frac{1}{\beta}\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})           \\
-    & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{1}{\beta}\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-    & = \qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega                                                                                                                           \\
-    & = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                                                                                      \\
-  c & = \pdv{u}{T} = -k_B\beta^2\pdv{u}{\beta}                                                                                                                                                      \\
-    & = -k_B\beta^2\qty(-\frac{\hbar\omega e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2})\hbar\omega                                                                                          \\
-    & = k_B\qty(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2                                                                                                 \\
-    & = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2.
-\end{align}
-
-これより求まった。 $\Box$
-
-\begin{itembox}[l]{Q 16-2.}
-  低温の漸近領域 ($\beta\hbar\omega \gg 1$) において解析せよ。
-\end{itembox}
-
-低温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $e^x \approx 1 + x$, $(1 + x)^{-1} \approx 1 - x$ と近似できることを用いる。
-
-\begin{align}
-  z(\beta) & = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}}                                       \\
-           & \approx e^{-\frac{\hbar\omega}{2k_BT}}                                                                     \\
-           & \to 0                                                                                                      \\
-  f        & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega                                   \\
-           & \approx \frac{1}{\beta}(-e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega                                   \\
-           & \approx \frac{1}{2}\hbar\omega - k_BTe^{-\frac{\hbar\omega}{k_BT}}                                         \\
-           & \to \frac{1}{2}\hbar\omega                                                                                 \\
-  s        & = k_B\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})             \\
-           & \approx k_B\qty(e^{-\beta\hbar\omega} + \beta\hbar\omega e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega})) \\
-           & \approx k_B\frac{\hbar\omega}{k_BT}e^{- \frac{\hbar\omega}{k_BT}}                                          \\
-           & \to 0                                                                                                      \\
-\end{align}
-\begin{align}
-  u & = \qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega                              \\
-    & \approx \qty(\frac{1}{2} + e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega}))\hbar\omega          \\
-    & \approx \frac{1}{2}\hbar\omega + e^{-\beta\hbar\omega}\hbar\omega                                \\
-    & \to \frac{1}{2}\hbar\omega                                                                       \\
-  c & = k_B\qty(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2    \\
-    & \approx k_B\qty(\beta\hbar\omega(e^{-\frac{1}{2}\beta\hbar\omega})(1 + e^{-\beta\hbar\omega}))^2 \\
-    & \approx k_B\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}}                         \\
-    & \to 0
-\end{align}
-
-\begin{itembox}[l]{Q 16-3.}
-  高温の漸近領域 ($\beta\hbar\omega \ll 1$) において解析せよ。
-\end{itembox}
-
-高温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $\ln(1 + x) \approx x$ と近似できることとテイラー展開を用いる。
-
-\begin{align}
-  z(\beta) & = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}}                                                             \\
-           & \approx \frac{1 - \frac{1}{2}\beta\hbar\omega}{\beta\hbar\omega}                                                                 \\
-           & \approx \frac{k_BT}{\hbar\omega} - \frac{1}{2}                                                                                   \\
-           & \to +\infty                                                                                                                      \\
-  f        & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega                                                         \\
-           & \approx \frac{1}{\beta}\qty(\ln \beta\hbar\omega + \frac{1}{2}\beta\hbar\omega)                                                  \\
-           & \approx -k_BT\ln\frac{k_BT}{\hbar\omega}                                                                                         \\
-           & \to - \infty                                                                                                                     \\
-  s        & = k_B\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})                                   \\
-           & \approx k_B\qty(-\ln\beta\hbar\omega + 1)                                                                                        \\
-           & \approx k_B\ln\frac{k_BT}{\hbar\omega}                                                                                           \\
-           & \to +\infty                                                                                                                      \\
-  u        & = \frac{1}{2}\hbar\omega\coth\frac{\beta\hbar\omega}{2}                                                                          \\
-           & \approx \frac{1}{2}\hbar\omega\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} + \frac{1}{3}\qty(\frac{\beta\hbar\omega}{2}) + \cdots) \\
-           & = k_BT\qty(1 + \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT})^{2} + \cdots)                                                          \\
-           & \to +\infty                                                                                                                      \\
-\end{align}
-\begin{align}
-  c & = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2                                                               \\
-    & \approx k_B\qty(\frac{\beta\hbar\omega}{2}\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} - \frac{1}{6}\qty(\frac{\beta\hbar\omega}{2}) + \cdots))^2 \\
-    & = k_B\qty(1 - \frac{1}{24}\qty(\frac{\hbar\omega}{k_BT}) + \cdots)^2                                                                            \\
-    & = k_B\qty(1 - \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT}) + \cdots)                                                                              \\
-    & \to k_B
-\end{align}
-
-これより求まった。 $\Box$
-
-\begin{itembox}[l]{Q 16-4.}
-  熱力学量のグラフを描け。
-\end{itembox}
-
-図 \ref{fig:oscillator} のように描ける。
-
+\begin{theorem}
+  \begin{align}
+    z(\beta) & = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                       \\
+             & \approx \begin{dcases}
+                         e^{-\frac{\hbar\omega}{2k_BT}} \to 0 \\
+                       \end{dcases}                                                                         \\
+    f        & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega)                                                         \\
+    s        & = k_B\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+    u        & = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                             \\
+    c        & = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2
+  \end{align}
+\end{theorem}
+\begin{proof}
+  低温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $e^x \approx 1 + x$, $(1 + x)^{-1} \approx 1 - x$ と近似できることを用いる。
+  高温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $\ln(1 + x) \approx x$ と近似できることとテイラー展開を用いる。
+  \begin{align}
+    z(\beta) & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\qty(n + \frac{1}{2})\hbar\omega} = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} \\
+             & = \begin{dcases}
+                   \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
+                   \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
+                 \end{dcases}                                                                                                                                                 \\
+             & \approx \begin{dcases}
+                         e^{-\frac{\hbar\omega}{2k_BT}} \to 0                                                                                \\
+                         \frac{1 - \frac{1}{2}\beta\hbar\omega}{\beta\hbar\omega} \approx \frac{k_BT}{\hbar\omega} - \frac{1}{2} \to +\infty \\
+                       \end{dcases}
+  \end{align}
+  \begin{align}
+    f & = -k_BT\ln z(\beta)                                                                                                                                               \\
+      & = -\frac{1}{\beta}\ln \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega \\
+      & = -\frac{1}{\beta}\ln \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} = \frac{1}{\beta}\ln(2\sinh \frac{1}{2}\beta\hbar\omega)                                       \\
+      & \approx \begin{dcases}
+                  \frac{1}{\beta}(-e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega        \\
+                  \frac{1}{\beta}\qty(\ln \beta\hbar\omega + \frac{1}{2}\beta\hbar\omega) \\
+                \end{dcases}                                                                                   \\
+      & \approx \begin{dcases}
+                  \frac{1}{2}\hbar\omega - k_BTe^{-\frac{\hbar\omega}{k_BT}} \to \frac{1}{2}\hbar\omega \\
+                  -k_BT\ln\frac{k_BT}{\hbar\omega} \to - \infty                                         \\
+                \end{dcases}
+  \end{align}
+  \begin{align}
+    s & = - \qty(\pdv{f}{T})_{V,N} = k_B\beta^2\qty(\pdv{f}{\beta})_{V,N}                                                                                                                                                   \\
+      & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln(1 - e^{-\beta\hbar\omega}) + \frac{\hbar\omega}{\beta(1 - e^{-\beta\hbar\omega})})                                                                                           \\
+      & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{\frac{1}{2}\hbar\omega\cosh \frac{1}{2}\beta\hbar\omega}{\beta\sinh \frac{1}{2}\beta\hbar\omega})                            \\
+      & = k_B\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1}) = k_B\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+      & \approx \begin{dcases}
+                  k_B\qty(e^{-\beta\hbar\omega} + \beta\hbar\omega e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega})) \\
+                  k_B\qty(-\ln\beta\hbar\omega + 1)                                                                  \\
+                \end{dcases}                                                                                                          \\
+      & \approx \begin{dcases}
+                  k_B\frac{\hbar\omega}{k_BT}e^{- \frac{\hbar\omega}{k_BT}} \to 0 \\
+                  k_B\ln\frac{k_BT}{\hbar\omega} \to +\infty                      \\
+                \end{dcases}
+  \end{align}
+  \begin{align}
+    u & = f + Ts                                                                                                                                                                                      \\
+      & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega + \frac{1}{\beta}\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})           \\
+      & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{1}{\beta}\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+      & = \qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                  \\
+      & \approx \begin{dcases}
+                  \qty(\frac{1}{2} + e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega}))\hbar\omega                                          \\
+                  \frac{1}{2}\hbar\omega\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} + \frac{1}{3}\qty(\frac{\beta\hbar\omega}{2}) + \cdots) \\
+                \end{dcases}                                                              \\
+      & \approx \begin{dcases}
+                  \frac{1}{2}\hbar\omega + e^{-\beta\hbar\omega}\hbar\omega \to \frac{1}{2}\hbar\omega \\
+                  k_BT\qty(1 + \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT})^{2} + \cdots) \to +\infty    \\
+                \end{dcases}
+  \end{align}
+  \begin{align}
+    c & = \pdv{u}{T} = -k_B\beta^2\pdv{u}{\beta} = -k_B\beta^2\qty(-\frac{\hbar\omega e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2})\hbar\omega                                   \\
+      & = k_B\qty(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2 = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2 \\
+      & \approx \begin{dcases}
+                  k_B\qty(\beta\hbar\omega(e^{-\frac{1}{2}\beta\hbar\omega})(1 + e^{-\beta\hbar\omega}))^2                                                \\
+                  k_B\qty(\frac{\beta\hbar\omega}{2}\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} - \frac{1}{6}\qty(\frac{\beta\hbar\omega}{2}) + \cdots))^2 \\
+                \end{dcases}                                                                             \\
+      & \approx \begin{dcases}
+                  k_B\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \to 0 \\
+                  k_B\qty(1 - \frac{1}{24}\qty(\frac{\hbar\omega}{k_BT}) + \cdots)^2 = k_B\qty(1 - \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT}) + \cdots) \to k_B
+                \end{dcases}
+  \end{align}
+\end{proof}
 
 
 \subsection{固体の比熱の Einstein 模型}
@@ -700,4 +737,29 @@ fn _f(x: f64) -> f64 {
 
 \subsection{相転移}
 
+1次元の空間を運動する粒子が、次の調和振動子の Hamilton 演算子 $\hat{H}$ に従っているとします：
+\begin{align}
+  \hat{H} & = \frac{1}{2m}\hat{p}^2 + \frac{1}{2}m\omega^2\hat{q}^2.
+\end{align}
+ここで、$m$ は粒子の質量であり、$\omega$ は調和振動の角振動数です。また、$\hat{q}$ は粒子の位置座標演算子であり、$\hat{p}$ は運動量演算子です。それらは、次の正準交換関係を満たします：
+\begin{align}
+  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = i\hbar
+\end{align}
+ここで、$\hbar$ は Planck 定数です。
+
+この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket{n}$ は固有方程式
+\begin{align}
+  \hat{H}\ket{n} = E_n\ket{n}
+\end{align}
+を解くことにより定まります。解いた結果は $n = 0, 1, 2, \ldots$ に対して次のとおりです：
+\begin{align}
+  \begin{dcases}
+    E_n        = \qty(n + \frac{1}{2})\hbar\omega \\
+    \Psi_n(q) = \braket{q}{n} = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
+  \end{dcases}.
+\end{align}
+ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義されます：
+\begin{align}
+  H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}.
+\end{align}
 \end{document}
