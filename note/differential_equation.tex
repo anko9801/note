@@ -307,97 +307,67 @@
   \end{align}
 \end{definition}
 
-\begin{theorem}
+\begin{proposition}
   \begin{align}
     B_1 = -\frac{1}{2}, B_{2n+1} = 0 \qquad (n = 1,2,3,\ldots).
   \end{align}
+\end{proposition}
+\begin{proof}
+  まず Bernoulli の定義式の両辺に $x/2$ を加える。
+  \begin{align}
+    \frac{x}{e^x - 1} + \frac{x}{2} = \frac{x}{2} + \sum_{n=0}^{\infty}\frac{B_n}{n!}x^n
+  \end{align}
+  このとき左辺は偶関数となる。
+  \begin{align}
+    \frac{x}{e^x - 1} + \frac{x}{2} & = \frac{x(e^x + 1)}{2(e^x - 1)} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2})                             \\
+    \frac{-x}{2}\coth(\frac{-x}{2}) & = \frac{-x}{2}\frac{e^{-x/2} + e^{x/2}}{e^{-x/2} - e^{x/2}} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2})
+  \end{align}
+  これより次の右辺も偶関数であることがわかり、一致の定理から右辺について奇数次の項は現れない。よって 3 以上の奇数を添え字に持つ Bernoulli 数はゼロとなる。
+  \begin{align}
+    B_1 & = -\frac{1}{2}, \qquad B_{2n+1} = 0 \qquad (n = 1,2,3,\ldots)
+  \end{align}
+\end{proof}
+\begin{theorem}
+  \begin{align}
+    \sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n = \delta_{n,1} \qquad (n = 1,2,3,\ldots).
+  \end{align}
 \end{theorem}
 \begin{proof}
-  まず Bernoulli の定義式の左辺に $x/2$ を加えると次のようになる.
-  \begin{align}
-    \frac{x}{e^x - 1} + \frac{x}{2} & = \frac{x(e^x + 1)}{2(e^x - 1)} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2}).
-  \end{align}
-  (ii) ここでこの関数は偶関数であることがわかる.
-  \begin{align}
-    \frac{-x}{2}\coth(\frac{-x}{2}) & = \frac{-x}{2}\frac{e^{-x/2} + e^{x/2}}{e^{-x/2} - e^{x/2}} = \frac{x}{2}\frac{e^{x/2} + e^{-x/2}}{e^{x/2} - e^{-x/2}} = \frac{x}{2}\coth(\frac{x}{2}).
-  \end{align}
-  これより次の右辺は偶関数であることがわかり, 一致の定理から右辺について奇数次の項は現れない.
-  \begin{align}
-    \frac{x}{2}\coth(\frac{x}{2}) = \frac{x}{2} + \sum_{n=0}^{\infty}\frac{B_n}{n!}x^n.
-  \end{align}
-  よって 3 以上の奇数を添え字に持つ Bernoulli 数はゼロとなる.
-  \begin{align}
-    B_{2n+1} = 0 \qquad (n = 1,2,3,\ldots).
-  \end{align}
-
-  (iii) また 1 次の項もゼロとなる為, $B_1$ について次のようになる.
-  \begin{align}
-    B_1 = -\frac{1}{2}.
-  \end{align}
-
-  \begin{itembox}[l]{Q 17A-2.}
-    \begin{align}
-      \sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n = \delta_{n,1} \qquad (n = 1,2,3,\ldots).
-    \end{align}
-  \end{itembox}
-
-  (i)
-  左辺の分母を払うと次のようになる.
+  定義式の左辺の分母を払って展開すると
   \begin{align}
     x & = (e^x - 1)\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n                                     \\
       & = \qty(\sum_{k=1}^{\infty}\frac{x^k}{k!})\qty(\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n) \\
       & = \sum_{k=1}^{\infty}\sum_{n=0}^{\infty}\frac{B_n}{k!n!}x^{k+n}                     \\
       & = \sum_{n=1}^{\infty}\sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n.
   \end{align}
-  よって両辺の係数を比較することで次のようになる.
+  となり両辺の係数を比較することで次のようになる。
   \begin{align}
     \sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n = \delta_{n,1} \qquad (n = 1,2,3,\ldots).
   \end{align}
+\end{proof}
 
-  (ii)
-  これを小さな値の場合について具体的な式で表すと次のようになる.
+\begin{proposition}
   \begin{align}
-    \begin{dcases}
-      B_0 = 1                                                                                                                                 \\
-      \frac{1}{2}B_0 + B_1 = 0                                                                                                                \\
-      \frac{1}{6}B_0 + \frac{1}{2}B_1 + \frac{1}{2}B_2 = 0                                                                                    \\
-      \frac{1}{24}B_0 + \frac{1}{6}B_1 + \frac{1}{4}B_2 + \frac{1}{6}B_3 = 0                                                                  \\
-      \frac{1}{120}B_0 + \frac{1}{24}B_1 + \frac{1}{12}B_2 + \frac{1}{12}B_3 + \frac{1}{24}B_4 = 0                                            \\
-      \frac{1}{720}B_0 + \frac{1}{120}B_1 + \frac{1}{48}B_2 + \frac{1}{36}B_3 + \frac{1}{48}B_4 + \frac{1}{120}B_5 = 0                        \\
-      \frac{1}{5040}B_0 + \frac{1}{720}B_1 + \frac{1}{240}B_2 + \frac{1}{144}B_3 + \frac{1}{144}B_4 + \frac{1}{240}B_5 + \frac{1}{720}B_6 = 0 \\
-      \cdots
-    \end{dcases}.
+    B_0 = 1, B_1 = -\frac{1}{2}, B_2 = \frac{1}{6}, B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \cdots
   \end{align}
-
-  \begin{itembox}[l]{Q 17A-3.}
-    \begin{align}
-      B_0 = 1, B_1 = -\frac{1}{2}, B_2 = \frac{1}{6}, B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \cdots.
-    \end{align}
-  \end{itembox}
-
-  Q 17A-2 (ii) より $B_0 = 1$ であることがわかる. そして既に求めた添字が 0 と奇数のものを代入すると次のようになる.
+\end{proposition}
+\begin{proof}
+  上の定理について具体的式を求めると
   \begin{align}
-    \begin{dcases}
-      1 = 1                                                                                        \\
-      \frac{1}{2} - \frac{1}{2} = 0                                                                \\
-      \frac{1}{6} - \frac{1}{4} + \frac{1}{2}B_2 = 0                                               \\
-      \frac{1}{24} - \frac{1}{12} + \frac{1}{4}B_2 = 0                                             \\
-      \frac{1}{120} - \frac{1}{48} + \frac{1}{12}B_2 + \frac{1}{24}B_4 = 0                         \\
-      \frac{1}{720} - \frac{1}{240} + \frac{1}{48}B_2 + \frac{1}{48}B_4 = 0                        \\
-      \frac{1}{5040} - \frac{1}{1440} + \frac{1}{240}B_2 + \frac{1}{144}B_4 + \frac{1}{720}B_6 = 0 \\
-      \cdots
-    \end{dcases}.
+     & B_0 = 1                                                                                                                                 \\
+     & \frac{1}{2}B_0 + B_1 = 0                                                                                                                \\
+     & \frac{1}{6}B_0 + \frac{1}{2}B_1 + \frac{1}{2}B_2 = 0                                                                                    \\
+     & \frac{1}{24}B_0 + \frac{1}{6}B_1 + \frac{1}{4}B_2 + \frac{1}{6}B_3 = 0                                                                  \\
+     & \frac{1}{120}B_0 + \frac{1}{24}B_1 + \frac{1}{12}B_2 + \frac{1}{12}B_3 + \frac{1}{24}B_4 = 0                                            \\
+     & \frac{1}{720}B_0 + \frac{1}{120}B_1 + \frac{1}{48}B_2 + \frac{1}{36}B_3 + \frac{1}{48}B_4 + \frac{1}{120}B_5 = 0                        \\
+     & \frac{1}{5040}B_0 + \frac{1}{720}B_1 + \frac{1}{240}B_2 + \frac{1}{144}B_3 + \frac{1}{144}B_4 + \frac{1}{240}B_5 + \frac{1}{720}B_6 = 0 \\
+     & \cdots
   \end{align}
-  これより $B_2, B_4, B_6$ について上の数式から求められる.
-  \begin{align}
-    B_2 = \frac{1}{6}, \quad B_4 = -\frac{1}{30}, \quad B_6 = \frac{1}{42}.
-  \end{align}
-  よってこれまでの結果をまとめると次のようになる.
+  より添字が奇数のときを代入することで求まる。
   \begin{align}
     B_0 = 1, B_1 = -\frac{1}{2}, B_2 = \frac{1}{6}, B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \cdots.
   \end{align}
 \end{proof}
-
 
 
 
