@@ -140,6 +140,7 @@
 \newqedtheorem{problem}{問題}
 \newqedtheorem{algorithm}{アルゴリズム}
 
+\newscreentheorem*{axiom}{公理}
 \newscreentheorem*{definition}{定義}
 
 \renewenvironment{proof}[1][\proofname]{\par
@@ -158,7 +159,7 @@
 \tableofcontents
 \clearpage
 
-\section{特殊相対論}
+\section{特殊相対性理論}
 \begin{definition}[Einstein の相対性原理]
   自然法則は全ての慣性系において同じ形になる。
 \end{definition}
@@ -166,20 +167,41 @@
   光の速度は全ての慣性系で、光源の速度によらず一定である。
 \end{definition}
 
-\begin{definition}
+\begin{definition}[共変ベクトル・反変ベクトル]
+  計量テンソル $g_{\mu\nu}$ とその逆行列 $g^{\mu\nu}$
   \begin{align}
-    x^\mu    & = (x^0, x^1, x^2, x^3) := (ct, \rr(t))                          \\
+    g_{\mu\nu} = g^{\mu\nu} = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
+  \end{align}
+  時刻 $t\in\RR$ と場所 $\bm{x} = (x^1, x^2, x^3)\in\RR^3$ をまとめた時空点 $x = (x^\mu)$ を次の反変ベクトルで表す。
+  \begin{align}
+    x^\mu & = (x^0, x^1, x^2, x^3) := (ct, \rr(t))
+  \end{align}
+  $x$ による微分を共変ベクトルとして次のように定義する。
+  \begin{align}
+    \partial_\mu & = (\partial_0, \partial_1, \partial_2, \partial_3) := \qty(\frac{1}{c}\pdv{t}, \vnabla)
+  \end{align}
+\end{definition}
+
+\begin{proposition}
+  $g < 0$
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    g_{\mu\nu} & = M\eta_{\mu\nu}M^\top                          \\
+    g          & = \det(\eta_{\mu\nu})\det(M)^2 = -\det(M)^2 < 0
+  \end{align}
+\end{proof}
+
+\begin{definition}[世界間隔]
+  \begin{align}
     \dd{s}^2 & = (c\dd{t})^2 - \dd{x}^2 - \dd{y}^2 - \dd{z}^2 = (c\dd{\tau})^2
   \end{align}
-
-\end{definition}
-\begin{definition}
+  これらを元に四元速度、四元加速度、四元運動量
   \begin{align}
     u^\mu(t) & = \dv{x^\mu}{\tau} = \gamma(c, \dot{\rr})     \\
     a^\mu(t) & = \dv[2]{x^\mu}{\tau} = \gamma(0, \ddot{\rr}) \\
     p^\mu    & = mu^\mu = m\gamma(c, \dot{\rr})              \\
     j^\mu(x) & := (c\rho, \bm{j})                            \\
-    E        & := cp^0
   \end{align}
 \end{definition}
 
@@ -193,23 +215,10 @@
   \delta S & = \int \varepsilon^\mu\delta x_\mu\dd{\tau} = 0
 \end{align}
 
-\section{一般相対論}
+\section{一般相対性理論}
 \begin{axiom}[アインシュタインの等価原理]
   加速系と重力場の系は局所的には原理的に区別できない。
 \end{axiom}
-例えば宇宙人に部屋に閉じ込められたときに地球と同じ重力があるから地球にいるとは限らない
-
-\begin{definition}[擬リーマン空間]
-\end{definition}
-
-\begin{proposition}
-  $g < 0$
-\end{proposition}
-\begin{proof}
-  \begin{align}
-    g_{\mu\nu} & = M\eta_{\mu\nu}M^\top                          \\
-    g          & = \det(\eta_{\mu\nu})\det(M)^2 = -\det(M)^2 < 0
-  \end{align}
-\end{proof}
+例えば宇宙人によって部屋に閉じ込められたとき地球と同じ重力があるからといって地球にいるとは限らない。
 
 \end{document}
