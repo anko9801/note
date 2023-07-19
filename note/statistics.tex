@@ -1670,29 +1670,5 @@ Q 17-19, Q 17-20 で考察したように比熱 $C$ に $I(b)$ の値を代入�
 
 \subsection{相転移}
 
-1次元の空間を運動する粒子が、次の調和振動子の Hamilton 演算子 $\hat{H}$ に従っているとします：
-\begin{align}
-  \hat{H} & = \frac{1}{2m}\hat{p}^2 + \frac{1}{2}m\omega^2\hat{q}^2.
-\end{align}
-ここで、$m$ は粒子の質量であり、$\omega$ は調和振動の角振動数です。また、$\hat{q}$ は粒子の位置座標演算子であり、$\hat{p}$ は運動量演算子です。それらは、次の正準交換関係を満たします：
-\begin{align}
-  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = i\hbar
-\end{align}
-ここで、$\hbar$ は Planck 定数です。
 
-この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket{n}$ は固有方程式
-\begin{align}
-  \hat{H}\ket{n} = E_n\ket{n}
-\end{align}
-を解くことにより定まります。解いた結果は $n = 0, 1, 2, \ldots$ に対して次のとおりです：
-\begin{align}
-  \begin{dcases}
-    E_n        = \qty(n + \frac{1}{2})\hbar\omega \\
-    \Psi_n(q) = \braket{q}{n} = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
-  \end{dcases}.
-\end{align}
-ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義されます：
-\begin{align}
-  H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}.
-\end{align}
 \end{document}
