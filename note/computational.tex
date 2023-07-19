@@ -1,43 +1,34 @@
-\documentclass[a4paper,dvipdfmx]{jsarticle}
-
-\usepackage{okumacro}
-%ルビ用%
-\usepackage{indentfirst}
-%字下げを保存するための設定　\parでインデント＋改行%
-\usepackage[dvipdfmx]{graphicx}
-%画像挿入パッケージ。graphix=Windows,graphics=Mac%
-\usepackage{wrapfig}
-%文章を図に回り込ませるパッケージ%
-\usepackage{amsfonts}
-\usepackage{amssymb}
-%数式色々%
-\usepackage{bm}
-%ベクトル%
-\usepackage{url}
-%url中の_や\にエラーをはかせないためのパッケージ%
-\usepackage{comment}
-%複数行コメントのためのパッケージ%
-\usepackage{listings}
-%コードのためのパッケージ（英語のみ）%
+\RequirePackage{plautopatch} % upLaTeX 用パッチを当てる
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize} % A4判サイズを指定する
+\usepackage[utf8]{inputenc} %
+\usepackage[T1]{fontenc} % フォントエンコーディング指定
+\usepackage{lmodern} % Latin Modern フォント
+\usepackage{otf}
+\usepackage{amsmath} % 数式環境
+\usepackage{amssymb} % 数学記号やフォント
+\usepackage{amsthm} % 定理環境
+\usepackage{ascmac}
+\usepackage{mathtools} % amsmath の拡張
+\usepackage{siunitx} % 単位
 \usepackage{physics}
-%物理関係のパッケージ%
-\usepackage{amsmath}
-\usepackage{mathtools}
-%数学関係のパッケージ%
-%定理証明関係のパッケージ%
-\usepackage{amsthm}
-%amsthm%
-\theoremstyle{definition}
-\newtheorem{dfn}{Definition}[section]
-\newtheorem{prop}[dfn]{Proposition}
-\newtheorem{lem}[dfn]{Lemma}
-\newtheorem{thm}[dfn]{Theorem}
-\newtheorem{cor}[dfn]{Corollary}
-\newtheorem{rem}[dfn]{Remark}
-\newtheorem{fact}[dfn]{Fact}
-\renewcommand{\qedsymbol}{$\blacksquare$}
-\usepackage{docmute}
-%ファイル分割%
+% \usepackage{physics2}
+\usepackage{braket} % braket 記法
+\usepackage{verbatimbox}
+\usepackage{bm} % ベクトルで使われる太字斜体
+\usepackage[hyphens]{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx} % 画像の挿入
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{indentfirst} % 最初の段落にインデント
+\usepackage{wrapfig} % 表や画像の周りに文字を回り込ませる
+\usepackage{comment} % コメント環境
+\usepackage{docmute} % ファイル分割
+\usepackage{hyperref} % ハイパーリンクを埋め込む
+\usepackage{pxjahyper}
+\usepackage{tikz} % グラフや図形を描く
+\usetikzlibrary{cd}
+\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
+\usepackage{listings} % ソースコードの挿入
 \lstset{
   language=C++,
   breaklines=true,
@@ -47,130 +38,388 @@
   numbers=left,
   frame=lines
 }
-%各種設定%
 \usepackage{color}
-%色付け　使うときは\documentclass[dvipdfmx]を追加すること！%
-\usepackage{ascmac}
-\usepackage{otf}
-%ギリシャ数字%
-\usepackage{siunitx}
-%SI単位系%
-\usepackage{tikz}
-%tikz%
-\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
-%tikzlibrary%
-\renewcommand{\Re}{\real}
-\newcommand{\LR}{\Leftrightarrow}
-\newcommand{\rr}{\vb*{r}}
-\newcommand{\kk}{\vb*{k}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\RR}{\mathbb{R}}
-\begin{document}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
 \title{計算物理}
-\author{anko}
+\author{Anko}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
 \maketitle
+\tableofcontents
+\clearpage
 
 \section{差分法}
+\begin{definition}
+  連続な時間 $t$ に対し、離散化された時間のパラメータは微小時間 $\Delta t$ を用いて $t_n = n\Delta t$ と書く。同様に空間についても $x_i = i\Delta x$ とする。
+  時間・空間について連続な関数 $f(x, t)$ に対する離散値を $f_i^{(n)} := f(x_i, t_n)$ と書く。
+  空間について $n$ 次精度とは $\mathcal{O}(\Delta x^n)$ となること
+\end{definition}
+
+
+
+\begin{theorem}[1階微分の差分公式]
+  1次前進差分、1次後退差分、2次中心差分は次のように求まる。
+  \begin{align}
+    f_i' & \approx \frac{f_{i+1} - f_i}{\Delta x} + \mathcal{O}(\Delta x)        \\
+    f_i' & \approx \frac{f_i - f_{i-1}}{\Delta x} + \mathcal{O}(\Delta x)        \\
+    f_i' & \approx \frac{f_{i+1} - f_{i-1}}{2\Delta x} + \mathcal{O}(\Delta x^2)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $f(x \pm \Delta x)$ を 2 次まで Taylor 展開すると
+  \begin{align}
+    f(x \pm \Delta x) & = f_{i \pm 1} = f_i \pm f_i'\Delta x + \frac{1}{2}f_i''\Delta x^2 + \mathcal{O}(\Delta x^3)
+  \end{align}
+  より次の式が成り立つ。
+  \begin{align}
+    f_{i + 1} - f_i       & = f_i'\Delta x + \mathcal{O}(\Delta x^2)  \\
+    f_i - f_{i - 1}       & = f_i'\Delta x + \mathcal{O}(\Delta x^2)  \\
+    f_{i + 1} - f_{i - 1} & = 2f_i'\Delta x + \mathcal{O}(\Delta x^3)
+  \end{align}
+  よって微分は
+  \begin{align}
+    f_i' & \approx \frac{f_{i+1} - f_i}{\Delta x} + \mathcal{O}(\Delta x)        \\
+    f_i' & \approx \frac{f_i - f_{i-1}}{\Delta x} + \mathcal{O}(\Delta x)        \\
+    f_i' & \approx \frac{f_{i+1} - f_{i-1}}{2\Delta x} + \mathcal{O}(\Delta x^2)
+  \end{align}
+\end{proof}
+
+\begin{theorem}[2次精度2階微分の差分公式]
+  2次中心差分は次のように書ける。
+  \begin{align}
+    f''(x_n) & \approx \frac{f(x_{n+1}) - 2f(x_n) + f(x_{n-1})}{\Delta x^2} + \mathcal{O}(\Delta x^2) \\
+  \end{align}
+\end{theorem}
+\begin{proof}
+  $f(x \pm \Delta x)$ を 3 次まで Taylor 展開すると
+  \begin{align}
+    f(x \pm \Delta x) & = f_{i \pm 1} = f_i \pm f_i'\Delta x + \frac{1}{2}f_i''\Delta x^2 \pm \frac{1}{3!}f_i'''\Delta x^3 + \mathcal{O}(\Delta x^4)
+  \end{align}
+  となりこの和について計算することで求まる。
+  \begin{align}
+    f_{i + 1} + f_{i - 1} & = 2f_i + f_i''\Delta x^2 + \mathcal{O}(\Delta x^4)                          \\
+    f_i''                 & = \frac{f_{i + 1} - 2f_i + f_{i - 1}}{\Delta x^2} + \mathcal{O}(\Delta x^2)
+  \end{align}
+\end{proof}
+
+\begin{theorem}[2階微分の差分公式]
+  $f(x\pm k\Delta x)$ の Taylor 展開で 2 次以外の項を相殺することで次の式が得られる.
+  \begin{align}
+    f''(x_n) & \approx \frac{-f(x_{n+2}) + 16f(x_{n+1}) - 30f(x_n) + 16f(x_{n-1}) - f(x_{n-2})}{12\Delta x^2} + \mathcal{O}(\Delta x^4)
+  \end{align}
+\end{theorem}
+
+\subsection{安全性解析}
+\begin{definition}[フォン・ノイマン (von Neumann) の安定性解析]
+  時間が経つと共に振幅が増大しないことは安定性の条件となる。
+  \begin{align}
+    f(x, t)                             & = \sum_kA_k(t)e^{ikx} \\
+    \qty|\frac{A_k^{(n+1)}}{A_k^{(n)}}| & \leq 1
+  \end{align}
+\end{definition}
+
+\begin{definition}[CFL (Courant-Friedrichs-Lewy) 条件]
+  計算上の情報の伝播する速さより物理的な情報の伝播する速さの方が小さい。
+  \begin{align}
+    \frac{\Delta x}{\Delta t} \geq c \\
+    \nu := \frac{c\Delta t}{\Delta x} \leq 1
+  \end{align}
+\end{definition}
+
+\begin{definition}[拡散方程式]
+  \begin{align}
+    \pdv{f(x, t)}{t} & = \kappa\pdv[2]{f(x, t)}{x}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    f_i^{(n+1)} & = f_i^{(n)} + \frac{\kappa\Delta t}{\Delta x^2}\qty(f_{i+1}^{(n)} - 2f_i^{(n)} + f_{i-1}^{(n)})
+  \end{align}
+\end{theorem}
+\begin{proof}
+  拡散方程式は時間について(1次)前進差分、空間について(2次)中心差分を取る。これを FTCS (Forward Time Centered Space) スキームという。
+  \begin{align}
+    \frac{f_i^{(n+1)} - f_i^{(n)}}{\Delta t} & = \kappa\frac{f_{i+1}^{(n)} - 2f_i^{(n)} + f_{i-1}^{(n)}}{\Delta x^2}                           \\
+    f_i^{(n+1)}                              & = f_i^{(n)} + \frac{\kappa\Delta t}{\Delta x^2}\qty(f_{i+1}^{(n)} - 2f_i^{(n)} + f_{i-1}^{(n)})
+  \end{align}
+  このように時間発展を求められる。これは安全性を満たす。
+  \begin{align}
+    \frac{A^{(n+1)}e^{ikx_i} - A^{(n)}e^{ikx_i}}{\Delta t} & = \kappa\frac{A^{(n)}e^{ikx_{i+1}} - 2A^{(n)}e^{ikx_{i}} + A^{(n)}e^{ikx_{i-1}}}{\Delta x^2} \\
+    \qty|\frac{A_k^{(n+1)}}{A_k^{(n)}}|                    & = \qty|1 + \frac{\kappa\Delta t}{\Delta x^2}(e^{ik\Delta x} - 2 + e^{-ik\Delta x})|          \\
+                                                           & = \qty|1 - \frac{2\kappa\Delta t}{\Delta x^2}(1 - \cos(k\Delta x))| \leq 1
+  \end{align}
+\end{proof}
+
+\begin{definition}[移流方程式]
+  \begin{align}
+    \pdv{f(x, t)}{t} & = -c\pdv{f(x, t)}{x}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  移流方程式は時間について(1次)前進差分、空間について(2次)中心差分を取ると安全性を満たさない。 \\
+  時間について(1次)前進差分、空間について(1次)後退差分を取ると安全性を満たす。
+  \begin{align}
+    \frac{f_i^{(n+1)} - f_i^{(n)}}{\Delta t} & = - c\frac{f_i^{(n)} - f_{i-1}^{(n)}}{\Delta x}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  時間について(1次)前進差分、空間について(2次)中心差分を取る。
+  \begin{align}
+    \frac{f_i^{(n+1)} - f_i^{(n)}}{\Delta t} & = -c\frac{f_{i+1}^{(n)} - f_{i-1}^{(n)}}{2\Delta x}
+  \end{align}
+  安全性解析すると
+  \begin{align}
+    \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(e^{ik\Delta x} - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{2\Delta x}      \\
+    \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - i\nu\sin(k\Delta x)|^2} = \sqrt{1 + \nu^2\sin^2(k\Delta x)} > 1
+  \end{align}
+  CFL 条件
+  \begin{align}
+    \frac{\Delta x}{\Delta t} & = -c\frac{f_{i+1}^{(n)} - f_{i-1}^{(n)}}{2(f_i^{(n+1)} - f_i^{(n)})} \geq c
+  \end{align}
+  1次後退差分で離散化したものについて
+  \begin{align}
+    \frac{f_i^{(n+1)} - f_i^{(n)}}{\Delta t} & = -c\frac{f_i^{(n)} - f_{i-1}^{(n)}}{\Delta x}
+  \end{align}
+  安定性解析すると
+  \begin{align}
+    \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(1 - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{\Delta x} \\
+    \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - \nu(1 - e^{-ik\Delta x})|^2}                 \\
+                                                        & = \sqrt{1 - 2\nu(1 - \nu)(1 - \cos(k\Delta x))} \leq 1        \\
+    \iff \nu                                            & \leq 1
+  \end{align}
+\end{proof}
+これは差分により拡散項が増えてしまったからである。
+
+
+
+\begin{definition}[Navier-Stokes 方程式]
+  \begin{align}
+    \pdv{\bm{v}}{t} & = -(\bm{v}\vdot\vnabla)\bm{v} - \frac{1}{\rho}\vnabla p + \nu\vnabla^2\bm{v} + \bm{F}
+  \end{align}
+  まず無次元量とする。
+  \begin{align}
+    \bm{v} & = V\tilde{\bm{v}} & \bm{r} & = L\tilde{\bm{r}} & t & = \frac{L}{V}\tilde{t} & p & = \rho V^2\tilde{p} & \vnabla & = \frac{1}{L}\tilde{\vnabla} & \pdv{t} & = \frac{V}{L}\pdv{\tilde{t}} & \mathrm{Re} & = \frac{UV}{\nu}
+  \end{align}
+  レイノルズ数 $\mathrm{Re}$ は慣性力と粘性力の比に対応する。
+  \begin{align}
+    \pdv{\tilde{\bm{v}}}{\tilde{t}} & = -(\tilde{\bm{v}}\vdot\tilde{\vnabla})\tilde{\bm{v}} - \tilde{\vnabla}\tilde{p} + \frac{1}{\mathrm{Re}}\tilde{\vnabla}^2\tilde{\bm{v}}
+  \end{align}
+  これ以降、無次元量を表すチルダは略す。
+\end{definition}
+\begin{theorem}
+  Navier-Stokes 方程式
+\end{theorem}
+\begin{proof}
+  $\omega = \vnabla\cross\bm{v}$ とすると
+  \begin{align}
+    \pdv{\omega_i}{t} & = \pdv{t}(\vnabla\cross\bm{v})_i                                                                                                                        \\
+                      & = -\vnabla\cross((\bm{v}\vdot\vnabla)\bm{v}) - \vnabla\cross\vnabla p + \frac{1}{\mathrm{Re}}\vnabla\cross\laplacian\bm{v}                              \\
+                      & = -\varepsilon_{ijk}\partial_j((v_l\partial_l)v_k) + \frac{1}{\mathrm{Re}}\varepsilon_{ijk}\partial_j\partial_l\partial_lv_k                            \\
+                      & = -\varepsilon_{ijk}(\partial_jv_l\partial_lv_k + v_l\partial_j\partial_lv_k) + \frac{1}{\mathrm{Re}}\partial_l\partial_l\varepsilon_{ijk}\partial_jv_k \\
+                      & = -\varepsilon_{ijk}\partial_jv_l\partial_lv_k - (\bm{v}\vdot\vnabla)(\vnabla\cross\bm{v}) + \frac{1}{\mathrm{Re}}\laplacian(\vnabla\cross\bm{v})       \\
+                      & = -\varepsilon_{ijk}\partial_jv_l\partial_lv_k - (\bm{v}\vdot\vnabla)\omega + \frac{1}{\mathrm{Re}}\laplacian\omega
+  \end{align}
+  $\bm{v}(x, y, t) = (u(x, y, t), v(x, y, t), 0)$ とするとき、次の渦度方程式となる。
+  \begin{align}
+    \pdv{\omega_3}{t} & = - (\bm{v}\vdot\vnabla)\omega_3 + \frac{1}{\mathrm{Re}}\laplacian\omega_3
+  \end{align}
+  ここでは非圧縮性液体 $\vnabla\vdot\bm{v} = 0$ のとき $\bm{v} = \vnabla\cross\Phi$ と書ける。ここで流れ関数 $\Phi$ を導入する。
+  \begin{align}
+    u      & = - \pdv{\Phi}{y} \quad v = \pdv{\Phi}{x}              \\
+    \omega & = \pdv[2]{\Phi}{x} + \pdv[2]{\Phi}{y} = \laplacian\Phi \\
+    \omega & = \vnabla\cross(\vnabla\cross\Phi)                     \\
+           & = \vnabla\vdot(\vnabla\Phi) - \laplacian\Phi
+  \end{align}
+  流れ関数を用いると解くべき方程式は渦度方程式とポアソン方程式に分けることができる。
+  \begin{align}
+    \pdv{\omega}{t} & = \pdv{\Phi}{x}\pdv{\omega}{y} - \pdv{\Phi}{y}\pdv{\omega}{x} + \frac{1}{\mathrm{Re}}\laplacian\omega \\
+    \laplacian\Phi  & = - \omega
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  ポアソン方程式については差分法で解ける。
+  \begin{align}
+     & \laplacian\Phi = - \omega                                                                                                                  \\
+     & \frac{\Phi_{i+1,j} - 2\Phi_{i,j} + \Phi_{i-1,j}}{\Delta x^2} + \frac{\Phi_{i,j+1} - 2\Phi_{i,j} + \Phi_{i,j-1}}{\Delta y^2} = \omega_{i,j} \\
+     & \Phi_{i,j} = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})
+  \end{align}
+  初期値を適当にセットして、この漸化式を収束するまで繰り返し更新する。この漸化式を改良させて収束を早めることができる。次の漸化式を順にヤコビ法, ガウス・ザイデル法, SOR 法という。
+  \begin{align}
+    \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})                                                                                    \\
+    \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j})                                                      \\
+    \Phi_{i,j}^{\mathrm{new}} & = C_{SOR}\frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j}) + (1 - C_{SOR})\Phi_{i,j} & (0 < C_{SOR} < 2)
+  \end{align}
+\end{theorem}
+
+\section{ヌメロフ法}
+\section{LAPACK}
+\section{Taylor 展開法}
+\begin{definition}
+  現在の情報のみを使って時間発展を記述する方法を陽解法という。未来の情報も使って時間発展を記述する方法を陰解法という。
+\end{definition}
+\begin{definition}
+  Taylor展開法
+  Crank-Nicolson 法は時間と空間について2次精度の陰解法
+\end{definition}
+
+\begin{definition}[TDSE]
+  \begin{align}
+    i\hbar\pdv{\psi}{t} & = \qty(-\frac{\hbar^2}{2m}\laplacian + V(\rr))\psi(\rr, t)
+  \end{align}
+\end{definition}
 \begin{align}
-  \pdv{f(x_i, t_n)}{t} \approx \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}
-\end{align}
-\begin{align}
-  f'(x_n) & \approx \frac{f(x_{n+1}) - f(x_n)}{\Delta x} + \mathcal{O}(\Delta x)        \\
-  f'(x_n) & \approx \frac{f(x_n) - f(x_{n-1})}{\Delta x} + \mathcal{O}(\Delta x)        \\
-  f'(x_n) & \approx \frac{f(x_{n+1}) - f(x_{n-1})}{2\Delta x} + \mathcal{O}(\Delta x^2)
-\end{align}
-$f(x\pm k\Delta x)$ の Taylor 展開で 2 次以外の項を相殺することで次の式が得られる.
-\begin{align}
-  f''(x_n) & \approx \frac{f(x_{n+1}) - 2f(x_n) + f(x_{n-1})}{\Delta x^2} + \mathcal{O}(\Delta x^2)                                   \\
-  f''(x_n) & \approx \frac{-f(x_{n+2}) + 16f(x_{n+1}) - 30f(x_n) + 16f(x_{n-1}) - f(x_{n-2})}{12\Delta x^2} + \mathcal{O}(\Delta x^4)
+  - \frac{\hbar^2}{2m}
+  \mqty(-2     & 1      &        &         &    &    \\
+  1            & -2     & 1      &         &    &    \\
+               & 1      & -2     & 1       &    &    \\
+               &        &        & \ddots  &    &    \\
+               &        &        & 1       & -2 & 1)
+  \mqty(\psi_\alpha(x_1)                             \\ \psi_\alpha(x_2) \\ \psi_\alpha(x_3) \\ \vdots \\ \psi_\alpha(x_N)) +
+  \mqty(V(x_1) &        &        &                   \\
+               & V(x_2) &        &                   \\
+               &        & \ddots &                   \\
+               &        &        & V(x_N))
+  \mqty(\psi_\alpha(x_1)                             \\ \psi_\alpha(x_2) \\ \vdots \\ \psi_\alpha(x_N))
+  =
+  E\mqty(\psi_\alpha(x_1)                            \\ \psi_\alpha(x_2) \\ \vdots \\ \psi_\alpha(x_N))
 \end{align}
 
-\subsection{拡散方程式}
-\begin{align}
-  \pdv{f(x, t)}{t}                               & = \kappa\pdv[2]{f(x, t)}{x}                                                                             \\
-  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t} & = \kappa\frac{f(x_{i+1}, t_n) - 2f(x_i, t_n) + f(x_{i-1}, t_n)}{\Delta x^2}                             \\
-  f(x_i, t_{n+1})                                & = f(x_i, t_n) + \frac{\kappa\Delta t}{\Delta x^2}\qty(f(x_{i+1}, t_n) - 2f(x_i, t_n) + f(x_{i-1}, t_n))
-\end{align}
+\begin{definition}[時間依存Gross-Pitaevskii方程式: TDGPE (時間依存非線形Schrödinger方程式: TDNSE)]
+  非線形項
+  \begin{align}
+    i\hbar\pdv{\Psi}{t} & = \qty(-\frac{\hbar^2}{2m}\laplacian + V_{ext}(\rr, t) + g|\Psi(\rr, t)|^2)\Psi(\rr, t) & \qty(g = \frac{4\pi\hbar^2 a_s}{m})
+  \end{align}
 
-\subsection{フォン・ノイマンの安定性解析}
-時間が経つと共に振幅が増大しないことは安定性の条件となる.
-\begin{align}
-  f(x, t)                             & = \sum_kA_k(t)e^{ikx} \\
-  \qty|\frac{A_k(t_{n+1})}{A_k(t_n)}| & \leq 1
-\end{align}
-CFL (Courant-Friedrichs-Lewy) 条件とは計算上の情報の伝播する速さより物理的な情報の伝播する速さが小さいことは安定性の条件となる.
-\begin{align}
-  \frac{\Delta x}{\Delta t} \geq c
-\end{align}
-\subsection{移流方程式}
-差分法だと不安定となる. これは差分により拡散項が増えてしまったからである.
-2次中心差分で離散化したものについて安定性解析する.
-\begin{align}
-  \pdv{f(x, t)}{t}                                    & = -c\pdv{f(x, t)}{x}                                                             \\
-  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}      & = -c\frac{f(x_{i+1}, t_n) - f(x_{i-1}, t_n)}{2\Delta x}                          \\
-  \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(e^{ik\Delta x} - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{2\Delta x}      \\
-  \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - i\nu\sin(k\Delta x)|^2} = \sqrt{1 + \nu^2\sin^2(k\Delta x)} > 1
-\end{align}
-後退差分で離散化したものについて安定性解析する.
-\begin{align}
-  \pdv{f(x, t)}{t}                                    & = -c\pdv{f(x, t)}{x}                                                  \\
-  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}      & = -c\frac{f(x_i, t_n) - f(x_{i-1}, t_n)}{\Delta x}                    \\
-  \qty(A(t_{n+1}) - A(t_n))\frac{e^{ikx_i}}{\Delta t} & = -c\qty(1 - e^{-ik\Delta x})\frac{A(t_n)e^{ikx_i}}{\Delta x}         \\
-  \qty|\frac{A(t_{n+1})}{A(t_n)}|                     & = \sqrt{\qty|1 - \nu(1 - e^{-ik\Delta x})|^2}                         \\
-                                                      & = \sqrt{1 - 2\nu(1 - \nu)(1 - \cos(k\Delta x))} \begin{cases}
-                                                                                                          \leq 1 & (\nu \leq 1) \\
-                                                                                                          > 1    & (\nu > 1)    \\
-                                                                                                        \end{cases}
-\end{align}
-CFL 条件
-\begin{align}
-  \pdv{f(x, t)}{t}                                                                   & = -c\pdv{f(x, t)}{x}                                                          \\
-  \frac{f(x_i, t_{n+1}) - f(x_i, t_n)}{\Delta t}                                     & = -c\frac{f(x_i, t_n) - f(x_{i-1}, t_n)}{\Delta x^2}                          \\
-  \dot{f}(x_i, t_n) + \frac{\Delta t}{2}\ddot{f}(x_i, t_n) + \mathcal{O}(\Delta t^2) & = -cf'(x_i, t_n) + \frac{c\Delta x}{2}f''(x_i, t_n) + \mathcal{O}(\Delta x^2)
-\end{align}
-
-\subsection{Navier-Stokes方程式}
-\begin{align}
-  \pdv{\bm{v}}{t} & = -(\bm{v}\vdot\vnabla)\bm{v} - \frac{1}{\rho}\vnabla p + \nu\vnabla^2\bm{v} + \bm{F}
-\end{align}
-まず無次元化する.
-\begin{align}
-  \bm{v} & = V\tilde{\bm{v}} & \bm{r} & = L\tilde{\bm{r}} & t & = \frac{L}{V}\tilde{t} & p & = \rho V^2\tilde{p} & \vnabla & = \frac{1}{L}\tilde{\vnabla} & \pdv{t} & = \frac{V}{L}\pdv{\tilde{t}} & \mathrm{Re} & = \frac{UV}{\nu}
-\end{align}
-レイノルズ数 $\mathrm{Re}$ は慣性力と粘性力の比に対応する.
-\begin{align}
-  \pdv{\tilde{\bm{v}}}{\tilde{t}} & = -(\tilde{\bm{v}}\vdot\tilde{\vnabla})\tilde{\bm{v}} - \tilde{\vnabla}\tilde{p} + \frac{1}{\mathrm{Re}}\tilde{\vnabla}^2\tilde{\bm{v}}
-\end{align}
-これ以降, 無次元量を表すチルダは略す. $\bm{v} = (u, v, 0)$ とするとき, 次の渦度方程式となる.
-\begin{align}
-  \pdv{u}{t}      & = - \qty(u\pdv{x} + v\pdv{y})u - \pdv{p}{x} + \frac{1}{\mathrm{Re}}\qty(\pdv[2]{x} + \pdv[2]{y})u                                          \\
-  \pdv{v}{t}      & = - \qty(u\pdv{x} + v\pdv{y})v - \pdv{p}{y} + \frac{1}{\mathrm{Re}}\qty(\pdv[2]{x} + \pdv[2]{y})v                                          \\
-  \pdv{\omega}{t} & = -(\vnabla\vdot\bm{v})\omega - (\bm{v}\vdot\vnabla)\omega + \frac{1}{\mathrm{Re}}\vnabla^2\omega & \qty(\omega = \pdv{v}{x} - \pdv{u}{y})
-\end{align}
-ここでは非圧縮性液体 $\vnabla\vdot\bm{v} = 0$ のときを考える.
-\begin{align}
-  \pdv{\omega}{t} & = - (\bm{v}\vdot\vnabla)\omega + \frac{1}{\mathrm{Re}}\laplacian\omega
-\end{align}
-ここで流れ関数 $\Phi$ を導入する.
-\begin{align}
-  u & = - \pdv{\Phi}{y} \quad v = \pdv{\Phi}{x} \quad \omega = \pdv[2]{\Phi}{x} + \pdv[2]{\Phi}{y} = \laplacian\Phi
-\end{align}
-流れ関数を用いると解くべき方程式は渦度方程式とポアソン方程式に分けることができる.
-\begin{align}
-  \pdv{\omega}{t} & = \pdv{\Phi}{x}\pdv{\omega}{y} - \pdv{\Phi}{y}\pdv{\omega}{x} + \frac{1}{\mathrm{Re}}\laplacian\omega \\
-  \laplacian\Phi  & = - \omega
-\end{align}
-ポアソン方程式については差分法で解ける.
-\begin{align}
-   & \laplacian\Phi = - \omega                                                                                                                  \\
-   & \frac{\Phi_{i+1,j} - 2\Phi_{i,j} + \Phi_{i-1,j}}{\Delta x^2} + \frac{\Phi_{i,j+1} - 2\Phi_{i,j} + \Phi_{i,j-1}}{\Delta y^2} = \omega_{i,j} \\
-   & \Phi_{i,j} = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})
-\end{align}
-初期値を適当にセットして, この漸化式を収束するまで繰り返し更新する. この漸化式を改良させて収束を早めることができる. 次の漸化式を順にヤコビ法, ガウス・ザイデル法, SOR 法という.
-\begin{align}
-  \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j} + \Phi_{i,j+1} + \Phi_{i,j-1} - \Delta x^2\omega_{i,j})                                                                                    \\
-  \Phi_{i,j}^{\mathrm{new}} & = \frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j})                                                      \\
-  \Phi_{i,j}^{\mathrm{new}} & = C_{SOR}\frac{1}{4}\qty(\Phi_{i+1,j} + \Phi_{i-1,j}^{\mathrm{new}} + \Phi_{i,j+1} + \Phi_{i,j-1}^{\mathrm{new}} - \Delta x^2\omega_{i,j}) + (1 - C_{SOR})\Phi_{i,j} & (0 < C_{SOR} < 2)
-\end{align}
+\end{definition}
 
 \end{document}
