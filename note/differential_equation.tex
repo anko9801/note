@@ -255,10 +255,11 @@
   \end{align}
 \end{proof}
 
-\begin{proposition}[ガンマ関数の特異点]
+\begin{proposition}[ガンマ関数の極と零点]
   \begin{align}
-    \Gamma(z)               & = \infty \iff z = 0, -1, -2, \ldots \\
-    \Res[\Gamma(z); z = -n] & = \frac{(-1)^n}{n!}
+    \Gamma(z)                                    & = \infty \iff z = 0, -1, -2, \ldots           \\
+    \Res[\Gamma(z); z = -n]                      & = \frac{(-1)^n}{n!} \qquad (n = 0,1,2,\ldots) \\
+    \lbrace\Gamma(s) = 0\mid |s| < \infty\rbrace & = \emptyset
   \end{align}
 \end{proposition}
 
@@ -269,13 +270,7 @@
     \gamma              & := \lim_{n\to\infty}\qty(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
   \end{align}
 \end{proposition}
-ガンマ関数 $\Gamma(s)$ について次のような性質が知られている.
-\begin{align}
-  \Res[\Gamma(s); s = -n]                      & = \frac{(-1)^n}{n!} \qquad (n = 0,1,2,\ldots),                    \\
-  \lbrace\Gamma(s) = 0\mid |s| < \infty\rbrace & = \emptyset,                                                      \\
-  \Gamma(s)\Gamma(1-s)                         & = \frac{\pi}{\sin\pi s},                                          \\
-  \Gamma(2s)                                   & = \frac{2^{2s}}{2\sqrt{\pi}}\Gamma(s)\Gamma\qty(s + \frac{1}{2}).
-\end{align}
+
 
 \subsection{ベータ関数}
 \begin{definition}
