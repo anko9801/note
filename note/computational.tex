@@ -11,8 +11,8 @@
 \usepackage{ascmac}
 \usepackage{mathtools} % amsmath の拡張
 \usepackage{siunitx} % 単位
-\usepackage{physics}
-% \usepackage{physics2}
+% \usepackage{physics}
+\usepackage{physics2}
 \usepackage{braket} % braket 記法
 \usepackage{verbatimbox}
 \usepackage{bm} % ベクトルで使われる太字斜体
@@ -26,8 +26,7 @@
 \usepackage{hyperref} % ハイパーリンクを埋め込む
 \usepackage{pxjahyper}
 \usepackage{tikz} % グラフや図形を描く
-\usetikzlibrary{cd}
-\usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
+\usetikzlibrary{cd, intersections, calc, arrows, positioning, arrows.meta, automata}
 \usepackage{listings} % ソースコードの挿入
 \lstset{
   language=C++,
@@ -81,6 +80,7 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
