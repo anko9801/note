@@ -10,8 +10,11 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usepackage{indentfirst} % 最初の段落にインデント
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -48,6 +51,7 @@
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
+\renewcommand{\aa}{\mathfrak{a}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
 \newcommand{\ignore}[1]{}
@@ -58,6 +62,8 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand\mqty[1]{\begin{matrix}#1\end{matrix}}
+\newcommand\pmqty[1]{\begin{pmatrix}#1\end{pmatrix}}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -153,23 +159,37 @@
 \clearpage
 
 \section{環論}
-\begin{definition}[環]
-  集合 $A$ に2つの演算 $+$, $\times$ が定義されていて加法, 乗法に関してそれぞれ可換群, モノイドになるかつ分配法則を満たすとき $A$ を環という.
+\begin{definition}[環 (ring)]
+  集合 $A$ が次の条件を満たす 2 つの二項演算をもつとき $A$ を環という。
+  \begin{enumerate}
+    \item $A$ は加法に関してアーベル群である。
+    \item 乗法は結合的であり、加法に対して分配的である。
+    \item すべての $x\in A$ に対して、 $x1 = 1x = x$ を満たす元 $1\in A$ が存在する。
+  \end{enumerate}
 \end{definition}
 
 \begin{proposition}
-  $\forall a\in A\ 0a = a0 = 0$
+  $0 = 1$ のとき $A$ は唯一の元 $0$ からなる。このとき $A$ は零環 (zero ring) といい、$0$ で表される。
 \end{proposition}
 \begin{proof}
-  $0a = (0 + 0)a = 0a + 0a$ より $0a = 0$. 逆も同様.
+  任意の元 $x\in A$ について次が成り立つ。
+  \begin{align}
+    x = x1 = x0 = 0
+  \end{align}
 \end{proof}
 
+\begin{definition}[環準同型写像 (ring homomorphism)]
+  環 $A, B$ に関して写像 $f: A\to B$ が次の条件を満たすとき環準同型写像 (ring homomorphism) という。
+  \begin{enumerate}
+    \item $f(x + y) = f(x) + f(y)$
+    \item $f(xy) = f(x)f(y)$
+    \item $f(1) = 1$
+  \end{enumerate}
+\end{definition}
+
 \begin{proposition}
-  $1=0$ となる環 $\iff$ $0$ 以外の元のない自明な環.
+  $f: A\to B$, $g: B\to C$ が環準同型写像ならば合成写像 $g\circ f: A\to C$ も環準同型写像である。
 \end{proposition}
-\begin{proof}
-  $a = 1a = 0a = 0$ より任意の元は $0$ となり自明な環となる. 逆は自明.
-\end{proof}
 
 具体例
 \begin{enumerate}
@@ -180,10 +200,116 @@
   \item 2次の環 $\mathbb{Z}[\sqrt{d}]$ は環になる.
 \end{enumerate}
 
+\begin{definition}[部分環 (subring)]
+  環 $A$ の部分集合 $S$ は、加法乗法に関して閉じていて $A$ の単位元を含んでいるとき $A$ の部分環 (subring) であるという。
+\end{definition}
+
+\begin{definition}[イデアル]
+  $\mathfrak{a}$ を環 $A$ の部分集合とする。$\mathfrak{a}$ が $A$ の加法部分群でかつ $A\mathfrak{a}\subseteq\mathfrak{a}$ を満たすとき、$\mathfrak{a}$ を $A$ のイデアル (ideal) という。
+  剰余群 $A/\mathfrak{a}$ は環 $A$ の乗法から一意的に乗法が定義され、環となる。これを剰余環 (quotient ring, residue-class ring) $A/\mathfrak{a}$ という。
+  $A/\mathfrak{a}$ の元は $A$ における $\mathfrak{a}$ の剰余類であり、任意の $x\in A$ に対して剰余類 $x + \mathfrak{a}$ を対応させる写像 $\phi: A\to A\mathfrak{a}$ は全射的環準同型写像である。
+\end{definition}
+
+\begin{proposition}
+  $\mathfrak{a}$ を含んでいる $A$ のすべてのイデアル $\mathfrak{b}$ の集合と、剰余環 $A/\mathfrak{a}$ のすべてのイデアル $\mathfrak{b}$ の集合との間には、$\mathfrak{b} = \phi^{-1}(\mathfrak{b})$
+\end{proposition}
+
+\begin{definition}[]
+  環 $A$ の零因子 (zero divisor) とは、「$0$ を割り切る」元 $x$ のことである。すなわち $A$ のある元 $y \neq 0$ が存在して $xy = 0$ となる元 $x\in A$ のことである。
+  零元と異なる零因子をもたない環を整域 (integral domain) という ($0 \neq 1$ としている)。
+
+  元 $x\in A$ はある $n > 0$ に対して $x^n = 0$ となるとき、ベキ零元 (nilpotent) であるという。
+
+  $x\in A$ が $1$ を割り切るとき、すなわちある元 $y\in A$ が存在して $xy = 1$ となるとき $x$ を $A$ の単元 (unit) という。このとき $y$ は $x$ に対して一意に定まり、$x^{-1}$ によって表す。
+  $A$ におけるすべての単元の集合はアーベル群をつくる。
+\end{definition}
+
+\begin{proposition}
+  $A\neq 0$ を環とする。このとき次は同値である。
+  \begin{enumerate}
+    \item $A$ は体である。
+    \item $A$ のイデアルは $0$ と $(1)$ のみである。
+    \item $A$ から零でない環 $B$ へのすべての環準同型は単射である。
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  ($1 \implies 2$) $\aa \neq 0$ を $A$ のイデアルとする。$\aa$ は零でない元 $x$ を含む。$x$ は単元であるから $\aa\supseteq (x) = (1)$ となり $\aa = (1)$ を得る。
+
+  ($2 \implies 3$) $\phi: A\to B$ を環準同型とする。このとき $\Kernel(\phi)$ は $(1)$ と異なるイデアルであるから $\Kernel(\phi) = 0$ である。よって $\phi$ は単射である。
+
+  ($3 \implies 1$) $x$ を単元でない $A$ の元とする。すると $(x) \neq (1)$ であるから $B = A/(x)$ は零環ではない。$\phi: A\to B$ を自然な準同型とすると $\Kernel(\phi) = (x)$ である。仮定より $\phi$ は単射であるから $(x) = 0$。したがって $x = 0$ となる。
+\end{proof}
+
+\begin{proposition}
+  $x$ を環 $A$ のベキ零元とする。$1 + x$ は $A$ の単元であることを示せ。これよりベキ零元と単元の和は単元であることを示せ。
+\end{proposition}
+\begin{proof}
+  $x$ がベキ零元であるから $x^n = 0$ となる $n > 0$ が存在する。
+  \begin{align}
+    (1 + x)(1 + (-x) + \cdots + (-x)^{n-1}) = 1 + (-x)^n = 1
+  \end{align}
+  単元 $a$ を用いると $a^{-1}x$ もベキ零元となるから $a + x$ も単元となる。
+  \begin{align}
+    (a + x)a^{-1} = 1 + a^{-1}x
+  \end{align}
+\end{proof}
+
+\begin{proposition}
+  $f = a_0 + a_1x + \cdots + a_nx^n\in A[x]$ について
+  \begin{enumerate}
+    \item $f$ が単元である $\iff$ $a_0$ が単元で、かつ $a_1,\ldots,a_n$ はベキ零元である。
+    \item $f$ がベキ零元である $\iff$ $a_0,a_1,\ldots,a_n$ がベキ零元である。
+    \item $f$ が零因子である $\iff$ $A$ のある元 $a \neq 0$ が存在して $af = 0$ を満たす。
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \begin{enumerate}
+    \item ($\implies$) $f^{-1} = b_0 + b_1x + \cdots + b_mx^m$ とおくと
+          \begin{align}
+            ff^{-1}     & = (a_0 + a_1x + \cdots + a_nx^n)(b_0 + b_1x + \cdots + b_mx^m) \\
+                        & = a_0b_0 + (a_0b_1 + a_1b_0)x + \cdots + a_nb_mx^{n+m}         \\
+                        & = 1                                                            \\
+            \iff a_0b_0 & = 1, \sum_{i + j = k}a_ib_j = 0 \qquad (k > 0)
+          \end{align}
+          より $a_0, b_0$ は単元である。ここで $a_n^{r + 1}b_{m - r} = 0$ について帰納法を用いて示す。まず $a_nb_m = 0$ である。$r - 1$ までが成り立ち $r$ のときを考える。
+          \begin{align}
+            a_n^{r+1}b_{m-r} & = a_n^r(a_nb_{m-r})                                                                              \\
+                             & = a_n^r(- a_{n-1}b_{m-r+1} - a_{n-2}b_{m-r+2} - \cdots - a_{n-r}b_m)                             \\
+                             & = - a_{n-1}(a_n^rb_{m-r+1}) + a_na_{n-2}(a_n^{r-1}b_{m-r+2}) + \cdots + a_n^{r-1}a_{n-r}(a_nb_m) \\
+                             & = 0
+          \end{align}
+          これより帰納法から $a_n^{r + 1}b_{m - r} = 0$ が成り立つ。これより $r = m$ とすると $b_0$ は単元であるから $a_n^{m+1} = 0$ より $a_nx^n$ はベキ零元である。これより $f - a_nx^n$ は単元である。よって帰納法から $a_1,\ldots,a_n$ はベキ零元である。
+
+          ($\impliedby$) $g = b_0 + b_1x + \cdots + b_mx^m$ とおき $fg = 1$ となるように $g$ を決定する。
+          \begin{align}
+            fg          & = (a_0 + a_1x + \cdots + a_nx^n)(b_0 + b_1x + \cdots + b_mx^m) \\
+                        & = a_0b_0 + (a_0b_1 + a_1b_0)x + \cdots + a_nb_mx^{n+m} = 1     \\
+            \iff a_0b_0 & = 1, \sum_{i}a_ib_{k - i} = 0 \qquad (k > 0)                   \\
+            \iff b_0    & = a_0^{-1}, b_k = -a_0^{-1}\ab(\sum_{i=1}^{k}a_ib_{k-i})
+          \end{align}
+          これより $f$ は単元となる。
+    \item ($\implies$) $1 + f$ は単元であるから (1) より $a_1,\ldots,a_n$ はベキ零元である。また $f^m = 0$ となる $m > 0$ があり、その定数項は $a_0^m = 0$ であるから $a_0$ もベキ零元である。
+
+          ($\impliedby$) 各 $a_i$ に対して $m_i$ を $a_i^{m_i} = 0$ となる最小の数とする。$M = \max m_i$ とおくと鳩の巣原理より $f^{nM} = 0$ となる。よって $f$ はベキ零元である。
+    \item ($\implies$) $g = b_0 + b_1x + \cdots + b_mx^m$ を $fg = 0$ を満たす最小の次数の多項式 $g\in A[x]$ とする。ここで $a_nb_m = 0$ であるから $a_ng$ について
+          \begin{align}
+            fa_ng     & = 0 \\
+            \deg a_ng & < m
+          \end{align}
+          より次数の最小性から $a_ng = 0$ となる。これより $fg = (a_0 + a_1x + \cdots + a_{n-1}x^{n-1})g = 0$ であるから $a_{n-1}b_m = 0$ が成り立ち、$a_{n-1}g = 0$ となる。よって同様に考えて一次の係数を比較することで分かる。
+          \begin{align}
+            a_ng & = a_{n-1}g = \cdots = a_0g = 0 \\
+            b_0f & = 0
+          \end{align}
+
+          ($\impliedby$) 自明。
+  \end{enumerate}
+\end{proof}
+
+
 \begin{definition}[準同型・同型]
   $A$, $B$ を環, $\phi:A\to B$ を写像とする.
   \begin{enumerate}
-    \item 任意の $x,y\in A$ に対し $\phi(x+y) = \phi(x) + \phi(y)$, $\phi(xy) = \phi(x)\phi(y)$ が成り立ち, $\phi(1_A) = 1_B$ であるとき, $\phi$ を準同型という.
     \item $\phi$ が準同型で逆写像が存在し, 逆写像も準同型であるとき, $\phi$ は同型であるという. また, このとき, $A$, $B$ は同型であるといい, $A\cong B$ と書く.
     \item $A = B$ なら準同型・同型を自己準同型・自己同型という. 環 $A$ の自己同型全体の集合を $\mathrm{Aut}^{\mathrm{al}}A$ と書く.
   \end{enumerate}
@@ -205,7 +331,7 @@
 \end{proof}
 
 \begin{proposition}
-  $\phi:A\to B$ が環の準同型ならば, 単射 $\iff$ $\Kernel{\phi} = \qty{0}$
+  $\phi:A\to B$ が環の準同型ならば, 単射 $\iff$ $\Kernel{\phi} = \Bab{0}$
 \end{proposition}
 \begin{proof}
   ($\implies$) $\phi$ が環の準同型であるから $\phi(0_A) = 0_B$ より $0_A\in\Kernel\phi$. また元 $\forall x, y \in \Kernel\phi$ について $\phi$ の単射性より $\phi(x) = \phi(y) \implies x = y$ となり, $\Kernel\phi$ には $0$ 以外の元は存在しない. \\
