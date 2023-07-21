@@ -60,8 +60,8 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
-\newcommand\mqty[1]{\begin{matrix}#1\end{matrix}}
-\newcommand\pmqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -138,6 +138,7 @@
 \newqedtheorem{problem}{問題}
 \newqedtheorem{algorithm}{アルゴリズム}
 
+\newscreentheorem*{axiom}{公理}
 \newscreentheorem*{definition}{定義}
 
 \renewenvironment{proof}[1][\proofname]{\par
