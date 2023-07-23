@@ -62,6 +62,7 @@
 \newcommand{\EC}{\mathcal\bm{E}}
 \newcommand{\LL}{\bm{L}}
 \newcommand{\ee}{\bm{\epsilon}}
+\newcommand{\omg}{\bm{\omega}}
 \renewcommand{\SS}{\bm{S}}
 \newcommand{\JJ}{\bm{J}}
 \newcommand{\vnabla}{\mathbf{\nabla}}
@@ -889,4 +890,73 @@ CGSガウス単位系でのエネルギー密度の総和を考えると
   \end{cases}
 \end{align}
 このように helicity とは光子の角運動量の進行方向の成分を $\hbar$ 単位で測った量である.
+
+\section{Ray Tracing}
+\begin{definition}
+  可視光
+\end{definition}
+\begin{definition}
+  視点から仮想の光線レイをシーンに向けて飛ばし、さらに反射・屈折して光源へ飛ばす。
+  \begin{align}
+    \rr = \rr_0 + t\bm{d}
+  \end{align}
+\end{definition}
+\begin{definition}[ガンマ補正]
+  \begin{align}
+    \gamma: (R, G, B) \mapsto (R^{1/2.2}, G^{1/2.2}, B^{1/2.2})
+  \end{align}
+\end{definition}
+
+\begin{definition}[影]
+  太陽の方向を $\bm{l}$ とすると光の強さを $\max(\bm{l}\cdot\bm{n}, 0)$ とする。
+\end{definition}
+
+\section{物理ベースレンダリング理論}
+\begin{definition}
+  光の方向を一方向に絞り、
+  \begin{align}
+    \EE(t, \rr) & = \int_{\RR}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}
+  \end{align}
+  放射束
+  \begin{align}
+    E_\lambda & = n\frac{hc}{\lambda}, \qquad \Phi_\lambda = \diff{E_\lambda}{t}, \qquad \Phi = \int_{\RR}\Phi_\lambda \dl{\lambda}
+  \end{align}
+  放射輝度
+  \begin{align}
+    L(x, \omg) = \frac{1}{\cos\theta}\diff{\Phi}{A, \omg}
+  \end{align}
+  RGB それぞれの放射束をそのまま画像にすればいい。
+  本来は可視光領域全てのスペクトルなので荒い近似になる。
+  全波長考慮したレンダリングはフルスペクトラムレンダリングと呼ぶ。
+\end{definition}
+
+\begin{definition}[双方向反射率分布関数 (BRDF)]
+  発光 $L_e(x, \omg_r)$
+  \begin{align}
+    L_r(x, \omg_r)      & = \int_\Omega f(x, \omg_i, \omg_r)L_i(x, \omg_i)\cos\theta\dl{\omg_i} \\
+    \dl{L_r}(x, \omg_r) & = f(x, \omg_i, \omg_r)L_i(x, \omg_i)\cos\theta\dl{\omg_i}             \\
+  \end{align}
+\end{definition}
+
+\begin{definition}[レンダリング方程式]
+  \begin{align}
+    L_o(x, \omg_r) & = L_e(x, \omg_r) + L_r(x, \omg_r) \\
+    L_i(x, \omg_i) & = L_o(t(x, \omg_i), \omg_i)
+  \end{align}
+\end{definition}
+
+
+\begin{proposition}
+  \begin{align}
+    L_r(x, \omg_r) & = sL_i(x, \omg_i)
+  \end{align}
+\end{proposition}
+
+\begin{definition}
+
+\end{definition}
+
+
+
+
 \end{document}
