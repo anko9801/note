@@ -51,6 +51,8 @@
 \newcommand{\TT}{\mathbb{T}}
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
+\newcommand{\DD}{\bm{D}}
+\newcommand{\HH}{\bm{H}}
 \renewcommand{\AA}{\bm{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
@@ -113,7 +115,7 @@
     \end{#2}
   }
 }
-\newtheorem{theorem*}{定理}
+\newtheorem{theorem*}{定理}[section]
 
 \newqedtheoremx{theorem}{theorem*}
 \newcommand*\newqedtheorem@unstarred[2]{%
@@ -176,10 +178,10 @@
 \begin{definition}[Maxwell の方程式]
   電場 $\EE$ と磁束密度 $\BB$ に対して次のような式が成り立つ。
   \begin{align}
-     & \int_{\partial V}\EE\cdot\bm{n}\dl{S} = \frac{1}{\epsilon_0}\int_V\rho\dl{V}                                                     &  & \iff \vnabla\cdot\EE  = \frac{\rho}{\epsilon_0}                                  \\
-     & \int_{\partial S}\EE\cdot\dl{\bm{l}} = -\diff{t}\int_S\BB\cdot\bm{n}\dl{S}                                                       &  & \iff \vnabla\cdot\BB  = 0                                                        \\
-     & \int_{\partial V}\BB\cdot\bm{n}\dl{S} = 0                                                                                        &  & \iff \vnabla\times\EE = -\diffp{\BB}{t}                                          \\
-     & c^2\int_{\partial S}\BB\cdot\dl{\bm{l}} = \frac{1}{\epsilon_0}\int_S\bm{j}\cdot\bm{n}\dl{S} + \diff{t}\int_S\EE\cdot\bm{n}\dl{S} &  & \iff \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t} \label{Ampere}
+     & \int_{\partial V}\EE\cdot\bm{n}\dl{S} = \frac{1}{\epsilon_0}\int_V\rho\dl{V}                                                       &  & \iff \vnabla\cdot\EE  = \frac{\rho}{\epsilon_0}                                  \\
+     & \int_{\partial S}\EE\cdot\dl{\bm{l}} = -\diff{}{t}\int_S\BB\cdot\bm{n}\dl{S}                                                       &  & \iff \vnabla\cdot\BB  = 0                                                        \\
+     & \int_{\partial V}\BB\cdot\bm{n}\dl{S} = 0                                                                                          &  & \iff \vnabla\times\EE = -\diffp{\BB}{t}                                          \\
+     & c^2\int_{\partial S}\BB\cdot\dl{\bm{l}} = \frac{1}{\epsilon_0}\int_S\bm{j}\cdot\bm{n}\dl{S} + \diff{}{t}\int_S\EE\cdot\bm{n}\dl{S} &  & \iff \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t} \label{Ampere}
   \end{align}
   ただし電荷密度 $\rho(t, \rr) = qn$, 電流密度 $\bm{j}(t, \rr) = qn\bm{v}$ とする。
   \begin{align}
@@ -216,6 +218,20 @@
   \end{align}
 \end{proof}
 
+\begin{theorem}
+  真空中での電磁場のエネルギー
+  \begin{align}
+    u_{em} = \frac{1}{2}\varepsilon_0\EE^2 + \frac{1}{2\mu_0}\BB^2
+  \end{align}
+\end{theorem}
+
+\begin{definition}[Poynting ベクトル]
+  エネルギーの流れの密度
+  単位時間に単位面積を通過するエネルギー
+  \begin{align}
+    \SS(\rr) = \EE(\rr)\times\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\times\BB(\rr)
+  \end{align}
+\end{definition}
 
 \subsection{電磁ポテンシャルとゲージ変換}
 \begin{theorem}[電位とベクトルポテンシャル]
@@ -267,10 +283,6 @@
     \end{dcases}
   \end{align}
 \end{proof}
-
-\begin{definition}
-  $\vnabla\cdot\AA = 0$ を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
-\end{definition}
 
 \begin{theorem}[ゲージ変換]
   任意の関数 $\chi(\rr, t)$ として次のゲージ変換は不変に保つ。
@@ -329,14 +341,17 @@
     \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA = 0
   \end{align}
 \end{definition}
-\begin{align}
-   & \ab(\frac{1}{c^2}\diffp[2]{t} - \laplacian)\chi = \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA \\
-   & \ab(\frac{1}{c^2}\diffp[2]{t} - \laplacian)\phi = \frac{\rho}{\epsilon_0}                        \\
-   & \ab(\frac{1}{c^2}\diffp[2]{t} - \laplacian)\AA = \mu_0\bm{j}
-\end{align}
+
+\begin{proposition}
+  ローレンツゲージのとき
+  \begin{align}
+     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\chi = \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA \\
+     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\phi = \frac{\rho}{\epsilon_0}                        \\
+     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\AA = \mu_0\bm{j}
+  \end{align}
+\end{proposition}
 
 \subsection{遅延ポテンシャル}
-\subsection{電気双極子放射}
 
 \subsection{Coulomb 力}
 \begin{theorem}
@@ -357,6 +372,10 @@
 \subsection{電気双極子}
 \begin{proposition}[電気双極子]
   位置 $\rr$ での電位は点電荷 $-Q$ 点電荷 $+Q$
+  \begin{align}
+    \phi(\rr) & = \frac{1}{4\pi\varepsilon_0}\frac{\pp\cdot(\rr - \rr')}{|\rr - \rr'|^3}                                       \\
+    \EE(\rr)  & = \frac{1}{4\pi\varepsilon_0}\frac{\ab(3\pp\cdot(\rr - \rr'))(\rr - \rr') - (\rr - \rr')^2\pp}{|\rr - \rr'|^5}
+  \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
@@ -371,20 +390,13 @@
 \begin{proposition}[極座標で表した電気双極子]
 \end{proposition}
 
-\begin{theorem}
-  真空中での電磁場のエネルギー
-  \begin{align}
-    u_{em} = \frac{1}{2}\varepsilon_0\EE^2 + \frac{1}{2\mu_0}\BB^2
-  \end{align}
-\end{theorem}
+\begin{proposition}[電気四重極子]
 
-\begin{definition}[Poynting ベクトル]
-  エネルギーの流れの密度
-  単位時間に単位面積を通過するエネルギー
-  \begin{align}
-    \SS(\rr) = \EE(\rr)\times\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\times\BB(\rr)
-  \end{align}
-\end{definition}
+\end{proposition}
+
+\begin{proposition}[電気双極子放射]
+
+\end{proposition}
 
 
 \section{真空中の電磁波}
@@ -419,16 +431,11 @@
 \end{proof}
 
 \subsection{導波管での電磁場の伝搬}
-\begin{align}
-  D_{1\parallel} & = D_{2\parallel} \\
-  E_{1\perp}     & = E_{2\perp}
-\end{align}
 
 \section{特殊相対論と電磁場}
 
 
-\section{誘電体中の電磁気学}
-\subsection{導体}
+\section{導体と電場}
 \begin{definition}[導体]
   時間が経つと
   \begin{enumerate}
@@ -454,5 +461,84 @@
 
 \subsection{静電遮蔽}
 導体によって囲まれた空間内の電場は外部の電場に影響されず内部の電荷のみで決まる。
+
+\section{誘電体と電場}
+\subsection{誘電体の基礎}
+\begin{definition}[誘電体]
+  誘電体は外から電場を作用させると正の電荷と負の電荷は逆向きに変位し、電気的に分極して微視的な電気双極子を作る。これを電気分極 (electric polarization) といい、電気分極によって電場は弱められる。このとき電気分極による電気双極子モーメント密度を $\bm{P}(\rr)$ と表す。
+\end{definition}
+
+\begin{definition}[]
+  誘電体に関しては仮想的な電荷を導入することで真空中の電磁気学を近似的に適用できる。これを分極電荷 (polarization charge) という。 \\
+
+  誘電体内部と誘電体表面における分極電荷の電荷密度を $\rho_P(\rr), \sigma_P(\rr)$ とおくと、電気分極 $\bm{P}$ を用いて次のように表される。対照的に真電荷の電荷密度を $\rho_e(\rr)$
+  \begin{align}
+    \rho_P(\rr)   & = - \vnabla\cdot\bm{P} \\
+    \sigma_P(\rr) & = \bm{n}\cdot\bm{P}
+  \end{align}
+\end{definition}
+
+\begin{theorem}[誘電体のガウスの法則]
+  誘電体による分極電荷を含むガウスの法則は次のように書ける。
+  \begin{align}
+    \int\DD\cdot\bm{n}\dl{S} & = \int\rho_e(\rr)\dl{V} \iff \vnabla\cdot\DD = \rho_e
+  \end{align}
+\end{theorem}
+\begin{proof}
+  誘電体の中の巨視的な電場 $\EE$ は外部電場 $\EE_e$ と分極電場 $\EE_P$ からなる。
+  \begin{align}
+    \varepsilon_0\int_{\partial V}\EE\cdot\bm{n}\dl{S} & = \varepsilon_0\int_{\partial V}(\EE_e + \EE_P)\cdot\bm{n}\dl{S}                               \\
+                                                       & = \int_{V}\rho_e\dl{V} + \int_V\rho_P\dl{V} + \int_{S_P}\sigma_P\dl{S}                         \\
+                                                       & = \int_{V}\rho_e\dl{V} + \int_V(-\vnabla\cdot\bm{P})\dl{V} - \int_{S_P}\bm{P}\cdot\bm{n}\dl{S} \\
+                                                       & = \int_{V}\rho_e\dl{V} - \int_{\partial V + S_P}\bm{P}\cdot\bm{n}\dl{S}
+  \end{align}
+  これより $\DD(\rr) = \varepsilon_0\EE(\rr) + \bm{P}(\rr)$ とおくことで求まる。
+  \begin{align}
+    \int_{\partial V}\DD\cdot\bm{n}\dl{S} & = \int_{V}\rho_e\dl{V} \\
+    \vnabla\cdot\DD                       & = \rho_e
+  \end{align}
+\end{proof}
+
+\begin{definition}
+  電束密度を $\DD(\rr) = \varepsilon_0\EE(\rr) + \bm{P}(\rr)$ とおく。
+\end{definition}
+
+\begin{theorem}[境界条件]
+  誘電体の境界面において磁場がないとき次の境界条件を満たす。
+  \begin{align}
+    D_{1\perp}     & = D_{2\perp}     \\
+    E_{1\parallel} & = E_{2\parallel}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  Maxwell の方程式より
+  \begin{align}
+    0 = \int_S\DD\cdot\bm{n}\dl{S}           & = D_{1\perp}\Delta S + D_{2\perp}(-\Delta S) \\
+    D_{1\perp}                               & = D_{2\perp}                                 \\
+    0 = \int_{\partial S}\EE\cdot\dl{\bm{l}} & = E_{1\parallel}l - E_{2\parallel}l          \\
+    E_{1\parallel}                           & = E_{2\parallel}
+  \end{align}
+\end{proof}
+
+\begin{theorem}[誘電体のエネルギー]
+  \begin{align}
+    u_e = \EE\cdot\Delta \bm{P}
+  \end{align}
+\end{theorem}
+
+\begin{theorem}
+  マクスウェルの応力
+\end{theorem}
+
+\subsection{コンデンサーの極板}
+
+\subsection{常誘電体}
+\begin{definition}
+  電場に比例して電気分極が現れる場合を常誘電相 (paraelectric phase) といい、そのような誘電体を常誘電体という。この電気分極は電気感受率 (electric susceptibility) $\chi$ を用いて次のように表される。
+  \begin{align}
+    \bm{P} = \varepsilon_0\chi\EE
+  \end{align}
+  電場を掛けなくても微視的な電気双極子が一方向に揃った電気分極は大きな値をとる。これを自発分極 (spontaneous polarization) といい、このような物質を強誘電体 (ferroelectrics) という。
+\end{definition}
 
 \end{document}
