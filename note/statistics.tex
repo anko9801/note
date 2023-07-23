@@ -1,5 +1,5 @@
 \RequirePackage{plautopatch}
-\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\documentclass[uplatex,diffipdfmx,a4paper,11pt]{jlreq}
 \usepackage{bxpapersize}
 \usepackage[utf8]{inputenc}
 \usepackage{fontenc}
@@ -10,13 +10,14 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
 \usepackage{siunitx}
-% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+% \usepackage[diffipdfmx,hiresbb,final]{graphicx}
 \usepackage{hyperref}
 \usepackage{pxjahyper}
 \usepackage{tikz}\usetikzlibrary{cd}
@@ -65,6 +66,8 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -213,8 +216,8 @@
 \begin{theorem}
   $N$ 次元の調和振動子で $E = M\hbar\omega$ とおくと状態数とエントロピーは次のように書ける。
   \begin{align}
-    W(E) & = \mqty(M + N - 1                                                                         \\ N - 1) \\
-    S(E) & \approx k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+    W(E) & = \mqty{M + N - 1                                                                       \\ N - 1} \\
+    S(E) & \approx k_BN\ab(\ab(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -224,14 +227,14 @@
   \end{align}
   等しいエネルギーの状態の条件は $M = n_1 + \cdots + n_N$ と書ける。これより状態数の組合せは次のように書ける。
   \begin{align}
-    W(E) & = \mqty(M + N - 1 \\ N - 1) = \frac{(M + N - 1)!}{(N - 1)!M!}
+    W(E) & = \mqty{M + N - 1 \\ N - 1} = \frac{(M + N - 1)!}{(N - 1)!M!}
   \end{align}
   またエントロピーは Stirling の公式 $\log n! \approx n(\log n - 1)$ を用いて
   \begin{align}
-    S(E) & = k_B\log W(E)                                                                      \\
-         & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                            \\
-         & \approx k_B\qty((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))           \\
-         & = k_BN\qty(\qty(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+    S(E) & = k_B\log W(E)                                                                    \\
+         & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                          \\
+         & \approx k_B\ab((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))          \\
+         & = k_BN\ab(\ab(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
   \end{align}
 \end{proof}
 
@@ -246,10 +249,10 @@
                 & = k_B\log W_A(E_A) + k_B\log W_B(E_B) \\
                 & = S_A(E_A) + S_B(E_B)
   \end{align}
-  となる。このとき熱平衡状態とはエントロピーが最大の状態であるから $\dv*{S}{E_A} = 0$ となるエネルギー $E_A, E_B$ を考えると
+  となる。このとき熱平衡状態とはエントロピーが最大の状態であるから $\diff*{S}{E_A} = 0$ となるエネルギー $E_A, E_B$ を考えると
   \begin{align}
-    \dv{S(E_A, E_B)}{E_A}   & = \dv{S_A(E_A)}{E_A} + \dv{S_A(E_B)}{E_A} = \dv{S_A(E_A)}{E_A} - \dv{S_A(E_B)}{E_B} = 0 \\
-    \iff \dv{S_A(E_A)}{E_A} & = \dv{S_A(E_B)}{E_B}
+    \diff{S(E_A, E_B)}{E_A}   & = \diff{S_A(E_A)}{E_A} + \diff{S_A(E_B)}{E_A} = \diff{S_A(E_A)}{E_A} - \diff{S_A(E_B)}{E_B} = 0 \\
+    \iff \diff{S_A(E_A)}{E_A} & = \diff{S_A(E_B)}{E_B}
   \end{align}
   よりエントロピーのエネルギー微分を温度の逆数 $1/T$ と定義すると温度が一致するときに熱平衡状態となる。
 \end{proof}
@@ -257,7 +260,7 @@
 \begin{definition}
   絶対温度 (absolute temperature) $T$ を次のように定義する。
   \begin{align}
-    \frac{1}{T} & := \dv{S}{E}
+    \frac{1}{T} & := \diff{S}{E}
   \end{align}
 \end{definition}
 
@@ -266,68 +269,68 @@
 \begin{theorem}[理想気体]
   理想気体、つまり 3 次元箱型ポテンシャル中の独立な区別できない $N$ 個の粒子について
   \begin{align}
-    S & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \ln\alpha + \mathcal{O}(N^{-1}\ln N)) & \qty(\alpha = \qty(\frac{me}{3\pi\hbar^2})^{\frac{3}{2}}) \\
+    S & = Nk_B\ab(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \ln\alpha + \mathcal{O}(N^{-1}\ln N)) & \ab(\alpha = \ab(\frac{me}{3\pi\hbar^2})^{\frac{3}{2}}) \\
     E & = \frac{3}{2}Nk_BT
   \end{align}
 \end{theorem}
 \begin{proof}
   部分系の固有状態と固有エネルギーが分かれば全体系のも分かる。
   \begin{align}
-    E_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}}    & = E_0\sum_{i=1}^{N}\sum_{a=x,y,z}n_{i,a}^2                                                \\
-    \psi_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}} & = \qty(\frac{2}{L})^{3N/2}\prod_{i=1}^{N}\prod_{a=x,y,z}\sin(\frac{n_{i,a}\pi}{L}x_{i,a})
+    E_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}}    & = E_0\sum_{i=1}^{N}\sum_{a=x,y,z}n_{i,a}^2                                               \\
+    \psi_{(n_{i, a})_{i=1,\ldots,N,a=x,y,z}} & = \ab(\frac{2}{L})^{3N/2}\prod_{i=1}^{N}\prod_{a=x,y,z}\sin(\frac{n_{i,a}\pi}{L}x_{i,a})
   \end{align}
   これよりあるエネルギー $E > 0$ 以下である区別できる固有状態数 $\Omega(E)$ について
   \begin{align}
-    \Omega(E) & = \qty(半径 \sqrt{\frac{E}{E_0}} の 3N 次元超球の第一象限に含まれる格子点の個数)                                                         \\
-              & \approx \frac{1}{2^{3N}}\sqrt{\frac{E}{E_0}}^{3N}\frac{\pi^{3N/2}}{(3N/2)!}                                       \\
-              & = \frac{1}{(3N/2)!}\frac{\pi^{3N/2}}{2^{3N}}\qty(\frac{2mL^2}{\pi^2\hbar^2})^{3N/2}E^{3N/2}                       \\
-              & = \frac{1}{(3N/2)!}\qty(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                                                  \\
-              & = \frac{1}{\sqrt{3\pi N}(3N/2)^{3N/2}e^{-3N/2}}\qty(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                      \\
-              & = \frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2} \\
+    \Omega(E) & = \ab(半径 \sqrt{\frac{E}{E_0}} の 3N 次元超球の第一象限に含まれる格子点の個数)                                                       \\
+              & \approx \frac{1}{2^{3N}}\sqrt{\frac{E}{E_0}}^{3N}\frac{\pi^{3N/2}}{(3N/2)!}                                    \\
+              & = \frac{1}{(3N/2)!}\frac{\pi^{3N/2}}{2^{3N}}\ab(\frac{2mL^2}{\pi^2\hbar^2})^{3N/2}E^{3N/2}                     \\
+              & = \frac{1}{(3N/2)!}\ab(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                                                \\
+              & = \frac{1}{\sqrt{3\pi N}(3N/2)^{3N/2}e^{-3N/2}}\ab(\frac{m}{2\pi\hbar^2})^{3N/2}E^{3N/2}V^N                    \\
+              & = \frac{1}{\sqrt{3\pi N}}N^{N}\ab(\frac{me}{3\pi\hbar^2})^{3N/2}\ab(\frac{E}{V})^{3N/2}\ab(\frac{V}{N})^{5N/2} \\
   \end{align}
   これを区別しないから
   \begin{align}
-    \Omega^{区別できない}(E) & =\frac{1}{N!}\Omega(E)                                                                                                                            \\
-                       & = \frac{1}{N!}\frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2}                     \\
-                       & = \frac{1}{\sqrt{2\pi N}N^Ne^{-N}}\frac{1}{\sqrt{3\pi N}}N^{N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2} \\
-                       & = \frac{e^N}{\sqrt{6}\pi N}\qty(\frac{me}{3\pi\hbar^2})^{3N/2}\qty(\frac{E}{V})^{3N/2}\qty(\frac{V}{N})^{5N/2}
+    \Omega^{区別できない}(E) & =\frac{1}{N!}\Omega(E)                                                                                                                         \\
+                       & = \frac{1}{N!}\frac{1}{\sqrt{3\pi N}}N^{N}\ab(\frac{me}{3\pi\hbar^2})^{3N/2}\ab(\frac{E}{V})^{3N/2}\ab(\frac{V}{N})^{5N/2}                     \\
+                       & = \frac{1}{\sqrt{2\pi N}N^Ne^{-N}}\frac{1}{\sqrt{3\pi N}}N^{N}\ab(\frac{me}{3\pi\hbar^2})^{3N/2}\ab(\frac{E}{V})^{3N/2}\ab(\frac{V}{N})^{5N/2} \\
+                       & = \frac{e^N}{\sqrt{6}\pi N}\ab(\frac{me}{3\pi\hbar^2})^{3N/2}\ab(\frac{E}{V})^{3N/2}\ab(\frac{V}{N})^{5N/2}
   \end{align}
   これよりエントロピーは
   \begin{align}
-    S(E) & = k_B\ln\Omega^{区別できない}(E)                                                                                                                     \\
-         & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1)
+    S(E) & = k_B\ln\Omega^{区別できない}(E)                                                                                                                    \\
+         & = Nk_B\ab(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1)
   \end{align}
   よって温度を計算すると式が示せる。
   \begin{align}
-    \frac{1}{T} = \dv{S}{E} & = \frac{3}{2}Nk_B\frac{1}{E} \\
-    E                       & = \frac{3}{2}Nk_BT
+    \frac{1}{T} = \diff{S}{E} & = \frac{3}{2}Nk_B\frac{1}{E} \\
+    E                         & = \frac{3}{2}Nk_BT
   \end{align}
 \end{proof}
 
 \section{ミクロカノニカル分布}
-\subsection{エネルギーシェル}
+\subsection{ミクロカノニカルアンサンブル}
 \begin{axiom}[等重率の原理]
   孤立した物理系 $X$ において、外部から指定されたある狭いエネルギー範囲 $[U - ∆U, U]$ に固有エネルギー $E_i$ が属するような微視的なエネルギー固有状態 $\ket{\phi_i}$ のひとつひとつが実現される等しい確からしさを持っている。
 \end{axiom}
 エネルギーの低い順にエネルギーシェル $E$ から $E + \Delta E$ までの中の状態を 1 つのグループでまとめてラベル付けする。
 \begin{align}
-  N = \sum_{l}N_l, \qquad E = \sum_{l}E_lN_l, \qquad W = \prod_{l}\frac{M_l^{N_l}}{N_l!}, \qquad S = k_B\sum_{l}N_l\qty(\log\frac{M_l}{N_l} + 1)
+  N = \sum_{l}N_l, \qquad E = \sum_{l}E_lN_l, \qquad W = \prod_{l}\frac{M_l^{N_l}}{N_l!}, \qquad S = k_B\sum_{l}N_l\ab(\log\frac{M_l}{N_l} + 1)
 \end{align}
 
 \begin{align}
-  \tilde{S}            & = k_B\sum_{l}N_l\qty(\log\frac{M_l}{N_l} + 1) - k_B\alpha\sum_{l}N_l - k_B\beta\sum_{l}E_lN_l \\
-  \pdv{\tilde{S}}{N_l} & = 0 \iff \frac{M_l}{N_l} = e^{\alpha + \beta E_l}
+  \tilde{S}              & = k_B\sum_{l}N_l\ab(\log\frac{M_l}{N_l} + 1) - k_B\alpha\sum_{l}N_l - k_B\beta\sum_{l}E_lN_l \\
+  \diffp{\tilde{S}}{N_l} & = 0 \iff \frac{M_l}{N_l} = e^{\alpha + \beta E_l}
 \end{align}
 
 \begin{align}
   N & = \sum_{l}M_le^{-\alpha-\beta E_l}    \\
   E & = \sum_{l}M_lE_le^{-\alpha-\beta E_l} \\
-  S & = k_B\qty((1 + \alpha)N + \beta E)
+  S & = k_B\ab((1 + \alpha)N + \beta E)
 \end{align}
 エネルギーで微分すると
 \begin{align}
-  0         & = \sum_{l}M_l\qty(\dv{\alpha}{E} + \dv{\beta}{E}E_l)e^{-\alpha-\beta E_l} = \dv{\alpha}{E}N + \dv{\beta}{E}E \\
-  \dv{S}{E} & = k_B\qty(\dv{\alpha}{E}N + \dv{\beta}{E}E + \beta) = k_B\beta
+  0           & = \sum_{l}M_l\ab(\diff{\alpha}{E} + \diff{\beta}{E}E_l)e^{-\alpha-\beta E_l} = \diff{\alpha}{E}N + \diff{\beta}{E}E \\
+  \diff{S}{E} & = k_B\ab(\diff{\alpha}{E}N + \diff{\beta}{E}E + \beta) = k_B\beta
 \end{align}
 より $\alpha, \beta$ は次のように表される。
 \begin{align}
@@ -340,29 +343,29 @@
 \begin{definition}
   内部エネルギー $E(S, V)$ とその束縛変数を変更させたエンタルピー $H(S, p)$ と Helmholtz 自由エネルギー $F(T, V)$ と Gibbs 自由エネルギー $G(T, p)$ を次のように定義する。
   \begin{align}
-               & \qquad \dd{E} = T\dd{S} - p\dd{V}  \\
-    H = E + pV & \qquad \dd{H} = T\dd{S} + V\dd{p}  \\
-    F = E - TS & \qquad \dd{F} = -S\dd{T} - p\dd{V} \\
-    G = F + pV & \qquad \dd{G} = -S\dd{T} + V\dd{p}
+               & \qquad \dl{E} = T\dl{S} - p\dl{V}  \\
+    H = E + pV & \qquad \dl{H} = T\dl{S} + V\dl{p}  \\
+    F = E - TS & \qquad \dl{F} = -S\dl{T} - p\dl{V} \\
+    G = F + pV & \qquad \dl{G} = -S\dl{T} + V\dl{p}
   \end{align}
 \end{definition}
 特に扱いやすい変数 $T$, $V$ を持つ Helmholtz 自由エネルギー $F(T, V)$ は重宝される。
 \begin{proposition}
   定義より次の関係式を満たす。
   \begin{align}
-    T = \qty(\pdv{E}{S})_V,  & \qquad p = -\qty(\pdv{E}{V})_S \\
-    T = \qty(\pdv{H}{S})_p,  & \qquad V = \qty(\pdv{H}{p})_S  \\
-    S = -\qty(\pdv{F}{T})_V, & \qquad p = -\qty(\pdv{F}{V})_T \\
-    S = -\qty(\pdv{G}{T})_p, & \qquad V = \qty(\pdv{G}{p})_T
+    T  & = \ab(\diffp{E}{S})_V & -p & = \ab(\diffp{E}{V})_S \\
+    T  & = \ab(\diffp{H}{S})_p & V  & = \ab(\diffp{H}{p})_S \\
+    -S & = \ab(\diffp{F}{T})_V & -p & = \ab(\diffp{F}{V})_T \\
+    -S & = \ab(\diffp{G}{T})_p & V  & = \ab(\diffp{G}{p})_T
   \end{align}
 \end{proposition}
 
 \begin{proposition}[Maxwell の関係式]
   \begin{align}
-    \qty(\pdv{T}{V})_S  & = -\qty(\pdv{p}{S})_V \\
-    \qty(\pdv{T}{p})_S  & = \qty(\pdv{V}{S})_p  \\
-    -\qty(\pdv{S}{V})_T & = -\qty(\pdv{p}{T})_V \\
-    -\qty(\pdv{S}{p})_T & = \qty(\pdv{V}{T})_p
+    \ab(\diffp{T}{V})_S  & = -\ab(\diffp{p}{S})_V \\
+    \ab(\diffp{T}{p})_S  & = \ab(\diffp{V}{S})_p  \\
+    -\ab(\diffp{S}{V})_T & = -\ab(\diffp{p}{T})_V \\
+    -\ab(\diffp{S}{p})_T & = \ab(\diffp{V}{T})_p
   \end{align}
 \end{proposition}
 \begin{proof}
@@ -375,9 +378,9 @@
   \end{align}
 \end{theorem}
 \begin{align}
-  S(E, V) & = Nk_B\qty(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1) \\
-  0       & = Nk_B\qty(\frac{3}{2}\frac{1}{E}\qty(\pdv{E}{V})_S + \frac{1}{V})                                                                             \\
-  p       & = -\qty(\pdv{E}{V})_S = \frac{2}{3}\frac{E}{V} = \frac{Nk_BT}{V}                                                                               \\
+  S(E, V) & = Nk_B\ab(\frac{3}{2}\ln\frac{E}{V} + \frac{5}{2}\ln\frac{V}{N} + \frac{3}{2}\ln(\frac{me}{3\pi\hbar^2}) - \frac{1}{N}\ln(\sqrt{6}\pi N) + 1) \\
+  0       & = Nk_B\ab(\frac{3}{2}\frac{1}{E}\ab(\diffp{E}{V})_S + \frac{1}{V})                                                                            \\
+  p       & = -\ab(\diffp{E}{V})_S = \frac{2}{3}\frac{E}{V} = \frac{Nk_BT}{V}                                                                             \\
   pV      & = Nk_BT
 \end{align}
 
@@ -387,8 +390,8 @@
 
 \begin{definition}[比熱]
   \begin{align}
-    C   & = T\dv{S}{T}          \\
-    C_X & = \qty(T\pdv{S}{T})_X
+    C   & = T\diff{S}{T}         \\
+    C_X & = \ab(T\diffp{S}{T})_X
   \end{align}
 \end{definition}
 これ以降の話は熱力学の方で書きたい。
@@ -399,13 +402,18 @@
 
 \begin{definition}
   \begin{align}
-    \beta    & = \frac{1}{k_BT}                  \\
-    Z(\beta) & = \sum_{i}e^{-\beta E_i}          \\
-    p        & = \frac{e^{-\beta E_i}}{Z(\beta)} \\
-    F        & = -k_BT\ln Z                      \\
-    S        & =
+    \beta    & = \frac{1}{k_BT}         \\
+    Z(\beta) & = \sum_{i}e^{-\beta E_i}
   \end{align}
 \end{definition}
+
+\begin{theorem}
+  \begin{align}
+    p & = \frac{e^{-\beta E_i}}{Z(\beta)} \\
+    F & = -k_BT\ln Z                      \\
+    S & =
+  \end{align}
+\end{theorem}
 
 \begin{theorem}
   $N$ 個の独立な部分系からなる全体系の熱力学量は次のようになる。
@@ -424,30 +432,30 @@
 \begin{theorem}[1個の二準位系]
   二準位系における熱力学的量を考える。低温の漸近領域 ($\beta(E_2 - E_1) \gg 1$, $\beta E_1 \gg 1$) と高温の漸近領域 ($\beta(E_2 - E_1) \ll 1$, $\beta E_1 \ll 1$) は次のようになる。
   \begin{align}
-    Z(\beta) & = e^{-\beta E_1} + e^{-\beta E_2}                                                                                                           \\
+    Z(\beta) & = e^{-\beta E_1} + e^{-\beta E_2}                                                                                                          \\
              & = \begin{dcases}
                    e^{-\frac{E_1}{k_BT}} \to 0      & (低温) \\
                    2 - \frac{E_1 + E_2}{k_BT} \to 2 & (高温)
-                 \end{dcases}                                                                                                   \\
-    F        & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                      \\
+                 \end{dcases}                                                                                                  \\
+    F        & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                     \\
              & = \begin{dcases}
                    E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}} \to E_1  & (低温) \\
                    \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty & (高温)
-                 \end{dcases}                                                                                     \\
-    S        & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
+                 \end{dcases}                                                                                    \\
+    S        & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
              & = \begin{dcases}
-                   k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0            & (低温) \\
-                   k_B\qty(\ln 2 - \frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 & (高温)
+                   k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0          & (低温) \\
+                   k_B\ab(\ln 2 - \frac{1}{4}\ab(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 & (高温)
                  \end{dcases}                                                     \\
-    U        & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                             \\
+    U        & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                            \\
              & = \begin{dcases}
                    E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     & (低温) \\
                    \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) & (高温)
-                 \end{dcases}                                         \\
-    C        & = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                                           \\
+                 \end{dcases}                                        \\
+    C        & = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                                           \\
              & = \begin{dcases}
-                   k_B\qty(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 & (低温) \\
-                   \frac{k_B}{4}\qty(\frac{E_2 - E_1}{k_BT})^2 \to 0                  & (高温)
+                   k_B\ab(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 & (低温) \\
+                   \frac{k_B}{4}\ab(\frac{E_2 - E_1}{k_BT})^2 \to 0                  & (高温)
                  \end{dcases}
   \end{align}
   TODO: グラフ
@@ -479,22 +487,22 @@
                 \end{dcases}
   \end{align}
   \begin{align}
-    S & = - \qty(\pdv{F}{T})_{V,N} = - \qty(\pdv{F}{\beta}\pdv{\beta}{T})_{V,N} = k_B\beta^2\qty(\pdv{F}{\beta})_{V,N}                                                                                                                                                                                                                                                                         \\
-      & = k_B\beta^2\qty(\frac{1}{\beta^2}\ln(e^{-\beta E_1} + e^{-\beta E_2}) - \frac{1}{\beta}\frac{-E_1e^{-\beta E_1} - E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                \\
-      & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                                            \\
+    S & = - \ab(\diffp{F}{T})_{V,N} = - \ab(\diffp{F}{\beta}\diffp{\beta}{T})_{V,N} = k_B\beta^2\ab(\diffp{F}{\beta})_{V,N}                                                                                                                                                                                                                                                                   \\
+      & = k_B\beta^2\ab(\frac{1}{\beta^2}\ln(e^{-\beta E_1} + e^{-\beta E_2}) - \frac{1}{\beta}\frac{-E_1e^{-\beta E_1} - E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                \\
+      & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                                            \\
       & = \begin{dcases}
-            k_B\qty(\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) + \frac{\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}})                                                                                                                                                   \\
-            k_B\qty(\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) + \frac{\beta E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + \beta E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}) \\
+            k_B\ab(\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) + \frac{\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}})                                                                                                                                                   \\
+            k_B\ab(\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) + \frac{\beta E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + \beta E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}) \\
           \end{dcases} \\
       & \approx
     \begin{dcases}
-      k_B\qty(-\beta E_1 + e^{-\beta (E_2 - E_1)} + (\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)}))                                   \\
-      k_B\qty(\ln 2 - \frac{1}{2}\beta (E_1 + E_2) + \frac{\beta}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1)))) \\
-    \end{dcases}                                                                                                                                                                                                                     \\
+      k_B\ab(-\beta E_1 + e^{-\beta (E_2 - E_1)} + (\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)}))                                \\
+      k_B\ab(\ln 2 - \frac{1}{2}\beta (E_1 + E_2) + \frac{\beta}{2}\ab(E_1\ab(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\ab(1 - \frac{1}{2}\beta (E_2 - E_1)))) \\
+    \end{dcases}                                                                                                                                                                                                                        \\
       & \approx
     \begin{dcases}
-      k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0            \\
-      k_B\qty(\ln 2 - \frac{1}{4}\qty(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 \\
+      k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0          \\
+      k_B\ab(\ln 2 - \frac{1}{4}\ab(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 \\
     \end{dcases}
   \end{align}
   \begin{align}
@@ -505,26 +513,26 @@
             \frac{E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}} \\
           \end{dcases} \\
       & \approx \begin{dcases}
-                  (E_1 + E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)})                                          \\
-                  \frac{1}{2}\qty(E_1\qty(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\qty(1 - \frac{1}{2}\beta (E_2 - E_1))) \\
-                \end{dcases}                                                                          \\
+                  (E_1 + E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)})                                       \\
+                  \frac{1}{2}\ab(E_1\ab(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\ab(1 - \frac{1}{2}\beta (E_2 - E_1))) \\
+                \end{dcases}                                                                             \\
       & \approx \begin{dcases}
                   E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     \\
                   \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) \\
                 \end{dcases}
   \end{align}
   \begin{align}
-    C & = \pdv{U}{T} = \pdv{U}{\beta}\pdv{\beta}{T} = -k_B\beta^2\pdv{U}{\beta}                                                                                                         \\
-      & = -k_B\beta^2\pdv{\beta}\qty(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}})                                                                                    \\
+    C & = \diffp{U}{T} = \diffp{U}{\beta}\diffp{\beta}{T} = -k_B\beta^2\diffp{U}{\beta}                                                                                                 \\
+      & = -k_B\beta^2\diffp{\beta}\ab(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}})                                                                                   \\
       & = -k_B\beta^2\frac{E_2(E_1 - E_2)e^{\beta(E_1 - E_2)}(1 + e^{\beta(E_1 - E_2)}) - (E_1 + E_2e^{\beta(E_1 - E_2)})(E_1 - E_2)e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} \\
-      & = k_B\beta^2\frac{(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2            \\
+      & = k_B\beta^2\frac{(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2             \\
       & = \begin{dcases}
-            k_B\qty(\frac{\beta(E_2 - E_1)}{1 + e^{-\beta(E_2 - E_1)}})^2e^{-\beta(E_2 - E_1)} \\
-            k_B\qty(\frac{\beta(E_2 - E_1)}{e^{\frac{1}{2}\beta(E_2 - E_1)} + e^{-\frac{1}{2}\beta(E_2 - E_1)}})^2
-          \end{dcases}                                                         \\
+            k_B\ab(\frac{\beta(E_2 - E_1)}{1 + e^{-\beta(E_2 - E_1)}})^2e^{-\beta(E_2 - E_1)} \\
+            k_B\ab(\frac{\beta(E_2 - E_1)}{e^{\frac{1}{2}\beta(E_2 - E_1)} + e^{-\frac{1}{2}\beta(E_2 - E_1)}})^2
+          \end{dcases}                                                          \\
       & \approx \begin{dcases}
-                  k_B\qty(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 \\
-                  \frac{k_B}{4}\qty(\frac{E_2 - E_1}{k_BT})^2 \to 0
+                  k_B\ab(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 \\
+                  \frac{k_B}{4}\ab(\frac{E_2 - E_1}{k_BT})^2 \to 0
                 \end{dcases}
   \end{align}
   各固有状態の実現確率について高温極限 ($\beta(E_2 - E_1) \ll 1$) のときそれぞれの固有状態は同じ確率で実現し、低温極限 ($\beta(E_2 - E_1) \gg 1$) のとき固有エネルギーの低い固有状態にほぼ確実に実現する。
@@ -552,9 +560,9 @@
 
 エントロピー $s$ は Shannon のエントロピーの公式に代入することで求まる。
 \begin{align}
-  s & = -k_B\sum_{i = 1,2}p_\beta^{正準}(i)\ln p_\beta^{正準}(i)                                                                                       \\
-    & = -k_B\sum_{i = 1,2}\frac{e^{-\beta E_i}}{z(\beta)}(- \ln z(\beta) - \beta E_i)                                                              \\
-    & = k_B\qty(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}).
+  s & = -k_B\sum_{i = 1,2}p_\beta^{正準}(i)\ln p_\beta^{正準}(i)                                                                                      \\
+    & = -k_B\sum_{i = 1,2}\frac{e^{-\beta E_i}}{z(\beta)}(- \ln z(\beta) - \beta E_i)                                                             \\
+    & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}).
 \end{align}
 
 \begin{itembox}[l]{Q 15-7.}
@@ -563,13 +571,13 @@
 
 まず比熱について次のように定義した関数 $\phi(x)$ を用いて表される。
 \begin{align}
-  \phi(x) & := \frac{x}{\cosh x}                                                              \\
-  c       & = k_B\qty(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2 \\
-          & = k_B\qty(\phi\qty(\frac{1}{2}\beta(E_2 - E_1)))^2
+  \phi(x) & := \frac{x}{\cosh x}                                                             \\
+  c       & = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2 \\
+          & = k_B\ab(\phi\ab(\frac{1}{2}\beta(E_2 - E_1)))^2
 \end{align}
 ここで $x\geq 0$ の範囲において $\phi(x)$ が極大となる $x = x_0$ の値を考える。
 \begin{align}
-       & \left.\dv{\phi}{x}\right|_{x = x_0} = 0          \\
+       & \left.\diff{\phi}{x}\right|_{x = x_0} = 0        \\
   \iff & \frac{\cosh x_0 - x_0\sinh x_0}{\cosh^2 x_0} = 0 \\
   \iff & x_0\tanh x_0 = 1                                 \\
   \iff & x_0 = 1.199678640257734\ldots
@@ -581,31 +589,31 @@
    & \frac{k_BT_0}{E_2 - E_1} = \frac{1}{2x_0} =  0.41677827980048\ldots
 \end{align}
 
-低温、高温で比熱が 0 となる理由は比熱が $C = \dv{E}{T}$ であることより Q15-3, Q15-4 よりエネルギーの確率が極限的に定数となることから比熱は 0 となることが分かる。
+低温、高温で比熱が 0 となる理由は比熱が $C = \diff{E}{T}$ であることより Q15-3, Q15-4 よりエネルギーの確率が極限的に定数となることから比熱は 0 となることが分かる。
 
 \subsection{調和振動子系の統計力学}
 
 \begin{theorem}
   \begin{align}
-    z(\beta) & = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                       \\
+    z(\beta) & = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                     \\
              & \approx \begin{dcases}
                          e^{-\frac{\hbar\omega}{2k_BT}} \to 0 \\
-                       \end{dcases}                                                                         \\
-    f        & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega)                                                         \\
-    s        & = k_B\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-    u        & = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                             \\
-    c        & = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2
+                       \end{dcases}                                                                       \\
+    f        & = \frac{1}{\beta}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega)                                                        \\
+    s        & = k_B\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+    u        & = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                           \\
+    c        & = k_B\ab(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2
   \end{align}
 \end{theorem}
 \begin{proof}
   低温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $e^x \approx 1 + x$, $(1 + x)^{-1} \approx 1 - x$ と近似できることを用いる。
   高温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $\ln(1 + x) \approx x$ と近似できることとテイラー展開を用いる。
   \begin{align}
-    z(\beta) & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\qty(n + \frac{1}{2})\hbar\omega} = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} \\
+    z(\beta) & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\ab(n + \frac{1}{2})\hbar\omega} = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} \\
              & = \begin{dcases}
                    \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
                    \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
-                 \end{dcases}                                                                                                                                                 \\
+                 \end{dcases}                                                                                                                                                \\
              & \approx \begin{dcases}
                          e^{-\frac{\hbar\omega}{2k_BT}} \to 0                                                                                \\
                          \frac{1 - \frac{1}{2}\beta\hbar\omega}{\beta\hbar\omega} \approx \frac{k_BT}{\hbar\omega} - \frac{1}{2} \to +\infty \\
@@ -616,52 +624,52 @@
       & = -\frac{1}{\beta}\ln \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega \\
       & = -\frac{1}{\beta}\ln \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} = \frac{1}{\beta}\ln(2\sinh \frac{1}{2}\beta\hbar\omega)                                       \\
       & \approx \begin{dcases}
-                  \frac{1}{\beta}(-e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega        \\
-                  \frac{1}{\beta}\qty(\ln \beta\hbar\omega + \frac{1}{2}\beta\hbar\omega) \\
-                \end{dcases}                                                                                   \\
+                  \frac{1}{\beta}(-e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega       \\
+                  \frac{1}{\beta}\ab(\ln \beta\hbar\omega + \frac{1}{2}\beta\hbar\omega) \\
+                \end{dcases}                                                                                    \\
       & \approx \begin{dcases}
                   \frac{1}{2}\hbar\omega - k_BTe^{-\frac{\hbar\omega}{k_BT}} \to \frac{1}{2}\hbar\omega \\
                   -k_BT\ln\frac{k_BT}{\hbar\omega} \to - \infty                                         \\
                 \end{dcases}
   \end{align}
   \begin{align}
-    s & = - \qty(\pdv{f}{T})_{V,N} = k_B\beta^2\qty(\pdv{f}{\beta})_{V,N}                                                                                                                                                   \\
-      & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln(1 - e^{-\beta\hbar\omega}) + \frac{\hbar\omega}{\beta(1 - e^{-\beta\hbar\omega})})                                                                                           \\
-      & = k_B\beta^2\qty(-\frac{1}{\beta^2}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{\frac{1}{2}\hbar\omega\cosh \frac{1}{2}\beta\hbar\omega}{\beta\sinh \frac{1}{2}\beta\hbar\omega})                            \\
-      & = k_B\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1}) = k_B\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+    s & = - \ab(\diffp{f}{T})_{V,N} = k_B\beta^2\ab(\diffp{f}{\beta})_{V,N}                                                                                                                                              \\
+      & = k_B\beta^2\ab(-\frac{1}{\beta^2}\ln(1 - e^{-\beta\hbar\omega}) + \frac{\hbar\omega}{\beta(1 - e^{-\beta\hbar\omega})})                                                                                         \\
+      & = k_B\beta^2\ab(-\frac{1}{\beta^2}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{\frac{1}{2}\hbar\omega\cosh \frac{1}{2}\beta\hbar\omega}{\beta\sinh \frac{1}{2}\beta\hbar\omega})                           \\
+      & = k_B\ab(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1}) = k_B\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
       & \approx \begin{dcases}
-                  k_B\qty(e^{-\beta\hbar\omega} + \beta\hbar\omega e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega})) \\
-                  k_B\qty(-\ln\beta\hbar\omega + 1)                                                                  \\
-                \end{dcases}                                                                                                          \\
+                  k_B\ab(e^{-\beta\hbar\omega} + \beta\hbar\omega e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega})) \\
+                  k_B\ab(-\ln\beta\hbar\omega + 1)                                                                  \\
+                \end{dcases}                                                                                                        \\
       & \approx \begin{dcases}
                   k_B\frac{\hbar\omega}{k_BT}e^{- \frac{\hbar\omega}{k_BT}} \to 0 \\
                   k_B\ln\frac{k_BT}{\hbar\omega} \to +\infty                      \\
                 \end{dcases}
   \end{align}
   \begin{align}
-    u & = f + Ts                                                                                                                                                                                      \\
-      & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega + \frac{1}{\beta}\qty(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})           \\
-      & = \frac{1}{\beta}\ln\qty(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{1}{\beta}\qty(-\ln\qty(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-      & = \qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                  \\
+    u & = f + Ts                                                                                                                                                                                   \\
+      & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega + \frac{1}{\beta}\ab(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})         \\
+      & = \frac{1}{\beta}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{1}{\beta}\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
+      & = \ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                \\
       & \approx \begin{dcases}
-                  \qty(\frac{1}{2} + e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega}))\hbar\omega                                          \\
-                  \frac{1}{2}\hbar\omega\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} + \frac{1}{3}\qty(\frac{\beta\hbar\omega}{2}) + \cdots) \\
+                  \ab(\frac{1}{2} + e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega}))\hbar\omega                                        \\
+                  \frac{1}{2}\hbar\omega\ab(\ab(\frac{\beta\hbar\omega}{2})^{-1} + \frac{1}{3}\ab(\frac{\beta\hbar\omega}{2}) + \cdots) \\
                 \end{dcases}                                                              \\
       & \approx \begin{dcases}
                   \frac{1}{2}\hbar\omega + e^{-\beta\hbar\omega}\hbar\omega \to \frac{1}{2}\hbar\omega \\
-                  k_BT\qty(1 + \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT})^{2} + \cdots) \to +\infty    \\
+                  k_BT\ab(1 + \frac{1}{12}\ab(\frac{\hbar\omega}{k_BT})^{2} + \cdots) \to +\infty      \\
                 \end{dcases}
   \end{align}
   \begin{align}
-    c & = \pdv{u}{T} = -k_B\beta^2\pdv{u}{\beta} = -k_B\beta^2\qty(-\frac{\hbar\omega e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2})\hbar\omega                                   \\
-      & = k_B\qty(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2 = k_B\qty(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2 \\
+    c & = \diffp{u}{T} = -k_B\beta^2\diffp{u}{\beta} = -k_B\beta^2\ab(-\frac{\hbar\omega e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2})\hbar\omega                              \\
+      & = k_B\ab(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2 = k_B\ab(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2 \\
       & \approx \begin{dcases}
-                  k_B\qty(\beta\hbar\omega(e^{-\frac{1}{2}\beta\hbar\omega})(1 + e^{-\beta\hbar\omega}))^2                                                \\
-                  k_B\qty(\frac{\beta\hbar\omega}{2}\qty(\qty(\frac{\beta\hbar\omega}{2})^{-1} - \frac{1}{6}\qty(\frac{\beta\hbar\omega}{2}) + \cdots))^2 \\
-                \end{dcases}                                                                             \\
+                  k_B\ab(\beta\hbar\omega(e^{-\frac{1}{2}\beta\hbar\omega})(1 + e^{-\beta\hbar\omega}))^2                                             \\
+                  k_B\ab(\frac{\beta\hbar\omega}{2}\ab(\ab(\frac{\beta\hbar\omega}{2})^{-1} - \frac{1}{6}\ab(\frac{\beta\hbar\omega}{2}) + \cdots))^2 \\
+                \end{dcases}                                                                               \\
       & \approx \begin{dcases}
-                  k_B\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \to 0 \\
-                  k_B\qty(1 - \frac{1}{24}\qty(\frac{\hbar\omega}{k_BT}) + \cdots)^2 = k_B\qty(1 - \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT}) + \cdots) \to k_B
+                  k_B\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \to 0 \\
+                  k_B\ab(1 - \frac{1}{24}\ab(\frac{\hbar\omega}{k_BT}) + \cdots)^2 = k_B\ab(1 - \frac{1}{12}\ab(\frac{\hbar\omega}{k_BT}) + \cdots) \to k_B
                 \end{dcases}
   \end{align}
 \end{proof}
@@ -669,14 +677,14 @@
 
 \subsection{固体の比熱の Einstein 模型}
 \begin{itembox}[l]{Q 16-5.}
-  独立な調和振動子の集まりの系として記述される系 $X$ において$\dd{\omega}$ が十分小さいとして、角振動数が $\omega$ から $\omega + \dd{\omega}$ の範囲にある調和振動子の個数を $g(\omega)\dd{\omega}$ と定義する。つまり $g(\omega)$ は調和振動子の角振動数の個数分布関数である。
+  独立な調和振動子の集まりの系として記述される系 $X$ において$\dl{\omega}$ が十分小さいとして、角振動数が $\omega$ から $\omega + \dl{\omega}$ の範囲にある調和振動子の個数を $g(\omega)\dl{\omega}$ と定義する。つまり $g(\omega)$ は調和振動子の角振動数の個数分布関数である。
 \end{itembox}
-このとき角運動量が $\omega$ である調和振動子 1 個の Helmholtz 自由エネルギー, エントロピー, 内部エネルギー, 比熱をそれぞれ $f(\omega), s(\omega), u(\omega), c(\omega)$ と書くこととすると、$\dd{\omega}$ が十分小さいことから近い角運動量の変数を個数倍して積分することで元の変数と一致する。これより次のような式が成り立つ。
+このとき角運動量が $\omega$ である調和振動子 1 個の Helmholtz 自由エネルギー, エントロピー, 内部エネルギー, 比熱をそれぞれ $f(\omega), s(\omega), u(\omega), c(\omega)$ と書くこととすると、$\dl{\omega}$ が十分小さいことから近い角運動量の変数を個数倍して積分することで元の変数と一致する。これより次のような式が成り立つ。
 \begin{align}
-  F & = \int_0^\infty\dd{\omega}g(\omega)f(\omega) \\
-  S & = \int_0^\infty\dd{\omega}g(\omega)s(\omega) \\
-  U & = \int_0^\infty\dd{\omega}g(\omega)u(\omega) \\
-  C & = \int_0^\infty\dd{\omega}g(\omega)c(\omega)
+  F & = \int_0^\infty\dl{\omega}g(\omega)f(\omega) \\
+  S & = \int_0^\infty\dl{\omega}g(\omega)s(\omega) \\
+  U & = \int_0^\infty\dl{\omega}g(\omega)u(\omega) \\
+  C & = \int_0^\infty\dl{\omega}g(\omega)c(\omega)
 \end{align}
 
 \begin{itembox}[l]{Q 16-6.}
@@ -694,26 +702,26 @@
 
 これより比熱は次のように表される。
 \begin{align}
-  C & = \int_0^\infty\dd{\omega}g(\omega)c(\omega)                                            \\
-    & = \int_0^\infty\dd{\omega}3N\delta(\omega - \omega_E)c(\omega)                          \\
-    & = 3Nc(\omega_E)                                                                         \\
-    & = 3Nk_B\qty(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2
+  C & = \int_0^\infty\dl{\omega}g(\omega)c(\omega)                                           \\
+    & = \int_0^\infty\dl{\omega}3N\delta(\omega - \omega_E)c(\omega)                         \\
+    & = 3Nc(\omega_E)                                                                        \\
+    & = 3Nk_B\ab(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2
 \end{align}
 高温の漸近領域において比熱 $C$ は次のようになる。
 \begin{align}
-  C & = 3Nk_B\qty(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2 \\
-    & \approx 3Nk_B\qty(1 - \frac{1}{12}\qty(\frac{\hbar\omega}{k_BT})^2 + \cdots)            \\
+  C & = 3Nk_B\ab(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2 \\
+    & \approx 3Nk_B\ab(1 - \frac{1}{12}\ab(\frac{\hbar\omega}{k_BT})^2 + \cdots)             \\
     & \approx 3nR
 \end{align}
 低温の漸近領域において比熱 $C$ は次のようになる。
 \begin{align}
-  C & = 3Nk_B\qty(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2 \\
-    & \approx 3Nk_B\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}}              \\
-    & \approx 3nR\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}}
+  C & = 3Nk_B\ab(\frac{\frac{1}{2}\beta\hbar\omega_E}{\sinh\frac{1}{2}\beta\hbar\omega_E})^2 \\
+    & \approx 3Nk_B\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}}              \\
+    & \approx 3nR\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}}
 \end{align}
 よって低温領域で温度 $T$ が小さくなっていくとき、比熱 $C$ が小さくなる。
 \begin{align}
-  \lim_{T\to 0} C & = \lim_{T\to 0}3nR\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} = 0.
+  \lim_{T\to 0} C & = \lim_{T\to 0}3nR\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} = 0.
 \end{align}
 これらの結果は観測結果と一致している為、妥当性がある。
 
@@ -725,7 +733,7 @@
 \end{itembox}
 低温領域で温度 $T$ が小さくなっていくとき、比熱 $C$ は次のように小さくなる。
 \begin{align}
-  C & \approx 3nR\qty(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \\
+  C & \approx 3nR\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \\
     & \propto \frac{1}{T^{2}e^{\frac{1}{T}}}
 \end{align}
 これより $C \propto T^3$ とはならない為、固体の比熱の Einstein 模型は実験事実と合致しない。
@@ -734,7 +742,7 @@
 
 \begin{theorem}
   \begin{align}
-    Z & = \frac{1}{(2\pi\hbar)^f}\int e^{-H(p, q)/k_BT}\prod_{i=1}^{f}\dd{p_i}\dd{q_i}
+    Z & = \frac{1}{(2\pi\hbar)^f}\int e^{-H(p, q)/k_BT}\prod_{i=1}^{f}\dl{p_i}\dl{q_i}
   \end{align}
 \end{theorem}
 
@@ -750,13 +758,13 @@ Debye 模型は Einstein 模型と同様に固体の比熱を独立な調和振�
 \subsection{解析力学の復習：点正準変換}
 ある $N$ 自由度の系の一般化座標を $q_1, \ldots, q_N$ として Lagrange 形式では一般化座標 $q_i$ と一般化速度 $\dot{q}_i$ を用いて表現される. このとき一般化運動量 $p_i$ は次のように定められる.
 \begin{align}
-  L   & = L(q_1,\ldots,q_N,\dot{q}_1,\ldots,\dot{q}_N),                                                                                    \\
-  p_i & = \qty(\pdv{L}{\dot{q}_i})_{q_1,\ldots,q_N,\dot{q}_1,\ldots,\dot{q}_{i-1},\dot{q}_{i+1},\ldots,\dot{q}_N} \qquad (i = 1,\ldots,N).
+  L   & = L(q_1,\ldots,q_N,\dot{q}_1,\ldots,\dot{q}_N),                                                                                     \\
+  p_i & = \ab(\diffp{L}{\dot{q}_i})_{q_1,\ldots,q_N,\dot{q}_1,\ldots,\dot{q}_{i-1},\dot{q}_{i+1},\ldots,\dot{q}_N} \qquad (i = 1,\ldots,N).
 \end{align}
 一方 Hamilton 形式では一般化座標 $q_i$ と一般化運動量 $p_i$ を用いて表現される.
 \begin{align}
-  H           & = H(q_1,\ldots,q_N,p_1,\ldots,p_N) = \sum_{i=1}^{N}p_i\dot{q}_i - L,        \\
-  \dv{q_i}{t} & = \pdv{H}{p_i}, \qquad \dv{p_i}{t} = -\pdv{H}{q_i} \qquad (i = 1,\ldots,N).
+  H             & = H(q_1,\ldots,q_N,p_1,\ldots,p_N) = \sum_{i=1}^{N}p_i\dot{q}_i - L,              \\
+  \diff{q_i}{t} & = \diffp{H}{p_i}, \qquad \diff{p_i}{t} = -\diffp{H}{q_i} \qquad (i = 1,\ldots,N).
 \end{align}
 
 \begin{itembox}[l]{Q 17-1.}
@@ -768,15 +776,15 @@ Debye 模型は Einstein 模型と同様に固体の比熱を独立な調和振�
 
 (i) 新しい運動量 $P_j$ は Lagrange 形式を用いて次のように求められる.
 \begin{align}
-  P_j & = \qty(\pdv{L}{\dot{Q}_j})_{Q_1,\ldots,Q_N,\dot{Q}_1,\ldots,\dot{Q}_{j-1},\dot{Q}_{j+1},\ldots,\dot{Q}_N} \qquad (j=1,2,\ldots,N) \\
-      & = \sum_{i=1}^{N}\pdv{L}{\dot{q}_i}\pdv{\dot{q}_i}{\dot{Q}_j}                                                                      \\
-      & = \sum_{i=1}^{N}p_i\pdv{q_i}{Q_j}                                                                                                 \\
-      & = \sum_{i=1}^{N}\pdv{f_i(Q_1,\ldots,Q_N)}{Q_j}p_i.
+  P_j & = \ab(\diffp{L}{\dot{Q}_j})_{Q_1,\ldots,Q_N,\dot{Q}_1,\ldots,\dot{Q}_{j-1},\dot{Q}_{j+1},\ldots,\dot{Q}_N} \qquad (j=1,2,\ldots,N) \\
+      & = \sum_{i=1}^{N}\diffp{L}{\dot{q}_i}\diffp{\dot{q}_i}{\dot{Q}_j}                                                                   \\
+      & = \sum_{i=1}^{N}p_i\diffp{q_i}{Q_j}                                                                                                \\
+      & = \sum_{i=1}^{N}\diffp{f_i(Q_1,\ldots,Q_N)}{Q_j}p_i.
 \end{align}
 
 (ii) また新しい Hamilton 関数は定義式から古い Hamilton 関数と一致する.
 \begin{align}
-  H' = H'(Q_1,\ldots,Q_N,P_1,\ldots,P_N) = \sum_{j=1}^{N}P_j\dot{Q}_j - L = \sum_{j=1}^{N}\sum_{i=1}^{N}\pdv{f_i(Q_1,\ldots,Q_N)}{Q_j}p_i\dot{Q}_j - L = \sum_{i=1}^{N}p_i\dot{q}_i - L = H
+  H' = H'(Q_1,\ldots,Q_N,P_1,\ldots,P_N) = \sum_{j=1}^{N}P_j\dot{Q}_j - L = \sum_{j=1}^{N}\sum_{i=1}^{N}\diffp{f_i(Q_1,\ldots,Q_N)}{Q_j}p_i\dot{Q}_j - L = \sum_{i=1}^{N}p_i\dot{q}_i - L = H
 \end{align}
 
 \subsection{1 次元結晶における平衡位置の回りの調和振動を記述する Hamilton 関数}
@@ -807,17 +815,17 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 \begin{itembox}[l]{Q 17-3.}
   固定端境界条件の 1 次元結晶の系を考えているので Fourier 展開した基底が基準振動となる.
   \begin{align}
-    H^{1次元結晶}(Q_1,\ldots,Q_N, P_1,\ldots,P_N) & = \sum_{j=1}^{N}\qty(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
+    H^{1次元結晶}(Q_1,\ldots,Q_N, P_1,\ldots,P_N) & = \sum_{j=1}^{N}\ab(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
   \end{align}
   ただし, $\omega_j$ を次のように定める.
   \begin{align}
-    \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j).
+    \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi}{2(N+1)}j).
   \end{align}
 \end{itembox}
 
 固定端境界条件の 1 次元結晶の系を考えているので Fourier Sine 展開の基底が基準振動になっているとする.
 \begin{align}
-  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji).
+  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\ab(\frac{\pi}{N+1}ji).
 \end{align}
 まず計算に必要な関数を定義する. \\
 
@@ -828,16 +836,16 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 \end{align}
 このとき $F(\alpha), G(\alpha)\in\RR$ より $F(\alpha) + \sqrt{-1}G(\alpha)\in\CC$ の実部と虚部はそれぞれ $F(\alpha), G(\alpha)$ と対応した値となる. Euler の公式を用いて次のように計算できる.
 \begin{align}
-  F(\alpha) + \sqrt{-1}G(\alpha) & = \sum_{i=1}^{N}e^{\sqrt{-1}\alpha i}                                                                                                                                                     \\
-                                 & = \frac{e^{\sqrt{-1}\alpha} - e^{\sqrt{-1}\alpha (N+1)}}{1 - e^{\sqrt{-1}\alpha}}                                                                                                         \\
-                                 & = \frac{2e^{\sqrt{-1}\alpha}e^{\sqrt{-1}\alpha \frac{N}{2}}\sin{\alpha \frac{N}{2}}}{2e^{\sqrt{-1}\alpha\frac{1}{2}}\sin{\alpha\frac{1}{2}}}                                              \\
-                                 & = \frac{e^{\sqrt{-1}\frac{\alpha}{2}(N+1)}\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}                                                                                                \\
-                                 & = \frac{\cos\qty(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}} + \sqrt{-1}\frac{\sin\qty(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}.
+  F(\alpha) + \sqrt{-1}G(\alpha) & = \sum_{i=1}^{N}e^{\sqrt{-1}\alpha i}                                                                                                                                                   \\
+                                 & = \frac{e^{\sqrt{-1}\alpha} - e^{\sqrt{-1}\alpha (N+1)}}{1 - e^{\sqrt{-1}\alpha}}                                                                                                       \\
+                                 & = \frac{2e^{\sqrt{-1}\alpha}e^{\sqrt{-1}\alpha \frac{N}{2}}\sin{\alpha \frac{N}{2}}}{2e^{\sqrt{-1}\alpha\frac{1}{2}}\sin{\alpha\frac{1}{2}}}                                            \\
+                                 & = \frac{e^{\sqrt{-1}\frac{\alpha}{2}(N+1)}\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}                                                                                              \\
+                                 & = \frac{\cos\ab(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}} + \sqrt{-1}\frac{\sin\ab(\frac{\alpha}{2}(N+1))\sin{\frac{\alpha}{2}N}}{\sin{\frac{\alpha}{2}}}.
 \end{align}
 これより実部虚部の対応から $F(\alpha), G(\alpha)$ が求まる.
 \begin{align}
-  F(\alpha) & := \sum_{i=1}^{N}\cos(\alpha i) = \frac{\cos\qty(\frac{\alpha}{2}(N+1))\sin\qty(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}, \\
-  G(\alpha) & := \sum_{i=1}^{N}\sin(\alpha i) = \frac{\sin\qty(\frac{\alpha}{2}(N+1))\sin\qty(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}.
+  F(\alpha) & := \sum_{i=1}^{N}\cos(\alpha i) = \frac{\cos\ab(\frac{\alpha}{2}(N+1))\sin\ab(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}, \\
+  G(\alpha) & := \sum_{i=1}^{N}\sin(\alpha i) = \frac{\sin\ab(\frac{\alpha}{2}(N+1))\sin\ab(\frac{\alpha}{2}N)}{\sin{\frac{\alpha}{2}}}.
 \end{align}
 
 (ii) $j, j' = 1,\ldots,N$ とすると $j - j' = -(N - 1),\ldots,N - 1$ かつ $j + j' = 2,\ldots,2N$ である. これより $j - j' = 0$ である場合に限り $j - j' = 0 \pmod{2(N+1)}$ が成り立ち, $j + j' = 0 \pmod{2(N+1)}$ が成り立つ場合は存在せず, 逆に主結合子の前件が恒偽ならばその論理式は真である. よって次の同値関係が成り立つ.
@@ -852,50 +860,50 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 \end{align}
 まず (i), (ii) を用いることで次のように式変形できる.
 \begin{align}
-  (q^{(j)}, q^{(j')}) & := \sum_{i = 1}^{N}q_i^{(j)}q_i^{(j')}                                                                                                                                                                                                                                                 \\
-                      & = \frac{2}{N+1}\sum_{i = 1}^{N}\sin\qty(\frac{\pi}{N+1}ji)\sin\qty(\frac{\pi}{N+1}j'i)                                                                                                                                                                                                 \\
-                      & = \frac{1}{N+1}\sum_{i = 1}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j - j')i) - \cos\qty(\frac{\pi}{N+1}(j + j')i))                                                                                                                                                                           \\
+  (q^{(j)}, q^{(j')}) & := \sum_{i = 1}^{N}q_i^{(j)}q_i^{(j')}                                                                                                                                                                                                                                             \\
+                      & = \frac{2}{N+1}\sum_{i = 1}^{N}\sin\ab(\frac{\pi}{N+1}ji)\sin\ab(\frac{\pi}{N+1}j'i)                                                                                                                                                                                               \\
+                      & = \frac{1}{N+1}\sum_{i = 1}^{N}\ab(\cos\ab(\frac{\pi}{N+1}(j - j')i) - \cos\ab(\frac{\pi}{N+1}(j + j')i))                                                                                                                                                                          \\
                       & = \begin{dcases}
-                            \frac{1}{N+1}\qty(\frac{\cos\qty(\frac{\pi}{2}(j - j'))\sin\qty(\frac{N\pi}{2(N+1)}(j - j'))}{\sin\qty(\frac{\pi}{2(N+1)}(j - j'))} - \frac{\cos\qty(\frac{\pi}{2}(j + j'))\sin\qty(\frac{N\pi}{2(N+1)}(j + j'))}{\sin\qty(\frac{\pi}{2(N+1)}(j + j'))}) & (j \neq j') \\
-                            \frac{1}{N+1}\qty(N - \frac{\cos\qty(j\pi)\sin\qty(\frac{jN}{N+1}\pi)}{\sin\qty(\frac{j}{N+1}\pi)})                                                                                                                                                      & (j = j')
+                            \frac{1}{N+1}\ab(\frac{\cos\ab(\frac{\pi}{2}(j - j'))\sin\ab(\frac{N\pi}{2(N+1)}(j - j'))}{\sin\ab(\frac{\pi}{2(N+1)}(j - j'))} - \frac{\cos\ab(\frac{\pi}{2}(j + j'))\sin\ab(\frac{N\pi}{2(N+1)}(j + j'))}{\sin\ab(\frac{\pi}{2(N+1)}(j + j'))}) & (j \neq j') \\
+                            \frac{1}{N+1}\ab(N - \frac{\cos\ab(j\pi)\sin\ab(\frac{jN}{N+1}\pi)}{\sin\ab(\frac{j}{N+1}\pi)})                                                                                                                                                   & (j = j')
                           \end{dcases}.
 \end{align}
 先に $j \neq j'$ の場合を考える. 括弧内を通分した分子の第一項と第二項についてそれぞれ計算する. 第一項について
 \begin{align}
-    & \cos\qty(\frac{\pi}{2}(j - j'))\sin\qty(\frac{N\pi}{2(N+1)}(j - j'))\sin\qty(\frac{\pi}{2(N+1)}(j + j'))                                                       \\
-  = & \cos\qty(\frac{j - j'}{2}\pi)\qty(\cos\qty(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi))                                 \\
-  = & \cos\qty(\frac{j - j'}{2}\pi)\cos\qty(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{j - j'}{2}\pi)\cos\qty(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi)          \\
-  = & \cos\qty(\frac{j}{N+1}\pi) + \cos\qty(\frac{Nj - (N+1)j'}{N+1}\pi) - \cos\qty(\frac{j'}{N+1}\pi) - \cos\qty(\frac{(N+1)j - Nj'}{N+1}\pi). \label{Q17-3. iii 1}
+    & \cos\ab(\frac{\pi}{2}(j - j'))\sin\ab(\frac{N\pi}{2(N+1)}(j - j'))\sin\ab(\frac{\pi}{2(N+1)}(j + j'))                                                      \\
+  = & \cos\ab(\frac{j - j'}{2}\pi)\ab(\cos\ab(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\ab(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi))                                 \\
+  = & \cos\ab(\frac{j - j'}{2}\pi)\cos\ab(\frac{(N-1)j - (N+1)j'}{2(N+1)}\pi) - \cos\ab(\frac{j - j'}{2}\pi)\cos\ab(\frac{(N+1)j - (N-1)j'}{2(N+1)}\pi)          \\
+  = & \cos\ab(\frac{j}{N+1}\pi) + \cos\ab(\frac{Nj - (N+1)j'}{N+1}\pi) - \cos\ab(\frac{j'}{N+1}\pi) - \cos\ab(\frac{(N+1)j - Nj'}{N+1}\pi). \label{Q17-3. iii 1}
 \end{align}
 第二項について
 \begin{align}
-    & \cos\qty(\frac{\pi}{2}(j + j'))\sin\qty(\frac{N\pi}{2(N+1)}(j + j'))\sin\qty(\frac{\pi}{2(N+1)}(j - j'))                                                       \\
-  = & \cos\qty(\frac{j + j'}{2}\pi)\qty(\cos\qty(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi))                                 \\
-  = & \cos\qty(\frac{j + j'}{2}\pi)\cos\qty(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\qty(\frac{j + j'}{2}\pi)\cos\qty(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi)          \\
-  = & \cos\qty(\frac{Nj + (N+1)j'}{N+1}\pi) + \cos\qty(\frac{j}{N+1}\pi) - \cos\qty(\frac{(N+1)j + Nj'}{N+1}\pi) - \cos\qty(\frac{j'}{N+1}\pi). \label{Q17-3. iii 2}
+    & \cos\ab(\frac{\pi}{2}(j + j'))\sin\ab(\frac{N\pi}{2(N+1)}(j + j'))\sin\ab(\frac{\pi}{2(N+1)}(j - j'))                                                      \\
+  = & \cos\ab(\frac{j + j'}{2}\pi)\ab(\cos\ab(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\ab(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi))                                 \\
+  = & \cos\ab(\frac{j + j'}{2}\pi)\cos\ab(\frac{(N-1)j + (N+1)j'}{2(N+1)}\pi) - \cos\ab(\frac{j + j'}{2}\pi)\cos\ab(\frac{(N+1)j + (N-1)j'}{2(N+1)}\pi)          \\
+  = & \cos\ab(\frac{Nj + (N+1)j'}{N+1}\pi) + \cos\ab(\frac{j}{N+1}\pi) - \cos\ab(\frac{(N+1)j + Nj'}{N+1}\pi) - \cos\ab(\frac{j'}{N+1}\pi). \label{Q17-3. iii 2}
 \end{align}
 これより分子は次のようになる.
 \begin{align}
-  \eqref{Q17-3. iii 1} - \eqref{Q17-3. iii 2} & = \qty(\cos\frac{j}{N+1}\pi + \cos\qty(\frac{Nj}{N+1} - j')\pi - \cos\frac{j'}{N+1}\pi - \cos\qty(j - \frac{Nj'}{N+1})\pi)                  \\
-                                              & - \qty(\cos\qty(\frac{Nj}{N+1} + j')\pi + \cos\frac{j}{N+1}\pi - \cos\qty(j + \frac{Nj'}{N+1})\pi - \cos\frac{j'}{N+1}\pi)                  \\
-                                              & = \cos\qty(\frac{Nj}{N+1} - j')\pi - \cos\qty(\frac{Nj}{N+1} + j')\pi + \cos\qty(j + \frac{Nj'}{N+1})\pi - \cos\qty(j - \frac{Nj'}{N+1})\pi \\
-                                              & = 2\sin\qty(j'\pi)\sin\qty(\frac{Nj}{N+1}\pi) - 2\sin\qty(j\pi)\sin\qty(\frac{Nj'}{N+1}\pi)                                                 \\
+  \eqref{Q17-3. iii 1} - \eqref{Q17-3. iii 2} & = \ab(\cos\frac{j}{N+1}\pi + \cos\ab(\frac{Nj}{N+1} - j')\pi - \cos\frac{j'}{N+1}\pi - \cos\ab(j - \frac{Nj'}{N+1})\pi)                 \\
+                                              & - \ab(\cos\ab(\frac{Nj}{N+1} + j')\pi + \cos\frac{j}{N+1}\pi - \cos\ab(j + \frac{Nj'}{N+1})\pi - \cos\frac{j'}{N+1}\pi)                 \\
+                                              & = \cos\ab(\frac{Nj}{N+1} - j')\pi - \cos\ab(\frac{Nj}{N+1} + j')\pi + \cos\ab(j + \frac{Nj'}{N+1})\pi - \cos\ab(j - \frac{Nj'}{N+1})\pi \\
+                                              & = 2\sin\ab(j'\pi)\sin\ab(\frac{Nj}{N+1}\pi) - 2\sin\ab(j\pi)\sin\ab(\frac{Nj'}{N+1}\pi)                                                 \\
                                               & = 0 \qquad (\because j, j'\in\ZZ).
 \end{align}
 よって $j \neq j'$ のときは $(q^{(j)}, q^{(j')}) = 0$ となる.
 
 次に $j = j'$ の場合を考える. これは $j$ が奇数か偶数かで場合分けして考える.
 \begin{align}
-  \frac{\cos\qty(j\pi)\sin\qty(\frac{jN}{N+1}\pi)}{\sin\qty(\frac{j}{N+1}\pi)} & =
+  \frac{\cos\ab(j\pi)\sin\ab(\frac{jN}{N+1}\pi)}{\sin\ab(\frac{j}{N+1}\pi)} & =
   \begin{dcases}
-    \frac{\cos\qty(2k\pi)\sin\qty(\frac{2kN}{N+1}\pi)}{\sin\qty(\frac{2k}{N+1}\pi)}           & (j = 2k, k\in\ZZ)   \\
-    \frac{\cos\qty((2k-1)\pi)\sin\qty(\frac{(2k-1)N}{N+1}\pi)}{\sin\qty(\frac{2k-1}{N+1}\pi)} & (j = 2k-1, k\in\ZZ)
+    \frac{\cos\ab(2k\pi)\sin\ab(\frac{2kN}{N+1}\pi)}{\sin\ab(\frac{2k}{N+1}\pi)}           & (j = 2k, k\in\ZZ)   \\
+    \frac{\cos\ab((2k-1)\pi)\sin\ab(\frac{(2k-1)N}{N+1}\pi)}{\sin\ab(\frac{2k-1}{N+1}\pi)} & (j = 2k-1, k\in\ZZ)
   \end{dcases} \\ & =
   \begin{dcases}
-    \frac{1\cdot\sin\qty(2k\pi\frac{N}{N+1} - 2k\pi)}{\sin\qty(2k\pi\frac{1}{N+1})} \\
-    \frac{-1 \cdot -\sin\qty((2k-1)\pi\frac{N}{N+1} - (2k-1)\pi)}{\sin\qty((2k-1)\pi\frac{1}{N+1})}
-  \end{dcases}         \\
-                                                                               & = -1.
+    \frac{1\cdot\sin\ab(2k\pi\frac{N}{N+1} - 2k\pi)}{\sin\ab(2k\pi\frac{1}{N+1})} \\
+    \frac{-1 \cdot -\sin\ab((2k-1)\pi\frac{N}{N+1} - (2k-1)\pi)}{\sin\ab((2k-1)\pi\frac{1}{N+1})}
+  \end{dcases}           \\
+                                                                            & = -1.
 \end{align}
 よって $j = j'$ のときは $(q^{(j)}, q^{(j')}) = 1$ となる. これより, まとめると次の式が成り立つ.
 \begin{align}
@@ -919,19 +927,19 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 \end{align}
 これは点正準変換を用いて新しい運動量を古い運動量を表せられる.
 \begin{align}
-  P_j = \sum_{i=1}^{N}\pdv{q_i}{Q_j}p_i = \sum_{i=1}^{N}q_i^{(j)}p_i.
+  P_j = \sum_{i=1}^{N}\diffp{q_i}{Q_j}p_i = \sum_{i=1}^{N}q_i^{(j)}p_i.
 \end{align}
 
 (vii) Hamilton 関数の運動エネルギーの表式の核の部分について次のように表される.
 \begin{align}
-  \sum_{j=1}^{N}P_j^2 = \sum_{j=1}^{N}\qty(\sum_{i=1}^{N}q_i^{(j)}p_i)^2 = \sum_{j=1}^{N}\sum_{i=1}^{N}\sum_{i'=1}^{N}(q_i^{(j)}p_i)(q_{i'}^{(j)}p_{i'}) = \sum_{i=1}^{N}p_i^2.
+  \sum_{j=1}^{N}P_j^2 = \sum_{j=1}^{N}\ab(\sum_{i=1}^{N}q_i^{(j)}p_i)^2 = \sum_{j=1}^{N}\sum_{i=1}^{N}\sum_{i'=1}^{N}(q_i^{(j)}p_i)(q_{i'}^{(j)}p_{i'}) = \sum_{i=1}^{N}p_i^2.
 \end{align}
 
 (viii) Hamilton 関数のポテンシャルエネルギーの核の部分について次のような表される.
 \begin{align}
-  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{i=0}^{N}\qty(\sum_{j=1}^{N}\qty(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)}))^2                                                     \\
-                                  & = \sum_{i=0}^{N}\sum_{j=1}^{N}\sum_{j'=1}^{N}\qty(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)})\qty(Q_{j'}q_i^{(j')} - Q_{j'}q_{i+1}^{(j')}) \\
-                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})Q_jQ_{j'}                  \\
+  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{i=0}^{N}\ab(\sum_{j=1}^{N}\ab(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)}))^2                                                     \\
+                                  & = \sum_{i=0}^{N}\sum_{j=1}^{N}\sum_{j'=1}^{N}\ab(Q_jq_i^{(j)} - Q_jq_{i+1}^{(j)})\ab(Q_{j'}q_i^{(j')} - Q_{j'}q_{i+1}^{(j')}) \\
+                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})Q_jQ_{j'}                \\
                                   & = \sum_{j=1}^{N}\sum_{j'=1}^{N}B_{j,j'}Q_jQ_{j'}.
 \end{align}
 ただし, $B_{j,j'}$ を次のように定める.
@@ -941,79 +949,79 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 
 (ix) 次に $B_{j,j'}$ を求める. まず $q_i^{(j)} - q_{i+1}^{(j)}$ は次のように求められる.
 \begin{align}
-  q_i^{(j)} - q_{i+1}^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji) - \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}j(i+1)) \\
-                            & = \sqrt{\frac{2}{N+1}}\qty(\sin\qty(\frac{\pi}{N+1}ji) - \sin\qty(\frac{\pi}{N+1}j(i+1)))               \\
-                            & = -2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j}{N+1}).
+  q_i^{(j)} - q_{i+1}^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\ab(\frac{\pi}{N+1}ji) - \sqrt{\frac{2}{N+1}}\sin\ab(\frac{\pi}{N+1}j(i+1)) \\
+                            & = \sqrt{\frac{2}{N+1}}\ab(\sin\ab(\frac{\pi}{N+1}ji) - \sin\ab(\frac{\pi}{N+1}j(i+1)))                \\
+                            & = -2\sqrt{\frac{2}{N+1}}\cos\ab(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j}{N+1}).
 \end{align}
 
 (x) これより $B_{j,j'}$ は次のように計算できる.
 \begin{align}
-  B_{j,j'} & = \sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})                                                                                                                                                               \\
-           & = \sum_{i=0}^{N}\qty(-2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j}{N+1}))\qty(-2\sqrt{\frac{2}{N+1}}\cos\qty(\frac{\pi}{2}\frac{(2i+1)j'}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})) \\
-           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\frac{2}{N+1}\sum_{i=0}^{N}\cos\qty(\frac{\pi}{N+1}j\qty(i + \frac{1}{2}))\cos\qty(\frac{\pi}{N+1}j'\qty(i + \frac{1}{2}))                                 \\
-           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j + j')\qty(i + \frac{1}{2})) + \cos\qty(\frac{\pi}{N+1}(j - j')\qty(i + \frac{1}{2})))           \\
-           & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'}.
+  B_{j,j'} & = \sum_{i=0}^{N}(q_i^{(j)} - q_{i+1}^{(j)})(q_i^{(j')} - q_{i+1}^{(j')})                                                                                                                                                         \\
+           & = \sum_{i=0}^{N}\ab(-2\sqrt{\frac{2}{N+1}}\cos\ab(\frac{\pi}{2}\frac{(2i+1)j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j}{N+1}))\ab(-2\sqrt{\frac{2}{N+1}}\cos\ab(\frac{\pi}{2}\frac{(2i+1)j'}{N+1})\sin\ab(\frac{\pi}{2}\frac{j'}{N+1})) \\
+           & = 4\sin\ab(\frac{\pi}{2}\frac{j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j'}{N+1})\frac{2}{N+1}\sum_{i=0}^{N}\cos\ab(\frac{\pi}{N+1}j\ab(i + \frac{1}{2}))\cos\ab(\frac{\pi}{N+1}j'\ab(i + \frac{1}{2}))                                 \\
+           & = 4\sin\ab(\frac{\pi}{2}\frac{j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j'}{N+1})\frac{1}{N+1}\sum_{i=0}^{N}\ab(\cos\ab(\frac{\pi}{N+1}(j + j')\ab(i + \frac{1}{2})) + \cos\ab(\frac{\pi}{N+1}(j - j')\ab(i + \frac{1}{2})))            \\
+           & = 4\sin\ab(\frac{\pi}{2}\frac{j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'}.
 \end{align}
 ただし, $\tilde{B}_{j,j'}$ を次のように定める.
 \begin{align}
-  \tilde{B}_{j,j'} & := \frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\frac{\pi}{N+1}(j + j')\qty(i + \frac{1}{2})) + \cos\qty(\frac{\pi}{N+1}(j - j')\qty(i + \frac{1}{2}))).
+  \tilde{B}_{j,j'} & := \frac{1}{N+1}\sum_{i=0}^{N}\ab(\cos\ab(\frac{\pi}{N+1}(j + j')\ab(i + \frac{1}{2})) + \cos\ab(\frac{\pi}{N+1}(j - j')\ab(i + \frac{1}{2}))).
 \end{align}
 
 (xi) さらに $\tilde{B}_{j,j'}$ は次のように計算できる.
 \begin{align}
-  \tilde{B}_{j,j'} & = \frac{1}{N+1}\sum_{i=0}^{N}\qty(\cos\qty(\pi\frac{j + j'}{N+1}\qty(i + \frac{1}{2})) + \cos\qty(\pi\frac{j - j'}{N+1}\qty(i + \frac{1}{2}))) \\
+  \tilde{B}_{j,j'} & = \frac{1}{N+1}\sum_{i=0}^{N}\ab(\cos\ab(\pi\frac{j + j'}{N+1}\ab(i + \frac{1}{2})) + \cos\ab(\pi\frac{j - j'}{N+1}\ab(i + \frac{1}{2}))) \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\sum_{i=0}^{N}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\qty(\pi\frac{j + j'}{N+1}i)    \\
-                                                             & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\qty(\pi\frac{j + j'}{N+1}i)       \\
-                                                             & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\qty(\pi\frac{j - j'}{N+1}i)       \\
-                                                             & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\qty(\pi\frac{j - j'}{N+1}i)\bigg]
-                       \end{aligned}                                         \\
+                         = \frac{1}{N+1}\sum_{i=0}^{N}\bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\ab(\pi\frac{j + j'}{N+1}i)    \\
+                                                             & - \sin\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\ab(\pi\frac{j + j'}{N+1}i)       \\
+                                                             & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\ab(\pi\frac{j - j'}{N+1}i)       \\
+                                                             & - \sin\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\ab(\pi\frac{j - j'}{N+1}i)\bigg]
+                       \end{aligned}                                    \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + F\qty(\pi\frac{j + j'}{N+1})) \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})G\qty(\pi\frac{j + j'}{N+1})              \\
-                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + F\qty(\pi\frac{j - j'}{N+1}))    \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})G\qty(\pi\frac{j - j'}{N+1})\bigg]
+                         = \frac{1}{N+1}\bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\ab(1 + F\ab(\pi\frac{j + j'}{N+1})) \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j + j'}{N+1})G\ab(\pi\frac{j + j'}{N+1})             \\
+                                               & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\ab(1 + F\ab(\pi\frac{j - j'}{N+1}))    \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j - j'}{N+1})G\ab(\pi\frac{j - j'}{N+1})\bigg]
                        \end{aligned}.
 \end{align}
 
 (xii) まず $\tilde{B}_{j,j'}$ について $j = j'$ の場合を考える.
 \begin{align}
-  \tilde{B}_{j,j'} & = \tilde{B}_{j,j}                                                                                                                                                                                                                                      \\
-                   & = \frac{1}{N+1}\qty[\cos\qty(\frac{1}{N+1}j\pi)\qty(1 + F\qty(\frac{2}{N+1}j\pi)) - \sin\qty(\frac{1}{N+1}j\pi)G\qty(\frac{2}{N+1}j\pi) + \qty(1 + N) - 0]                                                                                             \\
-                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi)\qty(1 + \frac{\cos\qty(j\pi)\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)}) - \sin\qty(\frac{1}{N+1}j\pi)\frac{\sin\qty(j\pi)\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)}) \\
-                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi) + \qty(\cos\qty(\frac{1}{N+1}j\pi)\cos\qty(j\pi) - \sin\qty(\frac{1}{N+1}j\pi)\sin\qty(j\pi))\frac{\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)})                                      \\
-                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi) + \cos\qty(\frac{N+2}{N+1}j\pi)\frac{\sin\qty(\frac{N}{N+1}j\pi)}{\sin\qty(\frac{1}{N+1}j\pi)})                                                                                                    \\
-                   & = 1 + \frac{1}{N+1}\qty(\cos\qty(\frac{1}{N+1}j\pi)\sin\qty(\frac{1}{N+1}j\pi) + \cos\qty(\frac{N+2}{N+1}j\pi)\sin\qty(\frac{N}{N+1}j\pi))\bigg/\sin\qty(\frac{1}{N+1}j\pi)                                                                            \\
-                   & = 1 + \frac{1}{N+1}\qty(\frac{1}{2}\sin\qty(\frac{2}{N+1}j\pi) + \frac{1}{2}\sin\qty(-\frac{2}{N+1}j\pi))\bigg/\sin\qty(\frac{1}{N+1}j\pi)                                                                                                             \\
+  \tilde{B}_{j,j'} & = \tilde{B}_{j,j}                                                                                                                                                                                                                            \\
+                   & = \frac{1}{N+1}\ab[\cos\ab(\frac{1}{N+1}j\pi)\ab(1 + F\ab(\frac{2}{N+1}j\pi)) - \sin\ab(\frac{1}{N+1}j\pi)G\ab(\frac{2}{N+1}j\pi) + \ab(1 + N) - 0]                                                                                          \\
+                   & = 1 + \frac{1}{N+1}\ab(\cos\ab(\frac{1}{N+1}j\pi)\ab(1 + \frac{\cos\ab(j\pi)\sin\ab(\frac{N}{N+1}j\pi)}{\sin\ab(\frac{1}{N+1}j\pi)}) - \sin\ab(\frac{1}{N+1}j\pi)\frac{\sin\ab(j\pi)\sin\ab(\frac{N}{N+1}j\pi)}{\sin\ab(\frac{1}{N+1}j\pi)}) \\
+                   & = 1 + \frac{1}{N+1}\ab(\cos\ab(\frac{1}{N+1}j\pi) + \ab(\cos\ab(\frac{1}{N+1}j\pi)\cos\ab(j\pi) - \sin\ab(\frac{1}{N+1}j\pi)\sin\ab(j\pi))\frac{\sin\ab(\frac{N}{N+1}j\pi)}{\sin\ab(\frac{1}{N+1}j\pi)})                                     \\
+                   & = 1 + \frac{1}{N+1}\ab(\cos\ab(\frac{1}{N+1}j\pi) + \cos\ab(\frac{N+2}{N+1}j\pi)\frac{\sin\ab(\frac{N}{N+1}j\pi)}{\sin\ab(\frac{1}{N+1}j\pi)})                                                                                               \\
+                   & = 1 + \frac{1}{N+1}\ab(\cos\ab(\frac{1}{N+1}j\pi)\sin\ab(\frac{1}{N+1}j\pi) + \cos\ab(\frac{N+2}{N+1}j\pi)\sin\ab(\frac{N}{N+1}j\pi))\bigg/\sin\ab(\frac{1}{N+1}j\pi)                                                                        \\
+                   & = 1 + \frac{1}{N+1}\ab(\frac{1}{2}\sin\ab(\frac{2}{N+1}j\pi) + \frac{1}{2}\sin\ab(-\frac{2}{N+1}j\pi))\bigg/\sin\ab(\frac{1}{N+1}j\pi)                                                                                                       \\
                    & = 1.
 \end{align}
 
 (xiii) 次に $\tilde{B}_{j,j'}$ について $j \neq j'$ の場合を考える.
 \begin{align}
-  \tilde{B}_{j,j'} & = \tilde{B}_{j,j'}                                                                                                                                                                         \\
+  \tilde{B}_{j,j'} & = \tilde{B}_{j,j'}                                                                                                                                                                      \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + F\qty(\pi\frac{j + j'}{N+1})) \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})G\qty(\pi\frac{j + j'}{N+1})              \\
-                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + F\qty(\pi\frac{j - j'}{N+1}))    \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})G\qty(\pi\frac{j - j'}{N+1})\bigg]
-                       \end{aligned}                                                                                               \\
+                         = \frac{1}{N+1}\bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\ab(1 + F\ab(\pi\frac{j + j'}{N+1})) \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j + j'}{N+1})G\ab(\pi\frac{j + j'}{N+1})             \\
+                                               & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\ab(1 + F\ab(\pi\frac{j - j'}{N+1}))    \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j - j'}{N+1})G\ab(\pi\frac{j - j'}{N+1})\bigg]
+                       \end{aligned}                                                                                             \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\qty(1 + \frac{\cos\qty(\frac{1}{2}(j+j')\pi)\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}) \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\frac{\sin\qty(\frac{1}{2}(j+j')\pi)\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}              \\
-                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\qty(1 + \frac{\cos\qty(\frac{1}{2}(j-j')\pi)\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)})    \\
-                                               & - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\frac{\sin\qty(\frac{1}{2}(j-j')\pi)\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
-                       \end{aligned}                                                                                                \\
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\ab(1 + \frac{\cos\ab(\frac{1}{2}(j+j')\pi)\sin\ab(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j+j')\pi)}) \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\frac{\sin\ab(\frac{1}{2}(j+j')\pi)\sin\ab(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j+j')\pi)}             \\
+                                               & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\ab(1 + \frac{\cos\ab(\frac{1}{2}(j-j')\pi)\sin\ab(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j-j')\pi)})    \\
+                                               & - \sin\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\frac{\sin\ab(\frac{1}{2}(j-j')\pi)\sin\ab(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
+                       \end{aligned}                                                                                              \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1}) + \qty(\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\qty(\frac{j+j'}{2}\pi) - \sin\qty(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\qty(\frac{j+j'}{2}\pi))\frac{\sin\qty(\frac{N(j+j')}{2(N+1)}\pi)}{\sin\qty(\frac{j+j'}{2(N+1)}\pi)}    \\
-                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1}) + \qty(\cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\qty(\frac{j-j'}{2}\pi) - \sin\qty(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\qty(\frac{j-j'}{2}\pi))\frac{\sin\qty(\frac{N(j-j')}{2(N+1)}\pi)}{\sin\qty(\frac{j-j'}{2(N+1)}\pi)}\Bigg]
-                       \end{aligned}                                                                             \\
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1}) + \ab(\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\cos\ab(\frac{j+j'}{2}\pi) - \sin\ab(\frac{\pi}{2}\frac{j + j'}{N+1})\sin\ab(\frac{j+j'}{2}\pi))\frac{\sin\ab(\frac{N(j+j')}{2(N+1)}\pi)}{\sin\ab(\frac{j+j'}{2(N+1)}\pi)}    \\
+                                               & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1}) + \ab(\cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\cos\ab(\frac{j-j'}{2}\pi) - \sin\ab(\frac{\pi}{2}\frac{j - j'}{N+1})\sin\ab(\frac{j-j'}{2}\pi))\frac{\sin\ab(\frac{N(j-j')}{2(N+1)}\pi)}{\sin\ab(\frac{j-j'}{2(N+1)}\pi)}\Bigg]
+                       \end{aligned}                                                                          \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\Bigg[ & \quad\cos\qty(\frac{\pi}{2}\frac{j + j'}{N+1}) + \cos\qty(\frac{N+2}{2(N+1)}(j + j')\pi)\frac{\sin\qty(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)}    \\
-                                               & + \cos\qty(\frac{\pi}{2}\frac{j - j'}{N+1}) + \cos\qty(\frac{N+2}{2(N+1)}(j - j')\pi)\frac{\sin\qty(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
-                       \end{aligned}                                                                         \\
+                         = \frac{1}{N+1}\Bigg[ & \quad\cos\ab(\frac{\pi}{2}\frac{j + j'}{N+1}) + \cos\ab(\frac{N+2}{2(N+1)}(j + j')\pi)\frac{\sin\ab(\frac{N}{2(N+1)}(j+j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j+j')\pi)}    \\
+                                               & + \cos\ab(\frac{\pi}{2}\frac{j - j'}{N+1}) + \cos\ab(\frac{N+2}{2(N+1)}(j - j')\pi)\frac{\sin\ab(\frac{N}{2(N+1)}(j-j')\pi)}{\sin\ab(\frac{1}{2(N+1)}(j-j')\pi)}\Bigg]
+                       \end{aligned}                                                                      \\
                    & \ \begin{aligned}
-                         = \frac{1}{N+1}\Bigg[ & \quad\frac{1}{2}\qty(\sin\qty(\frac{j + j'}{N+1}\pi) + \sin\qty((j + j')\pi) + \sin\qty(-\frac{j+j'}{N+1}\pi))\bigg/\sin\qty(\frac{1}{2(N+1)}(j+j')\pi)    \\
-                                               & + \frac{1}{2}\qty(\sin\qty(\frac{j - j'}{N+1}\pi) + \sin\qty((j - j')\pi) + \sin\qty(-\frac{j-j'}{N+1}\pi))\bigg/\sin\qty(\frac{1}{2(N+1)}(j-j')\pi)\bigg]
+                         = \frac{1}{N+1}\Bigg[ & \quad\frac{1}{2}\ab(\sin\ab(\frac{j + j'}{N+1}\pi) + \sin\ab((j + j')\pi) + \sin\ab(-\frac{j+j'}{N+1}\pi))\bigg/\sin\ab(\frac{1}{2(N+1)}(j+j')\pi)    \\
+                                               & + \frac{1}{2}\ab(\sin\ab(\frac{j - j'}{N+1}\pi) + \sin\ab((j - j')\pi) + \sin\ab(-\frac{j-j'}{N+1}\pi))\bigg/\sin\ab(\frac{1}{2(N+1)}(j-j')\pi)\bigg]
                        \end{aligned} \\
                    & = 0.
 \end{align}
@@ -1024,40 +1032,40 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 
 (xiv) これより $B_{j,j'}$ は (x) の考察から次のようになる.
 \begin{align}
-  B_{j,j'} & = 4\sin\qty(\frac{\pi}{2}\frac{j}{N+1})\sin\qty(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'} \\
-           & = \delta_{j,j'}4\sin^2\qty(\frac{\pi}{2(N+1)}j).
+  B_{j,j'} & = 4\sin\ab(\frac{\pi}{2}\frac{j}{N+1})\sin\ab(\frac{\pi}{2}\frac{j'}{N+1})\tilde{B}_{j,j'} \\
+           & = \delta_{j,j'}4\sin^2\ab(\frac{\pi}{2(N+1)}j).
 \end{align}
 
 (xv) ポテンシャルエネルギーの表式 (vii) に代入して次のようになる.
 \begin{align}
-  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{j=1}^{N}\sum_{j'=1}^{N}B_{j,j'}Q_jQ_{j'}                                      \\
-                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\delta_{j,j'}4\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_jQ_{j'} \\
-                                  & = 4\sum_{j=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_j^2.
+  \sum_{i=0}^{N}(q_i - q_{i+1})^2 & = \sum_{j=1}^{N}\sum_{j'=1}^{N}B_{j,j'}Q_jQ_{j'}                                     \\
+                                  & = \sum_{j=1}^{N}\sum_{j'=1}^{N}\delta_{j,j'}4\sin^2\ab(\frac{\pi}{2(N+1)}j)Q_jQ_{j'} \\
+                                  & = 4\sum_{j=1}^{N}\sin^2\ab(\frac{\pi}{2(N+1)}j)Q_j^2.
 \end{align}
 
 (xvi) よって Hamilton 関数は (vii) (xv) から次のように表される.
 \begin{align}
-  H^{1次元結晶}(q_1,\ldots,q_N, p_1,\ldots,p_N) & = \frac{1}{2m}\sum_{i=1}^{N}p_i^2 + \frac{1}{2}\kappa\sum_{i=0}^{N}(q_i - q_{i+1})^2          \\
-                                            & = \frac{1}{2m}\sum_{j=1}^{N}P_j^2 + 2\kappa\sum_{j=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j)Q_j^2 \\
-  H^{1次元結晶}(Q_1,\ldots,Q_N, P_1,\ldots,P_N) & = \sum_{j=1}^{N}\qty(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
+  H^{1次元結晶}(q_1,\ldots,q_N, p_1,\ldots,p_N) & = \frac{1}{2m}\sum_{i=1}^{N}p_i^2 + \frac{1}{2}\kappa\sum_{i=0}^{N}(q_i - q_{i+1})^2         \\
+                                            & = \frac{1}{2m}\sum_{j=1}^{N}P_j^2 + 2\kappa\sum_{j=1}^{N}\sin^2\ab(\frac{\pi}{2(N+1)}j)Q_j^2 \\
+  H^{1次元結晶}(Q_1,\ldots,Q_N, P_1,\ldots,P_N) & = \sum_{j=1}^{N}\ab(\frac{1}{2m}P_j^2 + \frac{1}{2}m\omega_j^2Q_j^2).
 \end{align}
 ただし, $\omega_j$ を次のように定めた.
 \begin{align}
-  \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j) \qquad (j = 1,\ldots,N).
+  \omega_j = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi}{2(N+1)}j) \qquad (j = 1,\ldots,N).
 \end{align}
 
 \begin{itembox}[l]{Q 17-4.}
   1 次元結晶中の波数 $k$ に対する分散関係 $\omega(k)$ は次のようになる.
   \begin{align}
-    \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}ka) \approx \sqrt{\frac{\kappa}{m}}ka + \mathcal{O}((ka)^3) \qquad (ka\ll 1).
+    \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{1}{2}ka) \approx \sqrt{\frac{\kappa}{m}}ka + \mathcal{O}((ka)^3) \qquad (ka\ll 1).
   \end{align}
 \end{itembox}
 
 (i) $j = 1,\ldots,N$ に対して $j$ 番目の基準振動 $q_i^{(j)}$ は次のように計算される.
 \begin{align}
-  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{N+1}ji)             \\
-            & = \sqrt{\frac{2}{N+1}}\sin\qty(\frac{\pi}{a}\frac{j}{N+1}x_i) \\
-            & = \sqrt{\frac{2}{N+1}}\sin\qty(k_jx_i).
+  q_i^{(j)} & = \sqrt{\frac{2}{N+1}}\sin\ab(\frac{\pi}{N+1}ji)             \\
+            & = \sqrt{\frac{2}{N+1}}\sin\ab(\frac{\pi}{a}\frac{j}{N+1}x_i) \\
+            & = \sqrt{\frac{2}{N+1}}\sin\ab(k_jx_i).
 \end{align}
 ただし, $i$ 番目の原子の平衡位置の座標を $x_i = ai$ とし, $j$ 番目の基準振動の波数 $k_j$ を次のように定める.
 \begin{align}
@@ -1066,20 +1074,20 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 
 (ii) 基準振動 $q_i^{(j)}$ の角振動数 $\omega_j$ を波数 $k_j$ の関数として次のように表される.
 \begin{align}
-  \omega(k_j) & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j) \\
-              & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}k_ja).
+  \omega(k_j) & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi}{2(N+1)}j) \\
+              & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{1}{2}k_ja).
 \end{align}
 よって分散関係 $\omega = \omega(k)$ は次のように与えられる.
 \begin{align}
-  \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}ka).
+  \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{1}{2}ka).
 \end{align}
 
 (iii) この 1 次元結晶を伝わる線形波動 (弾性波, 音波) が波数ごとに異なる速さを持って伝播するということから, 1次元結晶中にこれらを重ね合わせて波束が作られたとすると次第に波束の形が変化していき最終的に崩壊する.
 
 (iv) 十分に長波長 $ka\ll 1$ のとき次のように近似することで分散関係 $\omega(k)$ は線形関係となる.
 \begin{align}
-  \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{1}{2}ka)                         \\
-            & \approx 2\sqrt{\frac{\kappa}{m}}\qty(\frac{1}{2}ka + \mathcal{O}((ka)^3)) \\
+  \omega(k) & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{1}{2}ka)                         \\
+            & \approx 2\sqrt{\frac{\kappa}{m}}\ab(\frac{1}{2}ka + \mathcal{O}((ka)^3)) \\
             & = \sqrt{\frac{\kappa}{m}}ka + \mathcal{O}((ka)^3) \qquad (ka\ll 1).
 \end{align}
 
@@ -1096,21 +1104,21 @@ $i$ 番目の原子の運動エネルギーは運動量 $p_i$ を用いて次の
 
 (i)(ii) $\omega_j$ は次のように表されることから $j=1,\ldots,N$ に対して単調増加となる.
 \begin{align}
-  \omega_j & = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}j).
+  \omega_j & = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi}{2(N+1)}j).
 \end{align}
 これより $\omega_j$ の最大値と最小値は次のようになる.
 \begin{align}
-  \omega_{\max} & := \max_{1\leq j\leq N}\omega_j = \omega_N = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi N}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}},                                                          \\
-  \omega_{\min} & := \min_{1\leq j\leq N}\omega_j = \omega_1 = 2\sqrt{\frac{\kappa}{m}}\sin\qty(\frac{\pi}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}}\frac{\pi}{2(N+1)} = \sqrt{\frac{\kappa}{m}}\frac{\pi}{N+1}.
+  \omega_{\max} & := \max_{1\leq j\leq N}\omega_j = \omega_N = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi N}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}},                                                          \\
+  \omega_{\min} & := \min_{1\leq j\leq N}\omega_j = \omega_1 = 2\sqrt{\frac{\kappa}{m}}\sin\ab(\frac{\pi}{2(N+1)}) \approx 2\sqrt{\frac{\kappa}{m}}\frac{\pi}{2(N+1)} = \sqrt{\frac{\kappa}{m}}\frac{\pi}{N+1}.
 \end{align}
 \subsection{3 次元結晶における平衡位置の回りの調和振動を記述する Hamilton 関数}
 立方格子の各点に平衡位置を持つ $N^3$ 個の原子が全体として立方体に並んだ 3 次元結晶を物理系として記述して、古典力学により考察する。任意の $i_x,i_y,i_z = 1,\ldots,N$ に対してラベル $(i_x,i_y,i_z)$ を持つ原子の平衡位置は格子定数 $a$ を用いて $(ai_x,ai_y,ai_z)$ であるとする.
 \begin{itembox}[l]{Q 17-6.}
   このとき 3 次元結晶の Hamilton 関数は次のように与えられる.
   \begin{align}
-       & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                         \\
-    := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                          \\
-    +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2).
+       & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                        \\
+    := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                         \\
+    +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\ab((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2).
   \end{align}
   ただし $m$ は 1 個の原子の質量であり, $\kappa$ は隣り合った原子間の原子間力のバネ定数とする. また立方体の表面は固定されているとする.
   \begin{align}
@@ -1123,9 +1131,9 @@ Q17-3 の考察から 1 次元結晶の系の Hamilton 関数は次のように�
 \end{align}
 3 次元結晶の系は $N^3$ 個の原子と $3$ 個の自由度があり, それらの原子間力は独立にそれぞれの自由度と原子に働くと考えられる. これより 3 次元結晶の系の Hamilton 関数 $H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})$ は次のように書ける.
 \begin{align}
-     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                         \\
-  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                          \\
-  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2).
+     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                        \\
+  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                         \\
+  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\ab((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2).
 \end{align}
 ただし $m$ は 1 個の原子の質量であり, $\kappa$ は隣り合った原子間の原子間力のバネ定数とする. また立方体の表面は固定されているとする.
 \begin{align}
@@ -1142,54 +1150,54 @@ Q17-3 の考察から 1 次元結晶の系の Hamilton 関数は次のように�
 \begin{itembox}[l]{Q 17-7.}
   新しい座標と運動量 $Q_{j_x, j_y, j_z, \alpha}, P_{j_x, j_y, j_z, \alpha}$ において Hamilton 関数は次のように表される.
   \begin{align}
-    H^{3次元結晶}((Q_{j_x, j_y, j_z, \alpha}, P_{j_x, j_y, j_z, \alpha})_{1\leq j_x,j_y,j_z\leq N,\alpha=x,y,z}) & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2Q_{j_x,j_y,j_z,\alpha}^2).
+    H^{3次元結晶}((Q_{j_x, j_y, j_z, \alpha}, P_{j_x, j_y, j_z, \alpha})_{1\leq j_x,j_y,j_z\leq N,\alpha=x,y,z}) & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\ab(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2Q_{j_x,j_y,j_z,\alpha}^2).
   \end{align}
   ただし, $\omega_{j_x,j_y,j_z}$ は次のように定めた.
   \begin{align}
-    \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)}.
+    \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)}.
   \end{align}
 \end{itembox}
 
 (i) Q17-1 の考察より新しい運動量を古い運動量と座標, 新しい座標から求めることができる.
 \begin{align}
-  P_{j_x,j_y,j_z,\alpha} & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\pdv{q_{i_x,i_y,i_z,\alpha}}{Q_{j_x,j_y,j_z,\alpha}}p_{i_x,i_y,i_z,\alpha} \\
+  P_{j_x,j_y,j_z,\alpha} & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\diffp{q_{i_x,i_y,i_z,\alpha}}{Q_{j_x,j_y,j_z,\alpha}}p_{i_x,i_y,i_z,\alpha} \\
                          & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha}.
 \end{align}
 
 (ii) この点正準変換に対し, 運動エネルギーは新しい運動量を用いて表せられる.
 \begin{align}
-    & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}P_{j_x,j_y,j_z,\alpha}^2                                                                                                                                                                                                                              \\
-  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha})^2                                                                                                                           \\
-  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha}q_{i_x'}^{(j_x)}q_{i_y'}^{(j_y)}q_{i_z'}^{(j_z)}p_{i_x',i_y',i_z',\alpha}) \\
-  = & \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}p_{i_x,i_y,i_z,\alpha}p_{i_x',i_y',i_z',\alpha}                                                                                                 \\
+    & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}P_{j_x,j_y,j_z,\alpha}^2                                                                                                                                                                                                                             \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\ab(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha})^2                                                                                                                           \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\ab(\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}p_{i_x,i_y,i_z,\alpha}q_{i_x'}^{(j_x)}q_{i_y'}^{(j_y)}q_{i_z'}^{(j_z)}p_{i_x',i_y',i_z',\alpha}) \\
+  = & \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}p_{i_x,i_y,i_z,\alpha}p_{i_x',i_y',i_z',\alpha}                                                                                                \\
   = & \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}p_{i_x,i_y,i_z,\alpha}^2.
 \end{align}
 
 (iii) またポテンシャルエネルギーについても新しい座標で表すことができる.
 \begin{align}
-    & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}(q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2                                                                                                                                                                                                                                                \\
-  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\qty(\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}))^2                                                                                            \\
-  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}                                                                                                                                                                                                  \\
-    & \qty(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)})\qty(Q_{j_x',j_y',j_z',\alpha}q_{i_x}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')} - Q_{j_x',j_y',j_z',\alpha}q_{i_x+1}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')})                                       \\
-  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}Q_{j_x,j_y,j_z,\alpha}\qty(q_{i_x}^{(j_x)} - q_{i_x+1}^{(j_x)})q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}Q_{j_x',j_y',j_z',\alpha}\qty(q_{i_x}^{(j_x')} - q_{i_x+1}^{(j_x')})q_{i_y}^{(j_y')}q_{i_z}^{(j_z')} \\
-  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}B_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                                                                     \\
-  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}4\sin^2\qty(\frac{\pi}{2(N+1)}j_x)\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                              \\
-  = & 4\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sin^2\qty(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2.
+    & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}(q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2                                                                                                                                                                                                                                              \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\ab(\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\ab(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}))^2                                                                                            \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}                                                                                                                                                                                                \\
+    & \ab(Q_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)} - Q_{j_x,j_y,j_z,\alpha}q_{i_x+1}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)})\ab(Q_{j_x',j_y',j_z',\alpha}q_{i_x}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')} - Q_{j_x',j_y',j_z',\alpha}q_{i_x+1}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')})                                       \\
+  = & \sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}Q_{j_x,j_y,j_z,\alpha}\ab(q_{i_x}^{(j_x)} - q_{i_x+1}^{(j_x)})q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}Q_{j_x',j_y',j_z',\alpha}\ab(q_{i_x}^{(j_x')} - q_{i_x+1}^{(j_x')})q_{i_y}^{(j_y')}q_{i_z}^{(j_z')} \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}B_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                                                                   \\
+  = & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}4\sin^2\ab(\frac{\pi}{2(N+1)}j_x)\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}Q_{j_x,j_y,j_z,\alpha}Q_{j_x',j_y',j_z',\alpha}                                                                                                             \\
+  = & 4\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sin^2\ab(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2.
 \end{align}
 
 (iv) これより Hamilton 関数は新しい座標と運動量を用いて表すことができる.
 \begin{align}
-     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                          \\
-  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                           \\
-  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2)   \\
-  =  & \frac{1}{2m}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}P_{j_x,j_y,j_z,\alpha}^2                                                                                                                                                           \\
-  +  & 2\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty(\sin^2\qty(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\qty(\frac{\pi}{2(N+1)}j_y)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)Q_{j_x,j_y,j_z,\alpha}^2) \\
-  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + 2\kappa\qty(\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z))Q_{j_x,j_y,j_z,\alpha}^2)    \\
-  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2Q_{j_x,j_y,j_z,\alpha}^2).
+     & H^{3次元結晶}((q_{i_x, i_y, i_z, \alpha}, p_{i_x, i_y, i_z, \alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z})                                                                                                                                                       \\
+  := & \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}p_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                        \\
+  +  & \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\ab((q_{i_x,i_y,i_z,\alpha} - q_{i_x+1,i_y,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y+1,i_z,\alpha})^2 + (q_{i_x,i_y,i_z,\alpha} - q_{i_x,i_y,i_z+1,\alpha})^2) \\
+  =  & \frac{1}{2m}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}P_{j_x,j_y,j_z,\alpha}^2                                                                                                                                                        \\
+  +  & 2\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\ab(\sin^2\ab(\frac{\pi}{2(N+1)}j_x)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\ab(\frac{\pi}{2(N+1)}j_y)Q_{j_x,j_y,j_z,\alpha}^2 + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)Q_{j_x,j_y,j_z,\alpha}^2)  \\
+  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\ab(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + 2\kappa\ab(\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z))Q_{j_x,j_y,j_z,\alpha}^2)      \\
+  =  & \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\ab(\frac{1}{2m}P_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2Q_{j_x,j_y,j_z,\alpha}^2).
 \end{align}
 ただし, $\omega_{j_x,j_y,j_z}$ は次のように定めた.
 \begin{align}
-  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)}.
+  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)}.
 \end{align}
 
 これより 3 次元結晶の模型の基準振動は位置や運動量に独立な角振動数 $\omega_{j_x,j_y,j_z}$ の調和振動子となることがわかった.
@@ -1197,14 +1205,14 @@ Q17-3 の考察から 1 次元結晶の系の Hamilton 関数は次のように�
 \begin{itembox}[l]{Q 17-8.}
   3 次元結晶中の波数 $k$ における分散関係 $\omega(k)$ は次のように表される.
   \begin{align}
-    \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{a}{2}k_x) + \sin^2\qty(\frac{a}{2}k_y) + \sin^2\qty(\frac{a}{2}k_z)} \approx \sqrt{\frac{\kappa}{m}}a|\bm{k}| + \mathcal{O}(|\bm{k}|^3) \qquad (a|\bm{k}| \ll 1).
+    \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{a}{2}k_x) + \sin^2\ab(\frac{a}{2}k_y) + \sin^2\ab(\frac{a}{2}k_z)} \approx \sqrt{\frac{\kappa}{m}}a|\bm{k}| + \mathcal{O}(|\bm{k}|^3) \qquad (a|\bm{k}| \ll 1).
   \end{align}
 \end{itembox}
 
 (i) 3 次元結晶の模型の基準振動は角振動数 $\omega_{j_x,j_y,j_z}$ に依存し, それに対する波数 $\bm{k}_{j_x,j_y,j_z} = (k_{j_x}, k_{j_y}, k_{j_z})$ を考えると次のようになる.
 \begin{align}
-  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)} \\
-                       & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{a}{2}k_{j_x}) + \sin^2\qty(\frac{a}{2}k_{j_y}) + \sin^2\qty(\frac{a}{2}k_{j_z})}.
+  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)} \\
+                       & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{a}{2}k_{j_x}) + \sin^2\ab(\frac{a}{2}k_{j_y}) + \sin^2\ab(\frac{a}{2}k_{j_z})}.
 \end{align}
 これより基準振動に対する波数 $\bm{k}_{j_x,j_y,j_z}$ は次のように定められる.
 \begin{align}
@@ -1213,15 +1221,15 @@ Q17-3 の考察から 1 次元結晶の系の Hamilton 関数は次のように�
 
 (ii) このように定めた波数を連続的に捉え直すことで分散関係 $\omega(\bm{k})$ は波数 $\bm{k} = (k_x, k_y, k_z)$ を用いて次のようになる.
 \begin{align}
-  \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{a}{2}k_x) + \sin^2\qty(\frac{a}{2}k_y) + \sin^2\qty(\frac{a}{2}k_z)}.
+  \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{a}{2}k_x) + \sin^2\ab(\frac{a}{2}k_y) + \sin^2\ab(\frac{a}{2}k_z)}.
 \end{align}
 
 (iii) このとき長波長 ($a|\bm{k}| \ll 1$) では分散関係は次の線形関係となることがわかる.
 \begin{align}
-  \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{a}{2}k_x) + \sin^2\qty(\frac{a}{2}k_y) + \sin^2\qty(\frac{a}{2}k_z)}                                                          \\
-                 & \approx 2\sqrt{\frac{\kappa}{m}}\sqrt{\qty(\frac{a}{2}k_x + \mathcal{O}(k_x^3))^2 + \qty(\frac{a}{2}k_y + \mathcal{O}(k_y^3))^2 + \qty(\frac{a}{2}k_z + \mathcal{O}(k_z^3))^2} \\
-                 & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\qty(\frac{a}{2}|\bm{k}|)^2 + \mathcal{O}(|\bm{k}|^4)}                                                                                         \\
-                 & = 2\sqrt{\frac{\kappa}{m}}\qty(\frac{a}{2}|\bm{k}|\sqrt{1 + \mathcal{O}(|\bm{k}|^2)})                                                                                          \\
+  \omega(\bm{k}) & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{a}{2}k_x) + \sin^2\ab(\frac{a}{2}k_y) + \sin^2\ab(\frac{a}{2}k_z)}                                                          \\
+                 & \approx 2\sqrt{\frac{\kappa}{m}}\sqrt{\ab(\frac{a}{2}k_x + \mathcal{O}(k_x^3))^2 + \ab(\frac{a}{2}k_y + \mathcal{O}(k_y^3))^2 + \ab(\frac{a}{2}k_z + \mathcal{O}(k_z^3))^2} \\
+                 & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\ab(\frac{a}{2}|\bm{k}|)^2 + \mathcal{O}(|\bm{k}|^4)}                                                                                       \\
+                 & = 2\sqrt{\frac{\kappa}{m}}\ab(\frac{a}{2}|\bm{k}|\sqrt{1 + \mathcal{O}(|\bm{k}|^2)})                                                                                        \\
                  & \approx \sqrt{\frac{\kappa}{m}}a|\bm{k}| + \mathcal{O}(|\bm{k}|^3) \qquad (a|\bm{k}| \ll 1).
 \end{align}
 
@@ -1246,7 +1254,7 @@ Q17-3 の考察から 1 次元結晶の系の Hamilton 関数は次のように�
 
 (ii) これより調和振動子の総数は次のようになる.
 \begin{align}
-  \int_0^\infty\dd{\omega}g(\omega) & = 3\int_0^\infty\dd{\omega}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z})) \\
+  \int_0^\infty\dl{\omega}g(\omega) & = 3\int_0^\infty\dl{\omega}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z})) \\
                                     & = 3N^3.
 \end{align}
 
@@ -1282,8 +1290,8 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
   Debye 模型における調和振動子の角振動数の個数分布関数 $g(\omega)$ は次のように表される.
   \begin{align}
     g(\omega) & = \begin{dcases}
-                    \frac{9N^3}{\omega_D}\qty(\frac{\omega}{\omega_D})^2 & (\omega\leq\omega_D) \\
-                    0                                                    & (\omega > \omega_D)
+                    \frac{9N^3}{\omega_D}\ab(\frac{\omega}{\omega_D})^2 & (\omega\leq\omega_D) \\
+                    0                                                   & (\omega > \omega_D)
                   \end{dcases} \\
     \omega_D  & = (6\pi^2)^{1/3}\sqrt{\frac{\kappa}{m}}.
   \end{align}
@@ -1297,22 +1305,22 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
 
 (ii) また調和振動子の総数は 3 次元結晶の模型と同様に $3N^3$ となる.
 \begin{align}
-  \int_0^\infty\dd{\omega}g(\omega) & = 3\int_0^\infty\dd{\omega}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z})) \\
+  \int_0^\infty\dl{\omega}g(\omega) & = 3\int_0^\infty\dl{\omega}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z})) \\
                                     & = 3N^3.
 \end{align}
 
 (iii) ここでDebye 模型における調和振動子の角振動数の個数分布関数 $g(\omega)$ を具体的に計算すると次のようになる.
 \begin{align}
-  g(\omega) & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z}))                                                                                  \\
-            & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\qty(\omega - \sqrt{\frac{\kappa}{m}}a\qty|\frac{\pi}{a(N+1)}(j_x,j_y,j_z)|)                                             \\
-            & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\qty(\omega - \sqrt{\frac{\kappa}{m}}\frac{\pi}{N+1}\sqrt{j_x^2 + j_y^2 + j_z^2})                                        \\
-            & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2}).
+  g(\omega) & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta(\omega - \omega(\bm{k}_{j_x,j_y,j_z}))                                                                                 \\
+            & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\ab(\omega - \sqrt{\frac{\kappa}{m}}a\ab|\frac{\pi}{a(N+1)}(j_x,j_y,j_z)|)                                              \\
+            & = 3\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\ab(\omega - \sqrt{\frac{\kappa}{m}}\frac{\pi}{N+1}\sqrt{j_x^2 + j_y^2 + j_z^2})                                        \\
+            & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2}).
 \end{align}
 
 (iv) またデルタ関数を少し広がった有限の Gauss 分布とすることで $g(\omega)$ を滑らかな分布として近似できる. これより総和は次のように積分で置き換えられることが言える.
 \begin{align}
-  g(\omega) & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2})                    \\
-            & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\int_{1}^{N}\dd{j_x}\int_{1}^{N}\dd{j_y}\int_{1}^{N}\dd{j_z}\delta\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2}).
+  g(\omega) & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\delta\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2})                    \\
+            & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\int_{1}^{N}\dl{j_x}\int_{1}^{N}\dl{j_y}\int_{1}^{N}\dl{j_z}\delta\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2}).
 \end{align}
 
 (v) ここで $\omega$ に関する次の条件が成り立つとする.
@@ -1321,51 +1329,51 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
 \end{align}
 特に $g(\omega)$ の被積分関数の積分値は次のような幾何学的解釈で近似できる.
 \begin{align}
-          & \int_{1}^{N}\dd{j_x}\int_{1}^{N}\dd{j_y}\int_{1}^{N}\dd{j_z}\delta\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2})                             \\
-  =       & \int_V\dd{\bm{r}}\delta\qty(|\bm{r}| - \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega) \qquad \qty(V := \lbrace (x, y, z)\mid 1\leq x\leq N, 1\leq y\leq N, 1\leq z\leq N\rbrace) \\
-  \approx & \qty(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積).
+          & \int_{1}^{N}\dl{j_x}\int_{1}^{N}\dl{j_y}\int_{1}^{N}\dl{j_z}\delta\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega - \sqrt{j_x^2 + j_y^2 + j_z^2})                            \\
+  =       & \int_V\dl{\bm{r}}\delta\ab(|\bm{r}| - \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega) \qquad \ab(V := \lbrace (x, y, z)\mid 1\leq x\leq N, 1\leq y\leq N, 1\leq z\leq N\rbrace) \\
+  \approx & \ab(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積).
 \end{align}
 これより $g(\omega)$ は次のように書ける.
 \begin{align}
-  g(\omega) & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\qty(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積).
+  g(\omega) & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\ab(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積).
 \end{align}
 
 (vi) それを具体的に計算すると次のようになる.
 \begin{align}
-  g(\omega) & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\qty(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積) \\
-            & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\frac{4\pi}{8}\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega)^2                           \\
-            & = \frac{3\pi}{2}\qty(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi})^3\omega^2.
+  g(\omega) & \approx 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\ab(半径 \sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega の 2 次元球面 S_2 を第 1 象限で切り取った曲面の表面積) \\
+            & = 3\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\times\frac{4\pi}{8}\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi}\omega)^2                           \\
+            & = \frac{3\pi}{2}\ab(\sqrt{\frac{m}{\kappa}}\frac{N+1}{\pi})^3\omega^2.
 \end{align}
 
 (vii) $\omega$ に関する条件 \eqref{omega_condition} が成り立たない場合は立方体の積分範囲と球面の表面の共通部分の面積となるので複雑な式となってしまう. ただ Debye 模型は低温における比熱の振る舞いからの要請により $\omega(\bm{k})$ が大きいときは気にしなくて良い模型でした.
 これより $g(\omega)$ の $(j_x, j_y, j_z)$ に関する積分範囲を立方体から球へ修正することが許され, 次のように $g(\omega)$ は表される.
 \begin{align}
   g(\omega) & = \begin{dcases}
-                  \frac{3\pi}{2}\qty(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 & (\omega\leq\omega_D) \\
-                  0                                                                  & (\omega > \omega_D)
+                  \frac{3\pi}{2}\ab(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 & (\omega\leq\omega_D) \\
+                  0                                                                 & (\omega > \omega_D)
                 \end{dcases}.
 \end{align}
 ただし $N\gg 1$ であることから $N+1$ を $N$ と近似し, また打ち切る角振動数 $\omega_D$ を次のように定める.
 \begin{align}
-  \int_0^\infty\dd{\omega}g(\omega) & = \int_0^{\omega_D}\dd{\omega}g(\omega) = 3N^3.
+  \int_0^\infty\dl{\omega}g(\omega) & = \int_0^{\omega_D}\dl{\omega}g(\omega) = 3N^3.
 \end{align}
 この $\omega_D$ を Debye の角振動数という.
 
 (viii) これより Debye の角振動数 $\omega_D$ は次のように計算される.
 \begin{align}
-  \int_0^{\omega_D}\dd{\omega}g(\omega) & = \int_0^{\omega_D}\dd{\omega}\frac{3\pi}{2}\qty(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 = \frac{\pi}{2}\qty(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega_D^3 = 3N^3, \\
-  \omega_D                              & = \qty(3N^3\frac{2}{\pi})^{1/3}\sqrt{\frac{\kappa}{m}}\frac{\pi}{N} = (6\pi^2)^{1/3}\sqrt{\frac{\kappa}{m}}.
+  \int_0^{\omega_D}\dl{\omega}g(\omega) & = \int_0^{\omega_D}\dl{\omega}\frac{3\pi}{2}\ab(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 = \frac{\pi}{2}\ab(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega_D^3 = 3N^3, \\
+  \omega_D                              & = \ab(3N^3\frac{2}{\pi})^{1/3}\sqrt{\frac{\kappa}{m}}\frac{\pi}{N} = (6\pi^2)^{1/3}\sqrt{\frac{\kappa}{m}}.
 \end{align}
 
 (ix) また Debye の角振動数 $\omega_D$ を用いて $g(\omega)$ は次のように表される.
 \begin{align}
   g(\omega) & = \begin{dcases}
-                  \frac{3\pi}{2}\qty(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 & (\omega\leq\omega_D) \\
-                  0                                                                  & (\omega > \omega_D)
+                  \frac{3\pi}{2}\ab(\sqrt{\frac{m}{\kappa}}\frac{N}{\pi})^3\omega^2 & (\omega\leq\omega_D) \\
+                  0                                                                 & (\omega > \omega_D)
                 \end{dcases} \\
             & = \begin{dcases}
-                  \frac{9N^3}{\omega_D}\qty(\frac{\omega}{\omega_D})^2 & (\omega\leq\omega_D) \\
-                  0                                                    & (\omega > \omega_D)
+                  \frac{9N^3}{\omega_D}\ab(\frac{\omega}{\omega_D})^2 & (\omega\leq\omega_D) \\
+                  0                                                   & (\omega > \omega_D)
                 \end{dcases}.
 \end{align}
 
@@ -1374,8 +1382,8 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
 \subsection{量子論での基準モード}
 今まで古典力学により行ってきた考察を量子力学に翻訳する. まず Debye 模型の Hamilton 関数は次のように与えられる.
 \begin{align}
-  \hat{H} & = \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}\hat{p}_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                                                        \\
-          & + \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\qty((\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x+1,i_y,i_z,\alpha})^2 + (\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x,i_y+1,i_z,\alpha})^2 + (\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x,i_y,i_z+1,\alpha})^2).
+  \hat{H} & = \frac{1}{2m}\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{\alpha=x,y,z}\hat{p}_{i_x,i_y,i_z,\alpha}^2                                                                                                                                                                                       \\
+          & + \frac{1}{2}\kappa\sum_{i_x=0}^{N}\sum_{i_y=0}^{N}\sum_{i_z=0}^{N}\sum_{\alpha=x,y,z}\ab((\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x+1,i_y,i_z,\alpha})^2 + (\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x,i_y+1,i_z,\alpha})^2 + (\hat{q}_{i_x,i_y,i_z,\alpha} - \hat{q}_{i_x,i_y,i_z+1,\alpha})^2).
 \end{align}
 ただし $m$ は 1 個の原子の質量であり, $\kappa$ は隣り合った原子間の原子間力のバネ定数とする. また立方体の表面は固定されているとする.
 \begin{align}
@@ -1383,9 +1391,9 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
 \end{align}
 また位置演算子 $\hat{q}_{i_x,i_y,i_z,\alpha}$ と運動量演算子 $\hat{p}_{i_x',i_y',i_z',\alpha'}$ は正準交換関係を満たす.
 \begin{align}
-  \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}\delta_{\alpha,\alpha'}, \\
-  \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{q}_{i_x',i_y',i_z',\alpha'}] & = \qty[\hat{p}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}] = 0                  \\
-  (1\leq i_x,i_y,i_z,i_x',i_y',i_z'                                    & \leq N, \alpha,\alpha' = x,y,z).
+  \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}\delta_{\alpha,\alpha'}, \\
+  \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{q}_{i_x',i_y',i_z',\alpha'}] & = \ab[\hat{p}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}] = 0                   \\
+  (1\leq i_x,i_y,i_z,i_x',i_y',i_z'                                   & \leq N, \alpha,\alpha' = x,y,z).
 \end{align}
 古典論での点正準変換を量子論でも行う. $(\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x,i_y,i_z,\alpha})_{1\leq i_x,i_y,i_z\leq N,\alpha=x,y,z}\to(\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x,j_y,j_z,\alpha})_{1\leq j_x,j_y,j_z\leq N,\alpha=x,y,z}$ を次のように定める.
 \begin{align}
@@ -1396,61 +1404,61 @@ Debye はこの模型を修正することでこの困難を打開した. 新し
 \begin{itembox}[l]{Q 17-13.}
   新しい位置演算子 $\hat{Q}_{j_x,j_y,j_z,\alpha}$ と運動量演算子 $\hat{P}_{j_x',j_y',j_z',\alpha'}$ について正準交換関係を満たす.
   \begin{align}
-    \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}, \\
-    \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] & = \qty[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0                  \\
-    (1\leq j_x,j_y,j_z,j_x',j_y',j_z'                                    & \leq N, \alpha,\alpha' = x,y,z).
+    \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}, \\
+    \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] & = \ab[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0                   \\
+    (1\leq j_x,j_y,j_z,j_x',j_y',j_z'                                   & \leq N, \alpha,\alpha' = x,y,z).
   \end{align}
 \end{itembox}
 まず $\hat{q}_{i_x,i_y,i_z,\alpha}$, $\hat{P}_{j_x',j_y',j_z',\alpha'}$ の交換関係について左を展開するものと右を展開するもので分けて計算すると次のようになる.
 \begin{align}
-  \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\hat{p}_{i_x',i_y',i_z',\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}]                     \\
-                                                                       & = \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}]q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}                     \\
-                                                                       & = \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\sqrt{-1}\hbar\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}\delta_{\alpha,\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')} \\
-                                                                       & = \sqrt{-1}\hbar\delta_{\alpha,\alpha'}q_{i_x}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')},                                                                                                         \\
-  \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \qty[\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\hat{Q}_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \hat{P}_{j_x',j_y',j_z',\alpha'}]                              \\
-                                                                       & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}.
+  \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\hat{p}_{i_x',i_y',i_z',\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}]                      \\
+                                                                      & = \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha'}]q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}                      \\
+                                                                      & = \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\sqrt{-1}\hbar\delta_{i_x,i_x'}\delta_{i_y,i_y'}\delta_{i_z,i_z'}\delta_{\alpha,\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')} \\
+                                                                      & = \sqrt{-1}\hbar\delta_{\alpha,\alpha'}q_{i_x}^{(j_x')}q_{i_y}^{(j_y')}q_{i_z}^{(j_z')},                                                                                                         \\
+  \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \ab[\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\hat{Q}_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \hat{P}_{j_x',j_y',j_z',\alpha'}]                               \\
+                                                                      & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}.
 \end{align}
 これより $q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}$ の直交性から次のことがわかる.
 \begin{align}
-  \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}.
+  \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}.
 \end{align}
 同様に $\hat{q}_{i_x,i_y,i_z,\alpha}$ 同士, $\hat{P}_{j_x,j_y,j_z,\alpha}$ 同士の交換関係について計算すると次のようになる.
 \begin{align}
-  \qty[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{q}_{i_x',i_y',i_z',\alpha'}] & = \qty[\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\hat{Q}_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}\hat{Q}_{j_x',j_y',j_z',\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}] \\
-                                                                       & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}\qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')} \\
-                                                                       & = 0,                                                                                                                                                                                                                                                                      \\
-  \qty[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \qty[\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\hat{p}_{i_x,i_y,i_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\hat{p}_{i_x',i_y',i_z',\alpha}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}]  \\
-                                                                       & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\qty[\hat{p}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}  \\
-                                                                       & = 0.
+  \ab[\hat{q}_{i_x,i_y,i_z,\alpha}, \hat{q}_{i_x',i_y',i_z',\alpha'}] & = \ab[\sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\hat{Q}_{j_x,j_y,j_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}\hat{Q}_{j_x',j_y',j_z',\alpha'}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}] \\
+                                                                      & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{j_x'=1}^{N}\sum_{j_y'=1}^{N}\sum_{j_z'=1}^{N}\ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')} \\
+                                                                      & = 0,                                                                                                                                                                                                                                                                     \\
+  \ab[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \ab[\sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\hat{p}_{i_x,i_y,i_z,\alpha}q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}, \sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\hat{p}_{i_x',i_y',i_z',\alpha}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}]  \\
+                                                                      & = \sum_{i_x=1}^{N}\sum_{i_y=1}^{N}\sum_{i_z=1}^{N}\sum_{i_x'=1}^{N}\sum_{i_y'=1}^{N}\sum_{i_z'=1}^{N}\ab[\hat{p}_{i_x,i_y,i_z,\alpha}, \hat{p}_{i_x',i_y',i_z',\alpha}]q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}  \\
+                                                                      & = 0.
 \end{align}
 これより $q_{i_x}^{(j_x)}q_{i_y}^{(j_y)}q_{i_z}^{(j_z)}q_{i_x'}^{(j_x')}q_{i_y'}^{(j_y')}q_{i_z'}^{(j_z')}$ の直交性から次のことがわかる.
 \begin{align}
-  \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] = \qty[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0.
+  \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] = \ab[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0.
 \end{align}
 よって示された.
 \begin{align}
-  \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}, \\
-  \qty[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] & = \qty[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0                  \\
-  (1\leq j_x,j_y,j_z,j_x',j_y',j_z'                                    & \leq N, \alpha,\alpha' = x,y,z).
+  \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] & = \sqrt{-1}\hbar\delta_{j_x,j_x'}\delta_{j_y,j_y'}\delta_{j_z,j_z'}\delta_{\alpha,\alpha'}, \\
+  \ab[\hat{Q}_{j_x,j_y,j_z,\alpha}, \hat{Q}_{j_x',j_y',j_z',\alpha'}] & = \ab[\hat{P}_{j_x,j_y,j_z,\alpha}, \hat{P}_{j_x',j_y',j_z',\alpha'}] = 0                   \\
+  (1\leq j_x,j_y,j_z,j_x',j_y',j_z'                                   & \leq N, \alpha,\alpha' = x,y,z).
 \end{align}
 
 \begin{itembox}[l]{Q 17-14.}
   Hamilton 演算子 $\hat{H}$ は独立な調和振動子の Hamilton 演算子の和となる.
   \begin{align}
-    \hat{H} & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}\hat{P}_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2\hat{Q}_{j_x,j_y,j_z,\alpha}^2).
+    \hat{H} & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\ab(\frac{1}{2m}\hat{P}_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2\hat{Q}_{j_x,j_y,j_z,\alpha}^2).
   \end{align}
   ただし $\omega_{j_x,j_y,j_z}$ は次のように与えられる.
   \begin{align}
-    \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)}.
+    \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)}.
   \end{align}
 \end{itembox}
 Q 17-7 で位置, 運動量が演算子だとしても同様に計算できるよう書いたので同じ結果が得られる. よって Hamilton 演算子は次のように書ける.
 \begin{align}
-  \hat{H} & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\qty(\frac{1}{2m}\hat{P}_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2\hat{Q}_{j_x,j_y,j_z,\alpha}^2).
+  \hat{H} & = \sum_{j_x=1}^{N}\sum_{j_y=1}^{N}\sum_{j_z=1}^{N}\sum_{\alpha=x,y,z}\ab(\frac{1}{2m}\hat{P}_{j_x,j_y,j_z,\alpha}^2 + \frac{1}{2}m\omega_{j_x,j_y,j_z}^2\hat{Q}_{j_x,j_y,j_z,\alpha}^2).
 \end{align}
 ただし $\omega_{j_x,j_y,j_z}$ は次のように与えられる.
 \begin{align}
-  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\qty(\frac{\pi}{2(N+1)}j_x) + \sin^2\qty(\frac{\pi}{2(N+1)}j_y) + \sin^2\qty(\frac{\pi}{2(N+1)}j_z)}.
+  \omega_{j_x,j_y,j_z} & = 2\sqrt{\frac{\kappa}{m}}\sqrt{\sin^2\ab(\frac{\pi}{2(N+1)}j_x) + \sin^2\ab(\frac{\pi}{2(N+1)}j_y) + \sin^2\ab(\frac{\pi}{2(N+1)}j_z)}.
 \end{align}
 
 \subsection{Debye 模型による固体の比熱 $C$}
@@ -1462,21 +1470,21 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
   ただし温度 $T$ に依存しない定数のエネルギー $U_0$, $I(b)$ について次のように定められる.
   \begin{align}
     U_0  & = \frac{3}{8}(3N^3)\hbar\omega_D,       \\
-    I(b) & = \int_0^1\dd{x}\frac{x^3}{e^{bx} - 1}.
+    I(b) & = \int_0^1\dl{x}\frac{x^3}{e^{bx} - 1}.
   \end{align}
 \end{itembox}
 \begin{align}
-  U & = \int_0^\infty\dd{\omega}g(\omega)u(\omega)                                                                                                        \\
-    & = \int_0^{\omega_D}\dd{\omega}\frac{9N^3}{\omega_D}\qty(\frac{\omega}{\omega_D})^2\qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega \\
-    & = 9N^3\hbar\int_0^{\omega_D}\dd{\omega}\qty(\frac{\omega}{\omega_D})^3\qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})                        \\
-    & = 9N^3\hbar\omega_D\int_0^1\dd{x}\qty(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega_Dx} - 1})x^3                                                       \\
-    & = \frac{3}{8}(3N^3)\hbar\omega_D + 9N^3\hbar\omega_DI(\beta\hbar\omega_D)                                                                           \\
+  U & = \int_0^\infty\dl{\omega}g(\omega)u(\omega)                                                                                                      \\
+    & = \int_0^{\omega_D}\dl{\omega}\frac{9N^3}{\omega_D}\ab(\frac{\omega}{\omega_D})^2\ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega \\
+    & = 9N^3\hbar\int_0^{\omega_D}\dl{\omega}\ab(\frac{\omega}{\omega_D})^3\ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})                        \\
+    & = 9N^3\hbar\omega_D\int_0^1\dl{x}\ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega_Dx} - 1})x^3                                                      \\
+    & = \frac{3}{8}(3N^3)\hbar\omega_D + 9N^3\hbar\omega_DI(\beta\hbar\omega_D)                                                                         \\
     & = U_0 + 9N^3\hbar\omega_DI(\beta\hbar\omega_D).
 \end{align}
 ただし温度 $T$ に依存しない定数のエネルギー $U_0$, $I(b)$ について次のように定められる.
 \begin{align}
   U_0  & = \frac{3}{8}(3N^3)\hbar\omega_D,       \\
-  I(b) & = \int_0^1\dd{x}\frac{x^3}{e^{bx} - 1}.
+  I(b) & = \int_0^1\dl{x}\frac{x^3}{e^{bx} - 1}.
 \end{align}
 
 以下からは $b = \beta\hbar\omega_D = \hbar\omega_D/(k_BT)$ という関係を用いる.
@@ -1484,17 +1492,17 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 \begin{itembox}[l]{Q 17-16.}
   Debye 模型における比熱 $C$ の表式は次のようになる.
   \begin{align}
-    C & = 3nR\cdot(-3)b^2\dv{I(b)}{b}.
+    C & = 3nR\cdot(-3)b^2\diff{I(b)}{b}.
   \end{align}
 \end{itembox}
 
 比熱の定義式に代入することで次のようになる.
 \begin{align}
-  C & = \int_0^\infty\dd{\omega}g(\omega)c(\omega)                                                                                                                          \\
-    & = \int_0^{\omega_D}\dd{\omega}\frac{9N^3}{\omega_D}\qty(\frac{\omega}{\omega_D})^2k_B\qty(\frac{\beta\hbar\omega e^{\beta\hbar\omega/2}}{e^{\beta\hbar\omega} - 1})^2 \\
-    & = 9k_BN^3(\beta\hbar\omega_D)^2\int_0^{\omega_D}\frac{\dd{\omega}}{\omega_D}\qty(\frac{\omega}{\omega_D})^4\frac{ e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2} \\
-    & = 3nR\cdot 3b^2\int_0^1\dd{x}\frac{x^4e^{bx}}{(e^{bx} - 1)^2}                                                                                                         \\
-    & = 3nR\cdot (-3)b^2\dv{I(b)}{b}.
+  C & = \int_0^\infty\dl{\omega}g(\omega)c(\omega)                                                                                                                         \\
+    & = \int_0^{\omega_D}\dl{\omega}\frac{9N^3}{\omega_D}\ab(\frac{\omega}{\omega_D})^2k_B\ab(\frac{\beta\hbar\omega e^{\beta\hbar\omega/2}}{e^{\beta\hbar\omega} - 1})^2  \\
+    & = 9k_BN^3(\beta\hbar\omega_D)^2\int_0^{\omega_D}\frac{\dl{\omega}}{\omega_D}\ab(\frac{\omega}{\omega_D})^4\frac{ e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2} \\
+    & = 3nR\cdot 3b^2\int_0^1\dl{x}\frac{x^4e^{bx}}{(e^{bx} - 1)^2}                                                                                                        \\
+    & = 3nR\cdot (-3)b^2\diff{I(b)}{b}.
 \end{align}
 
 \begin{itembox}[l]{Q 17-17.}
@@ -1506,13 +1514,13 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 
 (i) $x\ll 1$ において $e^x \approx 1 + x$ と近似できる. これより高温の漸近領域 $b\ll 1$ において $bx \ll 1$ であるから $I(b)$ は次のように近似できる.
 \begin{align}
-  I(b) & = \int_0^1\dd{x}\frac{x^3}{e^{bx} - 1} \approx \int_0^1\dd{x}\frac{x^3}{bx} = \int_0^1\dd{x}\frac{x^2}{b} = \frac{1}{3b}.
+  I(b) & = \int_0^1\dl{x}\frac{x^3}{e^{bx} - 1} \approx \int_0^1\dl{x}\frac{x^3}{bx} = \int_0^1\dl{x}\frac{x^2}{b} = \frac{1}{3b}.
 \end{align}
 
 (ii) Bernoulli 数 $B_n$ の定義を用いて次のように計算できる.
 \begin{align}
-  I(b) & = \int_0^1\dd{x}\frac{x^3}{e^{bx} - 1}                                                           \\
-       & = \int_0^1\dd{x}\sum_{n=0}^{\infty}\frac{B_n b^{n-1}}{n!}x^{n+2}                                 \\
+  I(b) & = \int_0^1\dl{x}\frac{x^3}{e^{bx} - 1}                                                           \\
+       & = \int_0^1\dl{x}\sum_{n=0}^{\infty}\frac{B_n b^{n-1}}{n!}x^{n+2}                                 \\
        & = \sum_{n=0}^{\infty}\frac{B_n}{(n + 3)n!}b^{n-1}                                                \\
        & = \frac{1}{3b} - \frac{1}{8} + \frac{1}{60}b - \frac{1}{5040}b^3 + \frac{1}{272160}b^5 - \cdots.
 \end{align}
@@ -1520,22 +1528,22 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 \begin{itembox}[l]{Q 17-18.}
   高温の漸近領域 $b\ll 1$ における比熱 $C$ は次のように評価できる.
   \begin{align}
-    C & = 3nR\qty(1 - \frac{1}{20}\qty(\frac{\hbar\omega_D}{k_BT})^2 + \frac{1}{560}\qty(\frac{\hbar\omega_D}{k_BT})^4 - \frac{1}{18144}\qty(\frac{\hbar\omega_D}{k_BT})^6 + \cdots).
+    C & = 3nR\ab(1 - \frac{1}{20}\ab(\frac{\hbar\omega_D}{k_BT})^2 + \frac{1}{560}\ab(\frac{\hbar\omega_D}{k_BT})^4 - \frac{1}{18144}\ab(\frac{\hbar\omega_D}{k_BT})^6 + \cdots).
   \end{align}
 \end{itembox}
 
 (i) まず Q 17-17(i) の結果を比熱の表式に適用すると次のようになる.
 \begin{align}
-  C & = 3nR\cdot (-3)b^2\dv{I(b)}{b} \approx 3nR\cdot (-3)b^2\dv{b}(\frac{1}{3b}) = 3nR.
+  C & = 3nR\cdot (-3)b^2\diff{I(b)}{b} \approx 3nR\cdot (-3)b^2\diff{b}(\frac{1}{3b}) = 3nR.
 \end{align}
 
 (ii) 次に Q 17-17(ii) の結果を比熱の表式に適用すると次のようになる.
 \begin{align}
-  C & = 3nR\cdot (-3)b^2\dv{I(b)}{b}                                                                                                                                                \\
-    & \approx 3nR\cdot (-3)b^2\dv{b}(\frac{1}{3b} - \frac{1}{8} + \frac{1}{60}b - \frac{1}{5040}b^3 + \frac{1}{272160}b^5 - \cdots)                                                 \\
-    & = 3nR\cdot (-3)b^2\qty(-\frac{1}{3b^2} + \frac{1}{60} - \frac{1}{1680}b^2 + \frac{1}{54432}b^4 - \cdots)                                                                      \\
-    & = 3nR\qty(1 - \frac{1}{20}b^2 + \frac{1}{560}b^4 - \frac{1}{18144}b^6 + \cdots)                                                                                               \\
-    & = 3nR\qty(1 - \frac{1}{20}\qty(\frac{\hbar\omega_D}{k_BT})^2 + \frac{1}{560}\qty(\frac{\hbar\omega_D}{k_BT})^4 - \frac{1}{18144}\qty(\frac{\hbar\omega_D}{k_BT})^6 + \cdots).
+  C & = 3nR\cdot (-3)b^2\diff{I(b)}{b}                                                                                                                                          \\
+    & \approx 3nR\cdot (-3)b^2\diff{b}(\frac{1}{3b} - \frac{1}{8} + \frac{1}{60}b - \frac{1}{5040}b^3 + \frac{1}{272160}b^5 - \cdots)                                           \\
+    & = 3nR\cdot (-3)b^2\ab(-\frac{1}{3b^2} + \frac{1}{60} - \frac{1}{1680}b^2 + \frac{1}{54432}b^4 - \cdots)                                                                   \\
+    & = 3nR\ab(1 - \frac{1}{20}b^2 + \frac{1}{560}b^4 - \frac{1}{18144}b^6 + \cdots)                                                                                            \\
+    & = 3nR\ab(1 - \frac{1}{20}\ab(\frac{\hbar\omega_D}{k_BT})^2 + \frac{1}{560}\ab(\frac{\hbar\omega_D}{k_BT})^4 - \frac{1}{18144}\ab(\frac{\hbar\omega_D}{k_BT})^6 + \cdots).
 \end{align}
 
 \begin{itembox}[l]{Q 17-19.}
@@ -1548,32 +1556,32 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 (i)
 初項 $e^{-bx}$ 公比 $e^{-bx}$ の無限等比数列の和は $1/(e^{bx} + 1)$ である. これより $I(b)$ は次のように表される.
 \begin{align}
-  I(b) & = \int_0^1\dd{x}\frac{x^3}{e^{bx} - 1} = \int_0^1\dd{x}x^3\sum_{n=1}^{\infty}e^{-nbx} = \sum_{n=1}^{\infty}\int_0^1\dd{x}x^3e^{-nbx}.
+  I(b) & = \int_0^1\dl{x}\frac{x^3}{e^{bx} - 1} = \int_0^1\dl{x}x^3\sum_{n=1}^{\infty}e^{-nbx} = \sum_{n=1}^{\infty}\int_0^1\dl{x}x^3e^{-nbx}.
 \end{align}
 
 (ii) これより
 \begin{align}
-  I(b) & = \sum_{n=1}^{\infty}\int_0^1\dd{x}x^3e^{-nbx}                                   \\
-       & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}\int_0^{nb}\dd{t}t^3e^{-t} \qquad (t = nbx) \\
+  I(b) & = \sum_{n=1}^{\infty}\int_0^1\dl{x}x^3e^{-nbx}                                   \\
+       & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}\int_0^{nb}\dl{t}t^3e^{-t} \qquad (t = nbx) \\
        & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}\gamma(4, nb).
 \end{align}
 ただし, 第一種不完全ガンマ関数 $\gamma(z, p)$ は次の式で定義される.
 \begin{align}
-  \gamma(z, p) & := \int_0^p\dd{t}t^{z-1}e^{-t}.
+  \gamma(z, p) & := \int_0^p\dl{t}t^{z-1}e^{-t}.
 \end{align}
 
 (iii)
 さらに $I(b)$ は次のように式変形できる.
 \begin{align}
-  I(b) & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}\gamma(4, nb)                                                     \\
-       & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}(\Gamma(4) - \Gamma(4, nb))                                       \\
-       & = \frac{1}{b^4}\qty(6\sum_{n=1}^{\infty}\frac{1}{n^4} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)) \\
-       & = \frac{1}{b^4}\qty(6\zeta(4) - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)).
+  I(b) & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}\gamma(4, nb)                                                    \\
+       & = \sum_{n=1}^{\infty}\frac{1}{(nb)^4}(\Gamma(4) - \Gamma(4, nb))                                      \\
+       & = \frac{1}{b^4}\ab(6\sum_{n=1}^{\infty}\frac{1}{n^4} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)) \\
+       & = \frac{1}{b^4}\ab(6\zeta(4) - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)).
 \end{align}
 ただし, 第 2 種不完全ガンマ関数 $\Gamma(z, p)$, ガンマ関数 $\Gamma(z)$, ゼータ関数 $\zeta(z)$ は次のように定義される.
 \begin{align}
-  \Gamma(z, p) & := \int_p^\infty\dd{t}t^{z-1}e^{-t}                               \\
-  \Gamma(z)    & := \int_0^\infty\dd{t}t^{z-1}e^{-t} = \gamma(z, p) + \Gamma(z, p) \\
+  \Gamma(z, p) & := \int_p^\infty\dl{t}t^{z-1}e^{-t}                               \\
+  \Gamma(z)    & := \int_0^\infty\dl{t}t^{z-1}e^{-t} = \gamma(z, p) + \Gamma(z, p) \\
   \zeta(s)     & := \sum_{n=1}^{\infty}\frac{1}{n^s}.
 \end{align}
 
@@ -1584,18 +1592,18 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 \end{align}
 よって $I(b)$ は次のようになる.
 \begin{align}
-  I(b) & = \frac{1}{b^4}\qty(6\zeta(4) - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb))         \\
-       & = \frac{1}{b^4}\qty(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)).
+  I(b) & = \frac{1}{b^4}\ab(6\zeta(4) - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb))         \\
+       & = \frac{1}{b^4}\ab(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)).
 \end{align}
 
 (v) 第二種不完全ガンマ関数 $\Gamma(z,p)$ の $p$ の極限について積分範囲が小さくなっていき, 被積分関数は発散しないので次のようになる.
 \begin{align}
-  \lim_{p\to+\infty}\Gamma(z, p) & = \lim_{p\to+\infty}\int_p^\infty\dd{t}t^{z-1}e^{-t} = 0.
+  \lim_{p\to+\infty}\Gamma(z, p) & = \lim_{p\to+\infty}\int_p^\infty\dl{t}t^{z-1}e^{-t} = 0.
 \end{align}
 
 (vi) 低温の漸近領域 $b\gg 1$ において (v) の考察から第二項を無視した近似を行えることがいえる. よって $I(b)$ は次の値となる.
 \begin{align}
-  I(b) & = \frac{1}{b^4}\qty(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)) \approx \frac{\pi^4}{15}\frac{1}{b^4}.
+  I(b) & = \frac{1}{b^4}\ab(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb)) \approx \frac{\pi^4}{15}\frac{1}{b^4}.
 \end{align}
 
 \begin{itembox}[l]{Q 17-20.}
@@ -1608,54 +1616,54 @@ Q 17-7 で位置, 運動量が演算子だとしても同様に計算できる�
 (i)
 $\Gamma(z, p)$ について部分積分することで次のように書ける.
 \begin{align}
-   & \quad \Gamma(z, p)                                                                                                                                                                  \\
-   & = \int_p^\infty\dd{t}t^{z-1}e^{-t}                                                                                                                                                  \\
-   & = -\qty[t^{z-1}e^{-t}]_p^\infty - \qty[(z-1)t^{z-2}e^{-t}]_p^\infty - \cdots - \qty[(z-1)\cdots(z-n)t^{z-n-1}e^{-t}]_p^\infty + \int_p^\infty\dd{t} (z-1)\cdots(z-n)t^{z-n-1}e^{-t} \\
-   & = p^{z-1}e^{-p} + (z-1)p^{z-2}e^{-p} + \cdots + (z-1)\cdots(z-n)p^{z-n-1}e^{-p} + \int_p^\infty\dd{t} (z-1)(z-2)\cdots(z-n)t^{z-n-1}e^{-t}                                          \\
-   & = p^{z-1}e^{-p}\qty(1 + \sum_{m=1}^{\infty}\frac{1}{p^m}(z-1)(z-2)\cdots(z-m)) \qquad (\because n\to\infty).
+   & \quad \Gamma(z, p)                                                                                                                                                               \\
+   & = \int_p^\infty\dl{t}t^{z-1}e^{-t}                                                                                                                                               \\
+   & = -\ab[t^{z-1}e^{-t}]_p^\infty - \ab[(z-1)t^{z-2}e^{-t}]_p^\infty - \cdots - \ab[(z-1)\cdots(z-n)t^{z-n-1}e^{-t}]_p^\infty + \int_p^\infty\dl{t} (z-1)\cdots(z-n)t^{z-n-1}e^{-t} \\
+   & = p^{z-1}e^{-p} + (z-1)p^{z-2}e^{-p} + \cdots + (z-1)\cdots(z-n)p^{z-n-1}e^{-p} + \int_p^\infty\dl{t} (z-1)(z-2)\cdots(z-n)t^{z-n-1}e^{-t}                                       \\
+   & = p^{z-1}e^{-p}\ab(1 + \sum_{m=1}^{\infty}\frac{1}{p^m}(z-1)(z-2)\cdots(z-m)) \qquad (\because n\to\infty).
 \end{align}
 
 (ii)
 (i) の結果を用いて $z = 4$ を代入すると次のようになる.
 \begin{align}
-  \Gamma(4, p) & = p^{3}e^{-p}\qty(1 + \frac{3}{p} + \frac{6}{p^2} + \frac{6}{p^3}) \\
-               & = e^{-p}\qty(p^3 + 3p^2 + 6p + 6).
+  \Gamma(4, p) & = p^{3}e^{-p}\ab(1 + \frac{3}{p} + \frac{6}{p^2} + \frac{6}{p^3}) \\
+               & = e^{-p}\ab(p^3 + 3p^2 + 6p + 6).
 \end{align}
 
 (iii)
 これより積分 $I(b)$ の第二種不完全ガンマ関数を展開することで次のようになる.
 \begin{align}
-  I(b) & = \frac{1}{b^4}\qty(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb))                                                      \\
-       & = \frac{1}{b^4}\qty(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}e^{-nb}\qty((nb)^3 + 3(nb)^2 + 6nb + 6))                            \\
-       & = \frac{1}{b^4}\qty(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\qty(\frac{b^3}{n} + \frac{3b^2}{n^2} + \frac{6b}{n^3} + \frac{6}{n^4})e^{-nb}).
+  I(b) & = \frac{1}{b^4}\ab(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}\Gamma(4, nb))                                                     \\
+       & = \frac{1}{b^4}\ab(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\frac{1}{n^4}e^{-nb}\ab((nb)^3 + 3(nb)^2 + 6nb + 6))                            \\
+       & = \frac{1}{b^4}\ab(\frac{\pi^4}{15} - \sum_{n=1}^{\infty}\ab(\frac{b^3}{n} + \frac{3b^2}{n^2} + \frac{6b}{n^3} + \frac{6}{n^4})e^{-nb}).
 \end{align}
 
 (iv)
 この補正項について次のような不等式が成り立つ.
 \begin{align}
-  0 < \sum_{n=1}^{\infty}\qty(\frac{b^3}{n} + \frac{3b^2}{n^2} + \frac{6b}{n^3} + \frac{6}{n^4})e^{-nb} < (b^3 + 3b^2 + 6b + 6)\sum_{n=1}^{\infty}e^{-nb} = (b^3 + 3b^2 + 6b + 6)\frac{e^{-b}}{1 - e^{-b}}\sim b^3e^{-b}.
+  0 < \sum_{n=1}^{\infty}\ab(\frac{b^3}{n} + \frac{3b^2}{n^2} + \frac{6b}{n^3} + \frac{6}{n^4})e^{-nb} < (b^3 + 3b^2 + 6b + 6)\sum_{n=1}^{\infty}e^{-nb} = (b^3 + 3b^2 + 6b + 6)\frac{e^{-b}}{1 - e^{-b}}\sim b^3e^{-b}.
 \end{align}
 これより上界が指数関数的に小さくなることから $b\gg 1$ のとき $I(b)$ の最低次の漸近評価は十分正確である.
 \begin{itembox}[l]{Q 17-21.}
   低温の漸近領域 $b\gg 1$ における比熱 $C$ は次のように評価される.
   \begin{align}
-    C & \approx 3nR\times\frac{4\pi^4}{5}\qty(\frac{k_BT}{\hbar\omega_D})^3.
+    C & \approx 3nR\times\frac{4\pi^4}{5}\ab(\frac{k_BT}{\hbar\omega_D})^3.
   \end{align}
 \end{itembox}
 Q 17-19, Q 17-20 で考察したように比熱 $C$ に $I(b)$ の値を代入すると次のようになる.
 \begin{align}
-  C & = 3nR\cdot(-3)b^2\dv{I(b)}{b}                                  \\
-    & = 3nR\cdot(-3)b^2\qty(-\frac{\pi^4}{15}\frac{4}{b^5})          \\
-    & = 3nR\times\frac{4\pi^4}{5}\qty(\frac{1}{b})^3                 \\
-    & = 3nR\times\frac{4\pi^4}{5}\qty(\frac{k_BT}{\hbar\omega_D})^3.
+  C & = 3nR\cdot(-3)b^2\diff{I(b)}{b}                               \\
+    & = 3nR\cdot(-3)b^2\ab(-\frac{\pi^4}{15}\frac{4}{b^5})          \\
+    & = 3nR\times\frac{4\pi^4}{5}\ab(\frac{1}{b})^3                 \\
+    & = 3nR\times\frac{4\pi^4}{5}\ab(\frac{k_BT}{\hbar\omega_D})^3.
 \end{align}
 
 よって Debye 模型の比熱は次のようにまとめられる.
 \begin{itembox}[l]{Debye 模型の比熱}
   \begin{align}
     C & \approx 3nR\times\begin{dcases}
-                           1                                                  & (k_BT\gg \hbar\omega_D) \\
-                           \frac{4\pi^4}{5}\qty(\frac{k_BT}{\hbar\omega_D})^3 & (k_BT\ll \hbar\omega_D)
+                           1                                                 & (k_BT\gg \hbar\omega_D) \\
+                           \frac{4\pi^4}{5}\ab(\frac{k_BT}{\hbar\omega_D})^3 & (k_BT\ll \hbar\omega_D)
                          \end{dcases}.
   \end{align}
 \end{itembox}
@@ -1664,11 +1672,141 @@ Q 17-19, Q 17-20 で考察したように比熱 $C$ に $I(b)$ の値を代入�
 
 
 \section{グランドカノニカル分布}
+\begin{definition}
+  内部エネルギー $U(S, V)$ とその束縛変数を変更させたエンタルピー $H(S, p)$ と Helmholtz 自由エネルギー $F(T, V)$ と Gibbs 自由エネルギー $G(T, p)$ を次のように定義する。
+  グランドポテンシャル (grand potential) または熱力学ポテンシャル (thermodynamic potential) $J(T, V, \mu)$
+  \begin{align}
+                 & \qquad \dl{U} = T\dl{S} - p\dl{V} + \mu\dl{N}  \\
+    H = U + pV   & \qquad \dl{H} = T\dl{S} + V\dl{p} + \mu\dl{N}  \\
+    F = U - TS   & \qquad \dl{F} = -S\dl{T} - p\dl{V} + \mu\dl{N} \\
+    G = F + pV   & \qquad \dl{G} = -S\dl{T} + V\dl{p} + \mu\dl{N} \\
+    J = F - N\mu & \qquad \dl{J} = -S\dl{T} - p\dl{V} - N\dl{\mu}
+  \end{align}
+\end{definition}
 
-\subsection{Bose 統計と Fermi 統計}
+\begin{theorem}
+  \begin{align}
+    J = -pV, F = N\mu - pV, G = N\mu
+  \end{align}
+\end{theorem}
 
+\begin{theorem}
+  \begin{align}
+    T  & = \ab(\diffp{U}{S})_{V,\mu} & -p & = \ab(\diffp{U}{V})_{S,\mu} & \mu & = \ab(\diffp{U}{\mu})_{S,V} \\
+    T  & = \ab(\diffp{H}{S})_{p,\mu} & V  & = \ab(\diffp{H}{p})_{S,\mu} & \mu & = \ab(\diffp{H}{\mu})_{S,p} \\
+    -S & = \ab(\diffp{F}{T})_{V,\mu} & -p & = \ab(\diffp{F}{V})_{T,\mu} & \mu & = \ab(\diffp{F}{\mu})_{T,V} \\
+    -S & = \ab(\diffp{G}{T})_{p,\mu} & V  & = \ab(\diffp{G}{p})_{T,\mu} & \mu & = \ab(\diffp{G}{\mu})_{T,p} \\
+    -S & = \ab(\diffp{J}{T})_{V,\mu} & -p & = \ab(\diffp{J}{V})_{T,\mu} & -N  & = \ab(\diffp{J}{\mu})_{T,V}
+  \end{align}
+\end{theorem}
 
-\subsection{相転移}
+\begin{proposition}[Maxwell の関係式]
+  \begin{align}
+    \ab(\diffp{T}{V})_S  & = -\ab(\diffp{p}{S})_V \\
+    \ab(\diffp{T}{p})_S  & = \ab(\diffp{V}{S})_p  \\
+    -\ab(\diffp{S}{V})_T & = -\ab(\diffp{p}{T})_V \\
+    -\ab(\diffp{S}{p})_T & = \ab(\diffp{V}{T})_p
+  \end{align}
+\end{proposition}
+\begin{proof}
+\end{proof}
+
+\begin{definition}[グランドカノニカル分布]
+  \begin{align}
+    \Xi = \sum_{n}e^{-\beta(E_n - \mu N_n)}
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    J & = -k_BT\ln\Xi                                   \\
+    N & = \frac{1}{\beta}\ab(\diffp{\ln\Xi}{\mu})_{T,V}
+  \end{align}
+\end{theorem}
+
+\begin{theorem}[粒子数の揺らぎ]
+  \begin{align}
+    \ab(\diffp{N}{\mu})_{T,V} = \beta\langle\Delta N^2\rangle
+  \end{align}
+\end{theorem}
+
+\section{Bose 統計と Fermi 統計}
+\begin{theorem}
+  2 粒子の波動関数は $\varphi(\rr_1, \rr_2)$ と書かれる。
+  \begin{align}
+    \varphi(\rr_1, \rr_2) = \pm \varphi(\rr_2, \rr_1)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  添字を交換しても物理的な状態としては同一なので定数 $\alpha$ を用いて $\varphi(\rr_1, \rr_2) = \alpha\varphi(\rr_2, \rr_1)$ と書ける。
+  \begin{align}
+    \alpha^2 = 1 \iff \alpha = \pm 1
+  \end{align}
+\end{proof}
+
+\begin{definition}
+  上の定理において $\alpha = 1$ となる粒子をボース粒子またはボゾン (boson) といい、$\alpha = -1$ となる粒子をフェルミ粒子またはフェルミオン (fermion) という。
+
+  \begin{itemize}
+    \item Fermi 粒子: 電子・陽子
+    \item Bose 粒子: 光子
+  \end{itemize}
+\end{definition}
+
+\begin{itemize}
+  \item Fermi 統計: $e^{-\beta(\varepsilon_1 + \varepsilon_2)} + e^{-\beta(\varepsilon_2 + \varepsilon_3)} + e^{-\beta(\varepsilon_3 + \varepsilon_1)}$
+  \item Bose 統計: $e^{-2\beta\varepsilon_1} + e^{-2\beta\varepsilon_2} + e^{-2\beta\varepsilon_3} + e^{-\beta(\varepsilon_1 + \varepsilon_2)} + e^{-\beta(\varepsilon_2 + \varepsilon_3)} + e^{-\beta(\varepsilon_3 + \varepsilon_1)}$
+  \item ボルツマン統計: $\dfrac{1}{2!}(e^{-2\beta\varepsilon_1} + e^{-2\beta\varepsilon_2} + e^{-2\beta\varepsilon_3})$ \\
+        $\dfrac{1}{2}e^{-2\beta\varepsilon_1} + \dfrac{1}{2}e^{-2\beta\varepsilon_2} + \dfrac{1}{2}e^{-2\beta\varepsilon_3} + e^{-\beta(\varepsilon_1 + \varepsilon_2)} + e^{-\beta(\varepsilon_2 + \varepsilon_3)} + e^{-\beta(\varepsilon_3 + \varepsilon_1)}$
+\end{itemize}
+
+\begin{align}
+  N & = -\ab(\diffp{J}{\mu})_T = \frac{1}{\beta}\ab(\diffp{\ln\Xi(\beta,\mu)}{\mu})
+\end{align}
+
+\begin{theorem}[分配関数と分布関数]
+  Fermi 統計と Bose 統計における分配関数 $\Xi(\beta,\mu)$、分布関数 $f(\varepsilon)$ は次のようになる。
+  \begin{align}
+    \Xi_B(\beta, \mu) & = \prod_{j=1}^{\infty}\frac{1}{1 - e^{-\beta(\varepsilon_j - \mu)}} \\
+    f_B(\varepsilon)  & = \frac{1}{e^{\beta(\varepsilon_j - \mu)} - 1}                      \\
+    \Xi_F(\beta, \mu) & = \prod_{j=1}^{\infty}\ab(1 + e^{-\beta(\varepsilon_j - \mu)})      \\
+    f_F(\varepsilon)  & = \frac{1}{e^{\beta(\varepsilon_j - \mu)} + 1}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  Fermi 統計において
+  \begin{align}
+    \Xi^{(j)}(\beta, \mu)                    & = \sum_{n=0}^{\infty}e^{-\beta(\varepsilon_j - \mu)n} = \frac{1}{1 - e^{-\beta(\varepsilon_j - \mu)}}                                                                                   \\
+    \Xi(\beta, \mu)                          & = \prod_{j=1}^{\infty}\frac{1}{1 - e^{-\beta(\varepsilon_j - \mu)}}                                                                                                                     \\
+    f_B(\varepsilon_j) := \langle n_j\rangle & = \frac{1}{\beta}\ab(\diffp{}{\mu}\ln\Xi^{(j)}(\beta,\mu)) = \frac{e^{-\beta(\varepsilon_j - \mu)}}{1 - e^{-\beta(\varepsilon_j - \mu)}} = \frac{1}{e^{\beta(\varepsilon_j - \mu)} - 1} \\
+    N                                        & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} - 1}
+  \end{align}
+  Bose 統計
+  \begin{align}
+    \Xi^{(j)}(\beta, \mu)                    & = \sum_{n=0}^{1}e^{-\beta(\varepsilon_j - \mu)n} = 1 + e^{-\beta(\varepsilon_j - \mu)}                                                                                                  \\
+    \Xi(\beta, \mu)                          & = \prod_{j=1}^{\infty}\ab(1 - e^{-\beta(\varepsilon_j - \mu)})                                                                                                                          \\
+    f_F(\varepsilon_j) := \langle n_j\rangle & = \frac{1}{\beta}\ab(\diffp{}{\mu}\ln\Xi^{(j)}(\beta,\mu)) = \frac{e^{-\beta(\varepsilon_j - \mu)}}{1 + e^{-\beta(\varepsilon_j - \mu)}} = \frac{1}{e^{\beta(\varepsilon_j - \mu)} + 1} \\
+    N                                        & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} + 1}
+  \end{align}
+\end{proof}
+
+\subsection{Fermi-Dirac 統計力学}
+\begin{proposition}[低温極限と高温極限での分布関数]
+  低温と高温の極限において
+  \begin{align}
+    \lim_{T\to 0}f_F(\varepsilon)      & = \begin{dcases}
+                                             1   & (\varepsilon < \mu) \\
+                                             1/2 & (\varepsilon = \mu) \\
+                                             0   & (\varepsilon > \mu)
+                                           \end{dcases}           \\
+    \lim_{T\to \infty}f_F(\varepsilon) & \approx e^{-\beta(\varepsilon - \mu)}
+  \end{align}
+\end{proposition}
+
+\begin{theorem}[ゾンマーフェルト展開]
+\end{theorem}
+
+\section{相転移}
 
 
 \end{document}
