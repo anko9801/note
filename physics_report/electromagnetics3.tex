@@ -1,0 +1,496 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{電磁気学 III 演習 期末レポート}
+\author{21B00349 \\ 宇佐見大希}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\DD}{\bm{D}}
+\newcommand{\BB}{\bm{B}}
+\newcommand{\HH}{\bm{H}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\newcommand{\vnabla}{\mathbf{\nabla}}
+\newcommand{\laplacian}{\nabla^2}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}[subsection]
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{axiom}{公理}
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{真空中の電磁気学と導体の電場}
+\setcounter{subsection}{1}
+\subsection{Green の定理}
+\begin{problem}[Green の第一公式]
+\begin{align}
+  \int_V(\phi\laplacian\psi + \nabla\phi\cdot\nabla\psi)\dl{v} = \oint_{\partial V}\phi\diffp{\psi}{n}\dl{S}
+\end{align}
+\end{problem}
+\begin{proof}
+  Gauss 発散定理においてスカラー場 $\phi, \psi$ を用いて $\bm{A} = \phi\nabla\psi$ とすると $\bm{n}$ は $\partial V$ に垂直に内側から外側へ出る方向であるから次のように示せる。
+  \begin{align}
+    \int_V\nabla\cdot(\phi\nabla\psi)\dl{v}                                  & = \int_{\partial V}(\phi\nabla\psi)\cdot\bm{n}\dl{S} \\
+    \int_V\ab(\phi\nabla\cdot(\nabla\psi) + \nabla\psi\cdot\nabla\phi)\dl{v} & = \int_{\partial V}\phi(\nabla\psi\cdot\bm{n})\dl{S} \\
+    \int_V\ab(\phi\laplacian\psi + \nabla\psi\cdot\nabla\phi)\dl{v}          & = \oint_{\partial V}\phi\diffp{\psi}{n}\dl{S}
+  \end{align}
+\end{proof}
+
+\begin{problem}[Green の第二公式]
+\begin{align}
+  \int_V(\phi\laplacian\psi - \psi\laplacian\phi)\dl{v} = \int_{\partial V}\ab(\phi\diffp{\psi}{n} - \psi\diffp{\phi}{n})\dl{S}
+\end{align}
+\end{problem}
+\begin{proof}
+  (a) と同様に $\bm{A} = \psi\nabla\phi$ を代入した場合の式との差を計算することで示せる。
+  \begin{align}
+    \int_V\ab(\phi\laplacian\psi + \nabla\psi\cdot\nabla\phi)\dl{v} & = \oint_{\partial V}\phi\diffp{\psi}{n}\dl{S}                           \\
+    \int_V\ab(\psi\laplacian\phi + \nabla\phi\cdot\nabla\psi)\dl{v} & = \oint_{\partial V}\psi\diffp{\phi}{n}\dl{S}                           \\
+    \int_V\ab(\phi\laplacian\psi - \psi\laplacian\phi)\dl{v}        & = \int_{\partial V}\ab(\phi\diffp{\psi}{n} - \psi\diffp{\phi}{n})\dl{S}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+Poisson 方程式にディレクレ境界条件またはノイマン境界条件を加えたとき、解は一意に定まる。
+\begin{align}
+  \laplacian\Phi(\rr) & = -\frac{\rho(\rr)}{\varepsilon_0}
+\end{align}
+\end{problem}
+\begin{proof}
+  Poisson 方程式の解を $\Phi_1(\rr), \Phi_2(\rr)$ とおく。これらの差分を $U(\rr) = \Phi_1(\rr) - \Phi_2(\rr)$ とおくと Poisson 方程式と 2 つの境界条件より
+  \begin{align}
+    \laplacian U    & = 0                                                 \\
+    U|_{\partial V} & = 0 または\ \left.\diffp{U}{n}\right|_{\partial V} = 0
+  \end{align}
+  が成り立つ。ここで Green の第一公式より
+  \begin{align}
+    \int_V(U\laplacian U + (\vnabla U)^2)\dl{V} & = \oint_{\partial V}U\diffp{U}{n}\dl{S} \\
+    \int_V(\vnabla U)^2\dl{V}                   & = 0
+  \end{align}
+  よって $\vnabla U = \bm{0}$ つまり $U$ は定数であるから Poisson 方程式の解はどちらかの境界条件を満たせば定数を除いて一意に定まる。
+\end{proof}
+
+\setcounter{subsection}{4}
+\subsection{電位係数と静電容量}
+無限遠点において電位を $0$ とする。$k_0 = \dfrac{1}{4\pi\varepsilon_0}$
+\begin{problem}
+真空中に電荷 $q_j \neq 0$ を持つ導体に関して、他の導体の電荷を $0$ としたときの $i$ 番目の導体の電位を $V_i$ とし、電位係数 $p_{ij}$ を $V_i = p_{ij}q_j$ とおく。このとき次の式が成り立つ。
+\begin{align}
+  \mqty{V_1                                                       \\ V_2 \\ \vdots \\ V_n} & = \pxmat[showleft=2,showtop=2]{p}{n}{n}\mqty{q_1 \\ q_2 \\ \vdots \\ q_n} \\
+  p_{lk} & = p_{kl} > 0 \implies p_{kk} > p_{kl} \qquad (k\neq l)
+\end{align}
+\end{problem}
+\begin{proof}
+  電位の重ね合わせの原理より導体の電位 $V_i$ は次のようになる。
+  \begin{align}
+    V_i & = \sum_{j=1}^{n}p_{ij}q_j \\
+    \mqty{V_1                       \\ V_2 \\ \vdots \\ V_n} & = \pxmat[showleft=2,showtop=2]{p}{n}{n}\mqty{q_1 \\ q_2 \\ \vdots \\ q_n}
+  \end{align}
+  また電荷に対して距離の逆二乗で正方向に電位が生じる為、$p_{lk} = p_{kl} > 0, p_{kk} > p_{kl}\ (k\neq l)$ となる。
+  \begin{align}
+    V_k & = p_{kk}q_k + p_{kl}q_l \\
+    V_l & = p_{lk}q_k + p_{ll}q_l
+  \end{align}
+\end{proof}
+
+\begin{problem}
+導体に関して、$q_k \neq 0, V_l = 0\ (l\neq k)$ のときの $V_k$ を用いて静電容量 $C_k$ は $q_k = C_kV_k$ と与えられる。また導体 $k, l$ 間の静電容量 $C_{kl}$ は $q_k = Q, q_l = -Q, q_m = 0$ のときの $V_k, V_l$ を用いて $Q = C_{kl}(V_k - V_l)$ で与えられる。このとき $C_k, C_{kl}$ を求めよ。静電容量行列 $(c_{kl})$ を電位係数行列 $(p_{kl})$ の逆行列とおく。
+\begin{align}
+  \mqty{q_1 \\ q_2 \\ \vdots \\ q_n} & = \pxmat[showleft=2,showtop=2]{c}{n}{n}\mqty{V_1 \\ V_2 \\ \vdots \\ V_n}
+\end{align}
+\end{problem}
+\begin{proof}
+  \begin{align}
+    q_k & = C_kV_k = C_k(p_{kk}q_k)                                                                                                                           \\
+    Q   & = C_{kl}(V_k - V_l) = C_{kl}((p_{kk} - p_{kl})Q - (p_{lk} - p_{ll})Q)                                                                               \\
+        & \begin{dcases}
+            C_k = \frac{1}{p_{kk}} \\
+            C_{kl} = \frac{1}{p_{kk} - p_{kl} - p_{lk} + p_{ll}}
+          \end{dcases}
+  \end{align}
+
+\end{proof}
+
+\begin{problem}
+電荷の合計が $Q$ ですべて同一の電圧 $V$ となっているとき次のように $C = Q/V$ を $(c_{jk})$ で表す。
+\end{problem}
+\begin{proof}
+  仮定より次のように計算できる。
+  \begin{align}
+    Q & = \sum_{i=1}^{n}q_i = \sum_{i=1}^{n}\sum_{j=1}^{n}c_{ij}V_j = \ab(\sum_{i=1}^{n}\sum_{j=1}^{n}c_{ij})V \\
+    C & = \sum_{i=1}^{n}\sum_{j=1}^{n}c_{ij}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+半径 $a, b$ の導体球が距離 $d$ 離れて置かれている。このときの容量係数 $c_a, c_b$ と誘導係数 $c_{12}$ を求める。
+\end{problem}
+\begin{proof}
+  2 つの導体球の中心が通る軸を $x$ 軸として原点に半径 $a$ の導体球、$x = d$ に半径 $b$ の導体球があるとする。
+  このとき導体外の電位は次のようになる。
+  \begin{align}
+    \mqty{q_a                  \\ q_b} & = \mqty{c_{aa} & c_{ab} \\ c_{ba} & c_{bb}}\mqty{V_a \\ V_b} \\
+     & = \mqty{c_{aa} & c_{ab} \\ c_{ba} & c_{bb}}\mqty{k_0q_a/a \\ k_0q_b/b}
+  \end{align}
+  \begin{align}
+    c_a = \frac{q_a}{V_a} = \frac{a}{k_0}, c_b = \frac{b}{k_0}, c_{ab} = \frac{Q}{V_a - V_b}
+  \end{align}
+  \begin{align}
+    \phi(r) & = k_0\frac{q_a}{|x|} + k_0\frac{q_b}{|x - d|}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
+\section{静電遮蔽と電気伝導}
+\subsection{双極子モーメントと電場}
+\begin{problem}
+原点中心に対称に電荷が置かれているときの電気双極子モーメントを求めよ。
+\end{problem}
+\begin{proof}
+  電位は次のように求まる。
+  \begin{align}
+    \phi(\rr) & = \frac{1}{4\pi\varepsilon_0}\ab(\frac{q}{|\rr - \bm{d}/2|} - \frac{q}{|\rr + \bm{d}/2|}) \\
+              & = \frac{q}{4\pi\varepsilon_0}\ab(\vnabla'\frac{1}{|\rr|})\cdot\bm{d}                      \\
+              & = \frac{1}{4\pi\varepsilon_0}\frac{q\bm{d}\cdot\rr}{|\rr|^3}
+  \end{align}
+  これより電気双極子モーメントは $\pp = q\bm{d}$ と書ける。
+\end{proof}
+
+\begin{problem}
+一様な電場 $\EE$ において電気双極子 $\pp$ のポテンシャルエネルギー $U$ を求めよ。
+\end{problem}
+\begin{proof}
+  分極していない状態から引き離す仕事がポテンシャルエネルギーとなる。
+  \begin{align}
+    U & = q\bm{E}\cdot\frac{\bm{d}}{2} + (-q\bm{E})\cdot\ab(-\frac{\bm{d}}{2}) = \EE\cdot\pp
+  \end{align}
+\end{proof}
+
+\begin{problem}
+この電気双極子 $\bm{p}$ が一様な電場から受ける力は全体として $\bm{0}$ であることを示し、電場から受けるトルク $\bm{N}$ を求めよ。
+\end{problem}
+\begin{proof}
+  全体の受ける力 $\bm{F}$ と電場から受けるトルク $\bm{N}$ は次のようになる。
+  \begin{align}
+    \bm{F} & = q\EE + (-q\EE) = \bm{0}                                           \\
+    \bm{N} & = \frac{\bm{d}}{2}\times q\EE + \ab(-\frac{\bm{d}}{2})\times(-q\EE) \\
+           & = \pp\times\EE
+  \end{align}
+\end{proof}
+
+\subsection{Maxwell の方程式と応力テンソル}
+\begin{problem}
+\begin{align}
+  \EE\cdot\bm{j} + \partial_t\ab(\frac{1}{2}\EE\cdot\DD + \frac{1}{2}\HH\cdot\BB) + \vnabla\cdot(\EE\times\HH) = 0
+\end{align}
+\end{problem}
+\begin{proof}
+  Maxwell 方程式より次のように示せる。
+  \begin{align}
+    \EE \cdot (\vnabla\times\HH)                                                                 & = \EE\cdot\ab(\bm{j} + \partial_t\DD)      \\
+    -\vnabla\cdot(\EE\times\HH) + (\vnabla\times\EE)\cdot\HH                                     & = \EE\cdot\bm{j} + \partial_t(\EE\cdot\DD) \\
+    -\vnabla\cdot(\EE\times\HH) + (-\partial_t\BB)\cdot\HH                                       & = \EE\cdot\bm{j} + \partial_t(\EE\cdot\DD) \\
+    -\partial_t\ab(\frac{1}{2}\EE\cdot\DD + \frac{1}{2}\HH\cdot\BB) - \vnabla\cdot(\EE\times\HH) & = \EE\cdot\bm{j}
+  \end{align}
+  これは電磁場と物質のエネルギー密度の時間変化が電磁場のエネルギーの流れとなっており、エネルギー保存則を表す。
+\end{proof}
+
+\begin{problem}
+物質の運動量密度を $\bm{p}_m(\rr, t)$ とする。電磁場との相互作用による運動量密度の時間変化は電荷密度と電流密度が受ける力で与えられるので
+\begin{align}
+  \partial_t \pp_m & = \rho\EE + \bm{j}\times\BB
+\end{align}
+と書ける。$\rho, \bm{j}$ を消去せよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \partial_t \pp_m & = \rho\EE + \bm{j}\times\BB                                          \\
+                     & = (\vnabla\cdot\DD)\EE + (\vnabla\times\HH - \partial_t\DD)\times\BB
+  \end{align}
+\end{proof}
+
+\begin{problem}
+電磁場の応力テンソル $T_{ij}$ を
+\begin{align}
+  T_{ij} & = E_iD_j + H_iB_j - \delta_{ij}\mathcal{E}_{EM}                      \\
+         & = E_iD_j + H_iB_j - \frac{\delta_{ij}}{2}(\EE\cdot\DD + \HH\cdot\BB)
+\end{align}
+と定義すると
+\begin{align}
+  \partial_t\ab[\pp_m + \frac{\bm{Y}}{c^2}]_j = \sum_{i}\diffp{}{r_i}T_{ij}
+\end{align}
+が成り立つことを示せ。
+\end{problem}
+\begin{proof}
+  Maxwell の方程式と $\EE, \DD$ と $\BB, \HH$ の関係式から次のように求まる。
+  \begin{align}
+    \partial_t\ab[\pp_m + \frac{\bm{Y}}{c^2}]_j & = \ab[\partial_t\pp_m + \partial_t\frac{\EE\times\HH}{c^2}]_j                                                                      \\
+                                                & = \ab[(\vnabla\cdot\DD)\EE + (\vnabla\times\HH - \partial_t\DD)\times\BB + \partial_t(\DD\times\BB)]_j                             \\
+                                                & = \ab[(\vnabla\cdot\DD)\EE + (\vnabla\times\HH)\times\BB + \DD\times\partial_t\BB]_j                                               \\
+                                                & = \ab[(\vnabla\cdot\DD)\EE + (\vnabla\times\HH)\times\BB - \DD\times(\vnabla\times\EE)]_j                                          \\
+                                                & = (\partial_iD_i)E_j + \varepsilon_{jik}\varepsilon_{ilm}(\partial_lH_m)B_k - \varepsilon_{jik}D_i\varepsilon_{klm}(\partial_lE_m) \\
+                                                & = (\partial_iD_i)E_j + (\partial_iH_j)B_i - (\partial_jH_i)B_i - D_i(\partial_jE_i) + D_i(\partial_iE_j)                           \\
+                                                & = \partial_i(E_iD_j) + \partial_i(H_iB_j) - (\partial_jH_i)B_i - D_i(\partial_jE_i)                                                \\
+                                                & = \partial_i(E_iD_j) + \partial_i(H_iB_j) - \frac{1}{2}\partial_j(E_iD_i + H_iB_i)                                                 \\
+                                                & = \partial_i(E_iD_j + H_iB_j - \delta_{ij}\mathcal{E}_{EM})                                                                        \\
+                                                & = \partial_iT_{ij}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+電磁場の運動量密度 $\pp_{EM}$ を次のように定義したときに運動量保存則を示せ。
+\begin{align}
+  \pp_{EM} & = \frac{\bm{Y}}{c^2}
+\end{align}
+\end{problem}
+\begin{proof}
+  応力テンソル $T_{ij}$ の逆方向を電磁場の運動量流密度 $\bm{j} = -T_{ij}$ と定義することで次のように書ける。
+  \begin{align}
+    \vnabla\cdot\bm{j} + \partial_t\ab(\pp_m + \pp_{EM}) = \bm{0}
+  \end{align}
+  よってこれを積分形に書き直すと Gauss の発散定理を用いて次のようになる。
+  \begin{align}
+    \oint_{\partial V}\bm{j}(\rr, t)\cdot\bm{n}(\rr)\dl{S} + \partial_t\int_V(\pp_m + \pp_{EM})\dl{v} = 0
+  \end{align}
+\end{proof}
+
+\section{誘電体の電場}
+
+\setcounter{subsection}{5}
+\subsection{誘電体と導体のある系}
+\begin{problem}
+真空中で、一様な外部電場 $E_0\hat{\bm{x}}$ が形成されているところに、半径 $a$ の長い円柱状の導体 (電位 $0$ とする) の周囲に内半径 $a$、外半径 $b$、誘電率 $\varepsilon$ の円筒状の誘電体が密着したものを、軸を $z$ 軸に合わせて置く。誘電体中および、誘電体の外側での電位をそれぞれ求めよ。
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
+\subsection{誘電体中の静電場のエネルギー}
+面積 $S = a^2$ の正方形の平行導体板を持つ平行板コンデンサがあり、極板の間隔は $d (\ll a)$ である。厚さ $t (t < d)$、誘電率 $\varepsilon$ の極板と同じ形状の誘電体を、極板間に極板と平行に深さ $x (0 < x < a)$ まで差し込んで保持した状態を考える。ただし、誘電体の辺は導体板と平行で、$x$ 方向と垂直な方向については、誘電体ははみ出していないものとする。
+\begin{problem}
+電位差 $V$ の電池に繋がれているとき、誘電体がコンデンサに引き込まれる力を $x$ の関数として求めよ。
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
+\begin{problem}
+電荷 $Q$ を充電して電池を外したとき、誘電体がコンデンサに引き込まれる力を $x$ の関数として求めよ。
+\end{problem}
+\begin{proof}
+  まず誘電体のある部分とそうではない部分の電荷密度を $\sigma', \sigma_0$ とおく。このとき $\sigma'/\sigma_0 = (\varepsilon t + \varepsilon_0(d - t))/\varepsilon_0d, Q = (\sigma'x + \sigma_0(a - x))a$ が成り立つ。
+  \begin{align}
+    E          & = \frac{\sigma_0}{\varepsilon_0} = \frac{Q}{\varepsilon_0((\varepsilon t + \varepsilon_0(d - t))x/\varepsilon_0d + (a - x))a} = \frac{Qd}{((\varepsilon - \varepsilon_0)tx + \varepsilon_0da)a} \\
+    \Delta U_e & = \frac{E}{2}(D'x + D_0(a - x))at - \frac{\varepsilon_0E_0^2}{2}a^2t                                                                                                                            \\
+               & = \frac{EQt}{2} - \frac{Q^2t}{2\varepsilon_0a^2}                                                                                                                                                \\
+               & = \frac{Q^2t}{2\varepsilon_0a^2}\frac{\varepsilon_0da}{(\varepsilon - \varepsilon_0)tx + \varepsilon_0da} - \frac{Q^2t}{2\varepsilon_0a^2}                                                      \\
+               & = -\frac{Q^2t}{2\varepsilon_0a^2}\frac{(\varepsilon - \varepsilon_0)tx}{(\varepsilon - \varepsilon_0)tx + \varepsilon_0da}
+  \end{align}
+  これより誘電体が引き込まれる力は次のように求まる。
+  \begin{align}
+    F & = -\diff{\Delta U_e}{x} = \frac{Q^2t}{2\varepsilon_0a^2}\frac{\varepsilon_0(\varepsilon - \varepsilon_0)dat}{((\varepsilon - \varepsilon_0)tx + \varepsilon_0da)^2} \\
+      & = \frac{Q^2(\varepsilon - \varepsilon_0)dt^2}{2a((\varepsilon - \varepsilon_0)tx + \varepsilon_0da)^2}                                                              \\
+  \end{align}
+\end{proof}
+
+\subsection{誘電体球の受ける力}
+\begin{problem}
+
+\end{problem}
+\begin{proof}
+  電気双極子モーメントは空間に対して定数であるから
+  \begin{align}
+    \bm{F}(\rr) & = -\vnabla V(\rr)                                                                                                 \\
+                & = \vnabla(\pp\cdot\EE_0(\rr))                                                                                     \\
+                & = (\pp\cdot\vnabla)\EE_0 + (\EE_0\cdot\vnabla)\pp + \pp\times(\vnabla\times\EE_0) + \EE_0\times(\vnabla\times\pp) \\
+                & = (\pp\cdot\vnabla)\EE_0(\rr)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+誘電体球内の点 $\bm{x}$ での分極を $\bm{P}(\rr) = 3\varepsilon_0\EE_0$ と近似すると誘電体球の受ける力 $\bm{F}(\rr)$ を求めよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \bm{P}(\rr) & = 3\varepsilon_0\EE_0                           \\
+    \bm{F}(\rr) & = (\pp\cdot\vnabla)\EE_0(\rr)                   \\
+                & = (3\varepsilon_0\EE_0\cdot\vnabla)\EE_0(\rr)   \\
+                & = \frac{3}{2}\varepsilon_0\vnabla|\EE_0(\rr)|^2
+  \end{align}
+\end{proof}
+
+\subsection{液体の電気感受率}
+\begin{problem}
+半径 $a, b$ ($|b - a| \ll a < b$) の長い同心円柱導体面が誘電体である液体に垂直に差し込まれているときの液体の電気感受率を求めよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \bm{P} = \chi\varepsilon_0\EE
+  \end{align}
+\end{proof}
+
+\section{磁性体と静磁場}
+\setcounter{subsection}{4}
+\subsection{磁気モーメントと磁場}
+
+\section{常磁性体、強磁性体、超伝導}
+\subsection{磁性体中を流れる電流が受ける力}
+
+\setcounter{section}{8}
+\section{期末レポート問題}
+\subsection{円形コイルによる磁束密度の決定}
+
+\end{document}

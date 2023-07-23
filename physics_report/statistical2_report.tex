@@ -1,0 +1,431 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{}
+\author{anko9801}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\newcommand{\vnabla}{\mathbf{\nabla}}
+\newcommand{\laplacian}{\nabla^2}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}[subsection]
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}[section]
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{axiom}{公理}
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{熱力学の復習、古典・量子統計力学の復習、グランドカノニカル分布の基礎}
+\setcounter{subsection}{3}
+\subsection{物理数学の復習}
+\begin{problem}
+ゼータ関数について $\zeta(2), \zeta(4)$ を求めよ。
+\begin{align}
+  \zeta(x) := \sum_{n=1}^{\infty}\frac{1}{n^x} \qquad (x > 1)
+\end{align}
+\end{problem}
+\begin{proof}
+  $f_m(x) = x^m$ をフーリエ展開する。
+  \begin{align}
+    f_m(x) = x^m = \sum_{n=-\infty}^{\infty}c_{n,m}e^{inx}
+  \end{align}
+  このときの係数は次のようになる。
+  \begin{align}
+    c_{n,m} & = \frac{1}{2\pi}\int_{-\pi}^{\pi}x^me^{-inx}\dl{x}                                                                                              \\
+            & = \frac{1}{2\pi}\sum_{i=0}^{4}\ab[\frac{m!(-1)^i}{(m-i)!(-in)^{i+1}}x^{m-i}e^{-inx}]_{-\pi}^{\pi}                                               \\
+            & = \frac{1}{2\pi}\ab(-\frac{m}{(-in)^{2}}(-1)^n\ab(\pi^{m-1} - (-\pi^{m-1})) - \frac{m(m-1)(m-2)}{(-in)^{4}}(-1)^n\ab(\pi^{m-3} - (-\pi)^{m-3})) \\
+            & = (-1)^n\ab(\frac{m}{n^2}\pi^{m-2} - \frac{m(m-1)(m-2)}{n^4}\pi^{m-4})                                                                          \\
+    c_{0,m} & = \frac{1}{2\pi}\int_{-\pi}^\pi x^m\dl{x} = \frac{\pi^m}{m+1}
+  \end{align}
+  これより $f_m(x)$ が求まり、$x = \pi$ を代入することでゼータ関数の値が分かる。
+  \begin{align}
+    f_m(x)           & = \frac{\pi^m}{m+1} + \sum_{n\neq 0}\ab(\frac{m}{n^2}\pi^{m-2} - \frac{m(m-1)(m-2)}{n^4}\pi^{m-4})(-1)^ne^{inx}                                     \\
+    f_2(\pi) = \pi^2 & = \frac{\pi^2}{3} + \sum_{n\neq 0}\frac{2}{n^2}, \qquad f_4(\pi) = \pi^4 = \frac{\pi^4}{5} + \sum_{n\neq 0}\ab(\frac{4}{n^2}\pi^2 - \frac{24}{n^4}) \\
+    \zeta(2)         & = \sum_{n=1}^\infty\frac{1}{n^2} = \frac{\pi^2}{6}, \qquad \zeta(4) = \sum_{n=1}^\infty\frac{1}{n^4} = \frac{\pi^4}{90}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+次の関数 $I_\pm(\alpha)$ が収束する実数 $\alpha$ の範囲とその収束値を求めよ。
+\begin{align}
+  I_\pm(\alpha) & = \int_0^\infty\frac{z^{\alpha - 1}}{e^z \pm 1}\dl{z}
+\end{align}
+\end{problem}
+\begin{proof}
+  \begin{align}
+    I_\pm(\alpha) & = \int_0^\infty\frac{z^{\alpha - 1}}{e^z \pm 1}\dl{z}                                                                                                          \\
+                  & = \int_0^\infty z^{\alpha - 1}(\pm 1 - e^{-z} \pm e^{-2z} - \cdots)\dl{z}                                                                                      \\
+                  & = \pm\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \int_0^\infty z^{\alpha - 1}e^{-z}\dl{z} \pm \int_0^\infty z^{\alpha - 1}e^{-2z}\dl{z} - \cdots                   \\
+                  & = \pm\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \ab(1 \mp \frac{1}{2^\alpha} + \frac{1}{3^\alpha} \mp \cdots)\int_0^\infty z^{\alpha - 1}e^{-z}\dl{z} & (z' = kz) \\
+                  & = \begin{dcases}
+                        +\ab[\frac{z^\alpha}{\alpha}]_0^\infty - (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) \\
+                        -\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \zeta(\alpha)\Gamma(\alpha)                     \\
+                      \end{dcases}
+  \end{align}
+  これより $|\alpha| \geq 1$ のとき $I_{\pm}(\alpha)$ は発散し、$|\alpha| < 1$ のとき次のようになる。
+  \begin{align}
+    I_+(\alpha) & = - (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) \\
+    I_-(\alpha) & = - \zeta(\alpha)\Gamma(\alpha)
+  \end{align}
+\end{proof}
+
+\setcounter{subsection}{5}
+\subsection{3 次元調和振動子}
+\begin{align}
+  \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + V(\rr), \qquad V(\rr) = \frac{k}{2}|\rr|^2
+\end{align}
+\begin{problem}
+固有関数を $\psi(\rr) = X(x)Y(y)Z(z)$ と変数分離できるとすると固有エネルギーを求めよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \hat{H}\psi & = -\frac{\hbar^2}{2m}\laplacian\psi + V(\rr)\psi                                                               \\
+                & = -\frac{\hbar^2}{2m}(X''YZ + XY''Z + XYZ'') + V(\rr)XYZ                                                       \\
+                & = \ab(-\frac{\hbar^2}{2m}\ab(\frac{X''}{X} + \frac{Y''}{Y} + \frac{Z''}{Z}) + \frac{1}{2}(x^2 + y^2 + z^2))XYZ \\
+                & = \sum_{i}\ab(-\frac{\hbar^2}{2m}\frac{X_i''(x_i)}{X_i(x_i)} + \frac{k}{2}x_i^2)\psi = E\psi
+  \end{align}
+  総和の各項はそれぞれ変数が独立しているから定数となり、それぞれ $E_i$ とおく。
+  \begin{align}
+    -\frac{\hbar^2}{2m}\frac{X_i''(x_i)}{X_i(x_i)} + \frac{k}{2}x_i^2 & = E_i    \\
+    -\frac{\hbar^2}{2m}X_i'' + \frac{k}{2}x_i^2X_i                    & = E_iX_i
+  \end{align}
+  これは 1 次元調和振動子のポテンシャルであるので固有エネルギーは次のようになる。
+  \begin{align}
+    E_{i,n}             & = \ab(n + \frac{1}{2})\hbar\omega               \\
+    E_{(n_x, n_y, n_z)} & = \ab(n_x + n_y + n_z + \frac{3}{2})\hbar\omega
+  \end{align}
+\end{proof}
+
+\begin{problem}
+固有エネルギー $\varepsilon$ が $E_0 = 100\hbar\omega \leq \varepsilon < E_0 + \delta E = 110\hbar\omega$ を満たす独立な固有状態は何個あるか? まず ($\hbar\omega\ll \delta E \ll E_0$ として) 概数を評価する方法を考えて評価し、次に具体的に求めてみよう。
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
+\begin{problem}
+極座標において固有関数が $\psi(\rr) = R(r)Y(\theta, \phi) = R(r)\Theta(\theta)\Phi(\phi)$ と変数分離できるとき固有関数と固有エネルギーはどのように求められるか。
+\begin{align}
+  x          & = r\sin\theta\cos\phi, y = r\sin\theta\sin\phi, z = r\cos\theta                                                                                                        \\
+  \laplacian & = \diffp[2]{}{r} + \frac{2}{r}\diffp{}{r} + \frac{1}{r^2}\ab(\frac{1}{\sin\theta}\diffp{}{\theta}\sin\theta\diffp{}{\theta} + \frac{1}{\sin^2\theta}\diffp[2]{}{\phi})
+\end{align}
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + V(r)                                                                                                                                                                        \\
+            & = -\frac{\hbar^2}{2m}\ab(\frac{1}{r^2}\diffp{}{r}\ab(r^2\diffp{}{r}) + \frac{1}{r^2\sin\theta}\diffp{}{\theta}\ab(\sin\theta\diffp{}{\theta}) + \frac{1}{r^2\sin^2\theta}\diffp[2]{}{\phi}) + V(r)            \\
+    0       & = \ab(\diffp{}{r}\ab(r^2\diffp{}{r}) + \frac{1}{\sin\theta}\diffp{}{\theta}\ab(\sin\theta\diffp{}{\theta}) + \frac{1}{\sin^2\theta}\diffp[2]{}{\phi} + \frac{2m r^2(E - V(r))}{\hbar^2})\psi(r, \theta, \phi)
+  \end{align}
+  と書ける。$k = m\omega^2$ とおくと独立な変数であるから定数 $\lambda, m$ を用いて
+  \begin{align}
+     & \ab(\diffp{}{r}\ab(r^2\diffp{}{r}) + \frac{2m r^2}{\hbar^2}E - \frac{m^2\omega^2r^4}{\hbar^2})R(r) = \lambda R(r)                                             \\
+     & \ab(\frac{1}{\sin\theta}\diffp{}{\theta}\ab(\sin\theta\diffp{}{\theta}) + \frac{1}{\sin^2\theta}\diffp[2]{}{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi) \\
+     & \ab(\sin\theta\diffp{}{\theta}\ab(\sin\theta\diffp{}{\theta}) + \lambda \sin^2\theta)\Theta(\theta) = m^2\Theta(\theta)                                       \\
+     & \diff[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
+  \end{align}
+  となる。まず $\Phi(\phi)$ の一般解は次のようになる。
+  \begin{align}
+     & \diff[2]{\Phi(\phi)}{\phi} + m^2\Phi(\phi) = 0             \\
+     & \Phi(\phi) = \begin{cases}
+                      Ae^{i|m|\phi} + Be^{-i|m|\phi} & (m^2 \neq 0) \\
+                      C\phi + D                      & (m^2 = 0)    \\
+                    \end{cases}
+  \end{align}
+  波動関数は連続であるから $\Phi(0) = \Phi(2\pi)$ であり、規格化条件を満たす。$C = D = 0$ となる解は意味を成さず、$m\in\ZZ$ となる。$L_z$ の固有関数となることから
+  \begin{align}
+    \Phi(\phi) & = \frac{1}{\sqrt{2\pi}}e^{im\phi} \qquad (m\in\ZZ)
+  \end{align}
+  となる。次に $\Theta(\theta)$ について解く。$z = \cos\theta$ とおくと,
+  \begin{align}
+    \ab(\sin\theta\diff{}{\theta}\ab(\sin\theta\diff{}{\theta}) + \lambda \sin^2\theta)\Theta(\theta) & = m^2\Theta(\theta) \\
+    \diff{}{z}\ab((1 - z^2)\diff{\Theta}{z}) + \ab(\lambda - \frac{m^2}{1 - z^2})\Theta(z)            & = 0
+  \end{align}
+  となる。$m = 0$ において $\Theta(z)$ はルジャンドルの微分方程式を満たす。$\Theta(z)$ をべき展開することで
+  \begin{align}
+     & (1 - z^2)\Theta'' - 2z\Theta' + \lambda\Theta = 0, \qquad \Theta(z) = \sum_{k = 0}^\infty a_kz^k                          \\
+     & (1 - z^2)\sum_{k = 2}^\infty k(k-1)a_kz^{k-2} - 2z\sum_{k = 1}^\infty ka_kz^{k-1} + \lambda\sum_{k = 0}^\infty a_kz^k = 0 \\
+     & \sum_{k = 0}^\infty \ab((k+1)(k+2)a_{k+2} + \ab(\lambda - k(k+1))a_k)z^k + \mathcal{O}(z) = 0                             \\
+     & a_{k+2} = \frac{k(k+1) - \lambda}{(k+2)(k+1)}a_k
+  \end{align}
+  となる。よって $z$ について一般に発散しない為には $\lambda = l(l+1)\ (l\in\ZZ_{>0})$ とならければならない。すると $m\neq 0$ のときはルジャンドルの陪微分方程式となる。
+  \begin{align}
+    \diff{}{z}\ab((1 - z^2)\diff{\Theta}{z}) + \ab(l(l+1) - \frac{m^2}{1 - z^2})\Theta(z) & = 0
+  \end{align}
+  これよりルジャンドルの陪関数 $P_l^m(z)$ と規格化条件から $\Theta_{lm}(\theta)$ は
+  \begin{align}
+    \Theta_{lm}(\theta) & = (-1)^{\frac{m + |m|}{2}}\sqrt{\ab(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta)
+  \end{align}
+  と書ける。また $R_l(r)$ については $\rho = \sqrt{\dfrac{m\omega}{\hbar}}r$ と無次元化すると
+  \begin{align}
+     & \diff[2]{}{r}R_l(r) + \frac{2}{r}\diff{}{r}R_l(r) + \frac{2m}{\hbar^2}\ab(E - \frac{1}{2}m\omega^2r^2 - \frac{l(l+1)\hbar^2}{2m r^2})R_l(r) = 0                                         \\
+     & \diff[2]{}{\rho}R_l(\rho) + \frac{2}{\rho}\diff{}{\rho}R_l(\rho) + \ab(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) = 0                   & \ab(\lambda = \frac{2E}{\hbar\omega})
+  \end{align}
+  となる。$x = \rho^2$ と変数変換すると
+  \begin{align}
+     & x\diff[2]{}{x}R_l(x) + \frac{3}{2}\diff{}{x}R_l(x) + \frac{1}{4}\ab(\lambda + x - \frac{l(l+1)}{x})R_l(x) = 0
+  \end{align}
+  となり, 級数展開法より $\rho\to\infty$ で発散しない為には $n$ を非負整数として $\lambda = 4n + 2l + 3$ となる。
+  $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-x/2}$, $x^{l/2}$ となるので $R_l(x) = x^{l/2}e^{-x/2}S_n^\alpha(x)$ と分離すると
+  \begin{align}
+    x\diff[2]{}{x}S_n^\alpha + (\alpha + 1 - x)\diff{}{x}S_n^\alpha + nS_n^\alpha = 0
+  \end{align}
+  これはソニンの多項式となるので解はラゲールの陪関数を用いて $S_n^\alpha = L_{n + \alpha}^\alpha$ と書ける。
+  よって固有関数は次のように書ける。
+  \begin{align}
+    \psi(r, \theta, \phi) & = R_l(\rho)\Theta_{lm}(\theta)\Phi_m(\phi)                                                                                                           \\
+    \Phi_m(\phi)          & = \frac{1}{\sqrt{2\pi}}e^{im\phi}                                                                                                                    \\
+    \Theta_{lm}(\theta)   & = (-1)^{\frac{m + |m|}{2}}\sqrt{\ab(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta)                                              \\
+    R_{nl}(\rho)          & = \rho^{l}e^{-\rho^2/2}L_{n + \alpha}^\alpha(\rho^2)                                                    & \ab(\rho = \sqrt{\dfrac{m\omega}{\hbar}}r)
+  \end{align}
+  固有エネルギーについては次のようになる。
+  \begin{align}
+    E & = \frac{\lambda}{2}\hbar\omega = \ab(2n + l + \frac{3}{2})\hbar\omega
+  \end{align}
+\end{proof}
+
+\subsection{2 準位系, 3 準位系}
+
+\begin{problem}
+エネルギー準位が $0$ と $\varepsilon$ からなり、それぞれ $m, n$ 重に縮重する互いに独立な $N$ 個の系が温度 $T$ の熱平衡状態にあるとする。このときの分配関数、エネルギーの期待値、比熱を求めよ。$a = n/m, \beta = \dfrac{1}{k_BT}$ とおく。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    Z_N(\beta)        & = \ab(m + ne^{-\beta \varepsilon})^N = m^N\ab(1 + ae^{-\beta \varepsilon})^N                                                                                                                         \\
+    E(\beta)          & = -\diffp{}{\beta}\ln Z_N(\beta) = N\frac{a\varepsilon e^{-\beta \varepsilon}}{1 + ae^{-\beta \varepsilon}}                                                                                          \\
+    C(T)              & = \diff{E}{T} = -\frac{1}{k_BT^2}\diff{E}{\beta}                                                                                                                                                     \\
+                      & = -Nk_B\beta^2\frac{-a\varepsilon^2 e^{-\beta\varepsilon}(1 + ae^{-\beta \varepsilon}) + a\varepsilon e^{-\beta\varepsilon}\cdot a\varepsilon e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2} \\
+                      & = Nk_B\beta^2\frac{a\varepsilon^2 e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2}                                                                                                             \\
+    \frac{C(T)}{Nk_B} & = \ab(\frac{\varepsilon}{k_BT})^2\frac{ae^{-\varepsilon/k_BT}}{(1 + ae^{-\varepsilon/k_BT})^2}                                                                                                       \\
+                      & = \begin{dcases}
+                            \ab(\frac{\varepsilon}{k_BT})^2 ae^{-\varepsilon/k_BT}          & (a \ll 1) \\
+                            \ab(\frac{\varepsilon}{k_BT})^2\frac{1}{ae^{-\varepsilon/k_BT}} & (a \gg 1)
+                          \end{dcases}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+エネルギー準位が $0, \varepsilon, b\varepsilon$ からなる独立な $N$ 個の系が温度 $T$ の熱平衡状態にあるとする。このとき分配関数、エネルギーの期待値、比熱を求めよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    Z_N(\beta)        & = \ab(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon})^N                                                                                                                                                                                                                                      \\
+    E(\beta)          & = -\diffp{}{\beta}\ln Z_N(\beta)                                                                                                                                                                                                                                                                  \\
+                      & = N\frac{\varepsilon e^{-\beta\varepsilon} + b\varepsilon e^{-\beta b\varepsilon}}{1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon}}                                                                                                                                                           \\
+    C(T)              & = \diff{E}{T} = -\frac{1}{k_BT^2}\diff{E}{\beta}                                                                                                                                                                                                                                                  \\
+                      & = Nk_B\beta^2\frac{(\varepsilon^2 e^{-\beta\varepsilon} + b^2\varepsilon^2 e^{-\beta b\varepsilon})(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon}) - (\varepsilon e^{-\beta\varepsilon} + b\varepsilon e^{-\beta b\varepsilon})^2}{(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon})^2} \\
+                      & = Nk_B(\beta\varepsilon)^2\frac{e^{-\beta\varepsilon} + (b - 1)^2e^{-\beta(1 + b)\varepsilon} + b^2e^{-\beta b\varepsilon}}{(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon})^2}                                                                                                              \\
+    \frac{C(T)}{Nk_B} & = \ab(\frac{\varepsilon}{k_BT})^2\frac{e^{-\varepsilon/k_BT} + (b - 1)^2e^{-(1 + b)\varepsilon/k_BT} + b^2e^{-b\varepsilon/k_BT}}{(1 + e^{-\varepsilon/k_BT} + e^{-b\varepsilon/k_BT})^2}
+  \end{align}
+
+\end{proof}
+
+
+\section{理想量子気体とグランドカノニカル分布}
+\setcounter{subsection}{5}
+\subsection{状態を占める粒子数の揺らぎ}
+\begin{problem}
+Fermi 粒子系、Bose 粒子系における粒子数の揺らぎを調べよ。
+\end{problem}
+\begin{proof}
+  グランドカノニカル分布の分配関数 $\Xi$ が与えられたときに粒子数の揺らぎは次のように書ける。
+  \begin{align}
+    N                         & = \frac{1}{\beta}\ab(\diffp{\ln\Xi}{\mu})_{T,V}                              \\
+    \ab(\diffp{N}{\mu})_{T,V} & = \beta\ab(\langle N^2\rangle - N^2) = \beta\langle(\hat{\Delta N})^2\rangle
+  \end{align}
+  これより Fermi 粒子系の粒子数の揺らぎは次のように書ける。
+  \begin{align}
+    \Xi                              & = \prod_{j=1}^{\infty}(1 + e^{-\beta(\varepsilon_j - \mu)})                                        \\
+    N                                & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} + 1}                                  \\
+    \langle(\hat{\Delta N})^2\rangle & = \sum_{j=1}^{\infty}\frac{e^{\beta(\varepsilon_j - \mu)}}{(e^{\beta(\varepsilon_j - \mu)} + 1)^2}
+  \end{align}
+  同様に Bose 粒子系の粒子数の揺らぎは次のようになる。
+  \begin{align}
+    \Xi                              & = \prod_{j=1}^{\infty}\frac{1}{1 - e^{-\beta(\varepsilon_j - \mu)}}                                \\
+    N                                & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} - 1}                                  \\
+    \langle(\hat{\Delta N})^2\rangle & = \sum_{j=1}^{\infty}\frac{e^{\beta(\varepsilon_j - \mu)}}{(e^{\beta(\varepsilon_j - \mu)} - 1)^2}
+  \end{align}
+  \begin{align}
+    \frac{\sqrt{\langle(\hat{\Delta N})^2\rangle}}{N} & \to 1
+  \end{align}
+
+\end{proof}
+
+\section{理想ボーズ気体、ボーズ凝縮}
+\subsection{格子比熱 (Debye 模型)}
+縦波と 2 つの独立な横波のモードが可能であり、それらの分散関係は $\omega = v_l|\kk|$, $\omega = v_t|\kk|$ と表される。
+\begin{problem}
+立方体の周期境界条件における振動数の
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
+\subsection{3 次元調和トラップ中での Bose-Einstein 凝縮での比熱の変化}
+それぞれ
+
+\section{理想フェルミ気体、低温展開}
+\subsection{Pauli 常磁性}
+\begin{problem}
+\begin{align}
+  M    & =                             \\
+  \chi & := \lim_{H\to 0}\frac{M}{H} =
+\end{align}
+\end{problem}
+
+\subsection{ブロッホの定理}
+
+\subsection{1 次元周期的井戸型ポテンシャル}
+
+\subsection{グラフェンにおける分散関係}
+
+\end{document}

@@ -1,4 +1,5 @@
-*report
+report
+experiment_report
 node_modules
 
 .vscode
