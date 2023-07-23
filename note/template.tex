@@ -97,7 +97,7 @@
     \end{#2}
   }
 }
-\newtheorem{theorem*}{定理}
+\newtheorem{theorem*}{定理}[section]
 
 \newqedtheoremx{theorem}{theorem*}
 \newcommand*\newqedtheorem@unstarred[2]{%
@@ -110,7 +110,7 @@
 }
 \newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
 
-\newtheorem{sctheorem*}{定理}
+\newtheorem{sctheorem*}{定理}[section]
 \newscreentheoremx{sctheorem}{sctheorem*}
 \newcommand*\newscreentheorem@unstarred[2]{%
   \newtheorem{#1*}[theorem*]{#2}
