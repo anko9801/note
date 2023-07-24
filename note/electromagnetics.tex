@@ -28,7 +28,7 @@
 \usepackage{xypic}
 %
 \title{電磁気学}
-\author{Anko}
+\author{anko9801}
 \makeatletter
 %
 \DeclareMathOperator{\lcm}{lcm}
@@ -46,13 +46,14 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
 \newcommand{\DD}{\bm{D}}
 \newcommand{\HH}{\bm{H}}
+\newcommand{\PP}{\bm{P}}
+\newcommand{\MM}{\bm{M}}
 \renewcommand{\AA}{\bm{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
@@ -62,7 +63,7 @@
 \newcommand{\Ec}{\mathcal{E}}
 \newcommand{\EC}{\mathcal\bm{E}}
 \newcommand{\LL}{\bm{L}}
-\newcommand{\ee}{\bm{\epsilon}}
+\newcommand{\ee}{\bm{\varepsilon}}
 \renewcommand{\SS}{\bm{S}}
 \newcommand{\JJ}{\bm{J}}
 \newcommand{\vnabla}{\mathbf{\nabla}}
@@ -80,6 +81,7 @@
 \newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
 \newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
 
+\numberwithin{equation}{section}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -175,13 +177,14 @@
 \clearpage
 
 \section{真空中の電磁気学}
-\begin{definition}[Maxwell の方程式]
+\subsection{Maxwell 方程式}
+\begin{definition}[Maxwell 方程式]
   電場 $\EE$ と磁束密度 $\BB$ に対して次のような式が成り立つ。
   \begin{align}
-     & \int_{\partial V}\EE\cdot\bm{n}\dl{S} = \frac{1}{\epsilon_0}\int_V\rho\dl{V}                                                       &  & \iff \vnabla\cdot\EE  = \frac{\rho}{\epsilon_0}                                  \\
-     & \int_{\partial S}\EE\cdot\dl{\bm{l}} = -\diff{}{t}\int_S\BB\cdot\bm{n}\dl{S}                                                       &  & \iff \vnabla\cdot\BB  = 0                                                        \\
-     & \int_{\partial V}\BB\cdot\bm{n}\dl{S} = 0                                                                                          &  & \iff \vnabla\times\EE = -\diffp{\BB}{t}                                          \\
-     & c^2\int_{\partial S}\BB\cdot\dl{\bm{l}} = \frac{1}{\epsilon_0}\int_S\bm{j}\cdot\bm{n}\dl{S} + \diff{}{t}\int_S\EE\cdot\bm{n}\dl{S} &  & \iff \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t} \label{Ampere}
+     & \int_{\partial V}\EE\cdot\bm{n}\dl{S} = \frac{1}{\varepsilon_0}\int_V\rho\dl{V}                                                       &  & \iff \vnabla\cdot\EE  = \frac{\rho}{\varepsilon_0}                               \\
+     & \int_{\partial V}\BB\cdot\bm{n}\dl{S} = 0                                                                                             &  & \iff \vnabla\cdot\BB  = 0                                                        \\
+     & \int_{\partial S}\EE\cdot\dl{\bm{l}} = -\diff{}{t}\int_S\BB\cdot\bm{n}\dl{S}                                                          &  & \iff \vnabla\times\EE = -\diffp{\BB}{t}                                          \\
+     & c^2\int_{\partial S}\BB\cdot\dl{\bm{l}} = \frac{1}{\varepsilon_0}\int_S\bm{j}\cdot\bm{n}\dl{S} + \diff{}{t}\int_S\EE\cdot\bm{n}\dl{S} &  & \iff \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t} \label{Ampere}
   \end{align}
   ただし電荷密度 $\rho(t, \rr) = qn$, 電流密度 $\bm{j}(t, \rr) = qn\bm{v}$ とする。
   \begin{align}
@@ -191,13 +194,17 @@
 \begin{definition}[Lorentz 力]
   電荷 $q$ の質点が電磁場から受ける力は次のように表される。
   \begin{align}
-    \bm{F} = q(\EE + \bm{v}\times\BB)
+    \bm{F} & = q(\EE + \bm{v}\times\BB)
+  \end{align}
+  一般に次のように表される。
+  \begin{align}
+    \bm{F} & = \rho\EE + \bm{j}\times\BB
   \end{align}
 \end{definition}
 これらの法則で電磁気学が完結する。
 
 
-\subsection{電荷}
+\subsection{保存則}
 \begin{theorem}[電荷の保存則]
   連続の方程式を満たし、電荷は保存する。
   \begin{align}
@@ -207,61 +214,80 @@
 \begin{proof}
   式 \eqref{Ampere} の両辺の発散を計算することで連続の方程式を導出する。
   \begin{align}
-    \vnabla\cdot(\vnabla\times\BB) & = \vnabla\cdot\ab(\mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t})      \\
-    0                              & = \mu_0\vnabla\cdot\bm{j} + \frac{1}{c^2}\diffp{t}\vnabla\cdot\EE \\
+    \vnabla\cdot(\vnabla\times\BB) & = \vnabla\cdot\ab(\mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t})        \\
+    0                              & = \mu_0\vnabla\cdot\bm{j} + \frac{1}{c^2}\diffp{}{t}\vnabla\cdot\EE \\
     0                              & = \vnabla\cdot\bm{j} + \diffp{\rho}{t}
   \end{align}
   連続の方程式の両辺を空間微分することで電荷が保存することが分かる。
   \begin{align}
-     & \int_V\ab(\diffp{\rho}{t} + \vnabla\cdot\bm{j})\dl{V} = 0              \\
-     & \diff{t}\int_V\rho\dl{V} + \int_{\partial V}\bm{j}\cdot\dl{\bm{S}} = 0
+     & \int_V\ab(\diffp{\rho}{t} + \vnabla\cdot\bm{j})\dl{V} = 0                \\
+     & \diff{}{t}\int_V\rho\dl{V} + \int_{\partial V}\bm{j}\cdot\dl{\bm{S}} = 0
   \end{align}
 \end{proof}
 
-\begin{theorem}
-  真空中での電磁場のエネルギー
+\begin{theorem}[磁荷の存在]
+  磁荷は存在しない。
+\end{theorem}
+\begin{proof}
+  Maxwell の方程式より磁荷や磁荷の流れは無いことがわかる。
   \begin{align}
-    u_{em} = \frac{1}{2}\varepsilon_0\EE^2 + \frac{1}{2\mu_0}\BB^2
+     & \vnabla\cdot\BB = 0                                          \\
+     & \vnabla\times\EE = -\diffp{\BB}{t}                           \\
+     & \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t}
+  \end{align}
+\end{proof}
+
+\begin{theorem}[エネルギー保存則]
+  \begin{align}
+    \diffp{u}{t} + \vnabla\cdot\SS & = -\EE\cdot\bm{j}
+  \end{align}
+  ただし、真空中での電磁場のエネルギー $u$ とエネルギーの流れ密度 $\SS$ を次のように定義した。
+  \begin{align}
+    u        & = \frac{1}{2}\EE\cdot\DD + \frac{1}{2}\HH\cdot\BB \\
+    \SS(\rr) & = \EE\times\HH
   \end{align}
 \end{theorem}
+\begin{proof}
+  \begin{align}
+    \diffp{u}{t} + \vnabla\cdot\SS & = \frac{1}{2}\diffp{}{t}\ab(\EE\cdot\DD + \HH\cdot\BB) + \vnabla\cdot(\EE\times\HH)                                             \\
+                                   & = \varepsilon_0\EE\cdot\diffp{\EE}{t} + \HH\cdot\diffp{\BB}{t} + \vnabla\cdot(\EE\times\HH)                                     \\
+                                   & = \EE\cdot\ab(\vnabla\times\HH - \bm{j}) - \HH\cdot(\vnabla\times\EE) + \HH\cdot(\vnabla\times\EE) - \EE\cdot(\vnabla\times\HH) \\
+                                   & = -\EE\cdot\bm{j}
+  \end{align}
+  右辺はローレンツ力による仕事を表す。
+  \begin{align}
+    \bm{F}\cdot\bm{v} & = (qn\EE + qn\bm{v}\times\BB)\cdot\bm{v} = \EE\cdot\bm{j}
+  \end{align}
+\end{proof}
 
 \begin{definition}[Poynting ベクトル]
-  エネルギーの流れの密度
-  単位時間に単位面積を通過するエネルギー
+  エネルギーの流れの密度, 単位時間に単位面積を通過するエネルギー
   \begin{align}
-    \SS(\rr) = \EE(\rr)\times\bm{H}(\rr) = \frac{1}{\mu_0}\EE(\rr)\times\BB(\rr)
+    \SS(\rr) & = \EE\times\HH
   \end{align}
 \end{definition}
 
+
 \subsection{電磁ポテンシャルとゲージ変換}
-\begin{theorem}[電位とベクトルポテンシャル]
+\begin{definition}[電磁ポテンシャル]
   次を満たす $\phi$, $\AA$ が存在し、$\phi$ を電位、$\AA$ をベクトルポテンシャルという。
   \begin{align}
     \EE & = - \vnabla\phi - \diffp{\AA}{t} \\
     \BB & = \vnabla\times\AA
   \end{align}
-\end{theorem}
+\end{definition}
 \begin{proof}
+  Maxwell 方程式に代入すると well-defined 性を満たすことが分かる。
   \begin{align}
-    \EE & = - \vnabla\phi - \diffp{\AA}{t} \\
-    \BB & = \vnabla\times\AA
-  \end{align}
-  Maxwell の方程式に代入すると
-  \begin{align}
-     & \vnabla\cdot\BB = 0                        \\
-     & \vnabla\cdot(\vnabla\times\AA) = 0         \\
-     & \vnabla\times\EE = -\diffp{\BB}{t}         \\
-     & \vnabla\times\ab(\EE + \diffp{\AA}{t}) = 0 \\
-     & \vnabla\times\ab(-\vnabla\phi) = 0
+    \vnabla\cdot\BB                   & = \vnabla\cdot(\vnabla\times\AA) = 0                                          \\
+    \vnabla\times\EE + \diffp{\BB}{t} & = \vnabla\times\ab(\EE + \diffp{\AA}{t}) = \vnabla\times\ab(-\vnabla\phi) = 0
   \end{align}
 \end{proof}
 
 \begin{theorem}
   Maxwell の方程式は電磁ポテンシャルを用いて次のように表される。
   \begin{align}
-     & \EE = - \vnabla\phi - \diffp{\AA}{t}                                                                                       \\
-     & \BB = \vnabla\times\AA                                                                                                     \\
-     & -\laplacian\phi - \diffp{t}(\vnabla\cdot\AA) = \frac{\rho}{\epsilon_0}                                                     \\
+     & -\laplacian\phi - \diffp{}{t}(\vnabla\cdot\AA) = \frac{\rho}{\varepsilon_0}                                                \\
      & -\laplacian\AA + \vnabla\ab(\frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA) + \frac{1}{c^2}\diffp[2]{\AA}{t} = \mu_0\bm{j}
   \end{align}
 \end{theorem}
@@ -269,16 +295,16 @@
   Maxwell の方程式に電磁ポテンシャルを代入すると次のようになる。
   \begin{align}
     \begin{dcases}
-      \vnabla\cdot\EE  = \frac{\rho}{\epsilon_0} \\
-      \vnabla\cdot\BB  = 0                       \\
-      \vnabla\times\EE = -\diffp{\BB}{t}         \\
+      \vnabla\cdot\EE  = \frac{\rho}{\varepsilon_0} \\
+      \vnabla\cdot\BB  = 0                          \\
+      \vnabla\times\EE = -\diffp{\BB}{t}            \\
       \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t}
     \end{dcases}
     \iff
     \begin{dcases}
-      \EE = - \vnabla\phi - \diffp{\AA}{t}                                   \\
-      \BB = \vnabla\times\AA                                                 \\
-      -\laplacian\phi - \diffp{t}(\vnabla\cdot\AA) = \frac{\rho}{\epsilon_0} \\
+      \EE = - \vnabla\phi - \diffp{\AA}{t}                                        \\
+      \BB = \vnabla\times\AA                                                      \\
+      -\laplacian\phi - \diffp{}{t}(\vnabla\cdot\AA) = \frac{\rho}{\varepsilon_0} \\
       -\laplacian\AA + \vnabla\ab(\frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA) + \frac{1}{c^2}\diffp[2]{\AA}{t} = \mu_0\bm{j}
     \end{dcases}
   \end{align}
@@ -294,17 +320,24 @@
 \begin{proof}
   電磁場に代入すると不変に保つことがわかる。
   \begin{align}
-    \EE & = - \vnabla\ab(\phi - \diffp{\chi}{t}) - \diffp{t}(\AA + \vnabla\chi)            \\
-        & = - \vnabla\phi + \vnabla\diffp{\chi}{t} - \diffp{\AA}{t} - \diffp{t}\vnabla\chi \\
-        & = - \vnabla\phi - \diffp{\AA}{t}                                                 \\
-    \BB & = \vnabla\times(\AA + \vnabla\chi)                                               \\
-        & = \vnabla\times\AA + \vnabla\times\vnabla\chi                                    \\
+    \EE & = - \vnabla\ab(\phi - \diffp{\chi}{t}) - \diffp{}{t}(\AA + \vnabla\chi)            \\
+        & = - \vnabla\phi + \vnabla\diffp{\chi}{t} - \diffp{\AA}{t} - \diffp{}{t}\vnabla\chi \\
+        & = - \vnabla\phi - \diffp{\AA}{t}                                                   \\
+    \BB & = \vnabla\times(\AA + \vnabla\chi)                                                 \\
+        & = \vnabla\times\AA + \vnabla\times\vnabla\chi                                      \\
         & = \vnabla\times\AA
   \end{align}
 \end{proof}
 
 \begin{definition}
-  $\vnabla\cdot\AA = 0$ を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
+  次の式を満たすゲージをクーロンゲージ (Coulomb gauge) と呼ぶ。
+  \begin{align}
+    \vnabla\cdot\AA = 0
+  \end{align}
+  次の式を満たすゲージをローレンツゲージ (Lorenz gauge) と呼ぶ。
+  \begin{align}
+    \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA = 0
+  \end{align}
 \end{definition}
 
 \begin{proposition}
@@ -313,8 +346,8 @@
 \begin{proof}
   クーロンゲージのとき Maxwell 方程式は次のようになる。
   \begin{align}
-     & -\laplacian\phi = \frac{\rho}{\varepsilon_0}                                                            \\
-     & \ab(\frac{1}{c^2}\diffp[2]{t} - \laplacian)\AA + \vnabla\ab(\frac{1}{c^2}\diffp{\phi}{t}) = \mu_0\bm{j}
+     & -\laplacian\phi = \frac{\rho}{\varepsilon_0}                                                              \\
+     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\AA + \vnabla\ab(\frac{1}{c^2}\diffp{\phi}{t}) = \mu_0\bm{j}
   \end{align}
   特に静電磁場においてベクトルポテンシャル $\AA(\rr)$ は Poisson 方程式を満たす。
   \begin{align}
@@ -327,7 +360,7 @@
   これより $\chi(\rr, t)$, $\phi(\rr, t)$ は次のように表される。
   \begin{align}
     \chi(\rr, t) & = \frac{1}{4\pi}\int_V\frac{\vnabla_{\rr'}\cdot\AA(\rr', t)}{|\rr - \rr'|}\dl{\rr'} \\
-    \phi(\rr, t) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr', t)}{|\rr - \rr'|}\dl{\rr'}
+    \phi(\rr, t) & = \frac{1}{4\pi\varepsilon_0}\int_V\frac{\rho(\rr', t)}{|\rr - \rr'|}\dl{\rr'}
   \end{align}
   特に静電磁場のときベクトルポテンシャル $\AA$ は次のように書ける。
   \begin{align}
@@ -335,51 +368,45 @@
   \end{align}
 \end{proof}
 
-\begin{definition}
-  次の式を満たすゲージをローレンツゲージ (Lorenz gauge) と呼ぶ。
-  \begin{align}
-    \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA = 0
-  \end{align}
-\end{definition}
-
 \begin{proposition}
   ローレンツゲージのとき
   \begin{align}
      & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\chi = \frac{1}{c^2}\diffp{\phi}{t} + \vnabla\cdot\AA \\
-     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\phi = \frac{\rho}{\epsilon_0}                        \\
+     & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\phi = \frac{\rho}{\varepsilon_0}                     \\
      & \ab(\frac{1}{c^2}\diffp[2]{}{t} - \laplacian)\AA = \mu_0\bm{j}
   \end{align}
 \end{proposition}
 
 \subsection{遅延ポテンシャル}
 
-\subsection{Coulomb 力}
-\begin{theorem}
-  位置 $\rr'$ にある点電荷 $Q$ が位置 $\rr$ にある点電荷 $q$ に及ぼす Coulomb 力 $\bm{F}$ は次のように表される。
+\subsection{さまざまな環境}
+\begin{theorem}[Coulomb 力]
+  点電荷 $Q$ を $\rr'$ に配置したときに位置 $\rr$ での電位と電場、点電荷 $q$ に及ぼす力は次のようになる。
   \begin{align}
-    \bm{F} = \frac{Qq}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
+    \phi(\rr)   & = \frac{Q}{4\pi\varepsilon_0}\frac{1}{|\rr - \rr'|}             \\
+    \EE(\rr)    & = \frac{Q}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}  \\
+    \bm{F}(\rr) & = \frac{Qq}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
   \end{align}
 \end{theorem}
 \begin{proof}
-  電位から電場を求めて Coulomb 力を示す。
   \begin{align}
-    \phi(\rr) & = \frac{1}{4\pi\epsilon_0}\int_V\frac{\rho(\rr')}{|\rr - \rr'|}\dl{\rr'} = \frac{1}{4\pi\epsilon_0}\frac{Q}{|\rr - \rr'|} \\
-    \EE(\rr)  & = -\vnabla\phi = \frac{Q}{4\pi\epsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}                                                \\
-    \bm{F}    & = q\EE = \frac{Qq}{4\pi\epsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
+    \phi(\rr)   & = \frac{1}{4\pi\varepsilon_0}\int_V\frac{\rho(\rr')}{|\rr - \rr'|}\dl{\rr'} = \frac{1}{4\pi\varepsilon_0}\frac{Q}{|\rr - \rr'|} \\
+    \EE(\rr)    & = -\vnabla\phi = \frac{Q}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}                                                   \\
+    \bm{F}(\rr) & = q\EE = \frac{Qq}{4\pi\varepsilon_0}\frac{\rr - \rr'}{|\rr - \rr'|^3}
   \end{align}
 \end{proof}
 
-\subsection{電気双極子}
-\begin{proposition}[電気双極子]
-  位置 $\rr$ での電位は点電荷 $-Q$ 点電荷 $+Q$
+\begin{theorem}[電気双極子]
+  点電荷 $+Q, -Q$ をそれぞれ $\rr'+\bm{d}/2, \rr'-\bm{d}/2$ に配置したときに位置 $\rr$ での電位と電場は次のようになる。
   \begin{align}
     \phi(\rr) & = \frac{1}{4\pi\varepsilon_0}\frac{\pp\cdot(\rr - \rr')}{|\rr - \rr'|^3}                                       \\
     \EE(\rr)  & = \frac{1}{4\pi\varepsilon_0}\frac{\ab(3\pp\cdot(\rr - \rr'))(\rr - \rr') - (\rr - \rr')^2\pp}{|\rr - \rr'|^5}
   \end{align}
-\end{proposition}
+  ただし、電気双極子モーメントを $\pp = Q\bm{d}$ とおく。
+\end{theorem}
 \begin{proof}
   \begin{align}
-    \phi(\rr) & = \frac{Q}{4\pi\varepsilon_0}\ab(\frac{1}{|\rr - \rr' - \bm{d}|} - \frac{1}{|\rr - \rr'|})                     \\
+    \phi(\rr) & = \frac{1}{4\pi\varepsilon_0}\ab(\frac{Q}{|\rr - \rr' - \bm{d}/2|} - \frac{Q}{|\rr - \rr' + \bm{d}/2|})        \\
               & = \frac{Q}{4\pi\varepsilon_0}\ab(\vnabla'\frac{1}{|\rr - \rr'|})\cdot\bm{d}                                    \\
               & = \frac{1}{4\pi\varepsilon_0}\frac{\pp\cdot(\rr - \rr')}{|\rr - \rr'|^3}                                       \\
     \EE(\rr)  & = -\vnabla\phi(\rr)                                                                                            \\
@@ -387,27 +414,45 @@
   \end{align}
 \end{proof}
 
-\begin{proposition}[極座標で表した電気双極子]
-\end{proposition}
+\begin{theorem}[電気双極子放射]
 
-\begin{proposition}[電気四重極子]
+\end{theorem}
 
-\end{proposition}
+\begin{theorem}[電気四重極子]
 
-\begin{proposition}[電気双極子放射]
-
-\end{proposition}
-
+\end{theorem}
 
 \section{真空中の電磁波}
 
+\subsection{電磁波の基礎}
 \begin{proposition}
-  $\rho = 0$ $\bm{j} = \bm{0}$ において $\EE, \BB$ は波動方程式を満たす。
+  $\rho = 0$, $\bm{j} = \bm{0}$ において $\EE, \BB$ は波動方程式を満たす。
+  \begin{align}
+    \nabla^2\EE = \frac{1}{c^2}\diffp[2]{}{t}\EE \\
+    \nabla^2\BB = \frac{1}{c^2}\diffp[2]{}{t}\BB
+  \end{align}
 \end{proposition}
-\begin{align}
-  \nabla^2\EE = \frac{1}{c^2}\diffp[2]{t}\EE \\
-  \nabla^2\BB = \frac{1}{c^2}\diffp[2]{t}\BB
-\end{align}
+\begin{proof}
+  $\nabla\times(\nabla\times\EE)$ を Maxwell 方程式を用いて 2 通りに計算する。$\rho = 0$, $\bm{j} = \bm{0}$ より示せる。
+  \begin{align}
+    \nabla\times(\nabla\times\EE) & = \nabla(\nabla\cdot\EE) - \laplacian\EE                     \\
+                                  & = \frac{1}{\varepsilon_0}\nabla\rho - \laplacian\EE          \\
+    \nabla\times(\nabla\times\EE) & = \nabla\times\ab(-\diffp{\BB}{t})                           \\
+                                  & = -\diffp{}{t}\ab(\mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t}) \\
+                                  & = -\mu_0\diffp{\bm{j}}{t} - \frac{1}{c^2}\diffp[2]{}{t}\EE   \\
+    \nabla^2\EE                   & = \frac{1}{c^2}\diffp[2]{}{t}\EE
+  \end{align}
+  磁場に関しても同様にして計算すると
+  \begin{align}
+    \nabla\times(\nabla\times\BB) & = \nabla(\nabla\cdot\BB) - \laplacian\BB                                 \\
+                                  & = - \laplacian\BB                                                        \\
+    \nabla\times(\nabla\times\BB) & = \nabla\times\ab(\mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t})             \\
+                                  & = \mu_0\nabla\times\bm{j} + \frac{1}{c^2}\diffp{}{t}\ab(-\diffp{\BB}{t}) \\
+                                  & = \mu_0\nabla\times\bm{j} - \frac{1}{c^2}\diffp[2]{}{t}\BB               \\
+    \nabla^2\BB                   & = \frac{1}{c^2}\diffp[2]{}{t}\BB
+  \end{align}
+\end{proof}
+
 
 \begin{theorem}[]
   真空中に伝搬する電磁波の複素数解は波数 $\kk\in\RR^3$ を用いて次のように表される。
@@ -415,8 +460,8 @@
     \EE(t, \rr) & = \int_{\RR^3}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)} \\
     \BB(t, \rr) & = \int_{\RR^3}\dl{\kk}\BB_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}
   \end{align}
-  ただし電磁波の分散関係は光速度 $c$ を用いて $\omega(\kk) = c|\kk|$ と与えられ、振動方向 $\EE_0(\kk)\in\CC^2$ は進行方向 $\kk$ と直交する。$\EE_0(\kk)\cdot\kk = 0$
-  なお, 物理的な電場 $\EE(\rr, t)$, 磁場 $\BB(\rr, t)$ はそれらの複素表現の実部を取ることで求められる.
+  ただし電磁波の分散関係は光速度 $c$ を用いて $\omega(\kk) = c|\kk|$ と与えられ、振動方向 $\EE_0(\kk)\in\CC^2$ は進行方向 $\kk$ と直交する。
+  なお、物理的な電磁場はそれらの複素表現の実部を取ることで求められる。
 \end{theorem}
 \begin{proof}
   波動方程式に代入して成り立つことを示す。
@@ -424,18 +469,147 @@
     \nabla^2\EE & = \nabla^2\int_{\RR^3}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}                      \\
                 & = \int_{\RR^3}\dl{\kk}\EE_0(\kk)(-|\kk|^2)e^{i(\kk\cdot\rr - \omega(\kk)t)}                    \\
                 & = \frac{1}{c^2}\int_{\RR^3}\dl{\kk}\EE_0(\kk)(-\omega^2(\kk))e^{i(\kk\cdot\rr - \omega(\kk)t)} \\
-                & = \frac{1}{c^2}\diffp[2]{t}\int_{\RR^3}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}     \\
-                & = \frac{1}{c^2}\diffp[2]{t}\EE
+                & = \frac{1}{c^2}\diffp[2]{}{t}\int_{\RR^3}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)}   \\
+                & = \frac{1}{c^2}\diffp[2]{}{t}\EE
   \end{align}
   磁束密度も同様にして示せる。
 \end{proof}
 
-\subsection{導波管での電磁場の伝搬}
+\begin{theorem}[電磁波のエネルギー]
+\end{theorem}
+
+\begin{theorem}[電磁波の運動量]
+\end{theorem}
+
+\subsection{電磁波の伝搬}
+\begin{theorem}[Helmholtz 方程式]
+  \begin{align}
+    (\laplacian + k^2)\EE & = 0 \\
+    (\laplacian + k^2)\BB & = 0
+  \end{align}
+\end{theorem}
+
+
+\begin{theorem}[平行導体板]
+\end{theorem}
+
+\begin{theorem}[導波管内を伝搬する電磁波]
+\end{theorem}
+
+\begin{theorem}[円形断面の導波管内を伝搬する電磁波]
+\end{theorem}
+
+\begin{theorem}[直方形型の導波管内を伝搬する電磁波]
+\end{theorem}
+
+\subsection{電磁波の回折}
+
+\begin{theorem}[Kirchhoff の積分表示]
+\end{theorem}
+
+\begin{theorem}[Fresnel-Kirchhoff の回折積分の公式]
+\end{theorem}
+
+\begin{theorem}[Fraunhofer 回折]
+\end{theorem}
+
+\begin{theorem}[Fresnel 回折]
+\end{theorem}
 
 \section{特殊相対論と電磁場}
 
+\section{物質中の電磁場}
+\subsection{物質中の Maxwell 方程式}
+\begin{definition}[誘電体]
+  誘電体は外から電場を作用させると正の電荷と負の電荷は逆向きに変位し、電気的に分極して微視的な電気双極子を作る。これを電気分極 (electric polarization) といい、電気分極によって電場は弱められる。このとき電気分極による電気モーメント密度を $\PP(\rr)$ と表す。このとき電束密度 $\DD(\rr)$ を次のように定義する。
+  \begin{align}
+    \DD & = \varepsilon_0\EE + \PP
+  \end{align}
+  誘電体に関しては仮想的な電荷を導入することで真空中の電磁気学を近似的に適用できる。これを分極電荷 (polarization charge) という。対照的に元から真電荷という。
+\end{definition}
 
-\section{導体と電場}
+\begin{theorem}[誘電体のガウスの法則]
+  誘電体による分極電荷を含むガウスの法則は次のように書ける。
+  \begin{align}
+    \int_{\partial V}\DD\cdot\bm{n}\dl{S} & = \int_V\rho_e(\rr)\dl{V} \iff \vnabla\cdot\DD = \rho_e
+  \end{align}
+\end{theorem}
+\begin{proof}
+  誘電体内部と誘電体表面における分極電荷の電荷密度を $\rho_P(\rr), \sigma_P(\rr)$ とおくと、電気分極 $\bm{P}$ を用いて次のように表される。
+  \begin{align}
+    \rho_P(\rr)   & = - \vnabla\cdot\PP \\
+    \sigma_P(\rr) & = \bm{n}\cdot\PP
+  \end{align}
+  誘電体の中の巨視的な電場 $\EE$ は外部電場 $\EE_e$ と分極電場 $\EE_P$ からなる。
+  \begin{align}
+    \varepsilon_0\int_{\partial V}\EE_P\cdot\bm{n}\dl{S}       & = \int_V\rho_P\dl{V} + \int_{S_P}\sigma_P\dl{S}                         \\
+                                                               & = \int_V(-\vnabla\cdot\bm{P})\dl{V} - \int_{S_P}\bm{P}\cdot\bm{n}\dl{S} \\
+                                                               & = - \int_{\partial V + S_P}\bm{P}\cdot\bm{n}\dl{S}                      \\
+    \int_{\partial V}(\varepsilon_0\EE + \PP)\cdot\bm{n}\dl{S} & = \int_{V}\rho_e\dl{V}
+  \end{align}
+  これより $\DD(\rr) = \varepsilon_0\EE(\rr) + \bm{P}(\rr)$ とおくことで誘電体におけるガウスの法則が求まる。
+  \begin{align}
+    \int_{\partial V}\DD\cdot\bm{n}\dl{S} & = \int_{V}\rho_e\dl{V} \\
+    \vnabla\cdot\DD                       & = \rho_e
+  \end{align}
+\end{proof}
+
+\begin{definition}[磁性体]
+  磁性体は外から磁場を作用させるとスピンや原子核によって微視的な磁気双極子を作り、これを磁化 (magnetization) という。磁化 $\MM(\rr)$ を磁気双極子モーメント密度とし、磁場 $\HH(\rr)$ を次のように定義する。
+  \begin{align}
+    \BB & = \mu_0\HH + \MM
+  \end{align}
+  磁性体に関して仮想的な磁荷を導入することで真空中の電磁気学を近似的に適用できる。これを分極磁荷 (polarized magnetic charge) という。
+  \begin{align}
+    \bm{m} & = \mu_0\ab[\frac{q\hbar}{2m}\bm{l} - \frac{q^2}{2m}(\rr\times\AA) + \frac{gq\hbar}{2m}\bm{s}]
+  \end{align}
+\end{definition}
+
+\begin{theorem}[磁場におけるガウスの法則]
+  磁性体による分極磁荷を含むガウスの法則は次のように書ける。
+  \begin{align}
+    \int_{\partial V}\BB\cdot\bm{n}\dl{S} & = 0 \iff \vnabla\cdot\BB = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  磁性体内部と磁性体表面における分極磁荷の密度を $\rho_P(\rr), \sigma_P(\rr)$ とおくと、磁化 $\MM$ を用いて次のように表される。
+  \begin{align}
+    \rho_M(\rr)   & = - \vnabla\cdot\MM \\
+    \sigma_M(\rr) & = \bm{n}\cdot\MM
+  \end{align}
+  磁性体の中の巨視的な磁場 $\HH$ は外部磁場 $\HH_e$ と分極磁場 $\HH_M$ からなる。
+  \begin{align}
+    \mu_0\int_{\partial V}\HH_M\cdot\bm{n}\dl{S}       & = \int_V\rho_M\dl{V} + \int_{S_M}\sigma_M\dl{S}                   \\
+                                                       & = \int_V(-\vnabla\cdot\MM)\dl{V} - \int_{S_M}\MM\cdot\bm{n}\dl{S} \\
+                                                       & = -\int_{\partial V + S_M}\MM\cdot\bm{n}\dl{S}                    \\
+    \int_{\partial V}(\mu_0\HH + \MM)\cdot\bm{n}\dl{S} & = \mu_0\int_{\partial V}\HH_e\cdot\bm{n}\dl{S} = 0
+  \end{align}
+  これより $\BB = \mu_0\HH + \MM$ とおくことで
+  \begin{align}
+    \int_{\partial V}\BB\cdot\bm{n}\dl{S} & = 0 \\
+    \vnabla\cdot\BB                       & = 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}[物質中の Maxwell 方程式]
+  \begin{alignat}{3}
+     & \int_{\partial V}\DD\cdot\dl{\SS} = \int_V\rho_e\dl{V}                                              &  & \iff \vnabla\cdot\DD  = \rho_e                  \\
+     & \int_{\partial V}\BB\cdot\dl{\SS} = 0                                                               &  & \iff \vnabla\cdot\BB  = 0                       \\
+     & \int_{\partial S}\EE\cdot\dl{\bm{l}} = -\diff{}{t}\int_S\BB\cdot\dl{\SS}                            &  & \iff \vnabla\times\EE = -\diffp{\BB}{t}         \\
+     & \int_{\partial S}\HH\cdot\dl{\bm{l}} = \int_S\bm{j}\cdot\dl{\SS} + \diff{}{t}\int_S\DD\cdot\dl{\SS} &  & \iff \vnabla\times\HH = \bm{j} + \diffp{\DD}{t}
+  \end{alignat}
+\end{theorem}
+\begin{proof}
+  上 2 つは既に示した。双極子であるから 1 周線積分は常に $0$ である。
+  \begin{align}
+    \int_{\partial S}\EE_P\cdot\dl{\bm{l}} = 0 \\
+    \int_{\partial S}\HH_M\cdot\dl{\bm{l}} = 0
+  \end{align}
+  これより下 2 つも成り立つ。
+\end{proof}
+
+
+\subsection{導体}
 \begin{definition}[導体]
   時間が経つと
   \begin{enumerate}
@@ -444,6 +618,7 @@
   \end{enumerate}
   等電位面、誘導電荷
 \end{definition}
+
 導体全体で電位は一定、
 
 \begin{theorem}
@@ -451,7 +626,11 @@
     E = \frac{\sigma}{\varepsilon_0}
   \end{align}
 \end{theorem}
-\subsection{静電誘導}
+
+\begin{definition}[静電誘導]
+
+\end{definition}
+
 \begin{proposition}[半無限導体と点電荷]
   鏡像法
 \end{proposition}
@@ -459,65 +638,24 @@
 \begin{proposition}[一様外部電場中の導体球]
 \end{proposition}
 
-\subsection{静電遮蔽}
-導体によって囲まれた空間内の電場は外部の電場に影響されず内部の電荷のみで決まる。
-
-\section{誘電体と電場}
-\subsection{誘電体の基礎}
-\begin{definition}[誘電体]
-  誘電体は外から電場を作用させると正の電荷と負の電荷は逆向きに変位し、電気的に分極して微視的な電気双極子を作る。これを電気分極 (electric polarization) といい、電気分極によって電場は弱められる。このとき電気分極による電気双極子モーメント密度を $\bm{P}(\rr)$ と表す。
+\begin{definition}[静電遮蔽]
+  導体によって囲まれた空間内の電場は外部の電場に影響されず内部の電荷のみで決まる。
 \end{definition}
 
-\begin{definition}[]
-  誘電体に関しては仮想的な電荷を導入することで真空中の電磁気学を近似的に適用できる。これを分極電荷 (polarization charge) という。 \\
 
-  誘電体内部と誘電体表面における分極電荷の電荷密度を $\rho_P(\rr), \sigma_P(\rr)$ とおくと、電気分極 $\bm{P}$ を用いて次のように表される。対照的に真電荷の電荷密度を $\rho_e(\rr)$
-  \begin{align}
-    \rho_P(\rr)   & = - \vnabla\cdot\bm{P} \\
-    \sigma_P(\rr) & = \bm{n}\cdot\bm{P}
-  \end{align}
-\end{definition}
-
-\begin{theorem}[誘電体のガウスの法則]
-  誘電体による分極電荷を含むガウスの法則は次のように書ける。
-  \begin{align}
-    \int\DD\cdot\bm{n}\dl{S} & = \int\rho_e(\rr)\dl{V} \iff \vnabla\cdot\DD = \rho_e
-  \end{align}
-\end{theorem}
-\begin{proof}
-  誘電体の中の巨視的な電場 $\EE$ は外部電場 $\EE_e$ と分極電場 $\EE_P$ からなる。
-  \begin{align}
-    \varepsilon_0\int_{\partial V}\EE\cdot\bm{n}\dl{S} & = \varepsilon_0\int_{\partial V}(\EE_e + \EE_P)\cdot\bm{n}\dl{S}                               \\
-                                                       & = \int_{V}\rho_e\dl{V} + \int_V\rho_P\dl{V} + \int_{S_P}\sigma_P\dl{S}                         \\
-                                                       & = \int_{V}\rho_e\dl{V} + \int_V(-\vnabla\cdot\bm{P})\dl{V} - \int_{S_P}\bm{P}\cdot\bm{n}\dl{S} \\
-                                                       & = \int_{V}\rho_e\dl{V} - \int_{\partial V + S_P}\bm{P}\cdot\bm{n}\dl{S}
-  \end{align}
-  これより $\DD(\rr) = \varepsilon_0\EE(\rr) + \bm{P}(\rr)$ とおくことで求まる。
-  \begin{align}
-    \int_{\partial V}\DD\cdot\bm{n}\dl{S} & = \int_{V}\rho_e\dl{V} \\
-    \vnabla\cdot\DD                       & = \rho_e
-  \end{align}
-\end{proof}
-
-\begin{definition}
-  電束密度を $\DD(\rr) = \varepsilon_0\EE(\rr) + \bm{P}(\rr)$ とおく。
-\end{definition}
-
+\subsection{誘電体}
 \begin{theorem}[境界条件]
   誘電体の境界面において磁場がないとき次の境界条件を満たす。
-  \begin{align}
-    D_{1\perp}     & = D_{2\perp}     \\
-    E_{1\parallel} & = E_{2\parallel}
-  \end{align}
+  \begin{alignat}{2}
+    D_{1\perp} & = D_{2\perp}, \qquad E_{1\parallel} & = E_{2\parallel}
+  \end{alignat}
 \end{theorem}
 \begin{proof}
   Maxwell の方程式より
-  \begin{align}
-    0 = \int_S\DD\cdot\bm{n}\dl{S}           & = D_{1\perp}\Delta S + D_{2\perp}(-\Delta S) \\
-    D_{1\perp}                               & = D_{2\perp}                                 \\
-    0 = \int_{\partial S}\EE\cdot\dl{\bm{l}} & = E_{1\parallel}l - E_{2\parallel}l          \\
-    E_{1\parallel}                           & = E_{2\parallel}
-  \end{align}
+  \begin{alignat}{2}
+    0 & = \int_S\DD\cdot\bm{n}\dl{S} = D_{1\perp}\Delta S + D_{2\perp}(-\Delta S)  \qquad & D_{1\perp} = D_{2\perp}         \\
+    0 & = \int_{\partial S}\EE\cdot\dl{\bm{l}} = E_{1\parallel}l - E_{2\parallel}l \qquad & E_{1\parallel} = E_{2\parallel}
+  \end{alignat}
 \end{proof}
 
 \begin{theorem}[誘電体のエネルギー]
@@ -530,15 +668,30 @@
   マクスウェルの応力
 \end{theorem}
 
-\subsection{コンデンサーの極板}
+\begin{proposition}[真電荷の周囲を誘電体で囲む]
 
-\subsection{常誘電体}
-\begin{definition}
+\end{proposition}
+\begin{proposition}[コンデンサーの極板]
+
+\end{proposition}
+
+\begin{definition}[常誘電体]
   電場に比例して電気分極が現れる場合を常誘電相 (paraelectric phase) といい、そのような誘電体を常誘電体という。この電気分極は電気感受率 (electric susceptibility) $\chi$ を用いて次のように表される。
   \begin{align}
     \bm{P} = \varepsilon_0\chi\EE
   \end{align}
   電場を掛けなくても微視的な電気双極子が一方向に揃った電気分極は大きな値をとる。これを自発分極 (spontaneous polarization) といい、このような物質を強誘電体 (ferroelectrics) という。
+\end{definition}
+
+圧電応答力による顕微鏡
+
+\subsection{磁性体}
+磁性の生じる
+\begin{definition}[強磁性体]
+  磁化現象において量子力学的効果である同じ向きのスピンを持つ 2 つの電子は同一の場所には存在出来ない性質が無視できない。2つの電子完のスピン相互作用はスピンが平行と反平行の場合に $J$ 異なる交換相互作用強磁性体
+  \begin{align}
+    H = -2J\SS\SS
+  \end{align}
 \end{definition}
 
 \end{document}

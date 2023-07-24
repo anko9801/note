@@ -47,7 +47,6 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
 \newcommand{\EE}{\bm{E}}
@@ -58,6 +57,8 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\newcommand{\mm}{\bm{m}}
+\newcommand{\PP}{\bm{P}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
 \newcommand{\ignore}[1]{}
@@ -415,7 +416,8 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 真空中で、一様な外部電場 $E_0\hat{\bm{x}}$ が形成されているところに、半径 $a$ の長い円柱状の導体 (電位 $0$ とする) の周囲に内半径 $a$、外半径 $b$、誘電率 $\varepsilon$ の円筒状の誘電体が密着したものを、軸を $z$ 軸に合わせて置く。誘電体中および、誘電体の外側での電位をそれぞれ求めよ。
 \end{problem}
 \begin{proof}
-
+  \begin{align}
+  \end{align}
 \end{proof}
 
 \subsection{誘電体中の静電場のエネルギー}
@@ -485,12 +487,66 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 \section{磁性体と静磁場}
 \setcounter{subsection}{4}
 \subsection{磁気モーメントと磁場}
+\begin{problem}
+点磁荷 $m$ が作る磁位を求めよ。
+\end{problem}
+\begin{proof}
+  極座標において点磁荷を中心とする半径 $R$ の球体 $V$ においてガウスの法則を適用することで磁場 $\HH(\rr)$ は次のようになる。
+  \begin{align}
+    4\pi R^2H(R) = m \iff H(r) & = \frac{1}{4\pi}\frac{m}{r^2}
+  \end{align}
+  これより磁位は次のようになる。
+  \begin{align}
+    \phi_m(r) & = -\int_{\infty}^{r}\mu_0H(r')\dl{r'} = \ab[\frac{\mu_0m}{4\pi r'}]_{\infty}^{r} = \frac{\mu_0}{4\pi}\frac{m}{r}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+磁気モーメント $\bm{m}$ が作る磁位を求めよ。
+\end{problem}
+\begin{proof}
+  磁荷 $m, -m$ をそれぞれ $\bm{0}, \bm{d}$ におくと磁気モーメント $\mm = m\bm{d}$ となり、このときの磁位は次のようになる。
+  \begin{align}
+    \phi_m(\rr) & = \frac{\mu_0}{4\pi}\ab(\frac{m}{|\rr - \bm{d}|} - \frac{m}{|\rr|}) \\
+                & = \frac{\mu_0}{4\pi}\ab(\vnabla\frac{1}{|\rr|})\cdot\mm             \\
+                & = \frac{\mu_0}{4\pi}\frac{\mm\cdot\rr}{|\rr|^3}                     \\
+                & = \frac{\mu_0}{4\pi}\frac{|\mm|r\cos\theta}{r^3}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+磁気モーメント $\bm{m}$ が作る磁場を求めよ。
+\end{problem}
+\begin{proof}
+  磁位から磁場と磁場 $\HH$ を求める。
+  \begin{align}
+    \HH(\rr) & = -\vnabla\phi_m(\rr) = -\frac{\mu_0}{4\pi}\vnabla\frac{\mm\cdot\rr}{|\rr|^3} \\
+             & = \frac{\mu_0}{4\pi}\frac{(3\mm\cdot\rr)\rr - |\rr|^2\mm}{|\rr|^5}            \\
+             & = \frac{\mu_0}{4\pi}\frac{|\mm|(3\cos\theta\hat{\rr} - \hat{\mm})}{r^3}
+  \end{align}
+  また $\HH$ が $\rr$ となす角は次のように求まる。
+  \begin{align}
+    \cos\varphi & = \frac{\HH(\rr)\cdot\rr}{|\HH||\rr|} = \frac{2|\mm|r\cos\theta}{|\mm||3\cos\theta\hat{\rr} - \hat{\mm}|r} \\
+                & = \frac{2\cos\theta}{|3\cos\theta\hat{\rr} - \hat{\mm}|}                                                   \\
+    \varphi     & = \cos^{-1}\ab(\frac{2\cos\theta}{|3\cos\theta\hat{\rr} - \hat{\mm}|})
+  \end{align}
+  ただし $\hat{\rr}, \hat{\mm}$ をそれぞれ $\rr, \mm$ 方向の単位ベクトルとする。
+\end{proof}
+
 
 \section{常磁性体、強磁性体、超伝導}
 \subsection{磁性体中を流れる電流が受ける力}
+\begin{problem}
+透磁率 $\mu_1, \mu_2$ を持つ磁性体が平面で接しているとき、磁性体 $\mu_1$ 中に直線状導体に電流 $I$ を流すときの鏡像を求めよ。
+\end{problem}
+\begin{proof}
+
+\end{proof}
 
 \setcounter{section}{8}
 \section{期末レポート問題}
 \subsection{円形コイルによる磁束密度の決定}
+
+\subsection{電荷と導体の間にはたらく力}
 
 \end{document}
