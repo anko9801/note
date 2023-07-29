@@ -12,7 +12,7 @@
 % \usepackage[hyphens]{url}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
-\usepackage{diffcoeff}
+\usepackage[ISO]{diffcoeff}
 % \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
@@ -73,6 +73,7 @@
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
 \newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
 \newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
+\numberwithin{equation}{section}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -292,7 +293,6 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 \begin{problem}
 \end{problem}
 \begin{proof}
-
 \end{proof}
 
 \section{静電遮蔽と電気伝導}
@@ -331,6 +331,7 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
            & = \pp\times\EE
   \end{align}
 \end{proof}
+
 
 \subsection{Maxwell の方程式と応力テンソル}
 \begin{problem}
@@ -408,6 +409,8 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
   \end{align}
 \end{proof}
 
+
+
 \section{誘電体の電場}
 
 \setcounter{subsection}{5}
@@ -416,9 +419,38 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 真空中で、一様な外部電場 $E_0\hat{\bm{x}}$ が形成されているところに、半径 $a$ の長い円柱状の導体 (電位 $0$ とする) の周囲に内半径 $a$、外半径 $b$、誘電率 $\varepsilon$ の円筒状の誘電体が密着したものを、軸を $z$ 軸に合わせて置く。誘電体中および、誘電体の外側での電位をそれぞれ求めよ。
 \end{problem}
 \begin{proof}
+  円柱導体の中心を原点とする円筒座標系 $(r, \theta, z)$ を考える。ただし $x$ 軸の方向を $\theta = 0$ の軸とし、電位は $x = 0$ でゼロとなる。
+
+  まず半径 $b$ の誘電体球のみが存在する状況を考える。誘電体中の電場 $E$ はガウスの定理より次のように書ける。
   \begin{align}
+    \varepsilon E\hat{\bm{x}} = \varepsilon_0E_0\hat{\bm{x}}
+  \end{align}
+  このとき外部電位は中心をゼロとすることで $\phi_e = -Er\cos\theta$ となるから対称性より $\phi = f(r)\cos\theta$ と書けて $-\laplacian\phi = 0$ を解くと
+  \begin{align}
+    \phi(r, \theta) & = (Ar + Br^{-2})\cos\theta
+  \end{align}
+  となる。ここで真空と誘電体の境界条件より
+  \begin{align}
+    \varepsilon\diffp{\phi}{r}[r=b] & = \varepsilon_0\diffp{\phi}{r}[r=b] \\
+    \diffp{\phi}{\theta}[r=b]       & = \diffp{\phi}{\theta}[r=b]
+  \end{align}
+  であり、無限遠点や原点で有限となるから電位は次のようになる。
+  \begin{align}
+    \phi(r, \theta) & = \begin{dcases}
+                          -\frac{3\varepsilon_0}{\varepsilon + 2\varepsilon_0}Er\cos\theta                                     & (r < b) \\
+                          -E\ab(r - \frac{\varepsilon - \varepsilon_0}{\varepsilon + 2\varepsilon_0}\frac{b^3}{r^2})\cos\theta & (r > b) \\
+                        \end{dcases}
+  \end{align}
+  さらに半径 $a$ の導体を埋め込むと導体と誘電体の境界条件から電位は次のように求まる。
+  \begin{align}
+    \phi(r, \theta) & = \begin{dcases}
+                          0                                                                                                                                                                                                            & (r < a)     \\
+                          -\frac{3\varepsilon_0^2}{\varepsilon(\varepsilon + 2\varepsilon_0)}\ab(r - \frac{a^3}{r^2})E_0\cos\theta                                                                                                     & (a < r < b) \\
+                          -\frac{\varepsilon_0}{\varepsilon}\ab(r - \frac{\varepsilon - \varepsilon_0}{\varepsilon + 2\varepsilon_0}\frac{b^3}{r^2} - \frac{3\varepsilon_0}{\varepsilon + 2\varepsilon_0}\frac{a^3}{r^2})E_0\cos\theta & (r > b)     \\
+                        \end{dcases}
   \end{align}
 \end{proof}
+
 
 \subsection{誘電体中の静電場のエネルギー}
 面積 $S = a^2$ の正方形の平行導体板を持つ平行板コンデンサがあり、極板の間隔は $d (\ll a)$ である。厚さ $t (t < d)$、誘電率 $\varepsilon$ の極板と同じ形状の誘電体を、極板間に極板と平行に深さ $x (0 < x < a)$ まで差し込んで保持した状態を考える。ただし、誘電体の辺は導体板と平行で、$x$ 方向と垂直な方向については、誘電体ははみ出していないものとする。
@@ -426,7 +458,19 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 電位差 $V$ の電池に繋がれているとき、誘電体がコンデンサに引き込まれる力を $x$ の関数として求めよ。
 \end{problem}
 \begin{proof}
-
+  電圧 $V$ と誘電体を含む領域とそうではない領域における電束密度 $D, D'$ の関係は次のようになる。
+  \begin{align}
+    V & = D\ab(\frac{d - t}{\varepsilon_0} + \frac{t}{\varepsilon}) = D'\frac{d}{\varepsilon_0}
+  \end{align}
+  これよりエネルギーの差分は次のようになる。
+  \begin{align}
+    \Delta U & = \frac{ax}{2}\ab(\frac{d - t}{\varepsilon_0} + \frac{t}{\varepsilon})\ab(\frac{\varepsilon\varepsilon_0}{\varepsilon d - (\varepsilon - \varepsilon_0)t}V)^2 + \frac{a(a - x)d}{2\varepsilon_0}\ab(\frac{\varepsilon_0}{d}V)^2 - \frac{a^2d}{2\varepsilon_0}\ab(\frac{\varepsilon_0}{d}V)^2 \\
+             & = \frac{(\varepsilon - \varepsilon_0)t}{\varepsilon d - (\varepsilon - \varepsilon_0)t}\frac{ax}{2d}\varepsilon_0V^2
+  \end{align}
+  これより誘電体が引き込まれる力 $F$ は次のように求まる。
+  \begin{align}
+    F & = \diffp{U}{x} = \frac{(\varepsilon - \varepsilon_0)t}{\varepsilon d - (\varepsilon - \varepsilon_0)t}\frac{a}{2d}\varepsilon_0V^2
+  \end{align}
 \end{proof}
 
 \begin{problem}
@@ -450,10 +494,10 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 
 \subsection{誘電体球の受ける力}
 \begin{problem}
-
+電気双極子 $\pp$ の受ける力は $\bm{F}(\rr) = (\pp\cdot\nabla)\EE$ となることを示せ。
 \end{problem}
 \begin{proof}
-  電気双極子モーメントは空間に対して定数であるから
+  電気双極子モーメントは空間に対して定数であるから次のように計算できる。
   \begin{align}
     \bm{F}(\rr) & = -\vnabla V(\rr)                                                                                                 \\
                 & = \vnabla(\pp\cdot\EE_0(\rr))                                                                                     \\
@@ -474,15 +518,22 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
   \end{align}
 \end{proof}
 
+
 \subsection{液体の電気感受率}
 \begin{problem}
 半径 $a, b$ ($|b - a| \ll a < b$) の長い同心円柱導体面が誘電体である液体に垂直に差し込まれているときの液体の電気感受率を求めよ。
 \end{problem}
 \begin{proof}
   \begin{align}
-    \bm{P} = \chi\varepsilon_0\EE
+    V                               & = \ab(\frac{d - h}{\varepsilon_0} + \frac{h}{\varepsilon_0(1 + \chi)})D                                                       \\
+    \Delta U                        & = \frac{D^2}{2}\ab(\frac{d - h}{\varepsilon_0} + \frac{h}{\varepsilon_0(1 + \chi)})S - \frac{1}{2}\frac{\varepsilon_0S}{d}V^2 \\
+                                    & = \frac{1}{2}\frac{\varepsilon_0S}{d}V^2\frac{(2 + \chi)h}{(1 + \chi)d - \chi h}                                              \\
+    \rho Shg = \diff{\Delta U}{h}   & = \frac{1}{2}\frac{\varepsilon_0S}{d}V^2\frac{(2 + \chi)(1 + \chi)d}{((1 + \chi)d - \chi h)^2}                                \\
+    \rho hg((1 + \chi)d - \chi h)^2 & = \frac{1}{2}\varepsilon_0V^2(2 + \chi)(1 + \chi)                                                                             \\
   \end{align}
 \end{proof}
+
+
 
 \section{磁性体と静磁場}
 \setcounter{subsection}{4}
@@ -534,18 +585,53 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 \end{proof}
 
 
+
 \section{常磁性体、強磁性体、超伝導}
 \subsection{磁性体中を流れる電流が受ける力}
 \begin{problem}
 透磁率 $\mu_1, \mu_2$ を持つ磁性体が平面で接しているとき、磁性体 $\mu_1$ 中に直線状導体に電流 $I$ を流すときの鏡像を求めよ。
 \end{problem}
 \begin{proof}
-
+  電流によって生じる磁場は次のようになるから、導線の鏡像は境界面に対して対称に導線を配置して逆方向に電流 $I\mu_1/\mu_2$ を流す。
+  \begin{align}
+    \HH & = \frac{I}{2\pi r}
+  \end{align}
 \end{proof}
+
+\begin{problem}
+真空中に無限に広い平面で隔てられた透磁率 $\mu$ の磁性体が置かれている。このとき磁性体から距離 $a$ の真空中に境界面に平行に無限に長い直線電流 $I$ が置かれたときに単位長当たりに働く力を求めよ。
+\end{problem}
+\begin{proof}
+  鏡像によって作られる磁場 $\HH(\rr)$ は次のようになる。
+  \begin{align}
+    \HH(r) & = \frac{1}{2\pi r}\ab(-\frac{\mu_0}{\mu}I)\hat{\theta}
+  \end{align}
+  これより単位長当たりに導線に働く力は次のようになる。
+  \begin{align}
+    F & = \mu_0IH(2a) = \frac{\mu_0I}{4\pi a}\ab(-\frac{\mu_0}{\mu}I) = -\frac{\mu_0^2I^2}{4\pi\mu a}
+  \end{align}
+  よって磁性体に対して反発する方向に単位長当たり $\dfrac{\mu_0^2I^2}{4\pi\mu a}$ だけ力が働く。
+\end{proof}
+
+\begin{problem}
+前問について透磁率が $\mu_1, \mu_2$ としたときに働く力を求めよ。
+\end{problem}
+\begin{proof}
+  磁性体に対して反発する方向に単位長当たり $\dfrac{\mu_1^2I^2}{4\pi\mu_2 a}$ だけ力が働く。
+\end{proof}
+
+
 
 \setcounter{section}{8}
 \section{期末レポート問題}
 \subsection{円形コイルによる磁束密度の決定}
+\begin{problem}
+磁束密度 $\BB$ にビオ・サバールの法則
+\end{problem}
+\begin{proof}
+
+\end{proof}
+
 
 \subsection{電荷と導体の間にはたらく力}
 

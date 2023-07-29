@@ -412,6 +412,12 @@
     \EE(\rr)  & = -\vnabla\phi(\rr)                                                                                            \\
               & = \frac{1}{4\pi\varepsilon_0}\frac{\ab(3\pp\cdot(\rr - \rr'))(\rr - \rr') - (\rr - \rr')^2\pp}{|\rr - \rr'|^5}
   \end{align}
+  \begin{align}
+    \phi(r, \theta)       & = \frac{p\cos\theta}{4\pi\varepsilon_0r^2}                                                             \\
+    \EE(r,\theta,\varphi) & = -\nabla\phi(r, \theta)                                                                               \\
+                          & = \ab(-\diffp{\phi}{r}, -\frac{1}{r}\diffp{\phi}{\theta}, -\frac{1}{r\sin\theta}\diffp{\phi}{\varphi}) \\
+                          & = \ab(\frac{p\cos\theta}{2\pi\varepsilon_0r^3}, \frac{p\sin\theta}{4\pi\varepsilon_0r^3}, 0)           \\
+  \end{align}
 \end{proof}
 
 \begin{theorem}[電気双極子放射]
@@ -421,6 +427,17 @@
 \begin{theorem}[電気四重極子]
 
 \end{theorem}
+
+\begin{theorem}[ビオ・サバールの法則]
+  \begin{align}
+    \dl{\BB}(\rr) & = \frac{\mu_0}{4\pi}\frac{I\dl{s}\times(\rr - \rr')}{|\rr - \rr'|^3}
+  \end{align}
+\end{theorem}
+
+\begin{proposition}[ソレノイド]
+\end{proposition}
+
+
 
 \section{真空中の電磁波}
 
@@ -453,8 +470,7 @@
   \end{align}
 \end{proof}
 
-
-\begin{theorem}[]
+\begin{theorem}[電磁波の複素数表現]
   真空中に伝搬する電磁波の複素数解は波数 $\kk\in\RR^3$ を用いて次のように表される。
   \begin{align}
     \EE(t, \rr) & = \int_{\RR^3}\dl{\kk}\EE_0(\kk)e^{i(\kk\cdot\rr - \omega(\kk)t)} \\
@@ -591,6 +607,64 @@
   \end{align}
 \end{proof}
 
+\begin{theorem}[誘電体のエネルギー]
+  一般の誘電体において電場が作るエネルギー密度
+  \begin{align}
+    u_e & = \int_0^D\EE\cdot\dl{\DD}
+  \end{align}
+  特に常誘電体は $\DD = \varepsilon\EE$ と書けるから
+  \begin{align}
+    u_e & = \frac{1}{2}\EE\cdot\DD = \frac{\varepsilon_0}{2}\EE^2 = \frac{1}{2\varepsilon_0}\DD^2
+  \end{align}
+  常誘電体において電位を用いて
+  \begin{align}
+    U_e & = \frac{1}{2}\int\phi\rho_e\dl{V}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  電場を作るエネルギーを考える。まず分極なしで電場を作る。
+  \begin{align}
+    \Delta u_e & = \frac{\varepsilon_0}{2}\EE^2
+  \end{align}
+  ここから分極することを考える。 $\pp$ の電気双極子を
+  \begin{align}
+    \Delta W   & = -\bm{F}\cdot\Delta\rr = q\EE\cdot\Delta\rr = \EE\cdot\Delta\pp \\
+    \Delta u_P & = \EE\cdot\Delta\PP
+  \end{align}
+  \begin{align}
+    \Delta u_e & = \EE\cdot(\Delta\PP + \varepsilon_0\Delta\EE) = \EE\cdot\Delta\DD
+  \end{align}
+  これより単位体積当たりのエネルギーは
+  \begin{align}
+    u_e & = \int_0^D\EE\cdot\dl{\DD}
+  \end{align}
+  系の全体のエネルギーは
+  \begin{align}
+    U_e & = \int u_e\dl{V} = \int\dl{V}\int_0^D\EE\cdot\dl{\DD}
+  \end{align}
+  $\DD = \varepsilon\EE$
+  \begin{align}
+    u_e & = \int_0^D\EE\cdot\dl{\DD} = \varepsilon\int_0^E\EE\cdot\dl{\EE}                   \\
+        & = \frac{\varepsilon\EE^2}{2} = \frac{\DD^2}{2\varepsilon} = \frac{1}{2}\EE\cdot\DD
+  \end{align}
+
+  \begin{align}
+    \EE\cdot\DD & = (-\vnabla\phi)\cdot\DD = -\vnabla\cdot(\phi\DD) + \phi\vnabla\cdot\DD = -\vnabla\cdot(\phi\DD) + \phi\rho_e
+  \end{align}
+  \begin{align}
+    U_e & = \frac{1}{2}\int\EE\cdot\DD\dl{V} = -\frac{1}{2}\int\phi\DD\cdot\dl{\SS} + \frac{1}{2}\int\phi\rho_e\dl{V} = \frac{1}{2}\int\phi\rho_e\dl{V}
+  \end{align}
+\end{proof}
+
+\begin{theorem}
+  \begin{align}
+    u_{m} = \int_0^B\HH\cdot\dl{\BB}
+  \end{align}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
 \begin{theorem}[物質中の Maxwell 方程式]
   \begin{alignat}{3}
      & \int_{\partial V}\DD\cdot\dl{\SS} = \int_V\rho_e\dl{V}                                              &  & \iff \vnabla\cdot\DD  = \rho_e                  \\
@@ -605,7 +679,7 @@
     \int_{\partial S}\EE_P\cdot\dl{\bm{l}} = 0 \\
     \int_{\partial S}\HH_M\cdot\dl{\bm{l}} = 0
   \end{align}
-  これより下 2 つも成り立つ。
+  よって Maxwell 方程式より成り立つ。
 \end{proof}
 
 
