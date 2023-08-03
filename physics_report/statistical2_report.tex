@@ -28,8 +28,8 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{}
-\author{anko9801}
+\title{統計力学 II}
+\author{21B00349 宇佐見大希}
 \makeatletter
 %
 \DeclareMathOperator{\lcm}{lcm}
@@ -50,8 +50,10 @@
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
+\newcommand{\R}{\bm{R}}
+\renewcommand{\aa}{\bm{a}}
+\renewcommand{\SS}{\bm{S}}
+\newcommand{\bb}{\bm{b}}
 \renewcommand{\AA}{\bm{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
@@ -203,20 +205,21 @@
 \end{align}
 \end{problem}
 \begin{proof}
+  分母を展開すると
   \begin{align}
-    I_\pm(\alpha) & = \int_0^\infty\frac{z^{\alpha - 1}}{e^z \pm 1}\dl{z}                                                                                                          \\
-                  & = \int_0^\infty z^{\alpha - 1}(\pm 1 - e^{-z} \pm e^{-2z} - \cdots)\dl{z}                                                                                      \\
-                  & = \pm\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \int_0^\infty z^{\alpha - 1}e^{-z}\dl{z} \pm \int_0^\infty z^{\alpha - 1}e^{-2z}\dl{z} - \cdots                   \\
-                  & = \pm\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \ab(1 \mp \frac{1}{2^\alpha} + \frac{1}{3^\alpha} \mp \cdots)\int_0^\infty z^{\alpha - 1}e^{-z}\dl{z} & (z' = kz) \\
+    I_\pm(\alpha) & = \int_0^\infty\frac{z^{\alpha - 1}e^{-z}}{1 \pm e^{-z}}\dl{z}                                                \\
+                  & = \int_0^\infty z^{\alpha - 1}e^{-z}\sum_{k=0}^{\infty}(\mp e^{-z})^k\dl{z}                                   \\
+                  & = \sum_{k=1}^{\infty}(\mp 1)^{k-1}\int_0^\infty z^{\alpha - 1}e^{-kz}\dl{z}                                   \\
+                  & = \ab(\sum_{k=1}^{\infty}\frac{(\mp 1)^{k-1}}{k^\alpha})\int_0^\infty z^{\alpha - 1}e^{-z}\dl{z} & (kz \to z) \\
                   & = \begin{dcases}
-                        +\ab[\frac{z^\alpha}{\alpha}]_0^\infty - (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) \\
-                        -\ab[\frac{z^\alpha}{\alpha}]_0^\infty - \zeta(\alpha)\Gamma(\alpha)                     \\
+                        (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) & (I_+(\alpha)) \\
+                        \zeta(\alpha)\Gamma(\alpha)                     & (I_-(\alpha)) \\
                       \end{dcases}
   \end{align}
-  これより $|\alpha| \geq 1$ のとき $I_{\pm}(\alpha)$ は発散し、$|\alpha| < 1$ のとき次のようになる。
+  ゼータ関数 $\zeta(s)$ は $\Re s \leq 1$ において発散し、ガンマ関数は $0$ または負の整数で発散するから $\alpha \leq 1$ のとき $I_{\pm}(\alpha)$ は発散し、$\alpha > 1$ のとき次のように収束する。
   \begin{align}
-    I_+(\alpha) & = - (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) \\
-    I_-(\alpha) & = - \zeta(\alpha)\Gamma(\alpha)
+    I_+(\alpha) & = (1 - 2^{1 - \alpha})\zeta(\alpha)\Gamma(\alpha) \\
+    I_-(\alpha) & = \zeta(\alpha)\Gamma(\alpha)
   \end{align}
 \end{proof}
 
@@ -242,8 +245,8 @@
   \end{align}
   これは 1 次元調和振動子のポテンシャルであるので固有エネルギーは次のようになる。
   \begin{align}
-    E_{i,n}             & = \ab(n + \frac{1}{2})\hbar\omega               \\
-    E_{(n_x, n_y, n_z)} & = \ab(n_x + n_y + n_z + \frac{3}{2})\hbar\omega
+    E_{i,n}             & = \ab(n + \frac{1}{2})\hbar\omega \qquad \ab(n = 0, 1, 2, \cdots)                           \\
+    E_{(n_x, n_y, n_z)} & = \ab(n_x + n_y + n_z + \frac{3}{2})\hbar\omega \qquad \ab(n_x, n_y, n_z = 0, 1, 2, \cdots)
   \end{align}
 \end{proof}
 
@@ -251,7 +254,18 @@
 固有エネルギー $\varepsilon$ が $E_0 = 100\hbar\omega \leq \varepsilon < E_0 + \delta E = 110\hbar\omega$ を満たす独立な固有状態は何個あるか? まず ($\hbar\omega\ll \delta E \ll E_0$ として) 概数を評価する方法を考えて評価し、次に具体的に求めてみよう。
 \end{problem}
 \begin{proof}
-
+  まず概数についてエネルギー $E$ までの状態数 $D(E)$ は平面 $x + y + z + 3/2 = E/\hbar\omega$ の第一象限を底とし、原点を頂点とする三角錐の体積と近似できるから
+  \begin{align}
+    D(E) & = \frac{1}{6}\ab(\frac{E}{\hbar\omega} - \frac{3}{2})^3
+  \end{align}
+  となる。これより $E_0$ から $E_0 + \delta E$ までの状態数は次のようになる。
+  \begin{align}
+    D(E_0 + \delta E) - D(E_0) & = \frac{1}{6}\ab(\ab(\frac{E_0 + \delta E}{\hbar\omega} - \frac{3}{2})^3 - \ab(\frac{E_0}{\hbar\omega} - \frac{3}{2})^3) \approx 53603
+  \end{align}
+  実際に計算すると次のようになる。
+  \begin{align}
+    \sum_{k=99}^{108}{}_{k+2}C_{2} & = 55165
+  \end{align}
 \end{proof}
 
 \begin{problem}
@@ -334,30 +348,46 @@
   \end{align}
 \end{proof}
 
+
 \subsection{2 準位系, 3 準位系}
 
 \begin{problem}
 エネルギー準位が $0$ と $\varepsilon$ からなり、それぞれ $m, n$ 重に縮重する互いに独立な $N$ 個の系が温度 $T$ の熱平衡状態にあるとする。このときの分配関数、エネルギーの期待値、比熱を求めよ。$a = n/m, \beta = \dfrac{1}{k_BT}$ とおく。
 \end{problem}
 \begin{proof}
+  カノニカル分布を用いることで次のように計算できる。
   \begin{align}
-    Z_N(\beta)        & = \ab(m + ne^{-\beta \varepsilon})^N = m^N\ab(1 + ae^{-\beta \varepsilon})^N                                                                                                                         \\
-    E(\beta)          & = -\diffp{}{\beta}\ln Z_N(\beta) = N\frac{a\varepsilon e^{-\beta \varepsilon}}{1 + ae^{-\beta \varepsilon}}                                                                                          \\
-    C(T)              & = \diff{E}{T} = -\frac{1}{k_BT^2}\diff{E}{\beta}                                                                                                                                                     \\
-                      & = -Nk_B\beta^2\frac{-a\varepsilon^2 e^{-\beta\varepsilon}(1 + ae^{-\beta \varepsilon}) + a\varepsilon e^{-\beta\varepsilon}\cdot a\varepsilon e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2} \\
-                      & = Nk_B\beta^2\frac{a\varepsilon^2 e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2}                                                                                                             \\
-    \frac{C(T)}{Nk_B} & = \ab(\frac{\varepsilon}{k_BT})^2\frac{ae^{-\varepsilon/k_BT}}{(1 + ae^{-\varepsilon/k_BT})^2}                                                                                                       \\
+    Z_N(\beta) & = \ab(m + ne^{-\beta \varepsilon})^N = m^N\ab(1 + ae^{-\beta \varepsilon})^N                                                                                                                         \\
+    E(\beta)   & = -\diffp{}{\beta}\ln Z_N(\beta) = N\frac{a\varepsilon e^{-\beta \varepsilon}}{1 + ae^{-\beta \varepsilon}}                                                                                          \\
+    C(T)       & = \diff{E}{T} = -\frac{1}{k_BT^2}\diff{E}{\beta}                                                                                                                                                     \\
+               & = -Nk_B\beta^2\frac{-a\varepsilon^2 e^{-\beta\varepsilon}(1 + ae^{-\beta \varepsilon}) + a\varepsilon e^{-\beta\varepsilon}\cdot a\varepsilon e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2} \\
+               & = Nk_B\beta^2\frac{a\varepsilon^2 e^{-\beta\varepsilon}}{(1 + ae^{-\beta\varepsilon})^2}
+  \end{align}
+  $a \ll 1$ の場合と $a \gg 1$ の場合について比熱は次のような表式となる。
+  \begin{align}
+    \frac{C(T)}{Nk_B} & = \ab(\frac{\varepsilon}{k_BT})^2\frac{ae^{-\varepsilon/k_BT}}{(1 + ae^{-\varepsilon/k_BT})^2} \\
                       & = \begin{dcases}
                             \ab(\frac{\varepsilon}{k_BT})^2 ae^{-\varepsilon/k_BT}          & (a \ll 1) \\
                             \ab(\frac{\varepsilon}{k_BT})^2\frac{1}{ae^{-\varepsilon/k_BT}} & (a \gg 1)
                           \end{dcases}
   \end{align}
+  このとき $x = \dfrac{k_BT}{\varepsilon}$ とおくと
+  \begin{align}
+    \diffp{}{x}\ab(\frac{C(T)}{Nk_B}) & =
+    \begin{dcases}
+      \frac{e^{-1/x}}{x^4}(1 - 2x) & (a\ll 1) \\
+      \frac{e^{1/x}}{x^4}(-1 - 2x) & (a\gg 1)
+    \end{dcases}
+  \end{align}
+  よりピークはそれぞれ $1/2$, なしとなる。これより次のようなグラフとなる。
 \end{proof}
+\clearpage
 
 \begin{problem}
 エネルギー準位が $0, \varepsilon, b\varepsilon$ からなる独立な $N$ 個の系が温度 $T$ の熱平衡状態にあるとする。このとき分配関数、エネルギーの期待値、比熱を求めよ。
 \end{problem}
 \begin{proof}
+  前問と同様にして
   \begin{align}
     Z_N(\beta)        & = \ab(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon})^N                                                                                                                                                                                                                                      \\
     E(\beta)          & = -\diffp{}{\beta}\ln Z_N(\beta)                                                                                                                                                                                                                                                                  \\
@@ -367,9 +397,9 @@
                       & = Nk_B(\beta\varepsilon)^2\frac{e^{-\beta\varepsilon} + (b - 1)^2e^{-\beta(1 + b)\varepsilon} + b^2e^{-\beta b\varepsilon}}{(1 + e^{-\beta\varepsilon} + e^{-\beta b\varepsilon})^2}                                                                                                              \\
     \frac{C(T)}{Nk_B} & = \ab(\frac{\varepsilon}{k_BT})^2\frac{e^{-\varepsilon/k_BT} + (b - 1)^2e^{-(1 + b)\varepsilon/k_BT} + b^2e^{-b\varepsilon/k_BT}}{(1 + e^{-\varepsilon/k_BT} + e^{-b\varepsilon/k_BT})^2}
   \end{align}
-
+  これよりグラフは次のようになる。
 \end{proof}
-
+\clearpage
 
 \section{理想量子気体とグランドカノニカル分布}
 \setcounter{subsection}{5}
@@ -378,42 +408,41 @@
 Fermi 粒子系、Bose 粒子系における粒子数の揺らぎを調べよ。
 \end{problem}
 \begin{proof}
-  グランドカノニカル分布の分配関数 $\Xi$ が与えられたときに粒子数の揺らぎは次のように書ける。
+  グランドカノニカル分布の分布関数 $f(\varepsilon)$ が与えられたときに粒子数の揺らぎは次のように書ける。
   \begin{align}
-    N                         & = \frac{1}{\beta}\ab(\diffp{\ln\Xi}{\mu})_{T,V}                              \\
+    N                         & = \sum_{j=1}^{\infty}f(\varepsilon_j)                                        \\
     \ab(\diffp{N}{\mu})_{T,V} & = \beta\ab(\langle N^2\rangle - N^2) = \beta\langle(\hat{\Delta N})^2\rangle
   \end{align}
   これより Fermi 粒子系の粒子数の揺らぎは次のように書ける。
   \begin{align}
-    \Xi                              & = \prod_{j=1}^{\infty}(1 + e^{-\beta(\varepsilon_j - \mu)})                                        \\
-    N                                & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} + 1}                                  \\
-    \langle(\hat{\Delta N})^2\rangle & = \sum_{j=1}^{\infty}\frac{e^{\beta(\varepsilon_j - \mu)}}{(e^{\beta(\varepsilon_j - \mu)} + 1)^2}
+    N                                & = \frac{1}{e^{\beta(\varepsilon - \mu)} + 1}                                                                  \\
+    \langle(\hat{\Delta N})^2\rangle & = \frac{e^{\beta(\varepsilon - \mu)}}{(e^{\beta(\varepsilon - \mu)} + 1)^2} = e^{\beta(\varepsilon - \mu)}N^2
   \end{align}
   同様に Bose 粒子系の粒子数の揺らぎは次のようになる。
   \begin{align}
-    \Xi                              & = \prod_{j=1}^{\infty}\frac{1}{1 - e^{-\beta(\varepsilon_j - \mu)}}                                \\
-    N                                & = \sum_{j=1}^{\infty}\frac{1}{e^{\beta(\varepsilon_j - \mu)} - 1}                                  \\
-    \langle(\hat{\Delta N})^2\rangle & = \sum_{j=1}^{\infty}\frac{e^{\beta(\varepsilon_j - \mu)}}{(e^{\beta(\varepsilon_j - \mu)} - 1)^2}
+    N                                & = \frac{1}{e^{\beta(\varepsilon - \mu)} - 1}                                                                  \\
+    \langle(\hat{\Delta N})^2\rangle & = \frac{e^{\beta(\varepsilon - \mu)}}{(e^{\beta(\varepsilon - \mu)} - 1)^2} = e^{\beta(\varepsilon - \mu)}N^2
   \end{align}
+  これより $\langle\hat{N}\rangle\to \infty$ の極限において
   \begin{align}
-    \frac{\sqrt{\langle(\hat{\Delta N})^2\rangle}}{N} & \to 1
+    \frac{\sqrt{\langle(\hat{\Delta N})^2\rangle}}{N} & \to e^{\beta(\varepsilon - \mu)/2}
   \end{align}
-
+  となる。
 \end{proof}
 
 \section{理想ボーズ気体、ボーズ凝縮}
 \subsection{格子比熱 (Debye 模型)}
 縦波と 2 つの独立な横波のモードが可能であり、それらの分散関係は $\omega = v_l|\kk|$, $\omega = v_t|\kk|$ と表される。
 \begin{problem}
-固体の体積を $V$、全原子数を $N$($\gg 1$) として、振動数が $\omega$ と $\omega + \dl{\omega}$ の間にある状態の数 $D(ω)dω$ を求めよ。固体を各辺の長さが $L$ ($L^3 = V$) の立方体と考え、周期境界条件をとってよい。
+固体の体積を $V$、全原子数を $N$($\gg 1$) として、振動数が $\omega$ と $\omega + \dl{\omega}$ の間にある状態の数 $D(\omega)\dl{\omega}$ を求めよ。固体を各辺の長さが $L$ ($L^3 = V$) の立方体と考え、周期境界条件をとってよい。
 \end{problem}
 \begin{proof}
-  周期境界条件と媒体が奇妙な振動をしない条件として次のように書ける。分散関係$\omega = v_l|\kk|$
+  周期境界条件と媒体が奇妙な振動をしない条件として分散関係 $\omega = v_l|\kk|$ より次のように書ける。
   \begin{align}
     \kk                   & = \frac{\pi}{L}(n_x, n_y, n_z) \qquad \ab(0 \leq n_i \leq \sqrt[3]{N}) \\
     \frac{\omega L}{v\pi} & = \sqrt{n_x^2 + n_y^2 + n_z^2}
   \end{align}
-  $v$ に対して $\dfrac{\omega L}{v\pi}$ を半径とする第一象限の表面積と近似できる。
+  これより状態の数 $D(\omega)$ は速度 $v$ に対して $\dfrac{\omega L}{v\pi}$ を半径とする第一象限の表面積と近似できる。
   \begin{align}
     D(\omega)            & = \frac{1}{8}\frac{4\pi}{3}\ab(\frac{\omega L}{v_l\pi})^3 + \frac{2}{8}\frac{4\pi}{3}\ab(\frac{\omega L}{v_t\pi})^3 \\
                          & = \frac{\omega^3 L^3}{6\pi^2}\ab(\frac{1}{v_l^3} + \frac{2}{v_t^3})                                                 \\
@@ -426,11 +455,12 @@ Fermi 粒子系、Bose 粒子系における粒子数の揺らぎを調べよ。
 $D(\omega)$ を Debye 振動数 $\omega_D$ を用いて表せ。
 \end{problem}
 \begin{proof}
+  $\omega_D$ の条件に代入することで
   \begin{align}
     \int_0^{\omega_D}D(\omega)\dl{\omega} & = \int_0^{\omega_D}\frac{\omega^2 L^3}{2\pi^2}\frac{v_t^3 + 2v_l^3}{v_l^3v_t^3}\dl{\omega} = 3N \\
     \omega_D                              & = \frac{v_lv_t}{L}\ab(\frac{18N\pi^2}{v_t^3 + 2v_l^3})^{1/3}
   \end{align}
-  これより $\omega_D$ を用いて $D(\omega)$ は次のように求まる。
+  となる為、$\omega_D$ を用いて $D(\omega)$ は次のように求まる。
   \begin{align}
     D(\omega) & = \begin{dcases}
                     \frac{9N\omega^2}{\omega_D^3} & (\omega < \omega_D) \\
@@ -476,7 +506,7 @@ $D(\omega)$ を Debye 振動数 $\omega_D$ を用いて表せ。
     C & = 3Nk_B\ab(\frac{\beta\hbar\omega}{2\sinh\frac{1}{2}\beta\hbar\omega})^2 \\
       & \approx 3Nk_Bb^2e^{-b}
   \end{align}
-  よって温度 $T$ に対する依存性が異なることが分かる。
+  よって低温における温度 $T$ 依存性が Debye 模型は $b^{-3}$ に対して Einstein 模型は $b^2e^{-b}$ と異なることが分かる。
 \end{proof}
 
 \begin{problem}
@@ -502,52 +532,502 @@ $D(\omega)$ を Debye 振動数 $\omega_D$ を用いて表せ。
   \begin{align}
     C & \approx 3Nk_B\frac{1}{b^d}d(d+1)\zeta(d+1)\Gamma(d+1)
   \end{align}
-  よって比熱は温度 $T$ に対して $T^d$ に比例する。
+  よって比熱は $T^d$ に比例する。
 \end{proof}
 
 \setcounter{subsection}{6}
 \subsection{3 次元調和トラップ中での Bose-Einstein 凝縮での比熱の変化}
 \begin{problem}
-3 次元等方調和ポテンシャル $V(r) = (m\omega^2/2)|r|^2$ 中での質量 $m$ の単原子分子の気体の Bose-Einstein 凝縮 (BEC) について、凝縮温度 $T_c$ のすぐ上およびすぐ下での比熱を計算し、比較せよ。原始相互作用が無視できるとして原子の質量 $1.44 \times 10^{-25}$ kg, 調和振動子閉じ込めの角周波数 $\omega =2π \times 60$ Hz, 原子の個数 $2.0 \times 10^3$ 個のとき、転移温度を求めよ。
+3 次元等方調和ポテンシャル $V(r) = (m\omega^2/2)|\rr|^2$ 中での質量 $m$ の単原子分子の気体の Bose-Einstein 凝縮 (BEC) について、凝縮温度 $T_c$ のすぐ上およびすぐ下での比熱を計算し、比較せよ。原子相互作用が無視できるとして原子の質量 $1.44 \times 10^{-25}$ kg, 調和振動子閉じ込めの角周波数 $\omega = 2\pi \times 60$ Hz, 原子の個数 $2.0 \times 10^3$ 個のとき、転移温度を求めよ。
 \end{problem}
 \begin{proof}
-
+  \begin{align}
+    T_c    & = \frac{2\pi\hbar^2}{mk_B}\ab(\frac{1}{\zeta\ab(\frac{3}{2})}\frac{N}{V})^{2/3} \\
+    C(T)   & = \frac{15V}{4}\ab(\frac{mT}{2\pi\hbar^2})^{3/2}k_B^{5/2}\zeta\ab(\frac{5}{2})  \\
+    C(T_c) & = \frac{15}{4}\frac{\zeta\ab(\frac{5}{2})}{\zeta\ab(\frac{3}{2})}Nk_B           \\
+  \end{align}
 \end{proof}
 
 \section{理想フェルミ気体、低温展開}
+\setcounter{subsection}{3}
 \subsection{Pauli 常磁性}
 \begin{problem}
 磁場による効果を無視した自由電子におけるスピン磁化率 $\chi_s$ を求める。ただし磁場 $H$ における 1 電子のエネルギーは次のようになる。
 \begin{align}
-  \varepsilon = \frac{p^2}{2m} \pm \mu_BH
+  \varepsilon_{\pm} = \frac{p^2}{2m} \pm \mu_BH
 \end{align}
 このとき磁場下での磁化 $M$ と絶対零度のスピン磁化率を求めよ。
 \end{problem}
 \begin{proof}
+  3 次元自由フェルミ粒子系の状態密度を $D(\varepsilon) = c\sqrt{\varepsilon}$ とおき、各スピン状態における粒子数 $N_\pm$ を求め、ゾンマーフェルト展開を行うことで磁化 $M$ は次のようになる。
   \begin{align}
-    M    & = \mu_B(N_+ - N_-) \approx \mu_B(2\mu_B\mu_0HD(\varepsilon_F)) \\
-    \chi & := \lim_{H\to 0}\frac{M}{H} = 2\mu_B^2\mu_0D(\varepsilon_F)
+    N_\pm & = \int_{-\infty}^{\infty}D(\varepsilon)f(\varepsilon \pm \mu_BH)\dl{\varepsilon}                                          \\
+    M     & = \mu_BN_+ - \mu_BN_-                                                                                                     \\
+          & = \mu_B\int_{-\infty}^{\infty}\frac{D(\varepsilon)}{2}(f(\varepsilon + \mu_BH) - f(\varepsilon - \mu_BH))\dl{\varepsilon} \\
+          & \approx \mu_B^2H\int_{-\infty}^{\infty}D(\varepsilon)f'(\varepsilon)\dl{\varepsilon} + \mathcal{O}(H^3)                   \\
+          & \approx \mu_B^2H\ab(D(\mu) + \frac{\pi^2}{6\beta^2}D''(\mu) + \mathcal{O}(\beta^{-4})) + \mathcal{O}(H^3)
   \end{align}
+  これより絶対零度におけるスピン磁化率 $\chi_s$ は次のようになる。
+  \begin{align}
+    \chi_s(T=0) & = \lim_{H\to 0}\frac{M}{H} = \mu_B^2D(\mu) = c\mu_B^2\sqrt{\mu} = \frac{3}{2}\frac{\mu_B^2}{\mu}N
+  \end{align}
+  ただし $N$ は系の粒子数とする。
 \end{proof}
 
 \begin{problem}
-$\chi_s$ について、低温での、$T$ について最低次の補正を求めよ。
+$\chi_s$ について、低温での $T$ について最低次の補正を求めよ。
 \end{problem}
 \begin{proof}
-
+  低温のスピン磁化率 $\chi_s$ は次のようになる。
+  \begin{align}
+    \chi_s & \approx \mu_B^2\ab(D(\mu) + \frac{\pi^2}{6\beta^2}D''(\mu)) = \mu_B^2c\sqrt{\mu}\ab(1 - \frac{\pi^2}{6\beta^2}\frac{1}{2\mu^2}) = \frac{3}{2}\frac{\mu_B^2}{\mu}N\ab(1 - \frac{k_B^2T^2\pi^2}{12\mu^2})
+  \end{align}
 \end{proof}
 
 \begin{problem}
 Fermi 縮退温度 $T_F$ に比べ充分高温での表式を求めよ。低温の場合と比べてどうなるか?
 \end{problem}
 \begin{proof}
-
+  高温のとき $f(\varepsilon) \approx e^{-\beta(\varepsilon - \mu)}$ と近似できる。これよりスピン磁化率は次のように近似できる。
+  \begin{align}
+    \chi_s & = \mu_B^2\int_{0}^{\infty}D(\varepsilon)f'(\varepsilon)\dl{\varepsilon} = \mu_B^2\int_{0}^{\infty}D'(\varepsilon)f(\varepsilon)\dl{\varepsilon} = \mu_B^2\int_{0}^{\infty}\frac{1}{2}c\varepsilon^{-1/2}e^{-\beta(\varepsilon - \mu)}\dl{\varepsilon} \\
+           & = \frac{1}{2}c\mu_B^2e^{\beta\mu}\beta^{1/2}\Gamma\ab(\frac{1}{2}) = \frac{\sqrt{\pi}}{2}c\mu_B^2e^{\beta\mu}\beta^{1/2}
+  \end{align}
+  低温の場合と比べ、$T$ が大きくなるほど $0$ に近づくことが分かる。
 \end{proof}
 
 \subsection{ブロッホの定理}
+結晶固体中の電子は、周期的に配列した原子核や他の電子の作るポテンシャルの影響を受けて運動する。1 個の電子が感じるポテンシャルが、結晶と同じ空間的な周期性を持つとして、この電子の波動関数 $\psi(\rr)$ について考えてみよう。
+\begin{problem}
+1 次元の場合について並進運動と周期境界条件を満たすとき $\mathcal{H}(x)$ と $\mathcal{T}_a$ は交換することを示せ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \mathcal{H}(x)       & = -\frac{\hbar^2}{2m}\diffp[2]{}{x} + V(x), \qquad V(x + a) = V(a) \\
+    \mathcal{T}_a\psi(x) & = \psi(x + a)
+  \end{align}
+  このとき $\mathcal{H}(x)$ と $\mathcal{T}_a$ を波動関数に作用させると次のようになる。
+  \begin{align}
+    \mathcal{T}_a\mathcal{H}(x)\psi(x) & = \mathcal{T}_a\ab(\mathcal{H}(x)\psi(x)) \\
+                                       & = \mathcal{H}(x + a)\psi(x + a)           \\
+                                       & = \mathcal{H}(x)\psi(x + a)               \\
+                                       & = \mathcal{H}(x)\mathcal{T}_a\psi(x)
+  \end{align}
+  よって $\mathcal{H}(x)$ と $\mathcal{T}_a$ は交換する。
+\end{proof}
+
+\begin{problem}
+次のようになることを説明せよ。
+\begin{align}
+  \psi(x + na) = e^{ikna}\psi(x)
+\end{align}
+\end{problem}
+\begin{proof}
+  並進演算子 $\mathcal{T}_a$ の固有関数 $\psi(x)$ に対して $n$ 回作用させることでその固有値 $E_a$ に関して $E_a^n = 1$ という関係式が得られる。
+  \begin{align}
+    \mathcal{T}_a^n\psi(x) = \psi(x + na) = \psi(x) = E_a^n\psi(x)
+  \end{align}
+  これより、ある波数 $k$ を用いて $E_a = e^{ika}$ と書ける。
+\end{proof}
+
+\begin{problem}
+3 次元のとき基本格子ベクトル $(\bm{a}_1, \bm{a}_2, \bm{a}_3)$ とすると格子ベクトル $\bm{R} = n_1\bm{a}_1 + n_2\bm{a}_2 + n_3\bm{a}_3$ ($n_i\in\ZZ$) を用いて
+\begin{align}
+  \psi(\rr + \bm{R}) = e^{i\kk\cdot\bm{R}}\psi(\rr)
+\end{align}
+が成り立つことを説明せよ。
+\end{problem}
+\begin{proof}
+  基本格子ベクトルについて次の関係が成り立つ。
+  \begin{align}
+    \psi(\rr + \bm{a}_1) = \psi(\rr + \bm{a}_2) = \psi(\rr + \bm{a}_3) = \psi(\rr)
+  \end{align}
+  それぞれに対して上の推論を用いることで固有値は $e^{i(n_1k_1a_1)}, e^{i(n_2k_2a_2)}, e^{i(n_3k_3a_3)}$ となる。これよりある波数 $\kk$ を用いて
+  \begin{align}
+    \psi(\rr + \bm{R}) = e^{i\kk\cdot\bm{R}}\psi(\rr)
+  \end{align}
+  と表される。
+\end{proof}
 
 \subsection{1 次元周期的井戸型ポテンシャル}
+\begin{problem}
+$V0 > 0, a > 0, b > 0, l = a + b$ とする。1 次元に閉じ込められた質量 $m$ の電子が、$n$ を任意の整数として次の式で表される周期的井戸型ポテンシャル中を運動する。
+\begin{align}
+  V(x) = \begin{dcases}
+           0   & (nl < x \leq nl + a)       \\
+           V_0 & (nl + a < x \leq (n + 1)l)
+         \end{dcases}
+\end{align}
+まず、$V(x)$ を数周期にわたり図示せよ。そして、波数 $k$ に対応するブロッホ状態の一つのエネルギーが $E (0 < E < V_0)$ であるとして、$p = \sqrt{2mE}/\hbar$ と $q = \sqrt{2m(V_0 - E)}/\hbar$ の満たす式を求めよ。
 
+さらに、$E\ll V_0$ として、$bV_0$ を一定に保ったまま $b \to 0, V_0 \to \infty$ の極限をとったとき ($a$ ごとにデルタ関数的な斥力が存在することに対応する) $P ≡ \dfrac{ma}{\hbar^2}bV_0$ として、上で求めた式から、 $pa$ と $ka$ の満たすべき式を求め、$P = 3\pi/2$ のときに、$E$ の値を $k$ を横軸として拡張ゾーン形式により ($0 \leq ka \leq 4\pi$ を含む適当な範囲で) 図示せよ。
+
+\end{problem}
+\begin{proof}
+  まず $V(x)$ について次のような図となる。
+
+  このときの波動関数は次のようになる。
+  \begin{align}
+    \psi(x) & = \begin{dcases}
+                  Ae^{ip(x - nl)} + Be^{-ip(x - nl)}           & \ab(nl < x \leq nl + a, E = \frac{\hbar^2p^2}{2m})             \\
+                  Ce^{q(x - (n + 1)l)} + De^{-q(x - (n + 1)l)} & \ab(nl + a < x \leq (n + 1)l, V_0 - E = \frac{\hbar^2q^2}{2m})
+                \end{dcases} \\
+    \psi(x) & = u(x)e^{ikx}
+  \end{align}
+  これはブロッホの定理と境界条件より
+  \begin{align}
+     & \begin{dcases}
+         \psi(0) = A + B = C + D                                                    \\
+         \psi'(0) = ipA - ipB = qC - qD                                             \\
+         u(a) = Ae^{i(p - k)a} + Be^{-i(p + k)a} = Ce^{-(q - ik)b} + De^{(q + ik)b} \\
+         u'(a) = i(p - k)Ae^{i(p - k)a} - i(p + k)Be^{-i(p + k)a} = (q - ik)Ce^{-(q - ik)b} - (q + ik)De^{(q + ik)b}
+       \end{dcases} \\
+     & \begin{pmatrix}
+         1                     & 1                        & -1                     & -1                   \\
+         ip                    & -ip                      & -q                     & q                    \\
+         e^{ipa - ika}         & e^{-ipa - ika}           & -e^{-qb + ikb}         & -e^{qb + ikb}        \\
+         i(p - k)e^{ipa - ika} & - i(p + k)e^{-ipa - ika} & -(q - ik)e^{-qb + ikb} & (q + ik)e^{qb + ikb}
+       \end{pmatrix}
+    \begin{pmatrix}
+      A \\ B \\ C \\ D
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      0 \\ 0 \\ 0 \\ 0
+    \end{pmatrix}
+  \end{align}
+  $A, B, C, D$ がすべて 0 でない為には係数行列の行列式がゼロとなければならない。これより $p$, $q$ の満たす式は次のようになる。
+  \begin{align}
+    \cos(kl) & = \frac{q^2 - p^2}{2pq}\sin(pa)\sinh(qb) + \cos(pa)\cosh(qb)
+  \end{align}
+  $q \propto \sqrt{V_0} \to \infty$ より $qb\to 0$ となるので近似することで $pa, ka$ の満たすべき式は次のようになる。
+  \begin{align}
+    \cos(kl) & = \frac{q^2 - p^2}{2pq}\sin(pa)\sinh(qb) + \cos(pa)\cosh(qb) \\
+             & \approx \frac{q^2}{2pq}\sin(pa)qb + \cos(pa)                 \\
+             & \approx \frac{q^2b}{2p}\sin(pa) + \cos(pa)                   \\
+    \cos(ka) & \approx P\frac{\sin(pa)}{pa} + \cos(pa)
+  \end{align}
+  これより $P = 3\pi/2$ のとき拡張ゾーン形式は次のように書ける。
+  TODO: グラフ
+\end{proof}
+
+\clearpage
+
+\setcounter{subsection}{8}
 \subsection{グラフェンにおける分散関係}
+\begin{problem}
+グラフェン (graphene) は炭素原子が 2 次元的に六角格子をなす。格子ベクトル $\R$ は次のように表される。
+\begin{alignat}{3}
+  \R    & = n_1\aa_1 + n_2\aa_2                                                                                     \\
+  \aa_1 & = \ab(\frac{3a}{2}, \frac{\sqrt{3}a}{2}) & \qquad \aa_2 & = \ab(0, \sqrt{3}a)                             \\
+  \bb_1 & = \ab(\frac{4\pi}{3a}, 0)                & \qquad \bb_2 & = \ab(-\frac{2\pi}{3a}, \frac{2\pi}{\sqrt{3}a})
+\end{alignat}
+孤立系でこの格子のサイト $s = A, B$ に粒子がある固有状態を $\ket|\R, s>$ で表す。隣接サイト間のみのホッピングを考えると、1 粒子のハミルトニアンは、ホッピングを $t$ として
+\begin{align}
+  \mathcal{H} & = -t\sum_{\R}\ab(\ket|\R, A>\bra<\R, B| + \ket|\R, B>\bra<\R, A| + \sum_{j=1,2}\ab(\ket|\R, A>\bra<\R - \aa_j, B| + \ket|\R, B>\bra<\R + \aa_j, A|)) \\
+  \ket|\kk>   & = \sum_{\R}e^{i\kk\cdot\R}\sum_{s=A,B}u_s\ket|\R, s> = \sum_{\R}e^{i\kk\cdot\R}(u_A\ket|\R, A> + u_B\ket|\R, B>) \qquad (|u_A|^2 + |u_B|^2 = 1)
+\end{align}
+と表され $\mathcal{H}\ket|\kk> = E(\kk)\ket|\kk>$ を満たす。
+ここで $\kk$ を固定したとき $\eta = e^{i\kk\cdot\aa_1}, \xi = e^{i\kk\cdot\aa_2}$ として、非零となる $E(\kk)$ の条件を調べよ。
+\end{problem}
+\begin{proof}
+  このときハミルトニアンと固有ケットは次のようになる。
+  \begin{align}
+    \mathcal{H} & = -t\sum_{\R}\ab(\ket|\R, A>\ab(\bra<\R, B| + \sum_{j=1,2}\bra<\R - \aa_j, B|) + \ket|\R, B>\ab(\bra<\R, A| + \sum_{j=1,2}\bra<\R + \aa_j, A|)) \\
+    \ket|\kk>   & = \sum_{\R}\eta^{n_1}\xi^{n_2}(u_A\ket|\R, A> + u_B\ket|\R, B>)
+  \end{align}
+  固有ケットにハミルトニアンを作用させると次のようになる。
+  \begin{align}
+    \mathcal{H}\ket|\kk> & = -t\sum_{\R}\eta^{n_1}\xi^{n_2}\ab((1 + \eta^{-1} + \xi^{-1})u_B\ket|\R, A> + (1 + \eta + \xi)u_A\ket|\R, B>) = E(\kk)\ket|\kk>
+  \end{align}
+  ここで $(u_A, u_B) \neq (0, 0)$ なる解が得られるためのエネルギー固有値 $E(\kk)$ の条件は次のようになる。
+  \begin{align}
+    E(\kk) & = -t(1 + \eta^{-1} + \xi^{-1})\frac{u_B}{u_A} = -t(1 + \eta + \xi)\frac{u_A}{u_B} \\
+    E(\kk) & = \pm t\sqrt{(1 + \eta + \xi)(1 + \eta^{-1} + \xi^{-1})}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+逆格子空間の点 $\kk = \dfrac{y}{a}\hat{\kk}_y\ \ab(0 \leq y \leq \dfrac{2\pi}{\sqrt{3}})$ における 2 つのエネルギー固有値を求めることにより $\kk$ が原点 $\Gamma$ から対称性の高い点 $K'$ を経由してブリルアン・ゾーン境界 $M$ に達するまでのバンド構造の概形を図示せよ。
+\end{problem}
+\begin{proof}
+  まず $\kk$ と格子ベクトルの内積を計算する。
+  \begin{align}
+    \kk\cdot\aa_1 & = \ab(0, \frac{y}{a})\cdot\ab(\frac{3a}{2}, \frac{\sqrt{3}a}{2}) = \frac{\sqrt{3}}{2}y \\
+    \kk\cdot\aa_2 & = \ab(0, \frac{y}{a})\cdot\ab(0, \sqrt{3}a) = \sqrt{3}y
+  \end{align}
+  これよりエネルギー固有値は次のようになる。
+  \begin{align}
+    E(\kk) & = \pm t\sqrt{(1 + \eta + \xi)(1 + \eta^{-1} + \xi^{-1})} \qquad \ab(\eta = e^{i\frac{\sqrt{3}}{2}y}, \xi = e^{i\sqrt{3}y}) \\
+           & = \pm t\sqrt{3 + 4\cos\ab(\frac{\sqrt{3}}{2}y) + 2\cos\ab(\sqrt{3}y)}
+  \end{align}
+  $\kk = \dfrac{y}{a}\hat{\kk}_y\ \ab(0 \leq y \leq \dfrac{2\pi}{\sqrt{3}})$ の具体値を代入すると次のようになる。
+  \begin{align}
+    E\ab(0\hat{\kk}_y) & = \pm 3t & E\ab(\frac{\pi}{\sqrt{3}a}\hat{\kk}_y) & = \pm t & E\ab(\frac{4\pi}{3\sqrt{3}a}\hat{\kk}_y) & = 0 & E\ab(\frac{2\pi}{\sqrt{3}a}\hat{\kk}_y) & = \pm 3t
+  \end{align}
+  よってバンド構造の概形は次のようになる。
+
+  TODO: グラフ
+\end{proof}
+
+\begin{problem}
+K' 点近傍での 2 つのバンドのエネルギーと、対応する波動関数の振る舞いについて調べ、考察せよ。
+\end{problem}
+\begin{proof}
+  K' 点近傍での 2 つのバンドのエネルギーについて $\Delta y \ll 1$ より 2 次まで展開すると
+  \begin{align}
+     & E\ab(\ab(\frac{4\pi}{3\sqrt{3}} + \Delta y)\frac{\hat{\kk}_y}{a})                                                                                                                                                           \\
+     & = \pm t\sqrt{3 + 4\cos\ab(\frac{2}{3}\pi + \frac{\sqrt{3}}{2}\Delta y) + 2\cos\ab(\frac{4}{3}\pi + \sqrt{3}\Delta y)}                                                                                                       \\
+     & = \pm t\sqrt{3 + 4\ab(-\frac{1}{2}\cos\ab(\frac{\sqrt{3}}{2}\Delta y) - \frac{\sqrt{3}}{2}\sin\ab(\frac{\sqrt{3}}{2}\Delta y)) + 2\ab(-\frac{1}{2}\cos\ab(\sqrt{3}\Delta y) + \frac{\sqrt{3}}{2}\sin\ab(\sqrt{3}\Delta y))} \\
+     & \approx \pm t\sqrt{3\Delta y^2 + \mathcal{O}(\Delta y^3)} \approx \pm \sqrt{3}t|\Delta y|
+  \end{align}
+  となり、Dirac 電子のように振る舞う。
+
+  また K' 点近傍において波動関数は次のようになる。
+  \begin{align}
+              & \begin{dcases}
+                  u_A \approx e^{i\theta}\sqrt{\frac{\Delta y}{2}} \\
+                  u_B \approx \pm e^{i\theta}\sqrt{\frac{\Delta y}{2}}
+                \end{dcases}                                                               \\
+    \ket|\kk> & = \sum_{\R}e^{i\kk\cdot\R + i\theta}\ab(\sqrt{\frac{\Delta y}{2}}\ket|\R, A> \pm \sqrt{\frac{\Delta y}{2}}\ket|\R, B>)
+  \end{align}
+\end{proof}
+
+\clearpage
+
+\setcounter{section}{5}
+\section{多電子系の波動関数と相互作用、相転移と臨界現象 I}
+\setcounter{subsection}{3}
+\subsection{相互作用のある 1 次元 Ising 模型: ゼロ磁場}
+\begin{problem}
+1次元の Ising 模型において磁場が存在しないとき分配関数、自由エネルギー、比熱、スピン相関 $\langle\sigma_i\sigma{i+r}\rangle \propto e^{-r/\xi}$、相関長 $\xi$ を求めよ。
+\begin{align}
+  H = -J\sum_{i=1}^{N-1}\sigma_i\sigma_{i+1} - h\sum_{i=1}^{N}\sigma_i
+\end{align}
+\end{problem}
+\begin{proof}
+  $h = 0$ においてハミルトニアンは次のようになる。
+  \begin{align}
+    H = -J\sum_{i=1}^{N-1}\sigma_i\sigma_{i+1}
+  \end{align}
+  これより熱力学的関数はそれぞれ次のようになる。
+  \begin{align}
+    Z & = \sum_{\sigma_i=\pm 1}e^{-\beta H} = \sum_{\sigma_i=\pm 1}\prod_{i=1}^{N-1}e^{\beta J\sigma_i\sigma_{i+1}}                      \\
+      & = \sum_{\sigma_i=\pm 1}(e^{\beta J\sigma_{N-1}} + e^{-\beta J\sigma_{N-1}})\ab(\prod_{i=1}^{N-2}e^{\beta J\sigma_i\sigma_{i+1}}) \\
+      & = \sum_{\sigma_i=\pm 1}2\cosh(\beta J)\ab(\prod_{i=1}^{N-2}e^{\beta J\sigma_i\sigma_{i+1}})                                      \\
+      & = 2(2\cosh(\beta J))^{N-1}                                                                                                       \\
+    F & = -\frac{1}{\beta}\ln Z = -\frac{1}{\beta}\ab((N-1)\ln(2\cosh\beta J) + \ln 2)                                                   \\
+    S & = k_B\beta^2\diffp{F}{\beta} = k_B(N-1)\ab(\ln(2\cosh\beta J) - \beta J\tanh\beta J) + k_B\ln 2                                  \\
+    C & = -\beta\diffp{S}{\beta} = k_B(N-1)\ab(\frac{\beta J}{\cosh\beta J})^2
+  \end{align}
+  スピン相関 $\langle\sigma_i\sigma_{i+r}\rangle$ については
+  \begin{align}
+    \langle\sigma_i\sigma_{i+r}\rangle & = \frac{1}{Z}\sum_{\sigma_i = \pm 1}\sigma_i\sigma_{i + r}\prod_{j=1}^{N-1}e^{\beta J\sigma_j\sigma_{j+1}}                                                                 \\
+                                       & = \frac{1}{2(2\cosh(\beta J))^{i+r-1}}\sum_{\sigma_i = \pm 1}\sigma_i\sigma_{i + r}\prod_{j=1}^{i+r-1}e^{\beta J\sigma_j\sigma_{j+1}}                                      \\
+                                       & = \frac{1}{2(2\cosh(\beta J))^{i+r-1}}\sum_{\sigma_i = \pm 1}\sigma_i\sigma_{i + r}e^{\beta J\sigma_{i+r-1}\sigma_{i+r}}\prod_{j=1}^{i+r-2}e^{\beta J\sigma_j\sigma_{j+1}} \\
+                                       & = \frac{2\sinh(\beta J)}{2(2\cosh(\beta J))^{i+r-1}}\sum_{\sigma_i = \pm 1}\sigma_i\sigma_{i + r - 1}\prod_{j=1}^{i+r-2}e^{\beta J\sigma_j\sigma_{j+1}}                    \\
+                                       & = \frac{\tanh^r(\beta J)}{2(2\cosh(\beta J))^{i-1}}\sum_{\sigma_i = \pm 1}\sigma_i^2\prod_{j=1}^{i-1}e^{\beta J\sigma_j\sigma_{j+1}}                                       \\
+                                       & = \tanh^r(\beta J)
+  \end{align}
+  より相関長 $\xi$ は次のようになる。
+  \begin{align}
+    \xi & = -\frac{1}{\ln\tanh(\beta J)}
+  \end{align}
+\end{proof}
+
+\setcounter{subsection}{6}
+\subsection{Landau 理論}
+\begin{problem}
+前問の Ising モデルにおける平均場近似の解析により、2 次相転移を記述する平均場理論において、自由エネルギーは一般的に転移点近傍でモデルによらずに
+\begin{align}
+  F(T, h) = \min_\sigma\ab(F_0 - h\sigma + a(T - T_c)\sigma^2 + b\sigma^4)
+\end{align}
+となることが期待される。
+\end{problem}
+\begin{proof}
+  まず自由エネルギーについて $\sigma$ に対して極小値となる条件は次のようになる。
+  \begin{align}
+    \diffp{F}{\sigma} & = -h + 2a(T - T_c)\sigma + 4b\sigma^3 = 0
+  \end{align}
+  これに対する $h = 0$ での解は
+  \begin{align}
+    2a(T - T_c)\sigma + 4b\sigma^3 = 0 \iff \sigma & = 0, \pm\sigma_0 & \ab(\sigma_0 = \sqrt{\frac{a(T_c - T)}{2b}})
+  \end{align}
+  となり、方程式から $T < T_c$ かつ $h > 0$ のとき $\sigma \approx \sigma_0$, $h < 0$ のとき $\sigma \approx -\sigma_0$ と対応する。$\sigma = \sigma_0$ 周りで展開すると
+  \begin{align}
+    \diffp{F}{\sigma} & \approx -h + 2a(T - T_c)(\sigma_0 + (\sigma - \sigma_0)) + 4b(\sigma_0^3 + 3\sigma_0^2(\sigma - \sigma_0)) \\
+                      & = -h + 4a(T_c - T)(\sigma - \sigma_0) = 0                                                                  \\
+    \sigma            & = \sigma_0 + \frac{h}{4a(T_c - T)}
+  \end{align}
+  $\sigma = -\sigma_0$ も同様であるから $\sigma$ は次のようになる。
+  \begin{align}
+    \sigma =
+    \begin{dcases}
+      \frac{h}{2a(T - T_c)}                                 & (T > T_c)        \\
+      \sqrt{\frac{a(T_c - T)}{2b}} + \frac{h}{4a(T - T_c)}  & (T < T_c, h > 0) \\
+      -\sqrt{\frac{a(T_c - T)}{2b}} + \frac{h}{4a(T - T_c)} & (T < T_c, h < 0) \\
+    \end{dcases}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+転移温度前後での磁化率の温度依存性を求めよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \chi & = \left.\diffp{\sigma}{h}\right|_{h\to 0} = \begin{dcases}
+                                                         \frac{1}{2a(T - T_c)} & (T > T_c) \\
+                                                         \frac{1}{4a(T - T_c)} & (T < T_c) \\
+                                                       \end{dcases}
+  \end{align}
+  より磁化率 $\chi$ は $T^{-1}$ に依存する。
+\end{proof}
+
+\begin{problem}
+転移温度近傍において、$h = 0$ における比熱に有限の飛びが現れることを示せ。
+\end{problem}
+\begin{proof}
+  $h = 0$ において自由エネルギー $F$, エントロピー $S$, 比熱 $C$ は次のようになる。
+  \begin{align}
+    F                 & =
+    \begin{dcases}
+      F_0                             & (T > T_c) \\
+      F_0 - \frac{a^2(T - T_c)^2}{4b} & (T < T_c) \\
+    \end{dcases}           \\
+    S = -\diffp{F}{T} & =
+    \begin{dcases}
+      -\diffp{F_0}{T}                           & (T > T_c) \\
+      -\diffp{F_0}{T} + \frac{a^2(T - T_c)}{2b} & (T < T_c) \\
+    \end{dcases} \\
+    C = T\diffp{S}{T} & =
+    \begin{dcases}
+      -T\diffp[2]{F_0}{T}                   & (T > T_c) \\
+      -T\diffp[2]{F_0}{T} + T\frac{a^2}{2b} & (T < T_c) \\
+    \end{dcases}
+  \end{align}
+  これより $T = T_c$ 付近において $T_ca^2/2b$ の有限の飛びがある。
+\end{proof}
+
+
+\setcounter{section}{6}
+\section{期末レポート問題}
+\subsection{Kosterlitz-Thouless 転移}
+\begin{problem}
+2 次元の古典 XY スピン系を考える。スピン $\SS = (S_x, S_y)$ が正方格子状に配列した系ではハミルトニアンは次のように書ける。
+\begin{align}
+  \hat{H} & = -J_0\sum_{\langle i,j\rangle}\SS_i\cdot\SS_j
+\end{align}
+各スピン $\SS_i$ が $x$ 軸の正方向となす角度を $\theta_i$ とし、低温では次のような近似が行える。
+\begin{align}
+  \SS             & = Se^{i\theta}                                                                       \\
+  \SS_i\cdot\SS_j & = S^2\cos(\theta_i - \theta_j) \approx const. - \frac{S^2}{2}(\theta_i - \theta_j)^2
+\end{align}
+最近接スピンの間隔を $a \ll l$ とし $a$ より充分大きなスケールで見ると各点 $\rr$ の周りのスピンの角度は連続的に変化しているとみなせるとし、$J = J_0S^2$ とする。
+このときハミルトニアンを近似せよ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    \hat{H} & = -J_0\sum_{\langle i,j\rangle}\SS_i\cdot\SS_j = -J\sum_{\langle i,j\rangle}\cos(\theta_i - \theta_j) \approx -J\sum_{\langle i,j\rangle}\ab(1 - \frac{(\theta_i - \theta_j)^2}{2}) \\
+            & = \frac{J}{2}\sum_{\langle i,j\rangle}(\theta_i - \theta_j)^2 + const. \approx \frac{J}{2}\int_A\dl{\rr} (\vnabla\theta(\rr))^2 + const.
+  \end{align}
+\end{proof}
+
+\begin{problem}
+充分に高温であれば磁化は存在せず、温度を下げていっても有限温度で巨視的な磁化が生じる相転移は起きないことを説明する。
+$\Delta E$ の $l$ 依存性と、似たようなスピンの揃わない状況 (欠陥) を作る方法の数の $l$ 依存性から、渦の生成に関する自由エネルギーの損得を考え、任意に有限温度を固定したとき、$l$ が充分大きければ巨視的な磁化が生じないことを説明せよ。
+\end{problem}
+\begin{proof}
+  系全体でスピンの向きが揃った ($\theta(\rr) = \theta_0$) 状態 $\Theta_0$ とスピンの向きが平面波 $\theta(x, y) = \dfrac{\pi y}{l}$ に従う状態 $\Pi_y$ のエネルギーの差 $\Delta E$ について
+  \begin{align}
+    \Delta E & = \ab(\frac{J}{2}\int_A\dl{\rr} \ab(\vnabla\frac{\pi y}{l})^2 + const.) - \ab(\frac{J}{2}\int_A\dl{\rr} (\vnabla\theta_0)^2 + const.) \\
+             & = \frac{J}{2}\int_A\frac{\pi^2}{l^2}\dl{\rr} = \frac{J}{2}\pi^2
+  \end{align}
+  となり $\Delta E$ は $l$ に依存しない。またスピンの揃わない状況 (欠陥) を作る方法の数は $2^{l/a}$ 個あるからエントロピーは次のようになる。
+  \begin{align}
+    S & \approx k_B\frac{l}{a}
+  \end{align}
+  これより自由エネルギーは
+  \begin{align}
+    F & = E - TS \approx \frac{J}{2}\pi^2 - k_BT\frac{l}{a}
+  \end{align}
+  となり、$l/a \gg 1$ より高温あるいは有限温度では巨視的な磁化は存在できない。
+\end{proof}
+
+\begin{problem}
+系全体としては巨視的な磁化が生じるような相転移はないにもかかわらず、有限温度で相転移が起きることを説明せよ。
+まず、スピンが $x, y$ 方向に最近接スピンをもつ正方格子状に並んでいるとして、$4 \times 4$ の格子の中央に中心をもつ $n = +1$ および $n = -1$ の渦を図示せよ。また渦を形成することによるエネルギーの増加 $E_n$ を求めよ。
+\end{problem}
+\begin{proof}
+  $4 \times 4$ の格子において渦は次の図のようになる。
+  \begin{align}
+    \vnabla\theta = \vnabla(n\phi) = \ab(0, \frac{n}{r})
+  \end{align}
+  渦を形成することによるエネルギーの増加 $E_n$ について、渦の中心におけるエネルギーはゼロと考えてよいから積分の下端は $a$, 上端は $l$ とおいて問題ない。
+  \begin{align}
+    E_n & = \frac{J}{2}\int_A\dl{\rr} (\vnabla\theta(\rr))^2 = \frac{J}{2}\int_0^{2\pi}\int_a^l\frac{n^2}{r^2}r\dl{r}\dl{\phi} = n^2\pi J\ln\frac{l}{a}
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$n = \pm1$ の自由な渦 1 個のエネルギーは $E_1$, 渦の場所の選び方は $W = (l/a)^2$ と考えられるので、与えられた、スピンの空間変化が緩やかな状態に 1 個渦を加えることによる自由エネルギーの変化は
+\begin{align}
+  \Delta\mathcal{F} & = E_1 - k_BT\ln W
+\end{align}
+と見積もれる。相転移の起きる温度 $T_{KT}$ を評価せよ。
+\end{problem}
+\begin{proof}
+  $n = \pm 1$ の自由な渦が生成されるときの自由エネルギーが極小となる点において相転移が起きるから転移温度 $T_{KT}$ は次のようになる。
+  \begin{align}
+    \Delta\mathcal{F} & = E_1 - k_BT_{KT}\ln W = \pi J\ln\frac{l}{a} - 2k_BT_{KT}\ln\frac{l}{a} = 0 \\
+    T_{KT}            & = \frac{\pi J}{2k_B}
+  \end{align}
+\end{proof}
+
+\clearpage
+
+\subsection{Dirac Fermion}
+\begin{problem}
+グラフェンではそのフェルミ準位 $\varepsilon_F = 0$ 付近の電子のエネルギー分散関係が質量 0 の Dirac 電子と同じ $\varepsilon_{\kk} = \pm ck$ で与えられる。
+$k = \sqrt{k_x^2 + k_y^2}$ は ($K$ 点から測った) 波数の大きさ、 $c$ は定数でフェルミ速度を用いて $\hbar v_F$ と表される。以下でこのような分散関係を持つ、スピン $1/2$ のフェルミ気体の熱力学的な性質について考えよう。
+
+ただし、グラフェンについて 2 サイトからなる単位格子を考えると、単位逆格子あたり 2 個の点 (K, K' 点) で電子のエネルギーが $\varepsilon_F = 0$ となっているが、その効果 (valley 自由度と呼ばれる) はここでは考えず、$\kk$ 平面の単位面積あたり $N$ 個の状態があるものと考えよう。
+
+状態密度 $D(\varepsilon)$ を求めよ。$\varepsilon = 0$ でゼロになるが、通常の半導体とは異なり、完全なギャップを開かないことからゼロギャップ半導体と呼ばれる。
+\end{problem}
+\begin{proof}
+  エネルギー $\varepsilon$ までの状態数 $\Omega(\varepsilon)$ は $\varepsilon_{\kk} = \pm ck$ より状態数は円錐の表面積で近似できる。
+  \begin{align}
+    \Omega(\varepsilon) & = N\times \pi\frac{\varepsilon}{c}\varepsilon\sqrt{1 + \frac{1}{c^2}} = \frac{\sqrt{1 + c^2}}{c^2}N\pi\varepsilon^2
+  \end{align}
+  これより状態密度は次のようになる。
+  \begin{align}
+    D(\varepsilon) & = \frac{2N\pi\sqrt{1 + c^2}}{c^2}\varepsilon
+  \end{align}
+\end{proof}
+
+\begin{problem}
+以下、絶対零度 $T = 0$ においては電子が $\varepsilon = 0$ まで詰まるような電子密度を考える。有限温度でも化学ポテンシャル $\mu$ が $0$ のままであることを示せ。
+\end{problem}
+\begin{proof}
+  $D(0)$ において有限値を取ると考えると、ゾンマーフェルト展開を行うことで化学ポテンシャルは次のように近似できる。
+  \begin{align}
+    \mu & \approx \varepsilon_F - \frac{\pi^2}{6}\frac{D'(\varepsilon_F)}{D(\varepsilon_F)}(k_BT)^2 = 0
+  \end{align}
+  これより化学ポテンシャルは有限温度でも $0$ となる。
+\end{proof}
+
+\begin{problem}
+有限温度で $T = 0$ と比べた内部エネルギーの増分を計算して比熱を求め、通常の金属における電子比熱の場合と温度の冪が異なる理由を考察せよ。
+\end{problem}
+\begin{proof}
+  有限温度においてボーズ凝縮を起こしているから内部エネルギーの増分と比熱は次のようになる。
+  \begin{align}
+    U & = \int_{0}^{\infty}\varepsilon D(\varepsilon)f_B(\varepsilon)\dl{\varepsilon} = \frac{2N\pi\sqrt{1 + c^2}}{c^2}\int_{0}^{\infty}\frac{\varepsilon^2}{e^{\beta\varepsilon} - 1}\dl{\varepsilon}                          \\
+      & = \frac{2N\pi\sqrt{1 + c^2}}{c^2\beta^3}\int_{0}^{\infty}\frac{u^2}{e^u - 1}\dl{u} = \frac{2N\pi\sqrt{1 + c^2}}{c^2\beta^3}\Gamma(3)\zeta(3)                                                   & (u = \beta\varepsilon) \\
+      & = \frac{4N\pi\sqrt{1 + c^2}}{c^2}\zeta(3)(k_BT)^3                                                                                                                                                                       \\
+    C & = \frac{12N\pi\sqrt{1 + c^2}}{c^2}\zeta(3)k_B^3T^2
+  \end{align}
+  通常の金属における電子比熱の場合は $T^{3/2}$ に依存するが、これは単純に分散関係が異なることにより比熱での温度の冪が異なると考えられる。
+\end{proof}
 
 \end{document}

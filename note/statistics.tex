@@ -400,17 +400,19 @@
 \subsection{ミクロカノニカル分布からカノニカル分布へ}
 
 \begin{definition}
+  $\beta = \dfrac{1}{k_BT}$
   \begin{align}
-    \beta    & = \frac{1}{k_BT}         \\
     Z(\beta) & = \sum_{i}e^{-\beta E_i}
   \end{align}
 \end{definition}
 
 \begin{theorem}
   \begin{align}
-    p & = \frac{e^{-\beta E_i}}{Z(\beta)} \\
-    F & = -k_BT\ln Z                      \\
-    S & =
+    p & = \frac{e^{-\beta E_i}}{Z(\beta)}                                                           \\
+    F & = -k_BT\ln Z                                                                                \\
+    S & = -\diffp{F}{T} = k_B\beta^2\diffp{F}{\beta}                                                \\
+    U & = -T^2\diffp{}{T}\ab(\frac{F}{T}) = -\diffp{}{\beta}\ln Z(\beta) = \diffp{}{\beta}(\beta F) \\
+    C & = -\beta\diffp{S}{\beta} = k_B\beta^2\diffp[2]{}{\beta}\ln Z(\beta) = F
   \end{align}
 \end{theorem}
 
@@ -1097,19 +1099,19 @@ Fermi 粒子において分布関数は次のようだった。
 \begin{theorem}[ゾンマーフェルト展開]
   次の積分を次のように展開できる。
   \begin{align}
-    I(\beta, \mu) & := \int_{-\infty}^{\infty}\dl{\varepsilon}h(\varepsilon)f_F(\varepsilon) = \int_{-\infty}^\mu h(\varepsilon)\dl{\varepsilon} + \frac{\pi^2}{6}h'(\mu)(k_BT)^2 + O((k_BT)^{4})
+    I(\beta, \mu) & := \int_{-\infty}^{\infty}\dl{\varepsilon}g(\varepsilon)f_F(\varepsilon) = \int_{-\infty}^\mu g(\varepsilon)\dl{\varepsilon} + \frac{\pi^2}{6}g'(\mu)(k_BT)^2 + O((k_BT)^{4})
   \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-    g(\varepsilon) & = \int_{-\infty}^\varepsilon h(\varepsilon)\dl{\varepsilon}
+    G(\varepsilon) & = \int_{-\infty}^\varepsilon g(\varepsilon)\dl{\varepsilon}
   \end{align}
 
   \begin{align}
-    I(\beta, \mu) & = \int_{-\infty}^{\infty}\dl{\varepsilon}h(\varepsilon)f_F(\varepsilon)                                                                                  \\
-                  & = [g(\varepsilon)f_F(\varepsilon)]_{-\infty}^{\infty} - \int_{-\infty}^{\infty}\dl{\varepsilon}g(\varepsilon)f_F'(\varepsilon)                           \\
-                  & = - \int_{-\infty}^{\infty}\dl{\varepsilon}g(\varepsilon)f_F'(\varepsilon)                                                                               \\
-                  & = - \int_{-\infty}^{\infty}\dl{\varepsilon}\ab[g(\mu) + g'(\mu)(\varepsilon - \mu) + \frac{1}{2}g''(\mu)(\varepsilon - \mu)^2 + \cdots]f_F'(\varepsilon)
+    I(\beta, \mu) & = \int_{-\infty}^{\infty}\dl{\varepsilon}g(\varepsilon)f_F(\varepsilon)                                                                                  \\
+                  & = [G(\varepsilon)f_F(\varepsilon)]_{-\infty}^{\infty} - \int_{-\infty}^{\infty}\dl{\varepsilon}G(\varepsilon)f_F'(\varepsilon)                           \\
+                  & = - \int_{-\infty}^{\infty}\dl{\varepsilon}G(\varepsilon)f_F'(\varepsilon)                                                                               \\
+                  & = - \int_{-\infty}^{\infty}\dl{\varepsilon}\ab[G(\mu) + G'(\mu)(\varepsilon - \mu) + \frac{1}{2}G''(\mu)(\varepsilon - \mu)^2 + \cdots]f_F'(\varepsilon)
   \end{align}
   $x = \beta(\varepsilon - \mu)$ と変数変換すると奇関数性より
   \begin{align}
@@ -1122,8 +1124,8 @@ Fermi 粒子において分布関数は次のようだった。
                                                                                   & = - \frac{4}{\beta^2}\frac{\pi^2}{12} = -\frac{\pi^2}{3\beta^2}
   \end{align}
   \begin{align}
-    I(\beta, \mu) & = g(\mu) + \frac{\pi^2}{6\beta^2}g''(\mu) + O(\beta^{-4})                                            \\
-                  & = \int_{-\infty}^\mu h(\varepsilon)\dl{\varepsilon} + \frac{\pi^2}{6}h'(\mu)(k_BT)^2 + O((k_BT)^{4})
+    I(\beta, \mu) & = G(\mu) + \frac{\pi^2}{6\beta^2}G''(\mu) + O(\beta^{-4})                                            \\
+                  & = \int_{-\infty}^\mu g(\varepsilon)\dl{\varepsilon} + \frac{\pi^2}{6}g'(\mu)(k_BT)^2 + O((k_BT)^{4})
   \end{align}
 \end{proof}
 
