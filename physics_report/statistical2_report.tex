@@ -541,10 +541,16 @@ $D(\omega)$ を Debye 振動数 $\omega_D$ を用いて表せ。
 3 次元等方調和ポテンシャル $V(r) = (m\omega^2/2)|\rr|^2$ 中での質量 $m$ の単原子分子の気体の Bose-Einstein 凝縮 (BEC) について、凝縮温度 $T_c$ のすぐ上およびすぐ下での比熱を計算し、比較せよ。原子相互作用が無視できるとして原子の質量 $1.44 \times 10^{-25}$ kg, 調和振動子閉じ込めの角周波数 $\omega = 2\pi \times 60$ Hz, 原子の個数 $2.0 \times 10^3$ 個のとき、転移温度を求めよ。
 \end{problem}
 \begin{proof}
+  3 次元等方調和ポテンシャル中でボース凝縮しているとき凝縮温度近くの比熱は次のようになる。
   \begin{align}
-    T_c    & = \frac{2\pi\hbar^2}{mk_B}\ab(\frac{1}{\zeta\ab(\frac{3}{2})}\frac{N}{V})^{2/3} \\
-    C(T)   & = \frac{15V}{4}\ab(\frac{mT}{2\pi\hbar^2})^{3/2}k_B^{5/2}\zeta\ab(\frac{5}{2})  \\
-    C(T_c) & = \frac{15}{4}\frac{\zeta\ab(\frac{5}{2})}{\zeta\ab(\frac{3}{2})}Nk_B           \\
+    D(\varepsilon)    & = \frac{\varepsilon^2}{2\hbar^3\omega^3}                                                                                                                                                  \\
+    N                 & = \ab(\frac{k_BT}{\hbar\omega})^3\zeta(3)                                                                                                                                                 \\
+    T_c               & = \frac{\hbar\omega}{k_B}\ab(\frac{N}{\zeta(3)})^{1/3}                                                                                                                                    \\
+    U(\varepsilon)    & = \int_{0}^{\infty}\varepsilon D(\varepsilon)f_B(\varepsilon)\dl{\varepsilon} = \frac{1}{2\hbar^3\omega^3}\int_{0}^{\infty}\frac{\varepsilon^3}{e^{\beta\varepsilon} - 1}\dl{\varepsilon} \\
+                      & = \frac{1}{2\hbar^3\omega^3}(k_BT)^4\Gamma(4)\zeta(4) = \frac{\pi^4}{30\hbar^3\omega^3}(k_BT)^4                                                                                           \\
+    C(T)              & = \frac{2\pi^4}{15\hbar^3\omega^3}k_B^4T^3                                                                                                                                                \\
+    C(T_c + \Delta T) & \approx \frac{2\pi^4}{15\hbar^3\omega^3}k_B^4\ab(T_c^3 + 3T_c^2\Delta T)                                                                                                                  \\
+                      & \approx \frac{2\pi^4}{15}k_B + \frac{2\pi^4}{5}\frac{k_B^2}{\hbar\omega}\ab(\frac{N}{\zeta(3)})^{2/3}\Delta T
   \end{align}
 \end{proof}
 
@@ -708,7 +714,6 @@ $V0 > 0, a > 0, b > 0, l = a + b$ とする。1 次元に閉じ込められた�
     \cos(ka) & \approx P\frac{\sin(pa)}{pa} + \cos(pa)
   \end{align}
   これより $P = 3\pi/2$ のとき拡張ゾーン形式は次のように書ける。
-  TODO: グラフ
 \end{proof}
 
 \clearpage
@@ -766,8 +771,6 @@ $V0 > 0, a > 0, b > 0, l = a + b$ とする。1 次元に閉じ込められた�
     E\ab(0\hat{\kk}_y) & = \pm 3t & E\ab(\frac{\pi}{\sqrt{3}a}\hat{\kk}_y) & = \pm t & E\ab(\frac{4\pi}{3\sqrt{3}a}\hat{\kk}_y) & = 0 & E\ab(\frac{2\pi}{\sqrt{3}a}\hat{\kk}_y) & = \pm 3t
   \end{align}
   よってバンド構造の概形は次のようになる。
-
-  TODO: グラフ
 \end{proof}
 
 \begin{problem}
