@@ -179,6 +179,7 @@
 
 
 \section{真空中の電磁気学}
+電場 $\EE$ と磁束密度 $\BB$
 \subsection{Maxwell 方程式}
 \begin{definition}[Maxwell 方程式]
   電場 $\EE$ と磁束密度 $\BB$ に対して次のような式が成り立つ。
@@ -214,15 +215,14 @@
   \end{align}
 \end{theorem}
 \begin{proof}
-  式 \eqref{Ampere} の両辺の発散を計算することで連続の方程式を導出する。
+  式 \eqref{Ampere} の両辺の発散を計算することで連続の方程式を導出する。$\vnabla\cdot(\vnabla\times\BB) = 0$ より
   \begin{align}
     \vnabla\cdot(\vnabla\times\BB) & = \vnabla\cdot\ab(\mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t})        \\
-    0                              & = \mu_0\vnabla\cdot\bm{j} + \frac{1}{c^2}\diffp{}{t}\vnabla\cdot\EE \\
-    0                              & = \vnabla\cdot\bm{j} + \diffp{\rho}{t}
+                                   & = \mu_0\vnabla\cdot\bm{j} + \frac{1}{c^2}\diffp{}{t}\vnabla\cdot\EE \\
+                                   & = \vnabla\cdot\bm{j} + \diffp{\rho}{t} = 0
   \end{align}
   連続の方程式の両辺を空間微分することで電荷が保存することが分かる。
   \begin{align}
-     & \int_V\ab(\diffp{\rho}{t} + \vnabla\cdot\bm{j})\dl{V} = 0                \\
      & \diff{}{t}\int_V\rho\dl{V} + \int_{\partial V}\bm{j}\cdot\dl{\bm{S}} = 0
   \end{align}
 \end{proof}
@@ -231,44 +231,94 @@
   磁荷は存在しない。
 \end{theorem}
 \begin{proof}
-  Maxwell の方程式より磁荷や磁荷の流れは無いことがわかる。
-  \begin{align}
-     & \vnabla\cdot\BB = 0                                          \\
-     & \vnabla\times\EE = -\diffp{\BB}{t}                           \\
-     & \vnabla\times\BB = \mu_0\bm{j} + \frac{1}{c^2}\diffp{\EE}{t}
-  \end{align}
+  磁場中のガウスの法則より湧き出し源がない、つまり単極の磁荷が存在しないことが分かる。
 \end{proof}
 
 \begin{theorem}[エネルギー保存則]
+  真空中での電磁場のエネルギー密度 $u_{EM}(\rr, t)$ とローレンツ力の仕事率 $u_{m}(\rr, t)$ の和を $u(\rr, t)$ とし、エネルギー流密度を $\SS(\rr, t)$ として次の連続の方程式を満たす。
   \begin{align}
-    \diffp{u}{t} + \vnabla\cdot\SS & = -\EE\cdot\bm{j}
-  \end{align}
-  ただし、真空中での電磁場のエネルギー $u$ とエネルギーの流れ密度 $\SS$ を次のように定義した。
-  \begin{align}
-    u        & = \frac{1}{2}\EE\cdot\DD + \frac{1}{2}\HH\cdot\BB \\
-    \SS(\rr) & = \EE\times\HH
+    \diffp{u}{t} + \vnabla\cdot\SS & = 0
   \end{align}
 \end{theorem}
 \begin{proof}
+  まず $u_{EM}$, $u_m$, $\SS$ についてそれぞれ
   \begin{align}
-    \diffp{u}{t} + \vnabla\cdot\SS & = \frac{1}{2}\diffp{}{t}\ab(\EE\cdot\DD + \HH\cdot\BB) + \vnabla\cdot(\EE\times\HH)                                             \\
-                                   & = \varepsilon_0\EE\cdot\diffp{\EE}{t} + \HH\cdot\diffp{\BB}{t} + \vnabla\cdot(\EE\times\HH)                                     \\
-                                   & = \EE\cdot\ab(\vnabla\times\HH - \bm{j}) - \HH\cdot(\vnabla\times\EE) + \HH\cdot(\vnabla\times\EE) - \EE\cdot(\vnabla\times\HH) \\
-                                   & = -\EE\cdot\bm{j}
+    u_{EM}         & = \frac{\varepsilon_0}{2}\EE^2 + \frac{1}{2\mu_0}\BB^2                        \\
+    \diffp{u_m}{t} & = \bm{F}\cdot\bm{v} = (\rho\EE + \bm{j}\times\BB)\cdot\bm{v} = \bm{j}\cdot\EE \\
+    \SS(\rr)       & = \frac{1}{\mu_0}\EE\times\BB
   \end{align}
-  右辺はローレンツ力による仕事を表す。
+  より連続の方程式を満たす。
   \begin{align}
-    \bm{F}\cdot\bm{v} & = (qn\EE + qn\bm{v}\times\BB)\cdot\bm{v} = \EE\cdot\bm{j}
+    \diffp{u}{t} & = \diffp{}{t}\ab(\frac{\varepsilon_0}{2}\EE^2 + \frac{1}{2\mu_0}\BB^2) + \bm{j}\cdot\EE                              \\
+                 & = \EE\cdot\varepsilon_0\diffp{\EE}{t} + \frac{\BB}{\mu_0}\cdot\diffp{\BB}{t} + \bm{j}\cdot\EE                        \\
+                 & = \EE\cdot\ab(\frac{1}{\mu_0}\vnabla\times\BB - \bm{j}) + \frac{\BB}{\mu_0}\cdot(-\vnabla\times\EE) + \bm{j}\cdot\EE \\
+                 & = \frac{1}{\mu_0}\ab(\EE\cdot\ab(\vnabla\times\BB) - \BB\cdot(\vnabla\times\EE))                                     \\
+                 & = -\frac{1}{\mu_0}\vnabla\cdot(\EE\times\BB) = -\vnabla\cdot\SS
+  \end{align}
+  連続の方程式の両辺を空間微分することでエネルギーが保存することが分かる。
+  \begin{align}
+    \diff{}{t}\int u\dl{V} + \int_S\SS\cdot\bm{n}\dl{S} & = 0
   \end{align}
 \end{proof}
 
 \begin{definition}[Poynting ベクトル]
   エネルギーの流れの密度, 単位時間に単位面積を通過するエネルギー
   \begin{align}
-    \SS(\rr) & = \EE\times\HH
+    \SS(\rr) & = \frac{1}{\mu_0}\EE\times\BB
   \end{align}
 \end{definition}
 
+\begin{theorem}[運動量保存則]
+  運動量密度 $g_j$ と Maxwell の応力テンソル $T_{ij}$ の反作用を電磁場の運動量流密度と考えると連続の方程式は次のようになる。
+  \begin{align}
+    \diffp{\bm{g}}{t} - \vnabla\cdot\bm{T} & = 0 \qquad ((\vnabla\cdot\bm{T})_j = \partial_iT_{ij})
+  \end{align}
+  つまりローレンツ力の反作用が電磁場の運動量の時間変化となる。
+\end{theorem}
+\begin{proof}
+  物質の運動量密度 $\bm{g}_m(\rr, t)$、電磁場の運動量密度 $\bm{g}_{EM}(\rr, t)$、マクスウェルの応力テンソル $T_{ij}$ は次の条件を満たす。
+  \begin{align}
+    \diffp{\bm{g}_m}{t} & = \rho\EE + \bm{j}\times\BB                                                                         \\
+    \bm{g}_{EM}         & = \varepsilon_0\EE\times\BB                                                                         \\
+    T_{ij}              & = \varepsilon_0E_iE_j + \frac{1}{\mu_0}B_iB_j - \delta_{ij}u_{EM}                                   \\
+    T_{ij}^{(E)}        & = \varepsilon_0\begin{pmatrix}
+                                           E_x^2 - \frac{1}{2}|\EE|^2 & E_xE_y                     & E_xE_z                     \\
+                                           E_xE_y                     & E_x^2 - \frac{1}{2}|\EE|^2 & E_xE_z                     \\
+                                           E_xE_y                     & E_xE_z                     & E_x^2 - \frac{1}{2}|\EE|^2 \\
+                                         \end{pmatrix}
+  \end{align}
+  これより
+  \begin{align}
+    \diffp{g_j}{t} & = \rho E_j + \varepsilon_{jik}j_iB_k + \diffp{}{t}(\varepsilon_0\varepsilon_{jik}E_iB_k)                                                                                                                            \\
+                   & = (\varepsilon_0\partial_iE_i)E_j + \varepsilon_{jik}\ab(\frac{1}{\mu_0}\varepsilon_{ilm}\partial_lB_m - \varepsilon_0\diffp{E_i}{t})B_k + \varepsilon_0\varepsilon_{jik}\ab(\diffp{E_i}{t}B_k + E_i\diffp{B_k}{t}) \\
+                   & = \varepsilon_0(\partial_iE_i)E_j + \frac{1}{\mu_0}\varepsilon_{jik}\varepsilon_{ilm}(\partial_lB_m)B_k - \varepsilon_0\varepsilon_{jik}E_i\ab(\varepsilon_{klm}\partial_lE_m)                                      \\
+                   & = \varepsilon_0(\partial_iE_i)E_j + \frac{1}{\mu_0}((\partial_iB_j)B_i - (\partial_jB_i)B_i) - \varepsilon_0(E_i(\partial_jE_i) - E_i(\partial_iE_j))                                                               \\
+                   & = \partial_i\ab(\varepsilon_0E_iE_j + \frac{1}{\mu_0}B_iB_j) - \partial_j\ab(\frac{1}{2\mu_0}B_i^2 + \frac{1}{2}\varepsilon_0E_i^2) \qquad (\because\partial_iB_i = 0)                                              \\
+                   & = \partial_iT_{ij}
+  \end{align}
+  連続の方程式の両辺を空間微分することで運動量が保存することが分かる。
+  \begin{align}
+    \diff{}{t}\int \bm{g}\dl{V} & = \int_ST_{ij}\cdot\bm{n}\dl{S}
+  \end{align}
+\end{proof}
+
+\begin{theorem}[角運動量保存則]
+  \begin{align}
+    \diffp{\bm{L}}{t} + \vnabla\cdot\MM = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \bm{L}_{EM} & = \rr\times\bm{g}_{EM} = \varepsilon_0\rr\times(\EE\times\BB) \\
+    \bm{L}_m    & = \rr\times\bm{g}_m                                           \\
+    \MM         & = \bm{T} \times \rr
+  \end{align}
+  \begin{align}
+    \diffp{\bm{L}}{t} & = \rr\times\diffp{}{t}\ab(\bm{g}_{EM} + \bm{g}_m) = \rr\times(\vnabla\cdot\bm{T}) \\
+                      & = \vnabla\cdot(\bm{T}\times\rr)                                                   \\
+                      & = \vnabla\cdot\MM
+  \end{align}
+\end{proof}
 
 \subsection{電磁ポテンシャルとゲージ変換}
 \begin{definition}[電磁ポテンシャル]
@@ -594,7 +644,7 @@
 
 
 \section{物質中の電磁気学}
-
+現象論になりがち
 
 \subsection{導体の電磁気学}
 \begin{definition}[導体]
@@ -828,9 +878,8 @@
   \end{align}
   物質の運動量密度を $\pp_m(\rr, t)$、電磁場の運動量密度を $\pp_{EM}(\rr, t)$ とする。
   \begin{align}
-    \pp(\rr, t)              & = \pp_m(\rr, t) + \pp_{EM}(\rr, t) \\
-    \diffp{}{t}\pp_m(\rr, t) & = \rho\EE + \bm{j}\times\BB        \\
-    \pp_{EM}(\rr, t)         & = \DD\times\BB
+    \diffp{\pp_m}{t} & = \rho\EE + \bm{j}\times\BB \\
+    \pp_{EM}         & = \DD\times\BB
   \end{align}
   このとき応力テンソル $T_{ij}$ の反作用を電磁場の運動量流密度と考えると
   \begin{align}
@@ -841,7 +890,7 @@
 \begin{proof}
   Maxwell の方程式と $\EE, \DD$ と $\BB, \HH$ の関係式から次のように求まる。
   \begin{align}
-    \diffp{p_j}{t} & = \ab[\diffp{\pp_m}{t} + \diffp{\pp_{EM}}{t}]_j = \ab[\rho\EE + \bm{j}\times\BB + \diffp{}{t}(\DD\times\BB)]_j                                              \\
+    \diffp{p_j}{t} & = \ab[\rho\EE + \bm{j}\times\BB + \diffp{}{t}(\DD\times\BB)]_j                                                                                              \\
                    & = \ab[(\vnabla\cdot\DD)\EE + \ab(\vnabla\times\HH - \diffp{\DD}{t})\times\BB + \diffp{\DD}{t}\times\BB + \DD\times\diffp{\BB}{t}]_j                         \\
                    & = \ab[\varepsilon(\vnabla\cdot\EE)\EE + \mu(\vnabla\times\HH)\times\HH - \varepsilon\EE\times(\vnabla\times\EE)]_j                                          \\
                    & = \varepsilon(\partial_iE_i)E_j + \mu\varepsilon_{jik}\varepsilon_{ilm}(\partial_lH_m)H_k - \varepsilon\varepsilon_{jik}E_i\varepsilon_{klm}(\partial_lE_m) \\

@@ -222,7 +222,7 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 
 \setcounter{subsection}{4}
 \subsection{電位係数と静電容量}
-無限遠点において電位を $0$ とする。$k_0 = \dfrac{1}{4\pi\varepsilon_0}$
+無限遠点において電位を $0$ とし $k_0 = \dfrac{1}{4\pi\varepsilon_0}$ とする。
 \begin{problem}
 真空中に電荷 $q_j \neq 0$ を持つ導体に関して、他の導体の電荷を $0$ としたときの $i$ 番目の導体の電位を $V_i$ とし、電位係数 $p_{ij}$ を $V_i = p_{ij}q_j$ とおく。このとき次の式が成り立つ。
 \begin{align}
@@ -280,10 +280,12 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
   このとき導体外の電位は次のようになる。
   \begin{align}
     \mqty{q_a                  \\ q_b} & = \mqty{c_{aa} & c_{ab} \\ c_{ba} & c_{bb}}\mqty{V_a \\ V_b} \\
-     & = \mqty{c_{aa} & c_{ab} \\ c_{ba} & c_{bb}}\mqty{k_0q_a/a \\ k_0q_b/b}
+     & = \mqty{c_{aa} & c_{ab} \\ c_{ba} & c_{bb}}\mqty{\frac{k_0q_a}{a} \\ \frac{k_0q_b}{b}}
   \end{align}
   \begin{align}
-    c_a = \frac{q_a}{V_a} = \frac{a}{k_0}, c_b = \frac{b}{k_0}, c_{ab} = \frac{Q}{V_a - V_b}
+    c_a    & = \frac{q_a}{V_a} = \frac{a}{k_0} \\
+    c_b    & = \frac{q_b}{V_b} = \frac{b}{k_0} \\
+    c_{ab} & = \frac{Q}{V_a - V_b}
   \end{align}
   \begin{align}
     \phi(r) & = k_0\frac{q_a}{|x|} + k_0\frac{q_b}{|x - d|}
@@ -291,6 +293,7 @@ Poisson 方程式にディレクレ境界条件またはノイマン境界条件
 \end{proof}
 
 \begin{problem}
+半径 $a$ の導体球 1 を、同じ中心を持つ半径 $b$ の薄い導体球殻 2 で囲う。電位係数 $p_{11}, p_{22}, p_{12}$ と容量係数 $c_1, c_2$、誘導係数 $c_{12}$ を求めよ。
 \end{problem}
 \begin{proof}
 \end{proof}
