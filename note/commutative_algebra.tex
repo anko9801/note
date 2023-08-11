@@ -48,10 +48,11 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
+\renewcommand{\aa}{\mathfrak{a}}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\mm}{\mathfrak{m}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
-\renewcommand{\aa}{\mathfrak{a}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
 \newcommand{\ignore}[1]{}
@@ -225,22 +226,6 @@
 \end{definition}
 
 \begin{proposition}
-  $A\neq 0$ を環とする。このとき次は同値である。
-  \begin{enumerate}
-    \item $A$ は体である。
-    \item $A$ のイデアルは $0$ と $(1)$ のみである。
-    \item $A$ から零でない環 $B$ へのすべての環準同型は単射である。
-  \end{enumerate}
-\end{proposition}
-\begin{proof}
-  ($1 \implies 2$) $\aa \neq 0$ を $A$ のイデアルとする。$\aa$ は零でない元 $x$ を含む。$x$ は単元であるから $\aa\supseteq (x) = (1)$ となり $\aa = (1)$ を得る。
-
-  ($2 \implies 3$) $\phi: A\to B$ を環準同型とする。このとき $\Kernel(\phi)$ は $(1)$ と異なるイデアルであるから $\Kernel(\phi) = 0$ である。よって $\phi$ は単射である。
-
-  ($3 \implies 1$) $x$ を単元でない $A$ の元とする。すると $(x) \neq (1)$ であるから $B = A/(x)$ は零環ではない。$\phi: A\to B$ を自然な準同型とすると $\Kernel(\phi) = (x)$ である。仮定より $\phi$ は単射であるから $(x) = 0$。したがって $x = 0$ となる。
-\end{proof}
-
-\begin{proposition}
   $x$ を環 $A$ のベキ零元とする。$1 + x$ は $A$ の単元であることを示せ。これよりベキ零元と単元の和は単元であることを示せ。
 \end{proposition}
 \begin{proof}
@@ -256,11 +241,11 @@
 
 \begin{proposition}
   $f = a_0 + a_1x + \cdots + a_nx^n\in A[x]$ について
-  \begin{enumerate}
-    \item $f$ が単元である $\iff$ $a_0$ が単元で、かつ $a_1,\ldots,a_n$ はベキ零元である。
-    \item $f$ がベキ零元である $\iff$ $a_0,a_1,\ldots,a_n$ がベキ零元である。
-    \item $f$ が零因子である $\iff$ $A$ のある元 $a \neq 0$ が存在して $af = 0$ を満たす。
-  \end{enumerate}
+  \begin{align}
+    f が単元である   & \iff a_0 が単元かつ a_1,\ldots,a_n はベキ零元である \\
+    f がベキ零元である & \iff a_0,a_1,\ldots,a_n がベキ零元である       \\
+    f が零因子である  & \iff A のある元 a \neq 0 が存在して af = 0 を満たす
+  \end{align}
 \end{proposition}
 \begin{proof}
   \begin{enumerate}
@@ -318,16 +303,20 @@
 
 \begin{proposition}
   $\phi:A\to B$ が環の準同型なら $\phi(0_A) = 0_B$ である.
-\end{proposition}
-\begin{proof}
-  $\phi(0_A) = \phi(0_A + 0_A) = \phi(0_A) + \phi(0_A)$ より $\phi(0_A) = 0_B$ となる.
-\end{proof}
-
-\begin{proposition}
   $A$, $B$, $C$ を環, $\phi:A\to B$, $\psi:B\to C$ を準同型とするとき, その合成 $\phi\circ\psi:A\to C$ も準同型である. 同様に $\phi$, $\psi$ が同型なら, $\phi\circ\psi$ も同型である.
 \end{proposition}
 \begin{proof}
-  $\psi\circ\phi(x + y) = \psi(\phi(x + y)) = \psi(\phi(x) + \phi(y)) = \psi(\phi(x)) + \psi(\phi(y)) = \psi\circ\phi(x) + \psi\circ\phi(y)$ となり, $\psi\circ\phi(xy) = \psi\circ\phi(x)\psi\circ\phi(y)$ や $\psi\circ\phi(1_A) = 1_C$ も同様に示せるから $\psi\circ\phi$ は準同型である. 同型も同様.
+  \begin{align}
+    \phi(0_A) = \phi(0_A + 0_A) = \phi(0_A) + \phi(0_A) = 0_B
+  \end{align}
+  \begin{align}
+    \psi\circ\phi(x + y) & = \psi(\phi(x + y)) = \psi(\phi(x) + \phi(y)) = \psi(\phi(x)) + \psi(\phi(y)) \\
+                         & = \psi\circ\phi(x) + \psi\circ\phi(y)                                         \\
+    \psi\circ\phi(xy)    & = \psi(\phi(xy)) = \psi(\phi(x)\phi(y)) = \psi(\phi(x))\psi(\phi(y))          \\
+                         & = \psi\circ\phi(x)\cdot\psi\circ\phi(y)                                       \\
+    \psi\circ\phi(1_A)   & = \psi(\phi(1_A)) = \psi(1_B) = 1_C
+  \end{align}
+  $\psi\circ\phi$ は準同型である。同型も同様。
 \end{proof}
 
 \begin{proposition}
@@ -342,6 +331,39 @@
   \end{align}
   より $x = y$ となるから $\phi$ は単射である.
 \end{proof}
+
+\begin{proposition}
+  $A\neq 0$ を環とする。このとき次は同値である。
+  \begin{enumerate}
+    \item $A$ は体である。
+    \item $A$ のイデアルは $0$ と $(1)$ のみである。
+    \item $A$ から零でない環 $B$ へのすべての環準同型は単射である。
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  ($1 \implies 2$) $\aa \neq 0$ を $A$ のイデアルとする。$\aa$ は零でない元 $x$ を含む。$x$ は単元であるから $\aa\supseteq (x) = (1)$ となり $\aa = (1)$ を得る。
+
+  ($2 \implies 3$) $\phi: A\to B$ を環準同型とする。このとき $\Kernel(\phi)$ は $(1)$ と異なるイデアルであるから $\Kernel(\phi) = 0$ である。よって $\phi$ は単射である。
+
+  ($3 \implies 1$) $x$ を単元でない $A$ の元とする。すると $(x) \neq (1)$ であるから $B = A/(x)$ は零環ではない。$\phi: A\to B$ を自然な準同型とすると $\Kernel(\phi) = (x)$ である。仮定より $\phi$ は単射であるから $(x) = 0$。したがって $x = 0$ となる。
+\end{proof}
+
+\begin{definition}
+  $A$ のイデアル $\pp$ は $\pp \neq (1)$ かつ $xy \in \pp \implies x\in\pp$ または $y\in\pp$ という条件を満たすとき $A$ の素イデアル (prime ideal) であるという。
+
+  $A$ のイデアル $\mm$ は $\mm \neq (1)$ かつ $\mm\subsetneq\mathfrak{a}\subsetneq (1)$ を満たすいかなる $A$ のイデアル $\mathfrak{a}$ も存在しないとき $A$ の極大イデアル (maximal ideal) であるという。
+\end{definition}
+
+\begin{theorem}
+  \begin{align}
+    \pp が素イデアルである \iff A/\pp は整域である \\
+    \mm が極大イデアルである \iff A/\mm は体である
+  \end{align}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
 
 \begin{definition}[$n$ 変数多項式]
   $A$ 係数あるいは $A$ 上の $n$ 変数 $x = (x_1,\cdots,x_n)$ の多項式とは, $\mathbb{N}^n$ から $A$ への写像で有限個の $(i_1,\cdots,i_n)\in\mathbb{N}^n$ を除いて値が $0$ になるものと, 変数 $x = (x_1,\cdots,x_n)$ の組のことである. この写像の $(i_1,\cdots,i_n)\in\mathbb{N}$ での値が $a_{i_1,\cdots,i_n}$ なら, この多項式を
@@ -386,70 +408,10 @@
   と書く. これは代表元のとりかたによらず定まる. $\lbrace Y_n\rbrace_n$ は集合族となり, $n\leq m$ なら $Y_n \subseteq Y_m$ とみなせる. $A[x_i]_{i\in I} = \bigcup_n Y_n$ と定義すればよい. $A[x_i]_{i\in I}$ が集合として存在するときそれを無限変数多項式環という.
 \end{definition}
 
-\begin{theorem}
-  $$
-    A[x_1,\cdots,x_n]\cong A[x_1,\cdots,x_{n-1}][x_n]
-  $$
-\end{theorem}
-\begin{proof}
-  $$
-    f(x_1,\cdots,x_n) = \sum_{i_n}\left(\sum_{i_1,\cdots,i_{n-1}}a_{i_1,\cdots,i_n}x_1^{i_1}\cdots x_{n-1}^{i_{n-1}}\right)x_n^{i_n}
-  $$
-\end{proof}
-
-\begin{definition}[環の鎖] a
-  \begin{enumerate}
-    \item 環: 加法が可換群, 乗法がモノイドであり, また分配法則を満たす.
-    \item 可換環: 環について乗法が可換である.
-    \item 整域: 可換環 $A$ について任意の $a,b\in A\backslash\lbrace0\rbrace$ に対し, $ab\neq 0$ となる.
-    \item 正規環: 整域 $A$ について商体 $K$ の元が $A$ 上整なら $A$ の元となる.
-    \item 一意分解環 (UFD): 整域について任意の元は素元分解できる.
-    \item 単項イデアル整域 (PID): 整域について任意のイデアルが単項イデアルである.
-    \item ユークリッド環: 整域 $A$ について写像 $d:A\backslash\lbrace0\rbrace\to\mathbb{N}$ があり, $a,b\in A$ で $b\neq 0$ なら, $q,r\in A$ があり, $a = qb + r$ で $r = 0$ または $d(r)<d(b)$ となる.
-    \item 体: 可換環 $A$ の乗法が $A\backslash\lbrace0\rbrace$ において可換群となる.
-  \end{enumerate}
-\end{definition}
-
-\begin{theorem}[環の鎖]
-  環$\impliedby$可換環$\impliedby$整域$\impliedby$正規環$\impliedby$ UFD $\impliedby$ PID $\impliedby$ユークリッド環$\impliedby$体
-\end{theorem}
-\begin{proof}
-  (可換環$\implies$環) 自明. \\
-  (整域$\implies$可換環) 自明. \\
-  (正規環$\implies$整域) 自明. \\
-  (UFD$\implies$正規環) $\alpha\in K$ を解に持つモニック多項式 $f(x) = x^n+\cdots+a_1x + a_0$ について $a_0 \neq 0$ とすると, $\alpha \neq 0$ である. ここで $\alpha$ を既約分数として $\alpha = \beta/\gamma$ と表すと, $\gamma^nf(\alpha) = \beta^n + a_{n-1}\gamma\beta^{n-1} + \cdots + a_0\gamma^n = 0$ より $\beta^n = -\gamma(a_1\beta^{n-1} + \cdots + a_n\gamma^{n-1})$ なので, $\gamma\in A^\times$ となる. よって $\alpha\in A$ である. \\
-  (PID$\implies$UFD) \\
-  (ユークリッド環$\implies$PID) あるイデアル $I\subseteq A$ に対し, $x = \min\lbrace d(y)\mid I\ni y \neq 0\rbrace$ とおくと $I = (x)$ となることを示す. イデアル $I$ の元 $\forall z=qx+r\in I$ について $r=0\lor d(r)<d(x)$ であり, $0 = d(r) < d(x)$ より $r = 0$ となる. よって $z = qx \in (x)$ となるので $I = (x)$ である. \\
-  (体$\implies$ユークリッド環)
-\end{proof}
 
 
-\begin{proposition}
-  部分環に性質が引き継がれる.
-  \begin{enumerate}
-    \item 環の部分環は環である.
-    \item 可換環の部分環は可換環である.
-    \item 整域の部分環は整域である.
-    \item 正規環の部分環は正規環である.
-    \item UFDの部分環はUFDである.
-    \item PIDの部分環はPIDではない?
-    \item ユークリッド環の部分環はユークリッド環ではない?
-    \item 体の部分環は体ではない.
-  \end{enumerate}
-\end{proposition}
-\begin{proof}
-  それぞれ証明する. 反例を挙げる.
-  \begin{enumerate}
-    \item 定義から自明.
-    \item 任意の元 $a,b\in A$ について可換ならばその部分集合も成り立つ.
-    \item
-    \item
-    \item
-    \item
-    \item
-    \item 有理数体 $\mathbb{Q}$ の部分環 $\mathbb{Z}$ は体ではない.
-  \end{enumerate}
-\end{proof}
+
+
 
 \begin{proposition}[素イデアルと極大イデアルの関係]
   素イデアル
@@ -499,121 +461,6 @@
 \end{definition}
 
 
-% % \usepackage[top=30truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
-% % \usepackage{float}
-% % \usepackage{longtable}
-% % \usepackage{pgfplots}
-% % \usepackage{diagbox}
-% % \usepackage{here}
-% % \usepackage{url}
-% % \pgfplotsset{compat=newest}
-% % \newlength\figHeight
-% % \newlength\figWidth
 
-% % \documentclass[a4paper,dvipdfmx]{jsarticle}
-% \RequirePackage{plautopatch}
-% \documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
-
-% %ルビ用%
-% \usepackage{okumacro}
-% %字下げを保存するための設定　\parでインデント＋改行%
-% \usepackage{indentfirst}
-% %画像挿入パッケージ。graphix=Windows,graphics=Mac%
-% \usepackage[dvipdfmx]{graphicx}
-% %refがハイパーリンクとなる
-% \usepackage[dvipdfmx]{hyperref}
-% \hypersetup{
-%   setpagesize=false,
-%   bookmarksnumbered=true,
-%   bookmarksopen=true,
-%   colorlinks=false,
-%   linkcolor=blue,
-%   citecolor=red,
-% }
-% %文章を図に回り込ませるパッケージ%
-% \usepackage{wrapfig}
-% %ベクトル%
-% \usepackage{bm}
-% %url中の_や\にエラーをはかせないためのパッケージ%
-% \usepackage{url}
-% %複数行コメントのためのパッケージ%
-% \usepackage{comment}
-% %コードのためのパッケージ（英語のみ）%
-% \usepackage{listings}
-% %物理関係のパッケージ%
-% \usepackage{physics}
-% %数学関係のパッケージ%
-% \usepackage{amsmath,amsfonts,amssymb}
-
-% \DeclareMathOperator{\Ker}{Ker}
-% \DeclareMathOperator{\ch}{ch}
-% \usepackage{mathtools}
-% %定理環境のパッケージ%
-% \usepackage{amsthm}
-% \theoremstyle{plain}
-
-% \newtheorem{theorem}{Theorem}
-% \newtheorem*{theorem*}{Theorem}
-% \theoremstyle{definition}
-% \newtheorem{definition}{Definition}
-% \theoremstyle{plain}
-% \newtheorem{note}{Note}
-% \newtheorem*{note*}{Note}
-% \numberwithin{equation}{section}
-% \numberwithin{theorem}{section}
-% \numberwithin{definition}{section}
-% \numberwithin{note}{section}
-% \theoremstyle{definition}
-% \newtheorem{dfn}{Definition}[section]
-% \newtheorem{prop}[dfn]{Proposition}
-% \newtheorem{lem}[dfn]{Lemma}
-% \newtheorem{thm}[dfn]{Theorem}
-% \newtheorem{cor}[dfn]{Corollary}
-% \newtheorem{rem}[dfn]{Remark}
-% \newtheorem{fact}[dfn]{Fact}
-% \renewcommand{\qedsymbol}{$\blacksquare$}
-% %ファイル分割%
-% \usepackage{docmute}
-% %各種設定%
-% \lstset{
-%   language=C++,
-%   breaklines=true,
-%   keywordstyle = {\color[rgb]{0,0,1}},
-%   stringstyle = {\color[rgb]{1,0,0}},
-%   commentstyle = {\color[rgb]{0,1,0}},
-%   numbers=left,
-%   frame=lines
-% }
-% %色付け　使うときは\documentclass[dvipdfmx]を追加すること！%
-% \usepackage{color}
-% %ギリシャ数字%
-% \usepackage{ascmac}
-% \usepackage{otf}
-% %SI単位系%
-% \usepackage{siunitx}
-% %tikz%
-% \usepackage{tikz}
-% \usetikzlibrary{intersections, calc, arrows, positioning, arrows.meta,automata}
-% %上部に書く
-% \usepackage{fancyhdr}
-% \pagestyle{fancyplain}
-%     \fancyhead[RO,RE]{\rightmark}
-%     \fancyhead[LE,LO]{\leftmark}
-%     \rhead{\thepage}
-% \renewcommand\plainheadrulewidth{.4pt}% headrule on plain pages
-% \makeatletter
-% \renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
-
-% \begin{document}
-% \title{抽象代数}
-% \author{
-%   anko
-% }
-% \maketitle
-% \tableofcontents
-% \clearpage
-% a
-
-% \end{document}
 
 \end{document}
