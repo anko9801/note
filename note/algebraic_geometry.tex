@@ -1,0 +1,270 @@
+\RequirePackage{plautopatch}
+\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
+\usepackage{bxpapersize}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage{lmodern}
+\usepackage{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ascmac}
+% \usepackage[hyphens]{url}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
+\usepackage{verbatimbox}
+\usepackage{bm}
+\usepackage{url}
+% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{tikz}\usetikzlibrary{cd}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{xy}
+\usepackage{xypic}
+%
+\title{}
+\author{anko9801}
+\makeatletter
+%
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
+\numberwithin{equation}{section}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
+
+% theorem環境の設定
+% - 冒頭に改行
+% - 末尾にdiamond (amsthm)
+\theoremstyle{definition}
+\newcommand*{\newscreentheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{screen}
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+  }{
+    \end{#2}
+    \end{screen}
+  }
+}
+\newcommand*{\newqedtheoremx}[2]{
+  \newenvironment{#1}[1][]{
+    \begin{#2}[##1]
+      \leavevmode
+      \newline
+      \renewcommand{\qedsymbol}{\(\diamond\)}
+      \pushQED{\qed}
+  }{
+      \qedhere
+      \popQED
+    \end{#2}
+  }
+}
+\newtheorem{theorem*}{定理}[section]
+
+\newqedtheoremx{theorem}{theorem*}
+\newcommand*\newqedtheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*\newqedtheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newqedtheoremx{#1}{#1*}
+}
+\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
+
+\newtheorem{sctheorem*}{定理}[section]
+\newscreentheoremx{sctheorem}{sctheorem*}
+\newcommand*\newscreentheorem@unstarred[2]{%
+  \newtheorem{#1*}[theorem*]{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*\newscreentheorem@starred[2]{%
+  \newtheorem*{#1*}{#2}
+  \newscreentheoremx{#1}{#1*}
+}
+\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
+
+%\newtheorem*{definition}{定義}
+%\newtheorem{theorem}{定理}
+%\newtheorem{proposition}[theorem]{命題}
+%\newtheorem{lemma}[theorem]{補題}
+%\newtheorem{corollary}[theorem]{系}
+
+\newqedtheorem{lemma}{補題}
+\newqedtheorem{corollary}{系}
+\newqedtheorem{example}{例}
+\newqedtheorem{proposition}{命題}
+\newqedtheorem{remark}{注意}
+\newqedtheorem{thesis}{主張}
+\newqedtheorem{notation}{記法}
+\newqedtheorem{problem}{問題}
+\newqedtheorem{algorithm}{アルゴリズム}
+
+\newscreentheorem*{axiom}{公理}
+\newscreentheorem*{definition}{定義}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \topsep6\p@\@plus6\p@ \trivlist
+  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
+}{%
+  \qed\endtrivlist\@endpefalse
+}
+\renewcommand\proofname{証明}
+
+\makeatother
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{代数多様体}
+\subsection{代数的集合}
+代数幾何学は代数方程式で定められる図形の幾何学である。
+\begin{definition}
+  体 $k$ 上の $n$ 変数多項式環 $k[x_1,\ldots,x_n]$ について $f_1,\ldots,f_l\in k[x_1,\ldots,x_n]$ からなる次の連立方程式の解は $(a_1,\ldots,a_n)\in k^n$ と書ける。
+  \begin{align}
+    \begin{dcases}
+      f_1(x_1,\ldots,x_n) = 0 \\
+      \quad\qquad \vdots      \\
+      f_l(x_1,\ldots,x_n) = 0
+    \end{dcases}
+  \end{align}
+  この $k^n$ を体 $k$ 上の $n$ 次元アフィン空間 (affine space) と呼び、$\AA_k^n$ または $\AA^n$ と書く。そして解の全体を $V(f_1,\ldots,f_l)$ と書き、連立方程式が定める代数的集合 (algebraic set) と呼ぶ。またイデアル $I = (f_1,\ldots,f_l)$ の任意の元に対する解の全体を $V(I)$ と書く。
+  \begin{align}
+    V(f_1, \ldots, f_l) & = \lbrace(a_1, \ldots, a_n)\in k^n\mid f_\alpha(a_1,\ldots,a_n) = 0,\ \alpha = 1,\ldots,l\rbrace \\
+    V(I)                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall f\in I \ f(a_1,\ldots,a_n) = 0\rbrace
+  \end{align}
+\end{definition}
+
+\begin{lemma}
+  $I = (f_1,\ldots,f_l)$ のとき $V(I) = V(f_1,\ldots,f_l)$
+\end{lemma}
+\begin{proof}
+  イデアル $I = (f_1,\ldots,f_l)$ の任意の元 $f(x_1,\ldots,x_n)\in I$ について
+  \begin{align}
+    f(x_1,\ldots,x_n) & = \sum_{\alpha=1}^{l}g_\alpha(x_1,\ldots,x_n)f_\alpha(x_1,\ldots,x_n)
+  \end{align}
+  と書ける。これより $(a_1,\ldots,a_n)\in V(f_1,\ldots,f_l)$ に対して $f(a_1,\ldots,a_n) = 0$ が成り立ち $V(f_1,\ldots,f_l)\subseteq V(I)$ となる。
+  逆に $(b_1,\ldots,b_n)\in V(I)$ ならば $f_\alpha(b_1,\ldots,b_n) = 0\quad (\alpha = 1,\ldots,l)$ が成り立ち $V(f_1,\ldots,f_l)\supseteq V(I)$ となる。
+  よって $V(I) = V(f_1,\ldots,f_l)$ となる。
+\end{proof}
+
+これより $f_1,\ldots,f_l$ から定まる代数的集合 $V(f_1,\ldots,f_l)$ と $I = (f_1,\ldots,f_l)$ から定まる代数的集合 $V(I)$ を考えることと同じであることが分かる。したがって今後はイデアル $I$ から定まる代数的集合 $V(I)$ を主として考えることにする。
+
+\begin{theorem}[Hilbert の基底定理]
+  Noether 環のイデアルは有限生成である。特に多項式環 $k[x_1,\ldots,x_n]$ は Noether 環であるからイデアルは $J = (g_1,\ldots,g_n)$ と書ける。
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+\begin{proposition}
+  1 次元アフィン空間 $\AA^1$ 内の代数的集合は $\AA^1$ 以外有限個の点である。
+\end{proposition}
+\begin{proof}
+  体 $k$ の $1$ 変数多項式環は単項イデアル整域であるから自明でないイデアルは $f(x)$ を用いて $I = (f(x)) \neq (0)$ と表される。これより
+  \begin{align}
+    V(I) & = \lbrace a\in k\mid f(a) = 0\rbrace
+  \end{align}
+  となるから有限個の解しかない。
+\end{proof}
+
+\begin{proposition}
+
+\end{proposition}
+\begin{proof}
+  可算無限個の相違なる元 $c_1,\ldots,c_n,\ldots$ を取り出し $k[x]$ のイデアル $I_j = (x - c_j)$ を作り、
+  \begin{align}
+    I_{j_1}\cap \cdots\cap I_{j_n}    & = \ab(\prod_{i=1}^{n}(x - c_{j_i}))      \\
+    V(I_{j_1}\cap \cdots\cap I_{j_n}) & = \lbrace c_{j_1},\ldots,c_{j_n} \rbrace
+  \end{align}
+  可算無限次数の多項式は存在しないので
+  \begin{align}
+    \bigcap_j I_j     & = (0)     \\
+    V\ab(\bigcap I_j) & = \AA_k^1
+  \end{align}
+  となる。一方
+  \begin{align}
+    \bigcup_j V(I_j) = \lbrace c_1, c_2, \ldots \rbrace
+  \end{align}
+  となるので
+  \begin{align}
+    V\ab(\bigcap I_j) \supsetneq \bigcup_j V(I_j)
+  \end{align}
+\end{proof}
+
+\begin{theorem}[弱い形の Hilbert の零点定理]
+  代数的閉体 $k$ 上の多項式環 $k[x_1, x_2,\ldots,x_n]$ のイデアル $I$ が単位元を含まないならば
+  \begin{align}
+    V(I)\neq\emptyset
+  \end{align}
+  である。
+\end{theorem}
+
+\begin{proposition}
+  実数体 $\RR$ 上の 1 変数多項式環の極大イデアルは
+  \begin{align}
+     & (x - a), a\in\RR                        \\
+     & (x^2 + ax + b), a,b\in\RR, a^2 - 4b < 0
+  \end{align}
+  の形となる。
+\end{proposition}
+\begin{proof}
+  単項イデアル整域より既約元のイデアルと極大イデアルは同値である。
+  $n$ 次多項式
+  \begin{align}
+    x^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0 = (x - a_1)\cdots(x^2 + a_2x + b_2)
+  \end{align}
+  共役な複素数が生じる
+\end{proof}
+
+
+
+\end{document}
