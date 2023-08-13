@@ -10,8 +10,10 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -26,8 +28,8 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{量子力学}
-\author{Anko}
+\title{相対論的量子力学}
+\author{anko9801}
 \makeatletter
 %
 \DeclareMathOperator{\lcm}{lcm}
@@ -48,8 +50,18 @@
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\hat{A}}
+\renewcommand{\BB}{\hat{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
+\newcommand{\vnabla}{\mathbf{\nabla}}
+\newcommand{\laplacian}{\nabla^2}
 \newcommand{\ignore}[1]{}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 % \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
@@ -58,12 +70,9 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
-\renewcommand{\AA}{\bm{A}}
-\newcommand{\rr}{\bm{r}}
-\newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
+\newcommand\mab[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmab[1]{\begin{vmatrix}#1\end{vmatrix}}
+\numberwithin{equation}{section}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -99,7 +108,7 @@
     \end{#2}
   }
 }
-\newtheorem{theorem*}{定理}
+\newtheorem{theorem*}{定理}[section]
 
 \newqedtheoremx{theorem}{theorem*}
 \newcommand*\newqedtheorem@unstarred[2]{%
@@ -112,7 +121,7 @@
 }
 \newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
 
-\newtheorem{sctheorem*}{定理}
+\newtheorem{sctheorem*}{定理}[section]
 \newscreentheoremx{sctheorem}{sctheorem*}
 \newcommand*\newscreentheorem@unstarred[2]{%
   \newtheorem{#1*}[theorem*]{#2}
@@ -165,52 +174,794 @@
   H      & \mapsto H - q\phi(\rr, t)        \\
   \bm{p} & \mapsto \bm{p} - q\bm{A}(\rr, t)
 \end{align}
-一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\cross\rr$ (対称ゲージ) と置くことができるので
+一様な磁場 $\bm{B}$ の場合, ベクトルポテンシャルは $\bm{A} = \dfrac{1}{2}\bm{B}\times\rr$ (対称ゲージ) と置くことができるので
 \begin{align}
-  \frac{1}{2m}(\bm{p} - q\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{q}{2m}\bm{B}\vdot\bm{L} + \frac{q^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\vdot\rr)^2)
+  \frac{1}{2m}(\bm{p} - q\bm{A}) = \frac{\bm{p}^2}{2m} - \frac{q}{2m}\bm{B}\cdot\bm{L} + \frac{q^2}{8m}(\bm{B}^2\rr^2 - (\bm{B}\cdot\rr)^2)
 \end{align}
 $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 \begin{align}
-  H & = \frac{(\bm{\sigma}\vdot\bm{p})^2}{2m}                                                                         \\
-    & = \frac{(\bm{\sigma}\vdot\bm{p - q\bm{A}})^2}{2m}                                                               \\
-    & = \frac{1}{2m}(\bm{p - q\bm{A}})^2 - 2\frac{q\hbar}{2m}\bm{B}\vdot\bm{s} & \qty(\bm{s} = \frac{\bm{\sigma}}{2})
+  H & = \frac{(\bm{\sigma}\cdot\bm{p})^2}{2m}                                                                        \\
+    & = \frac{(\bm{\sigma}\cdot\bm{p - q\bm{A}})^2}{2m}                                                              \\
+    & = \frac{1}{2m}(\bm{p - q\bm{A}})^2 - 2\frac{q\hbar}{2m}\bm{B}\cdot\bm{s} & \ab(\bm{s} = \frac{\bm{\sigma}}{2})
 \end{align}
 となる。
 ゼーマン相互作用
 
-\section{相対論的量子力学}
-\begin{theorem}
+\section{相対論的波動方程式}
+\subsection{クライン・ゴルドン方程式}
+
+\begin{theorem}[クライン・ゴルドン方程式]
+  相対論的力学におけるエネルギーと運動量の関係に基づいてローレンツ変換のもとで共変となる相対論的波動方程式を構築する。
   \begin{align}
-    L           & = \frac{m}{2}\dot{\rr}^2 - q\phi(t, \rr) + q\dot{\rr}\vdot\AA(t, \rr) \\
-    m\ddot{\rr} & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                          \\
-    \pp         & = m\dot{\rr} + q\AA(t, \rr)                                           \\
-    H           & = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+    \ab[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0
   \end{align}
 \end{theorem}
 \begin{proof}
+  相対論的力学における自由粒子のエネルギーと運動量の関係 $E = \pm\sqrt{(mc^2)^2 + (c\pp)^2}$ より
   \begin{align}
-    \pdv{t}(\pdv{L}{\dot{\rr}}) - \pdv{L}{\rr} & = 0                                                                         \\
-    m\ddot{\rr}                                & = q\EE(t, \rr) + q\dot{\rr}\cross\BB(t, \rr)                                \\
-    \pp                                        & = \pdv{L}{\dot{\rr}} = m\dot{\rr} + q\AA(t, \rr)                            \\
-    H                                          & = \pp\vdot\dot{\rr} - L = \frac{(\pp - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr)
+    i\hbar\diffp{}{t}\psi(x) & = \pm\sqrt{(mc^2)^2 + (c\hat{\pp})^2}\psi(x)
   \end{align}
-\end{proof}
-\begin{align}
-  i\hbar\pdv{t}\psi(t, \rr)                       & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
-  \qty(i\hbar\pdv{t} - q\phi(t, \rr))\psi(t, \rr) & = \frac{(-i\hbar\vnabla - q\AA(t, \rr))^2}{2m}
-\end{align}
-\begin{align}
-  i\hbar\pdv{t}  & \to i\hbar\pdv{t} - q\phi(t, \rr) \\
-  -i\hbar\vnabla & \to -i\hbar\vnabla - q\AA(t, \rr)
-\end{align}
-\begin{theorem}
+  となるが
+  \begin{enumerate}
+    \item 時間微分と空間微分について非対称であり, ローレンツ変換のもとでの共変性が見えない.
+    \item 実際に, 光速よりも速く情報が伝播しないという, 相対論的な因果律を破る.
+    \item 空間微分が平方根の中に入っているため連続の方程式を導くことができず, 波動関数の確率解釈ができない.
+  \end{enumerate}
+  これだと
+  上記の波動方程式では, 時間に関して 1 階微分, 空間に関して 2 階微分が平方根の中に入っている. この非対称性を解消するため, 時間微分を両辺に作用させると
   \begin{align}
-    \pdv{\rho(t,\rr)}{t} + \vnabla\vdot\bm{j}(t,\rr) = 0
+     & \ab(i\hbar\diffp{}{t})^2\psi(x) = [(mc^2)^2 + (c\hat{\pp})^2]\psi(x) \\
+     & \ab[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0
+  \end{align}
+  を得る。これをクライン・ゴルドン方程式と呼ぶ。
+\end{proof}
+
+\begin{theorem}[連続の方程式]
+  \begin{align}
+    \partial_\mu j^\mu(x) = 0
   \end{align}
 \end{theorem}
 \begin{proof}
+  クライン・ゴルドン方程式から
   \begin{align}
-    i\hbar\pdv{t}\psi(t, \rr) & = \qty(\frac{(\hat{\pp} - q\AA(t, \rr))^2}{2m} + q\phi(t, \rr))\psi(t, \rr) \\
+    \psi^*(x)[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0 \\
+    \psi(x)[(\hbar c)^2\partial^2 + (mc^2)^2]\psi^*(x) = 0
+  \end{align}
+  が得られるので両辺の差を取って
+  \begin{align}
+    (\hbar c)^2\partial_\mu[\psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)] = 0
+  \end{align}
+  となる。よって
+  \begin{align}
+     & j^\mu(x) := \frac{i\hbar}{2m}[\psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)] \\
+     & \partial_\mu j^\mu(x) = 0
+  \end{align}
+  となる。ただし $\rho(x) = j^0(x)/c$ は非負とは限らないため粒子の存在確率密度と解釈することはできない。
+\end{proof}
+
+クライン・ゴルドン方程式では時間に関して 2 階微分を含むため、$j^0(x)$ に時間微分が残り、確率解釈ができなかった。時間に関して 1 階微分のみを含む相対論的波動方程式を構築したい。また共変性を満足するためには空間に関しても 1 階微分のみを含む必要がある。そこで
+\begin{theorem}[ディラック方程式]
+  確率解釈できる相対論的波動方程式を構築する。無次元の未知係数 $\alpha^i, \beta$ を用いて次のような形で書ける。
+  \begin{align}
+    i\hbar\diffp{}{t}\psi(x)        & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)                                   \\
+    \lbrace\alpha^i,\alpha^j\rbrace & = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  次の形を仮定する。
+  \begin{align}
+    i\hbar\diffp{}{t}\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)\psi(x)
+  \end{align}
+  これがクライン・ゴルドン方程式を満たすことから
+  \begin{align}
+    \ab(i\hbar\diffp{}{t})^2\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)^2\psi(x)                                                                      \\
+                                    & = \ab[c^2\alpha^i\alpha^j\hat{p}_i\hat{p}_j + \beta^2(mc^2)^2 + (\alpha^i\beta + \beta\alpha^i)\hat{p}_i(mc)]\psi(x) \\
+                                    & = [(c\hat{\pp})^2 + (mc^2)^2]\psi(x)
+  \end{align}
+  より $\alpha^i$ と $\beta$ は次を満たすエルミート行列である。
+  \begin{align}
+    \lbrace\alpha^i,\alpha^j\rbrace = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
+  \end{align}
+  よって
+  \begin{align}
+    i\hbar\diffp{}{t}\psi(x) & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
   \end{align}
 \end{proof}
+
+これを満たす行列について、例えばディラック表示がある。
+\begin{align}
+  \alpha^i = \begin{pmatrix}
+               0        & \sigma^i \\
+               \sigma^i & 0
+             \end{pmatrix} = \sigma^i \otimes \tau^1, \qquad
+  \beta = \begin{pmatrix}
+            \sigma^0 & 0         \\
+            0        & -\sigma^0
+          \end{pmatrix} = \sigma^0 \otimes \tau^3
+\end{align}
+
+\begin{theorem}
+  さらにガンマ行列 $\gamma^\mu := (\beta, \beta\bm{\alpha})$ を定義することでディラック方程式は次のように書ける。
+  \begin{align}
+     & (i\hbar\gamma^\mu \partial_\mu - mc)\psi(x) = 0                                                                                 \\
+     & (\gamma^0)^\dagger = \gamma^0, \qquad (\gamma^i)^\dagger = -\gamma^i, \qquad \lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  ディラック方程式の両辺に $\beta/c$ を掛けると
+  \begin{align}
+    i\hbar\diffp{}{t}\psi(x)        & = \ab(-i\hbar c\alpha^i\partial_i + \beta mc^2)\psi(x) \\
+    i\hbar\gamma^0\partial_0\psi(x) & = \ab(-i\hbar\gamma^i\partial_i + mc)\psi(x)
+  \end{align}
+  となる。またガンマ行列について
+  \begin{align}
+    (\gamma^0)^\dagger & = \beta^\dagger = \beta = \gamma^0                                     \\
+    (\gamma^i)^\dagger & = (\beta\alpha^i)^\dagger = \alpha^i\beta = -\beta\alpha^i = -\gamma^i
+  \end{align}
+  より $\gamma^0$ はエルミート行列で $\gamma^i$ は反エルミート行列である。$\lbrace\gamma^\mu, \gamma^\nu\rbrace = \lbrace\gamma^\nu, \gamma^\mu\rbrace$ より $\mu \leq \nu$ のときを示せばよい。
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^\nu\rbrace & =
+    \begin{dcases}
+      \beta\alpha^\mu\beta\alpha^\nu + \beta\alpha^\nu\beta\alpha^\mu = -\beta^2(\alpha^\mu\alpha^\nu + \alpha^\nu\alpha^\mu) = -2\delta^{\mu\nu} & (\mu > 0, \nu > 0) \\
+      \beta\beta\alpha^\nu + \beta\alpha^\nu\beta = \beta^2\alpha^\nu - \beta^2\alpha^\nu = 0                                                     & (\mu = 0, \nu > 0) \\
+      2\beta^2 = 2                                                                                                                                & (\mu = \nu = 0)
+    \end{dcases}
+  \end{align}
+  よって $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ と書ける。
+\end{proof}
+
+\begin{proposition}
+  $x'^\mu = \Lambda^\mu_\nu x^\mu$, $D'_\mu = \Lambda_\mu^\nu D_\nu$
+\end{proposition}
+
+(2) $\gamma^5$ を次のように定義する。
+\begin{align}
+  \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
+\end{align}
+このとき次の式を示せ。
+\begin{align}
+  (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
+\end{align}
+\begin{proof}
+  \begin{align}
+    (\gamma^5)^\dagger & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0                                   \\
+                       & = i\gamma^3\gamma^2\gamma^1\gamma^0                                             \\
+                       & = (-1)^6i\gamma^0\gamma^1\gamma^2\gamma^3                                       \\
+                       & = \gamma^5                                                                      \\
+    (\gamma^5)^2       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger \\
+                       & = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2                            \\
+                       & = 1
+  \end{align}
+  \begin{align}
+    \lbrace\gamma^\mu, \gamma^5\rbrace & = i(\gamma^\mu\gamma^0\gamma^1\gamma^2\gamma^3 + \gamma^0\gamma^1\gamma^2\gamma^3\gamma^\mu) \\
+                                       & = i((-1)^\mu + (-1)^{3-\mu})\gamma^0\cdots(\gamma^\mu)^2\cdots\gamma^3                       \\
+                                       & = 0
+  \end{align}
+\end{proof}
+
+(3) $\Sigma^i$ を次のように定義する。
+\begin{align}
+  \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
+\end{align}
+このとき次の式を示せ。
+\begin{align}
+  (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
+\end{align}
+\begin{proof}
+  まず $(\Sigma^i)^\dagger = \Sigma^i$ を示す。
+  \begin{align}
+    (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}(\varepsilon^{ijk}\gamma^j\gamma^k)^\dagger \\
+                       & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j           \\
+                       & = -\frac{i}{2}\sum_{j,k}-\varepsilon^{ikj}\gamma^k\gamma^j          \\
+                       & = \Sigma^i
+  \end{align}
+  次に $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ を示す。 \\
+  $i = j$ のとき、ある $k, l$ が存在して
+  \begin{align}
+    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{2}\ab(\sum_{a,b}\varepsilon^{iab}\gamma^a\gamma^b)^2                                                                                             \\
+                                     & = -\frac{1}{2}\ab(\gamma^k\gamma^l - \gamma^l\gamma^k)^2                                                                                                     \\
+                                     & = -\frac{1}{2}\ab(\gamma^k\gamma^l\gamma^k\gamma^l - \gamma^k\gamma^l\gamma^l\gamma^k - \gamma^l\gamma^k\gamma^k\gamma^l + \gamma^l\gamma^k\gamma^l\gamma^k) \\
+                                     & = 2
+  \end{align}
+  $i \neq j$ のとき $a, b, c, d$ のいづれか 2 つ 1 組は同じであるから
+  \begin{align}
+    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}(\varepsilon^{iab}\gamma^a\gamma^b\varepsilon^{jcd}\gamma^c\gamma^d + \varepsilon^{jcd}\gamma^c\gamma^d\varepsilon^{iab}\gamma^a\gamma^b) \\
+                                     & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}\varepsilon^{iab}\varepsilon^{jcd}(1 + (-1)^3)\gamma^a\gamma^b\gamma^c\gamma^d                                                            \\
+                                     & = 0
+  \end{align}
+  よって $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ である。
+\end{proof}
+
+(4) $\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
+\begin{align}
+  (\bm{v}\cdot\bm{\Sigma})^2 = \bm{v}^2
+\end{align}
+\begin{proof}
+  \begin{align}
+    (\bm{v}\cdot\bm{\Sigma})^2 & = (v^i\Sigma^i)(v^j\Sigma^j)^\dagger \\
+                               & = v^i\Sigma^i\Sigma^j(v^j)^\dagger   \\
+                               & = \delta^{ij}v^i(v^j)^\dagger        \\
+                               & = \bm{v}^2
+  \end{align}
+\end{proof}
+
+(5) $\alpha^i, \beta$ の具体例を 1 つ挙げて性質を満たすことを確認せよ。
+\begin{proof}
+  次のディラック表示を用いる。
+  \begin{align}
+    \alpha^i = \begin{pmatrix}
+                 0        & \sigma^i \\
+                 \sigma^i & 0
+               \end{pmatrix}, \qquad
+    \beta = \begin{pmatrix}
+              \sigma^0 & 0         \\
+              0        & -\sigma^0
+            \end{pmatrix}
+  \end{align}
+  このとき $\alpha^i, \beta$ の性質を満たす。
+  \begin{align}
+    (\alpha^i)^\dagger & = \begin{pmatrix}
+                             0        & \sigma^i \\
+                             \sigma^i & 0
+                           \end{pmatrix} = \alpha^i \\
+    \beta^\dagger      & = \begin{pmatrix}
+                             \sigma^0 & 0         \\
+                             0        & -\sigma^0
+                           \end{pmatrix} = \beta
+  \end{align}
+  \begin{align}
+    \lbrace\alpha^i, \alpha^j\rbrace & = \begin{pmatrix}
+                                           0        & \sigma^i \\
+                                           \sigma^i & 0
+                                         \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^j \\
+      \sigma^j & 0
+    \end{pmatrix} +
+    \begin{pmatrix}
+      0        & \sigma^j \\
+      \sigma^j & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^i \\
+      \sigma^i & 0
+    \end{pmatrix}                                                                                                                          \\
+                                     & = (\sigma^i\sigma^j + \sigma^j\sigma^i)\otimes I                                                          \\
+                                     & = \ab((\delta^{ij}I + i\varepsilon^{ijk}\sigma^k) + (\delta^{ji}I + i\varepsilon^{jik}\sigma^k))\otimes I \\
+                                     & = 2\delta^{ij}                                                                                            \\
+    \beta^2                          & = \begin{pmatrix}
+                                           \sigma^0 & 0         \\
+                                           0        & -\sigma^0
+                                         \end{pmatrix}^2 = 1                                                                                    \\
+    \lbrace\alpha^i, \beta\rbrace    & = \begin{pmatrix}
+                                           0        & \sigma^i \\
+                                           \sigma^i & 0
+                                         \end{pmatrix}
+    \begin{pmatrix}
+      \sigma^0 & 0         \\
+      0        & -\sigma^0
+    \end{pmatrix} +
+    \begin{pmatrix}
+      \sigma^0 & 0         \\
+      0        & -\sigma^0
+    \end{pmatrix}
+    \begin{pmatrix}
+      0        & \sigma^i \\
+      \sigma^i & 0
+    \end{pmatrix}                                                                                                                          \\
+                                     & = (\sigma^i\sigma^0 - \sigma^0\sigma^i)\otimes\begin{pmatrix}
+                                                                                       0 & -1 \\
+                                                                                       1 & 0
+                                                                                     \end{pmatrix}                                              \\
+                                     & = 0
+  \end{align}
+\end{proof}
+
+\begin{problem}
+共変微分 $D_\mu$ を次のように定義する。
+\begin{align}
+  D_\mu := \partial_\mu - \frac{q}{i\hbar}A_\mu(x)
+\end{align}
+\end{problem}
+(1) $\bm{D} = (D_1, D_2, D_3)$ に対して
+\begin{align}
+  (\bm{D}\cdot\bm{\sigma})^2 & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\cdot\bm{\sigma}
+\end{align}
+を示せ。
+\begin{proof}
+  まず次の式が成り立つことを確認する。
+  \begin{align}
+    D_\mu D_\nu^\dagger & = \ab(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\ab(\partial_\nu + \frac{q}{i\hbar}A_\nu(x))                                                      \\
+                        & = \partial_\mu\partial_\nu + \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu + \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x)
+  \end{align}
+  よって次のように示せる。
+  \begin{align}
+    (\bm{D}\cdot\bm{\sigma})^2 & = \sum_{i,j}(D_i\sigma^i)(D_j\sigma^j)^\dagger                                      \\
+                               & = \sum_{i,j}\ab(\delta^{ij}I + i\sum_{k}\varepsilon^{ijk}\sigma^k)D_iD_j^\dagger    \\
+                               & = \sum_{i}D_i^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^kD_iD_j^\dagger              \\
+                               & = \bm{D}^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^k\frac{q}{i\hbar}\partial_iA_j(x) \\
+                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{\sigma}\cdot(\vnabla\times\bm{A}(x))                \\
+                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\cdot\bm{\sigma}
+  \end{align}
+\end{proof}
+
+(2) 荷電粒子に対するクライン・ゴルドン方程式
+\begin{align}
+  [\hbar^2D^2 + (mc)^2]\phi(x) = 0
+\end{align}
+が非相対論的極限 $mc^2\to\infty$ において、シュレーディンガー方程式に帰着することを示せ
+\begin{proof}
+  $A^\mu = (\phi/c, \bm{A})$ であり $\phi(x) = e^{-i(mc^2)t/\hbar}\varphi(x)$ とおくと
+  \begin{align}
+     & [\hbar^2D^2 + (mc)^2]\phi(x) = 0                                                                                                                                                                                                    \\
+     & = \ab[\hbar^2\ab(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\ab(\partial^\nu - \frac{q}{i\hbar}A^\nu(x)) + (mc)^2]\phi(x)                                                                                                              \\
+     & = \ab[\ab(\hbar^2\partial_\mu\partial^\nu + i\hbar\partial_\mu qA^\nu(x)  + qA_\mu(x)i\hbar\partial^\nu - q^2A_\mu(x)A^\nu(x)) + (mc)^2]\phi(x)                                                                                     \\
+     & = \ab[\ab(\frac{\hbar^2}{c^2}\diffp[2]{t} + \pp^2) + q\ab(\frac{i\hbar}{c^2}\diffp{t}\phi - \pp\cdot\bm{A}(x)) + q\ab(\frac{i\hbar}{c^2}\phi\diffp{t} - \bm{A}(x)\cdot\pp) - q^2\ab(\frac{\phi^2}{c^2} - \bm{A}^2) + (mc)^2]\phi(x) \\
+     & = \ab[\frac{\hbar^2}{c^2}\diffp[2]{t} + q\frac{i\hbar}{c^2}\diffp{t}\phi + q\frac{i\hbar}{c^2}\phi\diffp{t} - q^2\frac{\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                   \\
+     & = \ab[-(mc)^2 + q\frac{i\hbar}{c^2}\diffp{\phi}{t} + 2mq\phi - \frac{q^2\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                                                                  \\
+     & = 2m\ab[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]e^{-i(mc^2)t/\hbar}\varphi(x)
+  \end{align}
+  非相対論的極限 $mc^2\to\infty$ のとき $\phi(x)$ は時間に依存しないからシュレーディンガー方程式となる。
+  \begin{align}
+    i\hbar\diffp{t}\phi(x) & = \ab(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\phi(x)
+  \end{align}
+\end{proof}
+(3) 荷電粒子に対するディラック方程式
+\begin{align}
+  (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
+\end{align}
+を用いて, 軸性ベクトル $j_A^\mu(x) := \bar{\psi}(x)\gamma^\mu\gamma^5\psi(x)$ の発散 $\partial_\mu j_A^\mu(x)$ を計算し、微分を含まない形で表せ。
+\begin{proof}
+  まず次の式が成り立つことを確認する。
+  \begin{align}
+    \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
+                               & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
+                               & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
+  \end{align}
+  よってディラック方程式より次のようになる。
+  \begin{align}
+    \partial_\mu j_A^\mu(x) & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                     \\
+                            & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                           \\
+                            & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                            \\
+                            & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                          \\
+                            & = \ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))    \\
+                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
+                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
+                            & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+中心力ポテンシャル $V(r)$ を持つハミルトニアン $\hat{H} = c\bm{\alpha}\cdot\hat{\pp} + \beta mc^2 + V(r)$ を考える.
+\end{problem}
+(1) $\hat{H}$ と軌道角運動量 $\hat{L} = \rr\times\hat{\pp}$ との交換関係を求めよ。
+\begin{proof}
+  \begin{align}
+    [\hat{H}, \hat{L}^i] & = [c\bm{\alpha}\cdot\hat{\pp} + \beta mc^2 + V(r), \varepsilon^{ijk}r^j\hat{p}^k]                                              \\
+                         & = \varepsilon^{ijk}\ab(c[\alpha^\mu\hat{p}^\mu, r^j\hat{p}^k] + mc^2[\beta, r^j\hat{p}^k] + [V(r), r^j\hat{p}^k])              \\
+                         & = \varepsilon^{ijk}\ab(c\alpha^\mu(p^\mu r^jp^k - r^jp^kp^\mu) + mc^2(\beta r^jp^k - r^jp^k\beta) + (V(r)r^jp^k - r^jp^kV(r))) \\
+                         & = \varepsilon^{ijk}\ab(c\alpha^\mu (-i\hbar\delta^{\mu j})p^k + 0 + r^j(-i\hbar\partial^kV(r)))                                \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\ab(\rr\times\diff{V}{r}\diffp{r}{\rr})_i                                      \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k - i\hbar\diff{V}{r}\ab(\rr\times\frac{\rr}{r})_i                                       \\
+                         & = -i\hbar c\varepsilon^{ijk}\alpha^jp^k
+  \end{align}
+\end{proof}
+(2) $\Sigma^i := -\dfrac{i}{2}\sum_{j,k}\varepsilon^{ijk}\alpha^j\alpha^k$ とするとき、$\hat{H}$ とスピン角運動量 $\hat{\bm{S}} = \dfrac{\hbar}{2}\bm{\Sigma}$ との交換関係を求めよ。
+\begin{proof}
+  \begin{align}
+    [\hat{H}, \hat{S}^i] & = \ab[c\bm{\alpha}\cdot\hat{\pp} + \beta mc^2 + V(r), -\frac{i\hbar}{4}\varepsilon^{ijk}\alpha^j\alpha^k]                                                          \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\ab(c[\alpha^\mu, \alpha^j\alpha^k]p^\mu + mc^2[\beta, \alpha^j\alpha^k] + [V(r), \alpha^j\alpha^k])                           \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\ab(c(\alpha^\mu\alpha^j\alpha^k - \alpha^j\alpha^k\alpha^\mu)p^\mu + mc^2(\beta\alpha^j\alpha^k - \alpha^j\alpha^k\beta) + 0) \\
+                         & = -\frac{i\hbar}{4}\varepsilon^{ijk}\ab(c((-\alpha^j\alpha^\mu + 2\delta^{\mu j})\alpha^k - \alpha^j(-\alpha^\mu\alpha^k + 2\delta^{k\mu}))p^\mu + 0 + 0)          \\
+                         & = -\frac{i\hbar c}{2}\varepsilon^{ijk}(\alpha^kp^j - \alpha^jp^k)                                                                                                  \\
+                         & = i\hbar c\varepsilon^{ijk}\alpha^jp^k
+  \end{align}
+\end{proof}
+(3) 全角運動量が保存量となることを示せ。
+\begin{proof}
+  全角運動量がハミルトニアンと交換するから保存量となる。
+  \begin{align}
+    [\hat{H}, \hat{J}^i] & = [\hat{H}, \hat{L}^i + \hat{S}^i] = 0
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対する 2 行 2 列の行列 $\bm{\sigma}\cdot\pp$ を考える。
+\end{problem}
+(1) $(\bm{\sigma}\cdot\pp)^2$ を求めよ。
+\begin{proof}
+  \begin{align}
+    (\bm{\sigma}\cdot\pp)^2 & = (\sigma^ip^i)(\sigma^jp^j)^\dagger                   \\
+                            & = p^ip^j\ab(\delta^{ij}I + i\varepsilon^{ijk}\sigma^k) \\
+                            & = \pp^2
+  \end{align}
+\end{proof}
+(2) $Tr(\bm{\sigma}\cdot\pp)$ を求めよ。
+\begin{proof}
+  $\pp = (p^1, p^2, p^3)$ とすると
+  \begin{align}
+    Tr(\bm{\sigma}\cdot\pp) & = Tr\begin{pmatrix}
+                                    p^3        & p^1 - ip^2 \\
+                                    p^1 + ip^2 & -p^3
+                                  \end{pmatrix} = 0
+  \end{align}
+\end{proof}
+(3) $\bm{\sigma}\cdot\pp$ の固有値を求めよ。
+\begin{proof}
+  $\bm{\sigma}\cdot\pp$ の固有値を $\lambda_1, \lambda_2$ とおくと
+  \begin{align}
+    \lambda_1 + \lambda_2     & = Tr(\bm{\sigma}\cdot\pp) = 0     \\
+    \lambda_1^2 = \lambda_2^2 & = (\bm{\sigma}\cdot\pp)^2 = \pp^2
+  \end{align}
+  よって固有値は $\pm|\pp|$ である。
+\end{proof}
+(4) $\pp := |\pp|(\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)$ とするとき、固有ベクトルを求めよ。
+\begin{proof}
+  \begin{align}
+    (\bm{\sigma}\cdot\pp \mp |\pp|I)\bm{v} & = |\pp|\begin{pmatrix}
+                                                      \cos\theta \mp 1                         & \sin\theta\cos\phi - i\sin\theta\sin\phi \\
+                                                      \sin\theta\cos\phi + i\sin\theta\sin\phi & -\cos\theta \mp 1
+                                                    \end{pmatrix}\bm{v} \\
+                                           & = |\pp|\begin{pmatrix}
+                                                      \cos\theta \mp 1     & \sin\theta e^{-i\phi} \\
+                                                      \sin\theta e^{i\phi} & -\cos\theta \mp 1
+                                                    \end{pmatrix}\bm{v}
+  \end{align}
+  より固有値 $\pm|\pp|$ に対する固有ベクトルはそれぞれ次のベクトルの定数倍である。
+
+  \begin{align}
+    \bm{v} = \begin{pmatrix}
+               \sin\theta e^{-i\phi} \\
+               -\cos\theta \pm 1
+             \end{pmatrix}
+  \end{align}
+
+\end{proof}
+
+\section{2次元時空におけるディラック方程式}
+\begin{problem}
+2次元時空におけるディラック方程式は次のように考えられる。
+\begin{align}
+  (i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0
+\end{align}
+このときガンマ行列 $\gamma^0, \gamma^1$ は次を満たす。
+\begin{align}
+  \lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}, \qquad (\gamma^0)^\dagger = \gamma^0, \qquad (\gamma^1)^\dagger = - \gamma^1
+\end{align}
+またカイラリティ $\gamma^5$ は次を満たす。
+\begin{align}
+  (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
+\end{align}
+$\gamma^5$ を $\gamma^0, \gamma^1$ を用いて表わせ。
+\end{problem}
+\begin{proof}
+  カイラリティがガンマ行列の複素数係数多項式で表されるとするとガンマ行列の性質より次のように書ける。
+  \begin{align}
+    \gamma^5 & = \sum_{e_0, e_1}a_{e_0,e_1}(\gamma^0)^{e_0}(\gamma^1)^{e_1} = \alpha_0 + \alpha_1\gamma^0 + \alpha_2\gamma^1 + \alpha_3\gamma^0\gamma^1 & \ab(a_{e_0, e_1}, \alpha_i\in\CC)
+  \end{align}
+  これを代入するとガンマ行列の直交性より
+  \begin{align}
+    (\gamma^5)^\dagger = \gamma^5          & \iff \alpha_0\in\RR, \alpha_1\in\RR, \alpha_2\in i\RR, \alpha_3\in\RR \\
+    \lbrace\gamma^\mu, \gamma^5\rbrace = 0 & \implies \alpha_0 = \alpha_1 = \alpha_2 = 0                           \\
+    (\gamma^5)^2 = 1                       & \implies \alpha_4 = \pm 1
+  \end{align}
+  となる。よって $\gamma^5 = \pm \gamma^0\gamma^1$ となる。ここでは特に $\gamma^5 = \gamma^0\gamma^1$ とする。
+\end{proof}
+
+\begin{problem}
+$\gamma_\pm = \dfrac{1 \pm \gamma^5}{2}$ とするとき $(\gamma_+)^a$, $(\gamma_-)^b$, $(\gamma_+)^a(\gamma_-)^b$, $(\gamma_-)^b(\gamma_+)^a$ ($a, b\in\ZZ_{>0}$) を $\gamma_\pm$ を用いて表わせ。
+\end{problem}
+\begin{proof}
+  \begin{align}
+    (\gamma_\pm)^2   & = \frac{1 \pm 2\gamma^5 + (\gamma^5)^2}{2^2} = \frac{1 \pm \gamma^5}{2} = \gamma_\pm \\
+    \gamma_+\gamma_- & = \gamma_-\gamma_+ = \frac{1 + \gamma^5 - \gamma^5 - (\gamma^5)^2}{2^2} = 0
+  \end{align}
+  より帰納法から次が示せる。
+  \begin{align}
+    (\gamma_+)^a = \gamma_+, \qquad (\gamma_-)^b = \gamma_-, \qquad (\gamma_+)^a(\gamma_-)^b = 0, \qquad (\gamma_-)^b(\gamma_+)^a = 0
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\psi_{\pm}(x) = \gamma_{\pm}\psi(x)$ は $\gamma^5$ の固有関数である。それぞれの固有値を求めよ。
+\end{problem}
+\begin{proof}
+  カイラリティを作用させることで固有関数 $\psi_\pm(x)$ の固有値は $\pm 1$ となる。
+  \begin{align}
+    \gamma^5\psi_\pm(x) & = \gamma^5\gamma_\pm\psi(x) = \frac{\gamma^5 \pm 1}{2}\psi(x) = \pm\gamma^5\psi(x)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\psi_\pm(x)$ が満たす連立微分方程式をディラック方程式から求めよ。
+\end{problem}
+\begin{proof}
+  $\lbrace\gamma^\mu, \gamma^5\rbrace = 0$ より $\gamma^\mu\gamma_\pm = \gamma_\mp\gamma^\mu$ となる。よって
+  \begin{align}
+         & \begin{dcases}
+             \gamma_+(i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0 \\
+             \gamma_-(i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0 \\
+           \end{dcases} \\
+    \iff & \begin{dcases}
+             i\hbar\gamma^\mu\partial_\mu\psi_-(x) = mc\psi_+(x) \\
+             i\hbar\gamma^\mu\partial_\mu\psi_+(x) = mc\psi_-(x) \\
+           \end{dcases}
+  \end{align}
+  となる。
+\end{proof}
+
+\begin{problem}
+$m = 0$ の場合に $\psi_+(x) \propto e^{-iEt/\hbar+ipx/\hbar}$ が解となるとき、$E, p$ が満たす関係式を求めよ。
+\end{problem}
+\begin{proof}
+  $m = 0$ のとき $i\hbar\gamma^\mu\partial_\mu\psi_+(x) = 0$ となる。 $\gamma^1 = \gamma^0(\gamma_+ - \gamma_-)$ より
+  \begin{align}
+    i\hbar\gamma^\mu\partial_\mu\psi_+(x) & = i\hbar(\gamma^0c\partial_t + \gamma^1\partial_x)\psi_+(x) \\
+                                          & = (\gamma^0Ec - \gamma^1p)\psi_+(x)                         \\
+                                          & = \gamma^0(Ec - (\gamma_+ - \gamma_-)p)\psi_+(x)            \\
+                                          & = \gamma^0(Ec - p)\psi_+(x) = 0
+  \end{align}
+  となる。よって $Ec = p$ を満たす。
+\end{proof}
+
+\begin{problem}
+$m = 0$ の場合に $\psi_-(x) \propto e^{-iEt/\hbar+ipx/\hbar}$ が解となるとき、$E, p$ が満たす関係式を求めよ。
+\end{problem}
+\begin{proof}
+  $m = 0$ のとき $i\hbar\gamma^\mu\partial_\mu\psi_-(x) = 0$ となる。 $\gamma^1 = \gamma^0(\gamma_+ - \gamma_-)$ より
+  \begin{align}
+    i\hbar\gamma^\mu\partial_\mu\psi_-(x) & = i\hbar(\gamma^0c\partial_t + \gamma^1\partial_x)\psi_-(x) \\
+                                          & = (\gamma^0Ec - \gamma^1p)\psi_-(x)                         \\
+                                          & = \gamma^0(Ec - (\gamma_+ - \gamma_-)p)\psi_-(x)            \\
+                                          & = \gamma^0(Ec + p)\psi_-(x) = 0
+  \end{align}
+  となる。よって $Ec = -p$ を満たす。
+\end{proof}
+
+\begin{problem}
+$\gamma^0, \gamma^1, \gamma^5$ を 2 行 2 列の行列とするとき、それらの具体形をパウリ行列を用いて表せ。
+\end{problem}
+\begin{proof}
+  パウリ行列を次のように定義する。
+  \begin{align}
+    \sigma_1 = \begin{pmatrix}
+                 0 & 1 \\
+                 1 & 0 \\
+               \end{pmatrix}, \qquad
+    \sigma_2 = \begin{pmatrix}
+                 0 & -i \\
+                 i & 0  \\
+               \end{pmatrix}, \qquad
+    \sigma_3 = \begin{pmatrix}
+                 1 & 0  \\
+                 0 & -1 \\
+               \end{pmatrix}
+  \end{align}
+  これより次のようにおくとそれぞれの性質を満たす。
+  \begin{align}
+    \gamma^0 = \sigma_1, \qquad \gamma^1 = i\sigma_2, \qquad \gamma^5 = -\sigma_3
+  \end{align}
+\end{proof}
+
+\section{指数関数}
+
+\begin{problem}
+次の式を示せ。
+\begin{align}
+  e^{i\BB}\AA e^{-i\BB} = \sum_{n=0}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \AA]] \ldots]
+\end{align}
+\end{problem}
+\begin{proof}
+  $e^{i\lambda\BB}\AA e^{-i\lambda\BB}$ について考える。これを $\lambda$ について展開すると
+  \begin{align}
+    e^{i\lambda\BB}\AA e^{-i\lambda\BB} & = \sum_{n=0}^{\infty}\frac{\lambda^n}{n!}\ab[\diff[n]{}{\lambda}e^{i\lambda\BB}\AA e^{i\lambda\BB}]_{\lambda = 0}                                         \\
+                                        & = \sum_{n=0}^{\infty}\frac{\lambda^n}{n!}\ab[\diff[n-1]{}{\lambda}e^{i\lambda\BB}i[\BB, \AA]e^{i\lambda\BB}]_{\lambda = 0}                                \\
+                                        & = \sum_{n=0}^{\infty}\frac{\lambda^n}{n!}\Big[e^{i\lambda\BB}i^n\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \AA]] \ldots]e^{i\lambda\BB}\Big]_{\lambda = 0} \\
+                                        & = \sum_{n=0}^{\infty}\frac{(i\lambda)^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \AA]] \ldots]
+  \end{align}
+  よって $\lambda = 1$ を代入することで示せる。
+  \begin{align}
+    e^{i\BB}\AA e^{-i\BB} & = \sum_{n=0}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \AA]] \ldots]
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\partial$ を微分演算子とするとき、$(\partial e^{i\BB})e^{-i\BB} = -e^{i\BB}(\partial e^{-i\BB})$ を示せ。
+\end{problem}
+\begin{proof}
+  $1 = e^{i\BB}e^{-i\BB}$ に微分演算子を作用させることで示せる。
+  \begin{align}
+    0 = \partial 1 = \partial(e^{i\BB}e^{-i\BB}) & = (\partial e^{i\BB})e^{-i\BB} + e^{i\BB}(\partial e^{-i\BB}) \\
+    (\partial e^{i\BB})e^{-i\BB}                 & = -e^{i\BB}(\partial e^{-i\BB})
+  \end{align}
+\end{proof}
+
+\begin{problem}
+次の式を示せ。
+\begin{align}
+  e^{i\BB}(\partial e^{-i\BB}) = -\sum_{n=1}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n-1}, \partial\BB]] \ldots]
+\end{align}
+\end{problem}
+\begin{proof}
+  (1) において $\AA = \partial$ を代入して示せる。
+  \begin{align}
+    e^{i\BB}(\partial e^{-i\BB}) & = \sum_{n=0}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \partial]] \ldots]            \\
+                                 & = \partial + \sum_{n=1}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n}, \partial]] \ldots] \\
+                                 & = -\sum_{n=1}^{\infty}\frac{i^n}{n!}\underbrace{[\BB, \ldots [\BB, [\BB}_{n-1}, \partial\BB]] \ldots]      \\
+  \end{align}
+\end{proof}
+
+\section{スピノル球関数}
+\begin{problem}
+スピノル球関数を球面調和関数を用いて次のように定義する。
+\begin{align}
+  \mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \frac{1}{\sqrt{2l + 1}}\begin{pmatrix}
+                                                                    \sqrt{l + \frac{1}{2} \pm m}Y_l^{m - 1/2}(\theta, \phi)    \\
+                                                                    \pm\sqrt{l + \frac{1}{2} \mp m}Y_l^{m + 1/2}(\theta, \phi) \\
+                                                                  \end{pmatrix}_{j = l\pm 1/2}
+\end{align}
+軌道角運動量 $\hat{\bm{L}}$, スピン角運動量 $\hat{\bm{S}}$, 全角運動量 $\hat{\bm{J}}$ とする。
+
+$\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つパリティを求めよ。
+\end{problem}
+\begin{proof}
+  球面調和関数におけるパリティは $(-1)^l$ となるからスピノル球関数のパリティは $(-1)^l$ となる。
+  \begin{align}
+    Y_l^m(\pi - \theta, \pi + \phi)                  & = (-1)^lY_l^m(\theta, \phi)                  \\
+    \mathcal{Y}_{j, m}^\pm(\pi - \theta, \pi + \phi) & = (-1)^l\mathcal{Y}_{j, m}^\pm(\theta, \phi)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つ $\hat{J}_z$ の固有値を求めよ。
+\end{problem}
+\begin{proof}
+  球面調和関数における固有値からスピノル球関数の $\hat{J}_z$ の固有値は $m\hbar$ となる。
+  \begin{align}
+    \hat{J}_zY_l^m(\theta, \phi)                  & = m\hbar Y_l^m(\theta, \phi)                  \\
+    \hat{J}_z\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = m\hbar \mathcal{Y}_{j, m}^\pm(\theta, \phi)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つ $\hat{\bm{L}}^2$ の固有値を求めよ。
+\end{problem}
+\begin{proof}
+  球面調和関数における固有値からスピノル球関数の $\hat{\bm{L}}^2$ の固有値は $\hbar^2l(l+1)$ となる。
+  \begin{align}
+    \hat{\bm{L}}^2Y_l^m(\theta, \phi)                  & = \hbar^2l(l+1) Y_l^m(\theta, \phi)                  \\
+    \hat{\bm{L}}^2\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \hbar^2l(l+1) \mathcal{Y}_{j, m}^\pm(\theta, \phi)
+  \end{align}
+\end{proof}
+
+\begin{problem}
+$\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つ $\hat{\bm{L}}\cdot\hat{\bm{S}}$ の固有値を求めよ。
+\end{problem}
+\begin{proof}
+  $\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ に $\hat{\bm{L}}\cdot\hat{\bm{S}}$ を作用させると
+  \begin{align}
+    \hat{\bm{L}}\cdot\hat{\bm{S}}\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \frac{1}{2}(\hat{\bm{J}}^2 - \hat{\bm{L}}^2 - \hat{\bm{S}}^2)\mathcal{Y}_{j, m}^\pm(\theta, \phi)                             \\
+                                                                      & = \frac{\hbar^2}{2}\ab(j(j+1) - l(l+1) - \frac{3}{4})\mathcal{Y}_{j, m}^\pm(\theta, \phi)                                       \\
+                                                                      & = \frac{\hbar^2}{2}\ab(\ab(l\pm \frac{1}{2})\ab(l\pm \frac{1}{2}+1) - l(l+1) - \frac{3}{4})\mathcal{Y}_{j, m}^\pm(\theta, \phi) \\
+                                                                      & = \frac{\hbar^2}{2}\ab(\pm\ab(l + \frac{1}{2}) - \frac{1}{2})\mathcal{Y}_{j, m}^\pm(\theta, \phi)                               \\
+  \end{align}
+  より固有値は $\dfrac{\hbar^2l}{2}, -\dfrac{\hbar^2(l+1)}{2}$ となる。
+\end{proof}
+
+\begin{problem}
+$\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つ $\hat{\bm{J}}^2$ の固有値を求めよ。
+\end{problem}
+\begin{proof}
+  $\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ に $\hat{\bm{J}}^2$ を作用させると
+  \begin{align}
+    \hat{\bm{J}}^2\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \hbar^2j(j+1) \mathcal{Y}_{j, m}^\pm(\theta, \phi)                                                   \\
+                                                       & = \hbar^2\ab(l \pm \frac{1}{2})\ab(\ab(l \pm \frac{1}{2}) + 1)\mathcal{Y}_{j, m}^\pm(\theta, \phi)     \\
+                                                       & = \hbar^2\ab(\ab(l \pm \frac{1}{2} + \frac{1}{2})^2 - \frac{1}{4})\mathcal{Y}_{j, m}^\pm(\theta, \phi)
+  \end{align}
+  より固有値は $l^2 - \dfrac{1}{4}, (l + 1)^2 - \dfrac{1}{4}$ となる。
+\end{proof}
+
+\begin{problem}
+パウリ行列 $\bm{\sigma}$ と位置ベクトル $\rr = r(\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)$ に対して $\bm{\sigma}\cdot\dfrac{\rr}{r}\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ を計算し、スピノル球関数のみを用いて表せ。
+\end{problem}
+\begin{proof}
+  まず演算子を計算すると
+  \begin{align}
+    \bm{\sigma}\cdot\dfrac{\rr}{r} & = \bm{\sigma}\cdot (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta) =
+    \begin{pmatrix}
+      \cos\theta           & \sin\theta e^{-i\phi} \\
+      \sin\theta e^{i\phi} & -\cos\theta           \\
+    \end{pmatrix}
+  \end{align}
+  となる。三角関数を球面調和関数に作用させたときの固有値は次のようになるから
+  \begin{align}
+    \cos\theta Y_{l}^m(\theta, \phi)            & = \sqrt{\frac{(l + m + 1)(l - m + 1)}{(2l + 1)(2l + 3)}}Y_{l+1}^m(\theta, \phi) + \sqrt{\frac{(l + m)(l - m)}{(2l + 1)(2l - 1)}}Y_{l-1}^m(\theta, \phi)              \\
+    \sin\theta e^{i\phi} Y_{l}^m(\theta, \phi)  & = -\sqrt{\frac{(l + m + 1)(l + m + 2)}{(2l + 1)(2l + 3)}}Y_{l+1}^{m+1}(\theta, \phi) + \sqrt{\frac{(l - m)(l - m - 1)}{(2l + 1)(2l - 1)}}Y_{l-1}^{m+1}(\theta, \phi) \\
+    \sin\theta e^{-i\phi} Y_{l}^m(\theta, \phi) & = \sqrt{\frac{(l - m + 1)(l - m + 2)}{(2l + 1)(2l + 3)}}Y_{l+1}^{m-1}(\theta, \phi) + \sqrt{\frac{(l + m)(l + m - 1)}{(2l + 1)(2l - 1)}}Y_{l-1}^{m-1}(\theta, \phi)
+  \end{align}
+  次のように計算できる。
+  \begin{alignat}{3}
+    \bm{\sigma}\cdot\dfrac{\rr}{r}\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \frac{1}{\sqrt{2l + 1}}       &  &
+    \begin{pmatrix}
+      \cos\theta           & \sin\theta e^{-i\phi} \\
+      \sin\theta e^{i\phi} & -\cos\theta           \\
+    \end{pmatrix}
+    \begin{pmatrix}
+      \sqrt{l + \frac{1}{2} \pm m}Y_l^{m - 1/2}(\theta, \phi)    \\
+      \pm\sqrt{l + \frac{1}{2} \mp m}Y_l^{m + 1/2}(\theta, \phi) \\
+    \end{pmatrix}_{j = l\pm 1/2}                                                                                                                                                                                                             \\
+                                                                       & = \frac{1}{\sqrt{2l + 1}}       &  & \Bigg(\sqrt{l + \frac{1}{2} \pm m}\cos\theta Y_l^{m - 1/2}(\theta, \phi) \pm\sqrt{l + \frac{1}{2} \mp m}\sin\theta e^{-i\phi}Y_l^{m + 1/2}(\theta, \phi)                 \\
+                                                                       &                                 &  & , \sqrt{l + \frac{1}{2} \pm m}\sin\theta e^{i\phi}Y_l^{m - 1/2}(\theta, \phi) \mp\sqrt{l + \frac{1}{2} \mp m}\cos\theta Y_l^{m + 1/2}(\theta, \phi)\Bigg)_{j = l\pm 1/2} \\
+                                                                       & = \frac{1}{\sqrt{2l + 1}}       &  & \Bigg(\sqrt{l + \frac{1}{2} \pm m}\sqrt{\frac{(l + m + \frac{1}{2})(l - m + \frac{3}{2})}{(2l + 1)(2l + 3)}}Y_{l+1}^{m-1/2}(\theta, \phi)                                \\
+                                                                       &                                 &  & + \sqrt{l + \frac{1}{2} \pm m}\sqrt{\frac{(l + m - \frac{1}{2})(l - m + \frac{1}{2})}{(2l + 1)(2l - 1)}}Y_{l-1}^{m-1/2}(\theta, \phi)                                    \\
+                                                                       &                                 &  & \pm\sqrt{l + \frac{1}{2} \mp m}\sqrt{\frac{(l - m + \frac{1}{2})(l - m + \frac{3}{2})}{(2l + 1)(2l + 3)}}Y_{l+1}^{m-1/2}(\theta, \phi)                                   \\
+                                                                       &                                 &  & \pm\sqrt{l + \frac{1}{2} \mp m}\sqrt{\frac{(l + m + \frac{1}{2})(l + m - \frac{1}{2})}{(2l + 1)(2l - 1)}}Y_{l-1}^{m-1/2}(\theta, \phi)                                   \\
+                                                                       &                                 &  & , -\sqrt{l + \frac{1}{2} \pm m}\sqrt{\frac{(l + m + \frac{1}{2})(l + m + \frac{3}{2})}{(2l + 1)(2l + 3)}}Y_{l+1}^{m+1/2}(\theta, \phi)                                   \\
+                                                                       &                                 &  & + \sqrt{l + \frac{1}{2} \pm m}\sqrt{\frac{(l - m + \frac{1}{2})(l - m - \frac{1}{2})}{(2l + 1)(2l - 1)}}Y_{l-1}^{m+1/2}(\theta, \phi)                                    \\
+                                                                       &                                 &  & \mp\sqrt{l + \frac{1}{2} \mp m}\sqrt{\frac{(l + m + \frac{3}{2})(l - m + \frac{1}{2})}{(2l + 1)(2l + 3)}}Y_{l+1}^{m+1/2}(\theta, \phi)                                   \\
+                                                                       &                                 &  & \mp\sqrt{l + \frac{1}{2} \mp m}\sqrt{\frac{(l + m + \frac{1}{2})(l - m - \frac{1}{2})}{(2l + 1)(2l - 1)}}Y_{l-1}^{m+1/2}(\theta, \phi)\Bigg)_{j = l\pm 1/2}              \\
+                                                                       & = \frac{1}{\sqrt{2l + 1}}       &  & \Bigg((2l + 1)\sqrt{\frac{l \mp m + \frac{1}{2} \pm 1}{(2l + 1)(2l + 1 \pm 2)}}Y_{l\pm 1}^{m-1/2}(\theta, \phi)                                                          \\
+                                                                       &                                 &  & ,\mp(2l + 1)\sqrt{\frac{l \pm m + \frac{1}{2} \pm 1}{(2l + 1)(2l + 1 \pm 2)}}Y_{l\pm 1}^{m+1/2}(\theta, \phi)\Bigg)_{j = l\pm 1/2}                                       \\
+                                                                       & = \frac{1}{\sqrt{2j + 1 \pm 1}} &  & \Bigg(\sqrt{j + \frac{1}{2} \mp \ab(m - \frac{1}{2})}Y_{j\pm 1/2}^{m-1/2}(\theta, \phi)                                                                                  \\
+                                                                       &                                 &  & ,\mp\sqrt{j + \frac{1}{2} \pm \ab(m + \frac{1}{2})}Y_{j\pm 1/2}^{m+1/2}(\theta, \phi)\Bigg) = \mathcal{Y}_{j, m}^\mp(\theta, \phi)
+  \end{alignat}
+  よって次の式となる。
+  \begin{align}
+    \bm{\sigma}\cdot\dfrac{\rr}{r}\mathcal{Y}_{j, m}^\pm(\theta, \phi) & = \mathcal{Y}_{j, m}^\mp(\theta, \phi)
+  \end{align}
+\end{proof}
+
+\section{水素原子における電子のエネルギー準位}
+\begin{problem}
+中心力ポテンシャル $V(r) = -\dfrac{\alpha\hbar c}{r}$ のもとでディラック方程式を解くことにより得られる水素原子中の電子のエネルギー準位を考える。
+
+主量子数 $n$ が与えられたとき、全角運動量 $j$ が取り得る値を答えよ。
+\end{problem}
+\begin{proof}
+  $n$ と $j$ に関して $n = j + n' + 1/2$ という関係があるから $j = 1/2,\ldots,(2n-1)/2$ を取る。
+\end{proof}
+
+\begin{problem}
+主量子数 $n$, 全角運動量 $j$ を持つ状態のエネルギー固有値の表式を書き下せ。また、そのエネルギー固有値の縮重度を答えよ。
+\end{problem}
+\begin{proof}
+  主量子数 $n$, 全角運動量 $j$ を持つ状態のエネルギー固有値の表式は次のようになる。
+  \begin{align}
+    E & = \frac{mc^2}{\sqrt{1 + \frac{(Z\alpha)^2}{\ab(n - \ab(j + \frac{1}{2}) + \sqrt{(j + \frac{1}{2})^2 - (Z\alpha)^2})^2}}}
+  \end{align}
+  また縮重度は $j = l \pm 1/2$ より $n' = 0$ において $2j + 1$、$n' > 0$ において $2(2j + 1)$ となる。
+\end{proof}
+
+\begin{problem}
+主量子数 $n$ を持つ状態の総数を求めよ。
+\end{problem}
+\begin{proof}
+  $n = j + n' + 1/2$ と $j = l \pm 1/2$ より状態の総数は $2n^2$ となる。
+  \begin{align}
+    2n + 2\times\sum_{n'=1}^{n-1}2(n-n') & = 2n^2
+  \end{align}
+\end{proof}
+
+\begin{problem}
+電子の静止エネルギーから測った束縛エネルギーの大きさが縮退を除いて 7 番目と 10 番目に大きい準位の主量子数 $n$ と全角運動量 $j$ をそれぞれ答えよ。また、それらの準位の束縛エネルギーの大きさを有効数字 6 桁で求めよ。
+\end{problem}
+\begin{proof}
+  7 番目に大きい準位は $n = 4, j = 1/2$ で 10 番目に大きい準位は $n = 4, j = 7/2$ である。
+  またそれぞれの束縛エネルギーは
+  \begin{align}
+    \mathcal{E}         & \approx -\frac{\alpha^2 mc^2}{2n^2} - \ab(\frac{1}{j + 1/2} - \frac{3}{4n})\frac{\alpha^4mc^2}{2n^3}   \\
+                        & \approx -\frac{13.60569}{n^2} - \ab(\frac{1}{j + 1/2} - \frac{3}{4n})\frac{7.249022\times10^{-4}}{n^3} \\
+    \mathcal{E}_{4,1/2} & \approx 0.850365                                                                                       \\
+    \mathcal{E}_{4,7/2} & \approx 0.850356
+  \end{align}
+  となる。
+\end{proof}
+
+\begin{problem}
+同じ主量子数 $n$ を持つ状態でも全角運動量 $j$ に依存してエネルギー準位が分裂する. この現象を表す名称を答えよ.
+\end{problem}
+\begin{proof}
+  微細構造
+\end{proof}
+
 \end{document}

@@ -55,7 +55,8 @@
 \renewcommand{\AA}{\mathbb{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\mm}{\mathfrak{m}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
 \newcommand{\ignore}[1]{}
@@ -165,44 +166,92 @@
 \clearpage
 
 \section{代数多様体}
-\subsection{代数的集合}
 代数幾何学は代数方程式で定められる図形の幾何学である。
-\begin{definition}
-  体 $k$ 上の $n$ 変数多項式環 $k[x_1,\ldots,x_n]$ について $f_1,\ldots,f_l\in k[x_1,\ldots,x_n]$ からなる次の連立方程式の解は $(a_1,\ldots,a_n)\in k^n$ と書ける。
-  \begin{align}
-    \begin{dcases}
-      f_1(x_1,\ldots,x_n) = 0 \\
-      \quad\qquad \vdots      \\
-      f_l(x_1,\ldots,x_n) = 0
-    \end{dcases}
-  \end{align}
-  この $k^n$ を体 $k$ 上の $n$ 次元アフィン空間 (affine space) と呼び、$\AA_k^n$ または $\AA^n$ と書く。そして解の全体を $V(f_1,\ldots,f_l)$ と書き、連立方程式が定める代数的集合 (algebraic set) と呼ぶ。またイデアル $I = (f_1,\ldots,f_l)$ の任意の元に対する解の全体を $V(I)$ と書く。
-  \begin{align}
-    V(f_1, \ldots, f_l) & = \lbrace(a_1, \ldots, a_n)\in k^n\mid f_\alpha(a_1,\ldots,a_n) = 0,\ \alpha = 1,\ldots,l\rbrace \\
-    V(I)                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall f\in I \ f(a_1,\ldots,a_n) = 0\rbrace
-  \end{align}
-\end{definition}
-
-\begin{lemma}
-  $I = (f_1,\ldots,f_l)$ のとき $V(I) = V(f_1,\ldots,f_l)$
-\end{lemma}
-\begin{proof}
-  イデアル $I = (f_1,\ldots,f_l)$ の任意の元 $f(x_1,\ldots,x_n)\in I$ について
-  \begin{align}
-    f(x_1,\ldots,x_n) & = \sum_{\alpha=1}^{l}g_\alpha(x_1,\ldots,x_n)f_\alpha(x_1,\ldots,x_n)
-  \end{align}
-  と書ける。これより $(a_1,\ldots,a_n)\in V(f_1,\ldots,f_l)$ に対して $f(a_1,\ldots,a_n) = 0$ が成り立ち $V(f_1,\ldots,f_l)\subseteq V(I)$ となる。
-  逆に $(b_1,\ldots,b_n)\in V(I)$ ならば $f_\alpha(b_1,\ldots,b_n) = 0\quad (\alpha = 1,\ldots,l)$ が成り立ち $V(f_1,\ldots,f_l)\supseteq V(I)$ となる。
-  よって $V(I) = V(f_1,\ldots,f_l)$ となる。
-\end{proof}
-
-これより $f_1,\ldots,f_l$ から定まる代数的集合 $V(f_1,\ldots,f_l)$ と $I = (f_1,\ldots,f_l)$ から定まる代数的集合 $V(I)$ を考えることと同じであることが分かる。したがって今後はイデアル $I$ から定まる代数的集合 $V(I)$ を主として考えることにする。
-
 \begin{theorem}[Hilbert の基底定理]
-  Noether 環のイデアルは有限生成である。特に多項式環 $k[x_1,\ldots,x_n]$ は Noether 環であるからイデアルは $J = (g_1,\ldots,g_n)$ と書ける。
-\end{theorem}
-\begin{proof}
+  Noether 環のイデアルは有限生成である。
 
+  特に多項式環 $k[x_1,\ldots,x_n]$ は Noether 環であるからイデアルは $I = (f_1,\ldots,f_n)$ と書ける。
+\end{theorem}
+
+\subsection{アフィン空間}
+\begin{definition}[アフィン空間]
+  代数的閉体 $k$ に対して解の全体 $k^n$ を $n$ 次元アフィン空間 (affine space) と呼び、$\AA_k^n$ または $\AA^n$ と書く。
+\end{definition}
+代数的閉体 $k$ 上の $n$ 変数多項式環 $k[x_1,\ldots,x_n]$ について連立方程式の解の 1 つはアフィン空間の元 $(a_1,\ldots,a_n)\in k^n$ として書ける。このとき連立方程式の解の全体を \textbf{代数的集合 (algebraic set)} と呼ぶ。多項式 $f_1,\ldots,f_l$ やイデアル $I = (f_1,\ldots,f_l)$ からなる代数的集合をそれぞれ $V(f_1,\ldots,f_l)$, $V(I)$ と書く。
+\begin{align}
+  V(f_1, \ldots, f_l) & = \lbrace(a_1, \ldots, a_n)\in k^n\mid f_\alpha(a_1,\ldots,a_n) = 0,\ \alpha = 1,\ldots,l\rbrace \\
+  V(I)                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall f\in I \ f(a_1,\ldots,a_n) = 0\rbrace
+\end{align}
+
+\begin{itembox}[l]{点、直線}
+  \begin{equation*}
+    \Downarrow
+  \end{equation*}
+  代数的閉体 $k$ 上の多項式環 $k[x_1,\ldots,x_n]$ の極大イデアルの代数的集合を
+  \begin{align}
+    \mm    & = (x_1 - a_1,\ldots,x_n - a_n)   \\
+    V(\mm) & = \lbrace(a_1,\ldots,a_n)\rbrace
+  \end{align}
+\end{itembox}
+\begin{proposition}
+  \begin{enumerate}
+    \item $V((f_1,\ldots,f_l)) = V(f_1,\ldots,f_l)$
+    \item $V(I)\cup V(J) = V(I\cap J)$
+    \item $\bigcup V(I_\lambda) \subsetneq V(\bigcap I_\lambda)$
+    \item $\bigcap V(I_\lambda) = V(\sum_{\lambda}I_\lambda)$
+    \item $\sqrt{I}\supset\sqrt{J}$ であれば $V(I)\supset V(J)$
+    \item $I = (1) \iff V(I) = \emptyset$
+    \item $I = (0) \iff V(I) = \AA_k^n$
+    \item $I(V(J)) = \sqrt{J}$ Hilbert の零点定理
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \begin{enumerate}
+    \item イデアル $I = (f_1,\ldots,f_l)$ の任意の元 $f(x_1,\ldots,x_n)\in I$ について
+          \begin{align}
+            f(x_1,\ldots,x_n) & = \sum_{\alpha=1}^{l}g_\alpha(x_1,\ldots,x_n)f_\alpha(x_1,\ldots,x_n)
+          \end{align}
+          と書ける。これより
+          \begin{alignat}{3}
+             & (a_1,\ldots,a_n)\in V(f_1,\ldots,f_l) & f(a_1,\ldots,a_n) = 0        & \implies V(f_1,\ldots,f_l)\subseteq V(I) \\
+             & (b_1,\ldots,b_n)\in V(I)              & f_\alpha(b_1,\ldots,b_n) = 0 & \implies V(f_1,\ldots,f_l)\supseteq V(I)
+          \end{alignat}
+          よって $V(I) = V(f_1,\ldots,f_l)$ となる。
+    \item 方程式の包含関係を考えることで
+          \begin{align}
+            V(I) \subseteq V(I\cap J), V(J) \subseteq V(I\cap J) \implies V(I) \cup V(J) \subseteq V(I\cap J)
+          \end{align}
+          となる。逆に $(a_1,\ldots,a_n)\in V(I\cap J)$ について $I\cap J\supseteq IJ$ より $f\in I, g\in J$ とすると $fg\in I\cap J$ であるから
+          \begin{align}
+            f(a_1,\ldots,a_n)g(a_1,\ldots,a_n) = 0 \implies f(a_1,\ldots,a_n) = 0 または g(a_1,\ldots,a_n) = 0
+          \end{align}
+          より $(a_1,\ldots,a_n)\in V(I)\cup V(J)$ となる。よって $V(I) \cup V(J) = V(I\cap J)$ となる。
+    \item 可算無限個の相違なる元 $c_1,\ldots,c_n,\ldots$ を取り出し $k[x]$ のイデアル $I_j = (x - c_j)$ とすると $\bigcup_j V(I_j) = \lbrace c_1, c_2, \ldots \rbrace$ である。一方、可算無限次数の多項式は存在しないので
+          \begin{align}
+            V(I_{j_1}\cap \cdots\cap I_{j_n}) & = V\ab(\ab(\prod_{i=1}^{n}(x - c_{j_i}))) = \lbrace c_{j_1},\ldots,c_{j_n} \rbrace \\
+            V\ab(\bigcap_j I_j)               & = V\ab((0)) = \AA_k^1                                                              \\
+            \bigcup_j V(I_j)                  & \subsetneq V\ab(\bigcap_j I_j)
+          \end{align}
+          となる。
+    \item $\mu$ に対して
+          \begin{align}
+            V(I_\mu) \supseteq V\ab(\sum_\lambda I_\lambda)
+          \end{align}
+          $(a_1,\ldots,a_n)\in\bigcup_\lambda V(I_\lambda)$ について $I_\lambda = (h_{\lambda 1},\ldots,h_{\lambda m_\lambda})$ とすると
+          \begin{align}
+             & h_{\lambda i}(a_1,\ldots,a_n) = 0                                    \\
+             & \sum_{\lambda, i} f(a_1,\ldots,a_n)h_{\lambda i}(a_1,\ldots,a_n) = 0
+          \end{align}
+          より
+          \begin{align}
+            \bigcap_\lambda V(I_\lambda) \subseteq V\ab(\sum_\lambda I_\lambda)
+          \end{align}
+    \item
+    \item ($\implies$) それぞれの解が独立かつアフィン空間を被覆する方程式を作れるから成り立つ。 \\
+          ($\impliedby$) この対偶について任意のイデアル $I \neq (1)$ はそれを含む極大イデアル $\mm\supseteq I$ があり $V(\mm) \neq \emptyset$ となるから $V(I) \neq \emptyset$ である。
+    \item ($\implies$) $0 = 0$ は任意のアフィン空間の元が成り立つ。 \\
+          ($\impliedby$) $V(I) = \AA_k^n$ のとき Hilbert の零点定理より $I = \sqrt{(0)} = (0)$ となる。
+  \end{enumerate}
 \end{proof}
 
 \begin{proposition}
@@ -217,38 +266,6 @@
 \end{proof}
 
 \begin{proposition}
-
-\end{proposition}
-\begin{proof}
-  可算無限個の相違なる元 $c_1,\ldots,c_n,\ldots$ を取り出し $k[x]$ のイデアル $I_j = (x - c_j)$ を作り、
-  \begin{align}
-    I_{j_1}\cap \cdots\cap I_{j_n}    & = \ab(\prod_{i=1}^{n}(x - c_{j_i}))      \\
-    V(I_{j_1}\cap \cdots\cap I_{j_n}) & = \lbrace c_{j_1},\ldots,c_{j_n} \rbrace
-  \end{align}
-  可算無限次数の多項式は存在しないので
-  \begin{align}
-    \bigcap_j I_j     & = (0)     \\
-    V\ab(\bigcap I_j) & = \AA_k^1
-  \end{align}
-  となる。一方
-  \begin{align}
-    \bigcup_j V(I_j) = \lbrace c_1, c_2, \ldots \rbrace
-  \end{align}
-  となるので
-  \begin{align}
-    V\ab(\bigcap I_j) \supsetneq \bigcup_j V(I_j)
-  \end{align}
-\end{proof}
-
-\begin{theorem}[弱い形の Hilbert の零点定理]
-  代数的閉体 $k$ 上の多項式環 $k[x_1, x_2,\ldots,x_n]$ のイデアル $I$ が単位元を含まないならば
-  \begin{align}
-    V(I)\neq\emptyset
-  \end{align}
-  である。
-\end{theorem}
-
-\begin{proposition}
   実数体 $\RR$ 上の 1 変数多項式環の極大イデアルは
   \begin{align}
      & (x - a), a\in\RR                        \\
@@ -258,13 +275,122 @@
 \end{proposition}
 \begin{proof}
   単項イデアル整域より既約元のイデアルと極大イデアルは同値である。
-  $n$ 次多項式
-  \begin{align}
-    x^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0 = (x - a_1)\cdots(x^2 + a_2x + b_2)
-  \end{align}
-  共役な複素数が生じる
 \end{proof}
 
+\begin{itembox}[l]{交点}
+  平面曲線 $C_f: f(x, y) = 0$ と $C_g: g(x, y) = 0$ の交点について
+\end{itembox}
+
+\begin{definition}[座標環]
+  \begin{align}
+    k[V] := k[x_1,x_2,\ldots,x_n]/I(V)
+  \end{align}
+  変数変換を一般化した
+
+  代数的集合 $V, W$ において写像 $\varphi: V\to W$ を $V$ の点 $P = (a_1,\ldots,a_m)$ に対して射 (morphism) を定義する。
+  \begin{alignat}{3}
+    \varphi:\  & V \quad & \to\quad     & W                      \\
+               & P \quad & \mapsto\quad & (f_1(P),\ldots,f_n(P))
+  \end{alignat}
+  $k[V] \subseteq \AA_k^m, k[W] \subseteq \AA_k^n$
+\end{definition}
+
+\begin{example}
+  3 次曲線 $C = V(y^2 - x^3) \subseteq \AA_k^2$ を考える。アフィン直線 $\AA^1$ とアフィン平面 $\AA^2$ の座標環はそれぞれ $k[\AA^1] = k[t]$, $k[\AA^2] = k[x, y]$ と与えられる。
+  \begin{align}
+    x = t^2, y = t^3
+  \end{align}
+  \begin{alignat}{3}
+    \varphi: \        & \AA^1 \quad      & \to\quad     & C          \\
+                      & a     \quad      & \mapsto\quad & (a^2, a^3) \\
+    \tilde\varphi: \  & \AA^1 \quad      & \to\quad     & \AA^2      \\
+                      & a     \quad      & \mapsto\quad & (a^2, a^3) \\
+    \iota: \          & \AA^2 \quad      & \to\quad     & C          \\
+                      & (a^2, a^3) \quad & \mapsto\quad & (a^2, a^3)
+  \end{alignat}
+  \begin{alignat}{3}
+    \varphi^\#: \        & k[C] = k[x,y]/(y^2 - x^3) \quad                    & \to\quad     & k[\AA^1] = k[t]           \\
+                         & \overline{f(x,y)} = f(x,y)\bmod{(y^2 - x^3)} \quad & \mapsto\quad & f(t^2, t^3)               \\
+    \tilde\varphi^\#: \  & k[\AA^2] = k[x,y] \quad                            & \to\quad     & k[\AA^1] = k[t]           \\
+                         & f(x,y) \quad                                       & \mapsto\quad & f(t^2, t^3)               \\
+    \iota^\#: \          & k[\AA^2] = k[x,y] \quad                            & \to\quad     & k[C] = k[x,y]/(y^2 - x^3) \\
+                         & f(x,y) \quad                                       & \mapsto\quad & \overline{f(x,y)}
+  \end{alignat}
+  \[
+    \begin{tikzcd}
+      \AA^1 \arrow[r,"\tilde\varphi"]\arrow[dr,"\varphi"] & C \arrow[d,"\iota"] \\
+      & \AA^2
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      k[\AA^1] & k[C] \arrow[l,"\tilde\varphi^\#"] \\
+      & k[\AA^2] \arrow[u,"\iota^\#"]\arrow[ul,"\varphi^\#"]
+    \end{tikzcd}
+  \]
+  ここで $\varphi$ は全単射であるが $\varphi^\#$ は $t$ の一次式は得られないことから全射ではない。
+\end{example}
+
+\begin{example}
+  \begin{align}
+    E & = V(y^2 - x^3 + 1) \subseteq \AA^2                    \\
+    D & = V((x_2^2 - x_1^3 + 1, x_3 - x_1^2)) \subseteq \AA^3
+  \end{align}
+  \begin{alignat}{3}
+    \psi: \        & E \quad                     & \to\quad     & D           \\
+                   & x_1 = x, x_2 = y, x_3 = x^2                              \\
+    \tilde\psi: \  & \AA^2 \quad                 & \to\quad     & \AA^3       \\
+                   & (a, b) \quad                & \mapsto\quad & (a, b, a^2)
+  \end{alignat}
+  \begin{alignat}{3}
+    \psi^\#: \        & k[D] = k[x_1,x_2,x_3]/I \quad   & \to\quad     & k[E] = k[x,y]/J       \\
+                      & \overline{g(x_1,x_2,x_3)} \quad & \mapsto\quad & \overline{g(x,y,x^2)} \\
+    \tilde\psi^\#: \  & k[\AA^3] = k[x_1,x_2,x_3] \quad & \to\quad     & k[\AA^2] = k[x,y]     \\
+                      & g(x_1,x_2,x_3) \quad            & \mapsto\quad & g(x,y,x^2)
+  \end{alignat}
+\end{example}
+
+\begin{proposition}
+  代数的集合の射 $\varphi: V\to W$ が与えられると、座標環の $k$ 準同型写像 $\varphi^\#: k[W]\to k[V]$ が定まり、かつ点 $(a_1,\ldots,a_m)\in V$ から定まる
+\end{proposition}
+
+\begin{itembox}[l]{重複度・局所交点数}
+  平面曲線 $C_f: f(x, y) = 0$ と $C_g: g(x, y) = 0$ の交点が重根によって表現されることがある。
+  \begin{equation*}
+    \Downarrow
+  \end{equation*}
+  $n$ 変数多項式環 $R = k[x_1,\ldots,x_n]$ の点 $P$ での局所化 $R_P$ について連立方程式のイデアル $I = (f_1,\ldots,f_l)$ で割った環の $k$ に関する次元を局所交点数と呼び、$I_P(C_1,\ldots,C_l)$ と書く。
+  \begin{align}
+    I_P(C_1,\ldots,C_l) = \dim_k R_P/I
+  \end{align}
+\end{itembox}
+\begin{proof}
+  $R = k[x_1,\ldots,x_n]$ の $I = (f_1,\ldots,f_l)$ に関する局所化 $R_P$
+  \begin{align}
+    f(x) & = a_0\prod_{j=1}^{m}(x - \alpha_j)^{n_j}
+  \end{align}
+\end{proof}
+\begin{example}
+
+\end{example}
+
+\subsection{射影空間}
+無限遠点を含む空間を用いて議論したい。
+\begin{definition}[射影空間]
+  代数的閉体 $k$ 上の $n + 1$ 次元アフィン空間 $k^{n+1}$ から原点を除いたものを $W$ とおく。
+  \begin{align}
+    W = k^{n+1}/\lbrace(0,\ldots,0)\rbrace
+  \end{align}
+  $W$ に同値関係 $\sim$ を次のように定義する。
+  \begin{align}
+    (a_0,\ldots,a_n)\sim(b_0,\ldots,b_n) \iff \exists\alpha\in k^\times (a_0,\ldots,a_n) = (\alpha b_0,\ldots,\alpha b_n)
+  \end{align}
+  この同値関係 $\sim$ による $W$ の商空間 $W/\sim$ を $\PP_k^n$ と記し、$n$ 次元射影空間 ($n$-dimensional projective space) という。
+  $\PP_k^n$ の元は $(a_0, a_1, \ldots, a_n)$ の定める同値類を $(a_0 : a_1 : \ldots : a_n)$ と記し $\PP_k^n$ の点という。
+  \begin{align}
+    (a_0 : a_1 : \ldots : a_n)\in\PP_k^n
+  \end{align}
+\end{definition}
+斉次式
 
 
 \end{document}
