@@ -11,7 +11,10 @@
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
 \usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -64,6 +67,7 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\numberwithin{equation}{section}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -668,15 +672,15 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \end{align}
 ここで、$\hbar$ は Planck 定数です。
 
-この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket{n}$ は固有方程式
+この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket|n>$ は固有方程式
 \begin{align}
-  \hat{H}\ket{n} = E_n\ket{n}
+  \hat{H}\ket|n> = E_n\ket|n>
 \end{align}
 を解くことにより定まります。解いた結果は $n = 0, 1, 2, \ldots$ に対して次のとおりです：
 \begin{align}
   \begin{dcases}
     E_n        = \qty(n + \frac{1}{2})\hbar\omega \\
-    \Psi_n(q) = \braket{q}{n} = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
+    \Psi_n(q) = \braket<q|n> = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
   \end{dcases}.
 \end{align}
 ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義されます：
@@ -1033,31 +1037,31 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   複素内積空間で内積によって誘導される距離関数に関して完備距離空間となるときヒルベルト空間という。
 \end{definition}
 \begin{definition}[ブラケット]
-  すべての量子状態はヒルベルト空間上のベクトルに対応する。このベクトルをケット (ket) と呼び、$\ket{\alpha}$ と記す。ベクトル空間よりケットの線形性は成り立ち、ケットのスカラー倍は同じ状態を表すと要請する。
+  すべての量子状態はヒルベルト空間上のベクトルに対応する。このベクトルをケット (ket) と呼び、$\ket|\alpha>$ と記す。ベクトル空間よりケットの線形性は成り立ち、ケットのスカラー倍は同じ状態を表すと要請する。
 
   ケットの双対としてブラ (bra) をエルミート共役 (Hermitian adjoint) を用いて次のように定義する。
   \begin{align}
-    \bra{\alpha}                         & := \ket{\alpha}^\dagger                       \\
-    c_1^*\bra{\alpha} + c_2^*\bra{\beta} & := (c_1\ket{\alpha} + c_2\ket{\beta})^\dagger \\
-    \bra{\alpha}X^\dagger                & := (X\ket{\alpha})^\dagger
+    \bra<\alpha|                         & := \ket|\alpha>^\dagger                       \\
+    c_1^*\bra<\alpha| + c_2^*\bra<\beta| & := (c_1\ket|\alpha> + c_2\ket|\beta>)^\dagger \\
+    \bra<\alpha|X^\dagger                & := (X\ket|\alpha>)^\dagger
   \end{align}
-  ブラ $\bra{\beta}$ とケット $\ket{\alpha}$ との内積 (inner product) は複素数を返し、$\braket{\beta|\alpha}\in\CC$ と記す。ただし交換すると複素共役となり、正値計量の要請を満たすとする。
+  ブラ $\bra<\beta|$ とケット $\ket|\alpha>$ との内積 (inner product) は複素数を返し、$\braket<\beta|\alpha>\in\CC$ と記す。ただし交換すると複素共役となり、正値計量の要請を満たすとする。
   \begin{align}
-    \braket{\beta|\alpha}  & = \braket{\alpha|\beta}^* \\
-    \braket{\alpha|\alpha} & \geq 0
+    \braket<\beta|\alpha>  & = \braket<\alpha|\beta>^* \\
+    \braket<\alpha|\alpha> & \geq 0
   \end{align}
-  ケット $\ket{\beta}$ とブラ $\bra{\alpha}$ との外積 (outer product) は演算子を返し、$\ket{\beta}\bra{\alpha}$ と記す。
+  ケット $\ket|\beta>$ とブラ $\bra<\alpha|$ との外積 (outer product) は演算子を返し、$\ket|\beta>\bra<\alpha|$ と記す。
 \end{definition}
 \begin{definition}[演算子]
-  演算子 $A$ はケット $\ket{\alpha}$ に左から作用して別のケット $A\ket{\alpha}$ となる。演算子同士の同値性、和、積を次のように定義される。
+  演算子 $A$ はケット $\ket|\alpha>$ に左から作用して別のケット $A\ket|\alpha>$ となる。演算子同士の同値性、和、積を次のように定義される。
   \begin{align}
-    A = B               & \iff \forall \ket{\alpha}, A\ket{\alpha} = B\ket{\alpha} \\
-    (A + B)\ket{\alpha} & := A\ket{\alpha} + B\ket{\alpha}                         \\
-    (AB)\ket{\alpha}    & := A(B\ket{\alpha})
+    A = B               & \iff \forall \ket|\alpha>\ A\ket|\alpha> = B\ket|\alpha> \\
+    (A + B)\ket|\alpha> & := A\ket|\alpha> + B\ket|\alpha>                         \\
+    (AB)\ket|\alpha>    & := A(B\ket|\alpha>)
   \end{align}
-  演算子 $A$ に対して固有ケット(eigenkets) と呼ばれる特別なケット $\ket{a^{(n)}}$ があり、スカラー値 $a^{(n)}\in\CC$ を用いて次のような関係が成り立つ。
+  演算子 $A$ に対して固有ケット(eigenkets) と呼ばれる特別なケット $\ket|a^{(n)}>$ があり、スカラー値 $a^{(n)}\in\CC$ を用いて次のような関係が成り立つ。
   \begin{align}
-    A\ket{a^{(n)}} = a^{(n)}\ket{a^{(n)}}
+    A\ket|a^{(n)}> = a^{(n)}\ket|a^{(n)}>
   \end{align}
   固有ケットに対応する物理的状態を固有状態 (eigenstate) という。
 \end{definition}
@@ -1065,18 +1069,18 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 \begin{proposition}
   \begin{align}
-    \braket{\alpha|\alpha}            & \in\RR                               \\
+    \braket<\alpha|\alpha>            & \in\RR                               \\
     (XY)^\dagger                      & = Y^\dagger X^\dagger                \\
-    (\ket{\beta}\bra{\alpha})^\dagger & = \ket{\alpha}\bra{\beta}            \\
-    \bra{\beta}X\ket{\alpha}          & = \bra{\alpha}X^\dagger\ket{\beta}^*
+    (\ket|\beta>\bra<\alpha|)^\dagger & = \ket|\alpha>\bra<\beta|            \\
+    \bra<\beta|X\ket|\alpha>          & = \bra<\alpha|X^\dagger\ket|\beta>^*
   \end{align}
 \end{proposition}
 \begin{proof}
-  $\braket{\alpha|\alpha} = \braket{\alpha|\alpha}^*$ より $\braket{\alpha|\alpha}\in\RR$ となる。
+  $\braket<\alpha|\alpha> = \braket<\alpha|\alpha>^*$ より $\braket<\alpha|\alpha>\in\RR$ となる。
   \begin{align}
-    (XY\ket{\alpha})^\dagger                    & = (X(Y\ket{\alpha}))^\dagger = (\bra{\alpha}Y^\dagger)X^\dagger = \bra{\alpha}Y^\dagger X^\dagger                 \\
-    (\ket{\beta}\braket{\alpha|\gamma})^\dagger & = \braket{\alpha|\gamma}^*\bra{\beta} = \braket{\gamma|\alpha}\bra{\beta} = \bra{\gamma}(\ket{\alpha}\bra{\beta}) \\
-    \bra{\beta}X\ket{\alpha}                    & = \bra{\beta}(X\ket{\alpha}) = \qty{(\bra{\alpha}X^\dagger)\ket{\beta}}^* = \bra{\alpha}X^\dagger\ket{\beta}^*
+    (XY\ket|\alpha>)^\dagger                    & = (X(Y\ket|\alpha>))^\dagger = (\bra<\alpha|Y^\dagger)X^\dagger = \bra<\alpha|Y^\dagger X^\dagger                 \\
+    (\ket|\beta>\braket<\alpha|\gamma>)^\dagger & = \braket<\alpha|\gamma>^*\bra<\beta| = \braket<\gamma|\alpha>\bra<\beta| = \bra<\gamma|(\ket|\alpha>\bra<\beta|) \\
+    \bra<\beta|X\ket|\alpha>                    & = \bra<\beta|(X\ket|\alpha>) = \qty{(\bra<\alpha|X^\dagger)\ket|\beta>}^* = \bra<\alpha|X^\dagger\ket|\beta>^*
   \end{align}
 \end{proof}
 
@@ -1085,70 +1089,70 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \end{theorem}
 \begin{proof}
   \begin{align}
-    A\ket{a'} = a'\ket{a'}      & \iff \bra{a''}A\ket{a'} = a'\braket{a''|a'}    \\
-    \bra{a''}A = a''^*\bra{a''} & \iff \bra{a''}A\ket{a'} = a''^*\braket{a''|a'} \\
-    (a' - a''^*)\braket{a''|a'} & = 0
+    A\ket|a'> = a'\ket|a'>      & \iff \bra<a''|A\ket|a'> = a'\braket<a''|a'>    \\
+    \bra<a''|A = a''^*\bra<a''| & \iff \bra<a''|A\ket|a'> = a''^*\braket<a''|a'> \\
+    (a' - a''^*)\braket<a''|a'> & = 0
   \end{align}
-  $a' = a''$ かつ $\braket{a'|a'} \neq 0$ のとき $a', a''\in\RR$ である。これより
+  $a' = a''$ かつ $\braket<a'|a'> \neq 0$ のとき $a', a''\in\RR$ である。これより
   \begin{align}
-    (a' - a'')\braket{a''|a'} & = 0
+    (a' - a'')\braket<a''|a'> & = 0
   \end{align}
-  となる。よって $a' \neq a''$ のとき $\braket{a''|a'} = 0$ である。
+  となる。よって $a' \neq a''$ のとき $\braket<a''|a'> = 0$ である。
 \end{proof}
 
 これよりエルミート演算子の固有ケットは完全系を成す。状態は観測でしか分からないので固有ケットにより全てのケットは生成される。
 
 \begin{align}
-  \ket{\alpha} & = \sum_{a'}c_{a'}\ket{a'}             \\
-               & = \sum_{a'}\ket{a'}\braket{a'|\alpha}
+  \ket|\alpha> & = \sum_{a'}c_{a'}\ket|a'>             \\
+               & = \sum_{a'}\ket|a'>\braket<a'|\alpha>
 \end{align}
 これより完備関係式 (completeness relation) と呼ばれる式が成り立つ。
 \begin{align}
-  \sum_{a'}\ket{a'}\bra{a'} = 1
+  \sum_{a'}\ket|a'>\bra<a'| = 1
 \end{align}
 
 \begin{proposition}[行列表現]
   演算子やブラケットは行列で表現できる。
 \end{proposition}
 \begin{proof}
-  ある演算子の固有ケットによる完備関係式を用いることで演算子とその和積、ブラケット $\ket{\alpha}$, $\bra{\alpha}$ は次のように書ける。
+  ある演算子の固有ケットによる完備関係式を用いることで演算子とその和積、ブラケット $\ket|\alpha>$, $\bra<\alpha|$ は次のように書ける。
   \begin{align}
-    X                        & = \sum_{a''}\sum_{a'}\ket{a''}\bra{a''}X\ket{a'}\bra{a'} \\
-    \bra{a''}(X + Y)\ket{a'} & = \bra{a''}X\ket{a'} + \bra{a''}Y\ket{a'}                \\
-    \bra{a''}XY\ket{a'}      & = \sum_{a'''}\bra{a''}X\ket{a'''}\bra{a'''}Y\ket{a'}     \\
-    \bra{a'}X\ket{\alpha}    & = \sum_{a''}\bra{a'}X\ket{a''}\braket{a''|\alpha}        \\
-    \bra{\alpha}X\ket{a'}    & = \sum_{a''}\braket{\alpha|a''}\bra{a''}X\ket{a'}
+    X                        & = \sum_{a''}\sum_{a'}\ket|a''>\bra<a''|X\ket|a'>\bra<a'| \\
+    \bra<a''|(X + Y)\ket|a'> & = \bra<a''|X\ket|a'> + \bra<a''|Y\ket|a'>                \\
+    \bra<a''|XY\ket|a'>      & = \sum_{a'''}\bra<a''|X\ket|a'''>\bra<a'''|Y\ket|a'>     \\
+    \bra<a'|X\ket|\alpha>    & = \sum_{a''}\bra<a'|X\ket|a''>\braket<a''|\alpha>        \\
+    \bra<\alpha|X\ket|a'>    & = \sum_{a''}\braket<\alpha|a''>\bra<a''|X\ket|a'>
   \end{align}
   これより行列として表現すると次のようになる。
   \begin{align}
-    X                                            & = \mqty(\bra{a^{(1)}}X\ket{a^{(1)}} & \bra{a^{(1)}}X\ket{a^{(2)}} & \cdots \\
-    \bra{a^{(2)}}X\ket{a^{(1)}}                  & \bra{a^{(2)}}X\ket{a^{(2)}}         & \cdots                               \\
+    X                                            & = \mqty(\bra<a^{(1)}|X\ket|a^{(1)}> & \bra<a^{(1)}|X\ket|a^{(2)}> & \cdots \\
+    \bra<a^{(2)}|X\ket|a^{(1)}>                  & \bra<a^{(2)}|X\ket|a^{(2)}>         & \cdots                               \\
     \vdots                                       & \vdots                              & \ddots)                              \\
-    \ket{\alpha}                                 & = \mqty(\braket{a^{(1)}|\alpha}                                            \\ \braket{a^{(2)}|\alpha} \\ \vdots), \qquad
-    \bra{\alpha} = \mqty(\braket{\alpha|a^{(1)}} & \braket{\alpha|a^{(2)}}             & \cdots)
+    \ket|\alpha>                                 & = \mqty(\braket<a^{(1)}|\alpha>                                            \\ \braket<a^{(2)}|\alpha> \\ \vdots), \qquad
+    \bra<\alpha| = \mqty(\braket<\alpha|a^{(1)}> & \braket<\alpha|a^{(2)}>             & \cdots)
   \end{align}
 \end{proof}
 
 \begin{proposition}
   \begin{align}
-    \ket{\alpha}           & = \int\dd{x'}\ket{x'}\braket{x'|\alpha}           \\
-    \braket{x'|\alpha}     & = \psi_\alpha(x')                                 \\
-    \braket{\beta|\alpha}  & = \int\dd{x'}\braket{\beta|x'}\braket{x'|\alpha}  \\
-                           & = \int\dd{x'}\psi_\beta^*(x')\psi_\alpha(x')      \\
-    \braket{\alpha|\alpha} & = \int\dd{x'}\braket{\alpha|x'}\braket{x'|\alpha} \\
-                           & = \int\dd{x'}\psi_\alpha^*(x')\psi_\alpha(x')     \\
+    \ket|\alpha>           & = \int\dl{x'}\ket|x'>\braket<x'|\alpha>           \\
+    \braket<x'|\alpha>     & = \psi_{\alpha}(x')                               \\
+    \braket<\beta|\alpha>  & = \int\dl{x'}\braket<\beta|x'>\braket<x'|\alpha>  \\
+                           & = \int\dl{x'}\psi_{\beta}^*(x')\psi_{\alpha}(x')  \\
+    \braket<\alpha|\alpha> & = \int\dl{x'}\braket<\alpha|x'>\braket<x'|\alpha> \\
+                           & = \int\dl{x'}\psi_{\alpha}^*(x')\psi_{\alpha}(x') \\
                            & = 1
   \end{align}
 \end{proposition}
 \begin{definition}[平行移動]
   無限小平行移動演算子
   \begin{align}
-    \mathfrak{J}(\dd{\rr'})\ket{\rr'} = \ket{\rr' + \dd{\rr'}}
+    \mathfrak{J}(\dl{\rr'})\ket|\rr'> = \ket|\rr' + \dl{\rr'}>
   \end{align}
   平行移動生成演算子
 \end{definition}
 \begin{align}
-  \mathfrak{J}(\dd{\rr'})\ket{\alpha} = \mathfrak{J}(\dd{\rr'})\int\dd{\rr'}\ket{\rr'}\braket{\rr'|\alpha} = \int\dd{\rr'}\ket{\rr' + \dd{\rr'}}\braket{\rr'|\alpha} = \int\dd{\rr'}\ket{\rr'}\braket{\rr' - \dd{\rr'}|\alpha}
+  \mathfrak{J}(\dd{\rr'})\ket|\alpha> = \mathfrak{J}(\dd{\rr'})\int\dd{\rr'}\ket|\rr'>\braket<\rr'|\alpha> = \int\dd{\rr'}\ket|\rr' + \dd{\rr'}>\braket<\rr'|\alpha> = \int\dd{\rr'}\ket|\rr'>\braket<\rr' - \dd{\rr'}|\alpha>
 \end{align}
 
 \begin{definition}[交換関係・反交換関係]
@@ -1192,21 +1196,21 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 \section{時間発展のあるシュレーディンガー方程式}
 \begin{align}
-  i\hbar\pdv{t}\ket{\phi(t)} & = \hat{H}\ket{\phi(t)}
+  i\hbar\pdv{t}\ket|\phi(t)> & = \hat{H}\ket|\phi(t)>
 \end{align}
-$\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完全系をなす。これで展開して代入すると
+$\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完全系をなす。これで展開して代入すると
 \begin{align}
-  \ket{\phi(t)}      & = \sum_nc_n(t)\ket{\phi_n}                           & \qty(c_n(t) = \braket{\phi_n}{\phi(t)}) \\
-  i\hbar\dv{t}c_n(t) & = E_nc_n(t)                                                                                    \\
-  c_n(t)             & = c_n(0)\exp(-i\frac{E_nt}{\hbar})                                                             \\
-  \ket{\phi(t)}      & = \sum_nc_n(0)\exp(-i\frac{E_nt}{\hbar})\ket{\phi_n}
+  \ket|\phi(t)>      & = \sum_nc_n(t)\ket|\phi_n>                           & \qty(c_n(t) = \braket<\phi_n|\phi(t)>) \\
+  i\hbar\dv{t}c_n(t) & = E_nc_n(t)                                                                                   \\
+  c_n(t)             & = c_n(0)\exp(-i\frac{E_nt}{\hbar})                                                            \\
+  \ket|\phi(t)>      & = \sum_nc_n(0)\exp(-i\frac{E_nt}{\hbar})\ket|\phi_n>
 \end{align}
 となる。
 
 
 \subsection{ラーモア歳差運動}
 \begin{align}
-  \ket{\sigma(t)}
+  \ket|\sigma(t)>
 \end{align}
 
 
@@ -1233,7 +1237,7 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
   \begin{align}
     [\hat{j}_i, \hat{j}_j] = i\epsilon_{ijk}\hat{j}_k
   \end{align}
-  $[\hat{\bm{j}}^2, \hat{j}_z] = 0$ より $\hat{\bm{j}}^2, \hat{j}_z$ は固有値 $\lambda, m$ とする同時固有状態 $\ket{\lambda, m}$ を持つ。
+  $[\hat{\bm{j}}^2, \hat{j}_z] = 0$ より $\hat{\bm{j}}^2, \hat{j}_z$ は固有値 $\lambda, m$ とする同時固有状態 $\ket|\lambda, m>$ を持つ。
   上昇演算子 $\hat{j}_+$ と下降演算子 $\hat{j}_-$ を次のように定義する。
   \begin{align}
     \hat{j}_\pm & = \hat{j}_x \pm i\hat{j}_y
@@ -1247,21 +1251,28 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
   \end{align}
 \end{proposition}
 \begin{proof}
+  \begin{align}
+    [\hat{\bm{j}}^2, \hat{j}_z]   & = \hat{j}_i[\hat{j}_i, \hat{j}_z] + [\hat{j}_i, \hat{j}_z]\hat{j}_i = i\epsilon_{izk}\hat{j}_i\hat{j}_k + i\epsilon_{izk}\hat{j}_k\hat{j}_i = 0                       \\
+    [\hat{j}_+, \hat{j}_-]        & = [\hat{j}_x + i\hat{j}_y, \hat{j}_x - i\hat{j}_y] = [\hat{j}_x, \hat{j}_x] - i[\hat{j}_x, \hat{j}_y] + i[\hat{j}_y, \hat{j}_x] + [\hat{j}_y, \hat{j}_y] = 2\hat{j}_z \\
+    [\hat{j}_z, \hat{j}_\pm]      & = [\hat{j}_z, \hat{j}_x \pm i\hat{j}_y] = [\hat{j}_z, \hat{j}_x] \pm i[\hat{j}_z, \hat{j}_y] = i\hat{j}_y \pm \hat{j}_x = \pm \hat{j}_\pm                             \\
+    [\hat{\bm{j}}^2, \hat{j}_\pm] & = [\hat{\bm{j}}^2, \hat{j}_x \pm i\hat{j}_y] = [\hat{\bm{j}}^2, \hat{j}_x] \pm i[\hat{\bm{j}}^2, \hat{j}_y] = 0                                                       \\
+    \hat{\bm{j}}^2                & = \frac{1}{2}(\hat{j}_+\hat{j}_- + \hat{j}_-\hat{j}_+) + \hat{j}_z^2 = \hat{j}_-\hat{j}_+ + \hat{j}_z + \hat{j}_z^2 = \hat{j}_+\hat{j}_- - \hat{j}_z + \hat{j}_z^2
+  \end{align}
 \end{proof}
 
 \begin{proposition}
   上昇演算子 $\hat{j}_+$ を演算させると $\hat{j}_z$ の固有値は 1 つ上昇し、下降演算子 $\hat{j}_-$ を演算させると $\hat{j}_z$ の固有値が 1 つ下降する。
   \begin{align}
-    \hat{j}_\pm\ket{\lambda, m} = \ket{\lambda, m\pm 1}
+    \hat{j}_\pm\ket|\lambda, m> = \ket|\lambda, m\pm 1>
   \end{align}
 \end{proposition}
 \begin{proof}
   このとき上昇,下降演算子を作用させたとき
   \begin{align}
-    \hat{\bm{j}}^2(\hat{j}_\pm\ket{\lambda, m}) & = \hat{j}_\pm\hat{\bm{j}}^2\ket{\lambda, m} = \lambda \hat{j}_\pm\ket{\lambda, m}               \\
-    \hat{j}_z(\hat{j}_\pm\ket{\lambda, m})      & = (\hat{j}_\pm \hat{j}_z \pm \hat{j}_\pm)\ket{\lambda, m} = (m\pm 1)\hat{j}_\pm\ket{\lambda, m}
+    \hat{\bm{j}}^2(\hat{j}_\pm\ket|\lambda, m>) & = \hat{j}_\pm\hat{\bm{j}}^2\ket|\lambda, m> = \lambda \hat{j}_\pm\ket|\lambda, m>               \\
+    \hat{j}_z(\hat{j}_\pm\ket|\lambda, m>)      & = (\hat{j}_\pm \hat{j}_z \pm \hat{j}_\pm)\ket|\lambda, m> = (m\pm 1)\hat{j}_\pm\ket|\lambda, m>
   \end{align}
-  より $\hat{j}_\pm\ket{\lambda, m} = \ket{\lambda, m\pm 1}$ とかける。
+  より $\hat{j}_\pm\ket|\lambda, m> = \ket|\lambda, m\pm 1>$ とかける。
 \end{proof}
 
 \begin{proposition}
@@ -1269,11 +1280,11 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \bra{\lambda, m}\hat{\bm{j}}^2\ket{\lambda, m} & = \bra{\lambda, m}(\hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2)\ket{\lambda, m}                       \\
-                                                   & = \bra{\lambda, m}\hat{j}_x^2\ket{\lambda, m} + \bra{\lambda, m}\hat{j}_y^2\ket{\lambda, m} + m^2 \\
+    \bra<\lambda, m|\hat{\bm{j}}^2\ket|\lambda, m> & = \bra<\lambda, m|(\hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2)\ket|\lambda, m>                       \\
+                                                   & = \bra<\lambda, m|\hat{j}_x^2\ket|\lambda, m> + \bra<\lambda, m|\hat{j}_y^2\ket|\lambda, m> + m^2 \\
                                                    & = \lambda
   \end{align}
-  $\hat{j}_x, \hat{j}_y$ はエルミート演算子より $\bra{\lambda, m}\hat{j}_x^2\ket{\lambda, m} \geq 0$, $\bra{\lambda, m}\hat{j}_y^2\ket{\lambda, m} \geq 0$ であり $0 \leq m^2 \leq \lambda$
+  $\hat{j}_x, \hat{j}_y$ はエルミート演算子より $\bra<\lambda, m|\hat{j}_x^2\ket|\lambda, m> \geq 0$, $\bra<\lambda, m|\hat{j}_y^2\ket|\lambda, m> \geq 0$ であり $0 \leq m^2 \leq \lambda$
 \end{proof}
 
 \begin{proposition}
@@ -1282,8 +1293,8 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \begin{proof}
   次のような関係式が成り立つ。
   \begin{align}
-    \bra{\lambda, m}\hat{\bm{j}}^2\ket{\lambda, m} & = \bra{\lambda, m}(\hat{j}_-\hat{j}_+ + \hat{j}_z^2 + \hat{j}_z)\ket{\lambda, m} = \bra{\lambda, m}\hat{j}_-\hat{j}_+\ket{\lambda, m} + m^2 + m \\
-                                                   & = \bra{\lambda, m}(\hat{j}_+\hat{j}_- + \hat{j}_z^2 - \hat{j}_z)\ket{\lambda, m} = \bra{\lambda, m}\hat{j}_+\hat{j}_-\ket{\lambda, m} + m^2 - m \\
+    \bra<\lambda, m|\hat{\bm{j}}^2\ket|\lambda, m> & = \bra<\lambda, m|(\hat{j}_-\hat{j}_+ + \hat{j}_z^2 + \hat{j}_z)\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_-\hat{j}_+\ket|\lambda, m> + m^2 + m \\
+                                                   & = \bra<\lambda, m|(\hat{j}_+\hat{j}_- + \hat{j}_z^2 - \hat{j}_z)\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_+\hat{j}_-\ket|\lambda, m> + m^2 - m \\
                                                    & = \lambda
   \end{align}
   これより $m$ の上限値 $j$ と置くと $\lambda = j(j + 1)$ となり、下限値 $j - n$ と置くと $\lambda = (j - n)(j - n - 1)$ となる。
@@ -1302,14 +1313,14 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{proof}
 
 \begin{definition}
-  $\ket{\lambda, m}$ を $\ket{j, m}$ と表現する。
+  $\ket|\lambda, m>$ を $\ket|j, m>$ と表現する。
 \end{definition}
 
 \begin{proposition}
   \begin{align}
-    \hat{\bm{j}}^2\ket{j, m} & = j(j + 1)\ket{j, m}                          \\
-    \hat{j}_z\ket{j, m}      & = m\ket{j, m}                                 \\
-    \hat{j}_\pm\ket{j, m}    & = \sqrt{(j \mp m)(j \pm m + 1)}\ket{j, m\pm1}
+    \hat{\bm{j}}^2\ket|j, m> & = j(j + 1)\ket|j, m>                          \\
+    \hat{j}_z\ket|j, m>      & = m\ket|j, m>                                 \\
+    \hat{j}_\pm\ket|j, m>    & = \sqrt{(j \mp m)(j \pm m + 1)}\ket|j, m\pm1>
   \end{align}
 \end{proposition}
 
@@ -1327,23 +1338,23 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{align}
 となる。また状態についても
 \begin{align}
-  \ket{j, m}\rangle & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2}
+  \ket|j, m>\rangle & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2>
 \end{align}
 とおき, 次のようになるとする。
 \begin{align}
-  \hat{\bm{j}}^2\ket{j, m}\rangle & = j(j+1)\ket{j, m}\rangle                           \\
-  \hat{j}_z\ket{j, m}\rangle      & = m\ket{j, m}\rangle                                \\
-  \hat{j}_\pm\ket{j, m}\rangle    & = \sqrt{(j\mp m)(j\pm m + 1)}\ket{j, m\pm 1}\rangle \\
-  \hat{\bm{j}}_s\ket{j, m}\rangle & = j_s(j_s + 1)\ket{j, m}\rangle
+  \hat{\bm{j}}^2\ket|j, m>\rangle & = j(j+1)\ket|j, m>\rangle                           \\
+  \hat{j}_z\ket|j, m>\rangle      & = m\ket|j, m>\rangle                                \\
+  \hat{j}_\pm\ket|j, m>\rangle    & = \sqrt{(j\mp m)(j\pm m + 1)}\ket|j, m\pm 1>\rangle \\
+  \hat{\bm{j}}_s\ket|j, m>\rangle & = j_s(j_s + 1)\ket|j, m>\rangle
 \end{align}
 この上で
 \begin{align}
-  \hat{j}_z\ket{j, m}\rangle      & = (j_{1z} + j_{2z})\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2} \\
-                                  & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}(m_1 + m_2)\ket{j_1, m_1}\ket{j_2, m_2}       \\
-                                  & = m\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket{j_1, m_1}\ket{j_2, m_2}                 \\
-  \hat{\bm{j}}^2\ket{j, m}\rangle & = (j_-j_+ + j_z^2 + j_z)\ket{j, m}\rangle                                           \\
-                                  & = (j_-j_+ + m^2 + m)\ket{j, m}\rangle                                               \\
-                                  & = j(j + 1)\ket{j, m}\rangle
+  \hat{j}_z\ket|j, m>\rangle      & = (j_{1z} + j_{2z})\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2> \\
+                                  & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}(m_1 + m_2)\ket|j_1, m_1>\ket|j_2, m_2>       \\
+                                  & = m\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2>                 \\
+  \hat{\bm{j}}^2\ket|j, m>\rangle & = (j_-j_+ + j_z^2 + j_z)\ket|j, m>\rangle                                           \\
+                                  & = (j_-j_+ + m^2 + m)\ket|j, m>\rangle                                               \\
+                                  & = j(j + 1)\ket|j, m>\rangle
 \end{align}
 より状態の係数比較して $m \neq m_1 + m_2$ のとき $C_{j_1m_1j_2m_2}^{jm} = 0$ となる。$m$ の最大値 $j_{\max} = j_1 + j_2$ である。
 \begin{align}
@@ -1351,10 +1362,10 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{align}
 より $j_{\min} = |j_1 - j_2|$ となる。
 \begin{align}
-  \ket{1, 1}\rangle  & = \ket{\uparrow\uparrow}                                                                                               \\
-  \ket{1, 0}\rangle  & = \frac{1}{\sqrt{2}}j_-\ket{1, 1}\rangle = \frac{1}{\sqrt{2}}\qty(\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow}) \\
-  \ket{1, -1}\rangle & = \ket{\downarrow\downarrow}                                                                                           \\
-  \ket{0, 0}\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})
+  \ket|1, 1>\rangle  & = \ket|\uparrow\uparrow>                                                                                               \\
+  \ket|1, 0>\rangle  & = \frac{1}{\sqrt{2}}j_-\ket|1, 1>\rangle = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>) \\
+  \ket|1, -1>\rangle & = \ket|\downarrow\downarrow>                                                                                           \\
+  \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
 \end{align}
 
 \begin{definition}[スピン角運動量]
@@ -1385,13 +1396,13 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{proposition}
 
 \begin{proposition}
-  スピン $s = 1/2$ では $\hat{s}_z$ の固有状態が 2 つあり、それぞれ固有値 $m_s = \pm1/2$ を持つ $\ket{\uparrow}$, $\ket{\downarrow}$ とおく。
+  スピン $s = 1/2$ では $\hat{s}_z$ の固有状態が 2 つあり、それぞれ固有値 $m_s = \pm1/2$ を持つ $\ket|\uparrow>$, $\ket|\downarrow>$ とおく。
   \begin{align}
-    \hat{s}_z\ket{\uparrow} = \frac{1}{2}\ket{\uparrow}, \qquad \hat{s}_z\ket{\downarrow} = -\frac{1}{2}\ket{\downarrow}, \qquad \hat{\bm{s}}^2\ket{\uparrow} = \frac{3}{4}\ket{\uparrow}, \qquad \hat{\bm{s}}^2\ket{\downarrow} = \frac{3}{4}\ket{\downarrow}
+    \hat{s}_z\ket|\uparrow> = \frac{1}{2}\ket|\uparrow>, \qquad \hat{s}_z\ket|\downarrow> = -\frac{1}{2}\ket|\downarrow>, \qquad \hat{\bm{s}}^2\ket|\uparrow> = \frac{3}{4}\ket|\uparrow>, \qquad \hat{\bm{s}}^2\ket|\downarrow> = \frac{3}{4}\ket|\downarrow>
   \end{align}
   スピン昇降演算子を用いると固有状態は互いに入れ替わる。
   \begin{align}
-    \hat{s}_+\ket{\uparrow} = 0, \qquad \hat{s}_+\ket{\downarrow} = \ket{\uparrow}, \qquad \hat{s}_-\ket{\uparrow} = \ket{\downarrow}, \qquad \hat{s}_-\ket{\downarrow} = 0
+    \hat{s}_+\ket|\uparrow> = 0, \qquad \hat{s}_+\ket|\downarrow> = \ket|\uparrow>, \qquad \hat{s}_-\ket|\uparrow> = \ket|\downarrow>, \qquad \hat{s}_-\ket|\downarrow> = 0
   \end{align}
 \end{proposition}
 
@@ -1436,8 +1447,8 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \begin{proposition}
   $\hat{s}_z$ の固有状態は次のように表現される。
   \begin{align}
-    \ket{\uparrow} = \mqty(1   \\ 0), \qquad
-    \ket{\downarrow} = \mqty(0 \\ 1)
+    \ket|\uparrow> = \mqty(1   \\ 0), \qquad
+    \ket|\downarrow> = \mqty(0 \\ 1)
   \end{align}
   スピン演算子は次のように表現される。
   \begin{align}
@@ -1449,9 +1460,9 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 \end{proposition}
 
 \begin{proposition}
-  完全系を貼るので任意の状態 $\ket{\sigma}$ はその線形結合で書ける。
+  完全系を貼るので任意の状態 $\ket|\sigma>$ はその線形結合で書ける。
   \begin{align}
-    \ket{\sigma} & = c_1\ket{\uparrow} + c_2\ket{\downarrow}
+    \ket|\sigma> & = c_1\ket|\uparrow> + c_2\ket|\downarrow>
   \end{align}
 
 
@@ -1461,62 +1472,66 @@ $\hat{H}\ket{\phi_n} = E_n\ket{\phi_n}$ としたとき, $\ket{\phi_n}$ は完�
 
 \section{摂動論}
 近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
-\begin{proposition}
-  1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+\begin{definition}
+  ハミルトニアンを主要項である非摂動ハミルトニアン $\hat{H}_0$ と影響の小さい摂動ハミルトニアン $\hat{V}$ に分ける。パラメータ $\lambda$ を用いて $\hat{H} = \hat{H}_0 + \lambda\hat{V}$ とし、次のように展開する。
   \begin{align}
-    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
-    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+    \hat{H}\ket|\phi_n>         & = E_n\ket|\phi_n>                                                                       \\
+    \hat{H}_0\ket|\phi_n^{(0)}> & = E_n^{(0)}\ket|\phi_n^{(0)}>                                                           \\
+    E_n                         & = E_n^{(0)} + \lambda E_n^{(1)} + \lambda^2E_n^{(2)} + \cdots                           \\
+    \ket|\phi_n>                & = \ket|\phi_n^{(0)}> + \lambda\ket|\phi_n^{(1)}> + \lambda^2\ket|\phi_n^{(2)}> + \cdots
   \end{align}
+\end{definition}
+
+
+\begin{proposition}
+  1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket|\phi_n^{(1)}>, \ket|\phi_n^{(2)}>$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
   \begin{align}
-    \hat{H}_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                       \\
+    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proposition}
 \begin{proof}
+
   \begin{align}
-    \hat{H}\ket{\phi_n} & = E_n\ket{\phi_n}                                  \\
-    \hat{H}             & = \hat{H}_0 + \lambda V                            \\
-    \ket{\phi_n}        & = \sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}} \\
-    E_n                 & = \sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}
-  \end{align}
-  \begin{align}
-    (H - E_n)\ket{\phi_n} & = \qty(\qty(H_0 + \lambda V) - \qty(\sum_{i = 0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket{\phi_n^{(i)}}) \\
-                          & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}}) = 0
+     & (\hat{H} - E_n)\ket|\phi_n> = 0                                                                                                         \\
+     & = \qty(\qty(\hat{H}_0 + \lambda V) - \qty(\sum_{i=0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket|\phi_n^{(i)}>) \\
+     & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}>)
   \end{align}
   これより各 $\lambda$ の次数について比較して次のようになる。
   \begin{align}
-    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket{\phi_n^{(k)}} = 0
+    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}> = 0
   \end{align}
   ここでは 0, 1, 2 次についてのみ考える。
   \begin{align}
-     & \begin{dcases}
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(0)}} = 0                                     \\
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
-         \qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - E_n^{(2)}\ket{\phi_n^{(0)}}
-       \end{dcases}\label{perturbation}
+    \begin{dcases}
+      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(0)}> = 0                                     \\
+      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \qty(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
+      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \qty(V - E_n^{(1)})\ket|\phi_n^{(1)}> - E_n^{(2)}\ket|\phi_n^{(0)}>
+    \end{dcases}\label{perturbation}
   \end{align}
   まず 0 次については次のように書ける。
   \begin{align}
-    H_0\ket{\phi_n^{(0)}} = E_n^{(0)}\ket{\phi_n^{(0)}}
+    H_0\ket|\phi_n^{(0)}> = E_n^{(0)}\ket|\phi_n^{(0)}>
   \end{align}
-  式 \eqref{perturbation} に $\bra{\phi_m^{(0)}}$ を掛けると
+  式 \eqref{perturbation} に $\bra<\phi_m^{(0)}|$ を掛けると
   \begin{align}
          & \begin{dcases}
-             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(0)}} \\
-             \bra{\phi_m^{(0)}}\qty(E_n^{(0)} - H_0)\ket{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}\qty(V - E_n^{(1)})\ket{\phi_n^{(1)}} - \bra{\phi_m^{(0)}}E_n^{(2)}\ket{\phi_n^{(0)}}
-           \end{dcases}          \\
+             \bra<\phi_m^{(0)}|\qty(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|\qty(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
+             \bra<\phi_m^{(0)}|\qty(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|\qty(V - E_n^{(1)})\ket|\phi_n^{(1)}> - \bra<\phi_m^{(0)}|E_n^{(2)}\ket|\phi_n^{(0)}>
+           \end{dcases}        \\
     \iff & \begin{dcases}
-             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(1)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}} - E_n^{(1)}\delta_{mn} \\
-             \qty(E_n^{(0)} - E_m^{(0)})\braket{\phi_m^{(0)}}{\phi_n^{(2)}} = \bra{\phi_m^{(0)}}V\ket{\phi_n^{(1)}} - E_n^{(1)}\braket{\phi_m^{(0)}}{\phi_n^{(1)}} - E_n^{(2)}\delta_{mn}
+             \qty(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}> - E_n^{(1)}\delta_{mn} \\
+             \qty(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(1)}> - E_n^{(1)}\braket<\phi_m^{(0)}|\phi_n^{(1)}> - E_n^{(2)}\delta_{mn}
            \end{dcases}
   \end{align}
-  よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket{\phi_n^{(1)}}, \ket{\phi_n^{(2)}}$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
+  よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket|\phi_n^{(1)}>, \ket|\phi_n^{(2)}>$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
   \begin{align}
-    E_n^{(1)}          & = \bra{\phi_n^{(0)}}V\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket{\phi_n^{(1)}} & = \sum_{m\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}} + c_n^{(1)}\ket{\phi_n^{(0)}}                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
-    \ket{\phi_n^{(2)}} & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra{\phi_m^{(0)}}V\ket{\phi_k^{(0)}}\bra{\phi_k^{(0)}}V\ket{\phi_n^{(0)}}}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket{\phi_m^{(0)}} + c_n^{(2)}\ket{\phi_n^{(0)}}
+    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                             \\
+    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                 \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proof}
 
