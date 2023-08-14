@@ -1170,27 +1170,25 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     [A, A]      & = 0                             \\
     [A, B]      & = - [B, A]                      \\
     [A, c]      & = 0                             \\
-    [A + B, C]  & = [A, C] + [B, C]               \\
+    [A, B + C]  & = [A, B] + [A, C]               \\
     [A, BC]     & = [A, B]C + B[A, C]             \\
     [A, [B, C]] & + [B, [C, A]] + [C, [A, B]] = 0
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    [A, A]     & = AA - AA = 0             \\
-    [A, B]     & = AB - BA = - [B, A]      \\
-    [A, c]     & = Ac - cA = 0             \\
-    [A + B, C] & = (A + B)C - C(A + B)     \\
-               & = (AC - CA) + (BC - CB)   \\
-               & = [A, C] + [B, C]         \\
-    [A, BC]    & = ABC - BCA               \\
-               & = (AB - BA)C + B(AC - CA) \\
-               & = [A, B]C + B[A, C]
-  \end{align}
-  \begin{align}
-     & [A, [B, C]] + [B, [C, A]] + [C, [A, B]]                                       \\
-     & = A(BC - CB) - (BC - CB)A + B(CA - AC) - (CA - AC)B + C(AB - BA) - (AB - BA)C \\
-     & = 0
+    [A, A]                    & = AA - AA = 0                                       \\
+    [A, B]                    & = AB - BA = - [B, A]                                \\
+    [A, c]                    & = Ac - cA = 0                                       \\
+    [A, B + C]                & = A(B + C) - (B + C)A                               \\
+                              & = (AB - BA) + (AC - CA)                             \\
+                              & = [A, B] + [A, C]                                   \\
+    [A, BC]                   & = ABC - BCA                                         \\
+                              & = (AB - BA)C + B(AC - CA)                           \\
+                              & = [A, B]C + B[A, C]                                 \\
+    [A, [B, C]] + [B, [C, A]] & = A(BC - CB) - (BC - CB)A + B(CA - AC) - (CA - AC)B \\
+                              & = ABC + CBA - BAC - CAB                             \\
+                              & = -[C, [A, B]]
   \end{align}
 \end{proof}
 
@@ -1216,22 +1214,6 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
 
 
 \section{角運動量代数}
-\begin{definition}
-  角運動量演算子 $\hat{\bm{L}}$ を次のように定義する。
-  \begin{align}
-    \hat{\bm{L}} & = \hat{\rr}\cross\hat{\pp}
-  \end{align}
-  その無次元量 $\hat{\bm{j}}$ は $\hbar\hat{\bm{j}} = \hat{\bm{L}}$ と書ける。
-\end{definition}
-
-\begin{proposition}
-  \begin{align}
-    \hat{\bm{L}}^2              & = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2 \\
-    [\hat{L}_i, \hat{L}_j]      & = i\hbar\epsilon_{ijk}\hat{L}_k           \\
-    [\hat{\bm{L}}^2, \hat{L}_i] & = 0
-  \end{align}
-\end{proposition}
-
 \begin{definition}
   $\hat{\bm{j}}$ を無次元の演算子として次の交換関係が成り立つとする。
   \begin{align}
@@ -1368,25 +1350,26 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
   \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
 \end{align}
 
-\begin{definition}[スピン角運動量]
-  量子力学的粒子にはスピンという内部自由度がある。この演算子をスピン角運動量演算子 $\hat{\bm{S}}$ といい、位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、角運動量演算子 $\hat{\bm{L}}$ と交換する。
-  \begin{align}
-    [\hat{r}_i, \hat{S}_j] = 0, \qquad [\hat{p}_i, \hat{S}_j] = 0, \qquad [\hat{L}_i, \hat{S}_j] = 0
-  \end{align}
+量子力学的粒子にはスピンという内部自由度がある。
+\begin{definition}[軌道角運動量とスピン角運動量]
+  無次元量化すると角運動量代数の性質を満たす演算子は軌道角運動量演算子 $\hat{\bm{L}}$ とスピン角運動量演算子 $\hat{\bm{S}}$ がある。
   全角運動量 $\hat{\bm{J}}$ は軌道角運動量 $\hat{\bm{L}}$ とスピン角運動量 $\hat{\bm{S}}$ の和で与えられる。
   \begin{align}
-    \hat{\bm{J}} & = \hat{\bm{L}} + \hat{\bm{S}}
+    \hat{\bm{L}} & = \hat{\rr}\cross\hat{\pp} = \hbar\hat{\bm{l}}, \qquad \hat{\bm{S}} = S_z\hat{\bm{s}}, \qquad \hat{\bm{J}} = \hat{\bm{L}} + \hat{\bm{S}}
   \end{align}
-  無次元化されたスピン角運動量演算子 $\hat{\bm{s}}$ は次の交換関係を満たす。
+  スピン角運動量 $\hat{\bm{S}}$ は位置 $\hat{\rr}$、運動量 $\hat{\pp}$、軌道角運動量 $\hat{\bm{L}}$ と交換する。
   \begin{align}
-    [\hat{s}_i, \hat{s}_j] = i\varepsilon_{ijk}\hat{s}_k
-  \end{align}
-  スピン演算子の 2 乗 $\hat{\bm{s}}^2$ や昇降演算子 $\hat{s}_\pm$ を次のように定義する。
-  \begin{align}
-    \hat{\bm{s}}^2 = \hat{s}_x + \hat{s}_y + \hat{s}_z, \qquad \hat{s}_\pm = \hat{s}_x \pm i\hat{s}_y
+    [\hat{\rr}, \hat{\bm{S}}] = 0, \qquad [\hat{\pp}, \hat{\bm{S}}] = 0, \qquad [\hat{\bm{L}}, \hat{\bm{S}}] = 0
   \end{align}
 \end{definition}
 角運動量演算子の固有値は整数だけであったが、スピン角運動量演算子は半整数と成り得る。
+\begin{proposition}
+  \begin{align}
+    \hat{\bm{L}}^2              & = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2 \\
+    [\hat{L}_i, \hat{L}_j]      & = i\hbar\epsilon_{ijk}\hat{L}_k           \\
+    [\hat{\bm{L}}^2, \hat{L}_i] & = 0
+  \end{align}
+\end{proposition}
 
 \begin{proposition}
   \begin{align}
@@ -1530,7 +1513,7 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
   \begin{align}
     E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                             \\
     \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                         \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                       \\
     \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proof}
