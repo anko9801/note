@@ -241,16 +241,20 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 
 クライン・ゴルドン方程式では時間に関して 2 階微分を含むため、$j^0(x)$ に時間微分が残り、確率解釈ができなかった。時間に関して 1 階微分のみを含む相対論的波動方程式を構築したい。また共変性を満足するためには空間に関しても 1 階微分のみを含む必要がある。そこで
 \begin{theorem}[ディラック方程式]
-  確率解釈できる相対論的波動方程式を構築する。無次元の未知係数 $\alpha^i, \beta$ を用いて次のような形で書ける。
+  確率解釈できる相対論的波動方程式を構築する。
   \begin{align}
-    i\hbar\diffp{}{t}\psi(x)        & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)                                   \\
+    i\hbar\diffp{}{t}\psi(x) & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
+  \end{align}
+  ただし、$\alpha^i, \beta$ は次を満たす無次元の未知係数である。
+  \begin{align}
     \lbrace\alpha^i,\alpha^j\rbrace & = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
   \end{align}
 \end{theorem}
 \begin{proof}
-  次の形を仮定する。
+  次の形となることを仮定する。
   \begin{align}
-    i\hbar\diffp{}{t}\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)\psi(x)
+    i\hbar\diffp{}{t}\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)\psi(x)               \\
+                             & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
   \end{align}
   これがクライン・ゴルドン方程式を満たすことから
   \begin{align}
@@ -258,13 +262,9 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
                                     & = \ab[c^2\alpha^i\alpha^j\hat{p}_i\hat{p}_j + \beta^2(mc^2)^2 + (\alpha^i\beta + \beta\alpha^i)\hat{p}_i(mc)]\psi(x) \\
                                     & = [(c\hat{\pp})^2 + (mc^2)^2]\psi(x)
   \end{align}
-  より $\alpha^i$ と $\beta$ は次を満たすエルミート行列である。
+  係数を比較することによって $\alpha^i$ と $\beta$ は次を満たすエルミート行列であることがわかる。
   \begin{align}
     \lbrace\alpha^i,\alpha^j\rbrace = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
-  \end{align}
-  よって
-  \begin{align}
-    i\hbar\diffp{}{t}\psi(x) & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
   \end{align}
 \end{proof}
 
@@ -310,43 +310,45 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
   よって $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ と書ける。
 \end{proof}
 
-\begin{proposition}
+\begin{theorem}
+  ローレンツ共変性
   $x'^\mu = \Lambda^\mu_\nu x^\mu$, $D'_\mu = \Lambda_\mu^\nu D_\nu$
-\end{proposition}
+\end{theorem}
 
-(2) $\gamma^5$ を次のように定義する。
-\begin{align}
-  \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
-\end{align}
-このとき次の式を示せ。
-\begin{align}
-  (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
-\end{align}
-\begin{proof}
+\begin{proposition}
+  $\gamma^5$ を次のように定義する。
   \begin{align}
-    (\gamma^5)^\dagger & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0                                   \\
-                       & = i\gamma^3\gamma^2\gamma^1\gamma^0                                             \\
-                       & = (-1)^6i\gamma^0\gamma^1\gamma^2\gamma^3                                       \\
-                       & = \gamma^5                                                                      \\
-    (\gamma^5)^2       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger \\
-                       & = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2                            \\
-                       & = 1
+    \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
   \end{align}
   \begin{align}
+    (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    (\gamma^5)^\dagger                 & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0                                                \\
+                                       & = i\gamma^3\gamma^2\gamma^1\gamma^0                                                          \\
+                                       & = i\gamma^0\gamma^1\gamma^2\gamma^3                                                          \\
+                                       & = \gamma^5                                                                                   \\
+    (\gamma^5)^2                       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger              \\
+                                       & = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2                                         \\
+                                       & = 1                                                                                          \\
     \lbrace\gamma^\mu, \gamma^5\rbrace & = i(\gamma^\mu\gamma^0\gamma^1\gamma^2\gamma^3 + \gamma^0\gamma^1\gamma^2\gamma^3\gamma^\mu) \\
                                        & = i((-1)^\mu + (-1)^{3-\mu})\gamma^0\cdots(\gamma^\mu)^2\cdots\gamma^3                       \\
                                        & = 0
   \end{align}
 \end{proof}
 
-(3) $\Sigma^i$ を次のように定義する。
-\begin{align}
-  \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
-\end{align}
-このとき次の式を示せ。
-\begin{align}
-  (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
-\end{align}
+\begin{proposition}
+  $\Sigma^i$ を次のように定義する。
+  \begin{align}
+    \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
+  \end{align}
+  このとき次の式を示せ。
+  \begin{align}
+    (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
+  \end{align}
+\end{proposition}
 \begin{proof}
   まず $(\Sigma^i)^\dagger = \Sigma^i$ を示す。
   \begin{align}
