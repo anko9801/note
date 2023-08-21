@@ -1207,14 +1207,25 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
 
 
 \subsection{ラーモア歳差運動}
+$z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いたスピン状態を考える。
 \begin{align}
-  \ket|\sigma(t)>
+  \ket|\sigma(t)> = \exp[i\frac{\mu B}{2\hbar}t]\cos\frac{\theta}{2}\ket|\alpha> + \exp[-i\frac{\mu B}{2\hbar}t]\sin\frac{\theta}{2}e^{i\delta}\ket|\alpha>
+\end{align}
+\begin{align}
+  \bra<\sigma(t)|\hat{s}_x\ket|\sigma(t)> & = \frac{1}{2}\sin\theta\cos(\omega t - \delta)  \\
+  \bra<\sigma(t)|\hat{s}_y\ket|\sigma(t)> & = -\frac{1}{2}\sin\theta\sin(\omega t - \delta) \\
+  \bra<\sigma(t)|\hat{s}_z\ket|\sigma(t)> & = \frac{1}{2}\cos\theta
 \end{align}
 
 
 
 \section{角運動量代数}
-\begin{definition}
+これまでの角運動量演算子 $\hat{\bm{L}}$ について
+交換関係の性質を満たす代数を考え、そのスピン
+
+
+\subsection{角運動量代数}
+\begin{definition}[角運動量代数]
   $\hat{\bm{j}}$ を無次元の演算子として次の交換関係が成り立つとする。
   \begin{align}
     [\hat{j}_i, \hat{j}_j] = i\epsilon_{ijk}\hat{j}_k
@@ -1245,41 +1256,45 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
 \begin{proposition}
   上昇演算子 $\hat{j}_+$ を演算させると $\hat{j}_z$ の固有値は 1 つ上昇し、下降演算子 $\hat{j}_-$ を演算させると $\hat{j}_z$ の固有値が 1 つ下降する。
   \begin{align}
-    \hat{j}_\pm\ket|\lambda, m> = \ket|\lambda, m\pm 1>
+    \hat{j}_\pm\ket|\lambda, m> = \sqrt{(j \mp m)(j \pm m + 1)}\ket|\lambda, m\pm 1>
   \end{align}
 \end{proposition}
 \begin{proof}
-  このとき上昇,下降演算子を作用させたとき
+  このとき上昇、下降演算子を作用させたとき
   \begin{align}
-    \hat{\bm{j}}^2(\hat{j}_\pm\ket|\lambda, m>) & = \hat{j}_\pm\hat{\bm{j}}^2\ket|\lambda, m> = \lambda \hat{j}_\pm\ket|\lambda, m>               \\
-    \hat{j}_z(\hat{j}_\pm\ket|\lambda, m>)      & = (\hat{j}_\pm \hat{j}_z \pm \hat{j}_\pm)\ket|\lambda, m> = (m\pm 1)\hat{j}_\pm\ket|\lambda, m>
+    \hat{\bm{j}}^2(\hat{j}_\pm\ket|\lambda, m>) & = \hat{j}_\pm\hat{\bm{j}}^2\ket|\lambda, m> = \lambda (\hat{j}_\pm\ket|\lambda, m>)               \\
+    \hat{j}_z(\hat{j}_\pm\ket|\lambda, m>)      & = (\hat{j}_\pm \hat{j}_z \pm \hat{j}_\pm)\ket|\lambda, m> = (m\pm 1)(\hat{j}_\pm\ket|\lambda, m>)
   \end{align}
-  より $\hat{j}_\pm\ket|\lambda, m> = \ket|\lambda, m\pm 1>$ とかける。
-\end{proof}
-
-\begin{proposition}
-  $\hat{j}_z$ の固有値 $m$ の上限と下限は存在する。
-\end{proposition}
-\begin{proof}
+  より $\hat{j}_\pm\ket|\lambda, m> = c\ket|\lambda, m\pm 1>$ とかける。
   \begin{align}
-    \bra<\lambda, m|\hat{\bm{j}}^2\ket|\lambda, m> & = \bra<\lambda, m|(\hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2)\ket|\lambda, m>                       \\
-                                                   & = \bra<\lambda, m|\hat{j}_x^2\ket|\lambda, m> + \bra<\lambda, m|\hat{j}_y^2\ket|\lambda, m> + m^2 \\
-                                                   & = \lambda
+    |c|^2 & = \bra<\lambda, m|(\hat{j}_\pm)^\dagger\hat{j}_\pm\ket|\lambda, m>           \\
+          & = \bra<\lambda, m|\hat{j}_\mp\hat{j}_\pm\ket|\lambda, m>                     \\
+          & = \bra<\lambda, m|\hat{\bm{j}}^2 - \hat{j}_z^2 \mp \hat{j}_z\ket|\lambda, m> \\
+          & = j(j+1) - m^2 \mp m
   \end{align}
-  $\hat{j}_x, \hat{j}_y$ はエルミート演算子より $\bra<\lambda, m|\hat{j}_x^2\ket|\lambda, m> \geq 0$, $\bra<\lambda, m|\hat{j}_y^2\ket|\lambda, m> \geq 0$ であり $0 \leq m^2 \leq \lambda$
+  よって $|c| = \sqrt{(j \mp m)(j \pm m + 1)}$ となる。
+  \begin{align}
+    \hat{j}_\pm\ket|\lambda, m> = \sqrt{(j \mp m)(j \pm m + 1)}\ket|\lambda, m\pm 1>
+  \end{align}
 \end{proof}
 
 \begin{proposition}
   $\hat{j}_z$ の固有値 $m$ は非負の整数または半整数 $j$ を用いて $m = -j,-j+1,\ldots,j-1,j$ と書ける。
 \end{proposition}
 \begin{proof}
-  次のような関係式が成り立つ。
   \begin{align}
-    \bra<\lambda, m|\hat{\bm{j}}^2\ket|\lambda, m> & = \bra<\lambda, m|(\hat{j}_-\hat{j}_+ + \hat{j}_z^2 + \hat{j}_z)\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_-\hat{j}_+\ket|\lambda, m> + m^2 + m \\
-                                                   & = \bra<\lambda, m|(\hat{j}_+\hat{j}_- + \hat{j}_z^2 - \hat{j}_z)\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_+\hat{j}_-\ket|\lambda, m> + m^2 - m \\
-                                                   & = \lambda
+    \hat{\bm{j}}^2 & = \hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2 = \hat{j}_-\hat{j}_+ + \hat{j}_z + \hat{j}_z^2 = \hat{j}_+\hat{j}_- - \hat{j}_z + \hat{j}_z^2
   \end{align}
-  これより $m$ の上限値 $j$ と置くと $\lambda = j(j + 1)$ となり、下限値 $j - n$ と置くと $\lambda = (j - n)(j - n - 1)$ となる。
+  より次のような関係式が成り立つ。
+  \begin{align}
+    \bra<\lambda, m|\hat{\bm{j}}^2\ket|\lambda, m> & = \bra<\lambda, m|\lambda\ket|\lambda, m> = \lambda \label{j2 lambda}                                                                                            \\
+                                                   & = \bra<\lambda, m|\hat{j}_x^2 + \hat{j}_y^2 + \hat{j}_z^2\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_x^2 + \hat{j}_y^2\ket|\lambda, m> + m^2 \label{j2 m2}        \\
+                                                   & = \bra<\lambda, m|\hat{j}_-\hat{j}_+ + \hat{j}_z^2 + \hat{j}_z\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_-\hat{j}_+\ket|\lambda, m> + m(m + 1) \label{j2 m2 + m} \\
+                                                   & = \bra<\lambda, m|\hat{j}_+\hat{j}_- + \hat{j}_z^2 - \hat{j}_z\ket|\lambda, m> = \bra<\lambda, m|\hat{j}_+\hat{j}_-\ket|\lambda, m> + m(m - 1) \label{j2 m2 - m}
+  \end{align}
+  まず式 \eqref{j2 lambda} と \eqref{j2 m2} について $\hat{j}_x, \hat{j}_y$ はエルミート演算子であるから $\bra<\lambda, m|\hat{j}_x^2\ket|\lambda, m> \geq 0$, $\bra<\lambda, m|\hat{j}_y^2\ket|\lambda, m> \geq 0$ より $0 \leq m^2 \leq \lambda$ となる。
+  これより $m$ の上限値 $j$ とおくと式 \eqref{j2 m2 + m} と \eqref{j2 lambda} より $\lambda = j(j + 1)$ となり、下限値 $j - n$ とおくと式 \eqref{j2 m2 - m} と \eqref{j2 lambda} より $\lambda = (j - n)(j - n - 1)$ となる。
+  これら 2 つの式を用いて $j$ を求める。
   \begin{align}
     \begin{dcases}
       \lambda = j(j + 1) \\
@@ -1291,90 +1306,140 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
       j = \frac{n}{2}
     \end{dcases}
   \end{align}
-  より $j$ は非負の整数または半整数であることがわかる。これより $m = -j, -j + 1,\ldots, j-1, j$ である。
+  よって $j$ は非負の整数または半整数であり、$m = -j, -j + 1,\ldots, j-1, j$ と書ける。
 \end{proof}
 
-\begin{definition}
-  $\ket|\lambda, m>$ を $\ket|j, m>$ と表現する。
-\end{definition}
+そこで $\ket|\lambda, m>$ を $\ket|j, m>$ と書くことにすると
+\begin{align}
+  \hat{\bm{j}}^2\ket|j, m> & = j(j + 1)\ket|j, m>                                                  \\
+  \hat{j}_z\ket|j, m>      & = m\ket|j, m>                                                         \\
+  \hat{j}_\pm\ket|j, m>    & = \ket|\lambda, m\pm 1> = \sqrt{(j \mp m)(j \pm m + 1)}\ket|j, m\pm1>
+\end{align}
+となる。
+
+\begin{itembox}[l]{角運動量代数まとめ}
+  $\hat{\bm{j}}^2, \hat{j}_z$ には同時固有状態 $\ket|j, m>$ があり、それらの固有値は非負の整数または半整数 $j$ を用いてそれぞれ $j(j+1), m = -j,-j+1,\ldots,j-1,j$ と書ける。昇降演算子 $\hat{j}_\pm = \hat{j}_x \pm i\hat{j}_y$ を作用させると $m$ を昇降させることができる。
+  \begin{align}
+    \hat{j}_\pm\ket|j, m> & = \sqrt{(j \mp m)(j \pm m + 1)}\ket|j, m\pm1>
+  \end{align}
+\end{itembox}
 
 \begin{proposition}
+  $j = 1/2$ のとき同時固有状態は次の 2 状態がある。
   \begin{align}
-    \hat{\bm{j}}^2\ket|j, m> & = j(j + 1)\ket|j, m>                          \\
-    \hat{j}_z\ket|j, m>      & = m\ket|j, m>                                 \\
-    \hat{j}_\pm\ket|j, m>    & = \sqrt{(j \mp m)(j \pm m + 1)}\ket|j, m\pm1>
+    \ket|\uparrow> = \ket|\frac{1}{2}, +\frac{1}{2}>, \qquad \ket|\downarrow> = \ket|\frac{1}{2}, -\frac{1}{2}>
+  \end{align}
+  それぞれの固有状態は $\hat{j}_z$ に対して固有値 $+1/2, -1/2$ を持ち、$\hat{\bm{j}}^2$ に対して固有値 $3/4$ を持つ。そして昇降演算子を用いると固有状態は互いに入れ替わる。
+  \begin{align}
+    \hat{j}_+\ket|\uparrow> = 0, \qquad \hat{j}_+\ket|\downarrow> = \ket|\uparrow>, \qquad \hat{j}_-\ket|\uparrow> = \ket|\downarrow>, \qquad \hat{j}_-\ket|\downarrow> = 0
+  \end{align}
+\end{proposition}
+\begin{proposition}
+  $j = 1$ のとき同時固有状態は次の 3 状態がある。
+  \begin{align}
+    \ket|1, +1>, \qquad \ket|1, 0>, \qquad \ket|1, -1>
+  \end{align}
+  それぞれの固有状態は $\hat{j}_z$ に対して固有値 $+1, 0, -1$ を持ち、$\hat{\bm{j}}^2$ に対して固有値 $2$ を持つ。そして昇降演算子を用いると固有状態は互いに入れ替わる。
+  \begin{align}
+    \hat{j}_+\ket|1, +1> = 0, \qquad \hat{j}_+\ket|1, 0> = \sqrt{2}\ket|1, +1>, \qquad \hat{j}_+\ket|1, -1> = \sqrt{2}\ket|1, 0> \\
+    \hat{j}_-\ket|1, +1> = \sqrt{2}\ket|1, 0>, \qquad \hat{j}_-\ket|1, 0> = \sqrt{2}\ket|1, -1>, \qquad \hat{j}_-\ket|1, -1> = 0
   \end{align}
 \end{proposition}
 
+\begin{definition}[角運動量の合成]
+  角運動量の合成とは合成系の角運動量固有状態を部分系の角運動量固有状態で表すことである。部分系の角運動量演算子 $\hat{\bm{j}}_1, \hat{\bm{j}}_2$ は角運動量代数を満たし、可換となる。それらの和で合成系の角運動量演算子 $\hat{\bm{j}}$ が与えられる。
+  \begin{align}
+    \hat{\bm{j}} & = \hat{\bm{j}}_1 + \hat{\bm{j}}_2
+  \end{align}
+  部分系の同時固有状態 $\ket|j_1, m_1>, \ket|j_2, m_2>$ を合わせた状態 $\ket|j_1, m_1>\ket|j_2, m_2>$ は完全系を成す。これより合成系の状態 $\ket|j, m>\rangle$ は部分系を合わせた状態の線形結合で表される。
+  \begin{align}
+    \ket|j, m>\rangle & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2>
+  \end{align}
+  係数 $C_{j_1m_1j_2m_2}^{jm}$ はクレブシュ・ゴルダン (Clebsch-Gordan) 係数と呼ばれる。
+\end{definition}
 
-この角運動量が複数あるときについて考える。角運動量の合成とは合成系の角運動量固有状態を部分系の角運動量固有状態で表すことである。角運動量演算子 $\hat{\bm{j}}_1, \hat{\bm{j}}_2$ について
-\begin{align}
-  \hat{\bm{j}} & = \hat{\bm{j}}_1 + \hat{\bm{j}}_2
-\end{align}
-とおく。このとき
-\begin{align}
-  [\hat{j}_{a,i}, \hat{j}_{b,j}]   & = i\delta_{ab}\epsilon_{ijk}\hat{j}_{ck} \\
-  [\hat{j}_a, \hat{j}_b]           & = i\epsilon_{abc}\hat{j}_c               \\
-  [\hat{\bm{j}}^2, \hat{j}_a]      & = 0                                      \\
-  [\hat{\bm{j}}^2, \hat{\bm{j}}_s] & = 0
-\end{align}
-となる。また状態についても
-\begin{align}
-  \ket|j, m>\rangle & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2>
-\end{align}
-とおき, 次のようになるとする。
-\begin{align}
-  \hat{\bm{j}}^2\ket|j, m>\rangle & = j(j+1)\ket|j, m>\rangle                           \\
-  \hat{j}_z\ket|j, m>\rangle      & = m\ket|j, m>\rangle                                \\
-  \hat{j}_\pm\ket|j, m>\rangle    & = \sqrt{(j\mp m)(j\pm m + 1)}\ket|j, m\pm 1>\rangle \\
-  \hat{\bm{j}}_s\ket|j, m>\rangle & = j_s(j_s + 1)\ket|j, m>\rangle
-\end{align}
-この上で
-\begin{align}
-  \hat{j}_z\ket|j, m>\rangle      & = (j_{1z} + j_{2z})\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2> \\
-                                  & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}(m_1 + m_2)\ket|j_1, m_1>\ket|j_2, m_2>       \\
-                                  & = m\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2>                 \\
-  \hat{\bm{j}}^2\ket|j, m>\rangle & = (j_-j_+ + j_z^2 + j_z)\ket|j, m>\rangle                                           \\
-                                  & = (j_-j_+ + m^2 + m)\ket|j, m>\rangle                                               \\
-                                  & = j(j + 1)\ket|j, m>\rangle
-\end{align}
-より状態の係数比較して $m \neq m_1 + m_2$ のとき $C_{j_1m_1j_2m_2}^{jm} = 0$ となる。$m$ の最大値 $j_{\max} = j_1 + j_2$ である。
-\begin{align}
-  \sum_{j=j_{\min}}^{j_{\max}} (2j + 1) = (2j_1 + 1)(2j_2 + 1)
-\end{align}
-より $j_{\min} = |j_1 - j_2|$ となる。
-\begin{align}
-  \ket|1, 1>\rangle  & = \ket|\uparrow\uparrow>                                                                                               \\
-  \ket|1, 0>\rangle  & = \frac{1}{\sqrt{2}}j_-\ket|1, 1>\rangle = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>) \\
-  \ket|1, -1>\rangle & = \ket|\downarrow\downarrow>                                                                                           \\
-  \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
-\end{align}
+\begin{theorem}
+  合成系の角運動量演算子は角運動量代数を満たす。
+\end{theorem}
+\begin{proof}
+  まず合成系の交換関係について調べる。 $\hat{\bm{j}}_1, \hat{\bm{j}}_2$ が可換であることから
+  \begin{align}
+    [\hat{j}_{a,i}, \hat{j}_{b,j}] & = i\delta_{ab}\epsilon_{ijk}\hat{j}_{a,k}
+  \end{align}
+  となる。これより角運動量代数の交換関係を満たす。
+  \begin{align}
+    [\hat{j}_i, \hat{j}_j]      & = [\hat{j}_{1,i} + \hat{j}_{2,i}, \hat{j}_{1,j} + \hat{j}_{2,j}] = i\epsilon_{ijk}\hat{j}_{1,k} + i\epsilon_{ijk}\hat{j}_{2,k} = i\epsilon_{ijk}\hat{j}_k \\
+    [\hat{\bm{j}}^2, \hat{j}_i] & = \hat{j}_j[\hat{j}_j, \hat{j}_i] + [\hat{j}_j, \hat{j}_i]\hat{j}_j = -i\epsilon_{ijk}(\hat{j}_j\hat{j}_k + \hat{j}_k\hat{j}_j) = 0
+  \end{align}
+  $\hat{\bm{j}}^2, \hat{j}_z$ が可換であるから同様に議論することにより固有値 $j(j+1), m$ を持つ同時固有状態 $\ket|j, m>\rangle$ がある。
+  \begin{align}
+    \hat{j}_z\ket|j, m>\rangle & = (j_{1,z} + j_{2,z})\sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}\ket|j_1, m_1>\ket|j_2, m_2> \\
+                               & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}(m_1 + m_2)\ket|j_1, m_1>\ket|j_2, m_2>         \\
+    m\ket|j, m>\rangle         & = \sum_{m_1, m_2}C_{j_1m_1j_2m_2}^{jm}m\ket|j_1, m_1>\ket|j_2, m_2>
+  \end{align}
+  これより $C_{j_1m_1j_2m_2}^{jm} = 0, m_1 + m_2 \neq m$ となる。これより $m_{\max} = j_1 + j_2$ であるから $j_{\max} = j_1 + j_2$ である。$j$ が取り得る値が $j_1 + j_2$ のみであると考えると部分系の固有状態数の積 $(2j_1 + 1)(2j_2 + 1)$ に対して全体系の固有状態数 $2(j_1 + j_2) + 1$ より次元が足りない。取り得る $j$ の最小値を $j_{\min} = |j_1 - j_2|$ とすることで部分系の直積と全体系の次元が釣り合う。
+  \begin{align}
+    \sum_{j=j_{\min}}^{j_{\max}} (2j + 1) = (2j_1 + 1)(2j_2 + 1)
+  \end{align}
 
+  \begin{align}
+    \hat{j}_\pm\ket|j, m>\rangle & = \sqrt{(j\mp m)(j\pm m + 1)}\ket|j, m\pm 1>\rangle
+  \end{align}
+\end{proof}
+
+\begin{proposition}
+  $j_1 = 1/2, j_2 = 1/2$ のとき同時固有状態は次のようになる。
+  \begin{align}
+    \ket|1, +1>\rangle & = \ket|\uparrow\uparrow>                                                      \\
+    \ket|1, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>) \\
+    \ket|1, -1>\rangle & = \ket|\downarrow\downarrow>                                                  \\
+    \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
+  \end{align}
+\end{proposition}
+\begin{proof}
+
+  \begin{align}
+    \ket|1, 0>\rangle & = \frac{1}{\sqrt{2}}j_-\ket|1, 1>\rangle = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>)
+  \end{align}
+  \begin{align}
+    \ket|0, 0>\rangle & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
+  \end{align}
+\end{proof}
+
+\begin{proposition}
+  $j_1 = 1, j_2 = 1/2$ のとき同時固有状態は次のようになる。
+  \begin{align}
+    \ket|\frac{3}{2}, +\frac{3}{2}>\bigg\rangle & = \ket|1, +1>\ket|\frac{1}{2}, +\frac{1}{2}>                                                                                 \\
+    \ket|\frac{3}{2}, +\frac{1}{2}>\bigg\rangle & = \sqrt{\frac{1}{3}}\ket|1, +1>\ket|\frac{1}{2}, -\frac{1}{2}> + \sqrt{\frac{2}{3}}\ket|1, 0>\ket|\frac{1}{2}, +\frac{1}{2}> \\
+    \ket|\frac{3}{2}, -\frac{1}{2}>\bigg\rangle & = \sqrt{\frac{1}{3}}\ket|1, -1>\ket|\frac{1}{2}, +\frac{1}{2}> + \sqrt{\frac{2}{3}}\ket|1, 0>\ket|\frac{1}{2}, -\frac{1}{2}> \\
+    \ket|\frac{3}{2}, -\frac{3}{2}>\bigg\rangle & = \ket|1, -1>\ket|\frac{1}{2}, -\frac{1}{2}>                                                                                 \\
+    \ket|\frac{1}{2}, +\frac{1}{2}>\bigg\rangle & = \sqrt{\frac{2}{3}}\ket|1, +1>\ket|\frac{1}{2}, -\frac{1}{2}> - \sqrt{\frac{1}{3}}\ket|1, 0>\ket|\frac{1}{2}, +\frac{1}{2}> \\
+    \ket|\frac{1}{2}, -\frac{1}{2}>\bigg\rangle & = \sqrt{\frac{2}{3}}\ket|1, -1>\ket|\frac{1}{2}, +\frac{1}{2}> - \sqrt{\frac{1}{3}}\ket|1, 0>\ket|\frac{1}{2}, -\frac{1}{2}>
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \ket|\frac{3}{2}, +\frac{1}{2}>\bigg\rangle & = \frac{\hat{j}_-}{\sqrt{3}}\ket|\frac{3}{2}, +\frac{3}{2}>\bigg\rangle = \sqrt{\frac{2}{3}}\ket|1, +1>\ket|\frac{1}{2}, -\frac{1}{2}> + \sqrt{\frac{1}{3}}\ket|1, 0>\ket|\frac{1}{2}, +\frac{1}{2}> \\
+    \ket|\frac{3}{2}, -\frac{1}{2}>\bigg\rangle & = \frac{\hat{j}_+}{\sqrt{3}}\ket|\frac{3}{2}, -\frac{3}{2}>\bigg\rangle = \sqrt{\frac{1}{3}}\ket|1, -1>\ket|\frac{1}{2}, +\frac{1}{2}> + \sqrt{\frac{2}{3}}\ket|1, 0>\ket|\frac{1}{2}, -\frac{1}{2}>
+  \end{align}
+\end{proof}
+
+
+\subsection{スピン}
 量子力学的粒子にはスピンという内部自由度がある。
 \begin{definition}[軌道角運動量とスピン角運動量]
-  無次元量化すると角運動量代数の性質を満たす演算子は軌道角運動量演算子 $\hat{\bm{L}}$ とスピン角運動量演算子 $\hat{\bm{S}}$ がある。
-  全角運動量 $\hat{\bm{J}}$ は軌道角運動量 $\hat{\bm{L}}$ とスピン角運動量 $\hat{\bm{S}}$ の和で与えられる。
-  \begin{align}
-    \hat{\bm{L}} & = \hat{\rr}\cross\hat{\pp} = \hbar\hat{\bm{l}}, \qquad \hat{\bm{S}} = S_z\hat{\bm{s}}, \qquad \hat{\bm{J}} = \hat{\bm{L}} + \hat{\bm{S}}
-  \end{align}
-  スピン角運動量 $\hat{\bm{S}}$ は位置 $\hat{\rr}$、運動量 $\hat{\pp}$、軌道角運動量 $\hat{\bm{L}}$ と交換する。
+  軌道角運動量演算子 $\hat{\bm{L}} = \hat{\rr}\cross\hat{\pp} = \hbar\hat{\bm{l}}$ とスピン角運動量演算子 $\hat{\bm{S}} = S_z\hat{\bm{s}}$ についてそれぞれの無次元量 $\hat{\bm{l}}, \hat{\bm{s}}$ は角運動量代数の性質を満たす。
+  またスピン角運動量 $\hat{\bm{S}}$ は位置 $\hat{\rr}$、運動量 $\hat{\pp}$、軌道角運動量 $\hat{\bm{L}}$ と交換する。
   \begin{align}
     [\hat{\rr}, \hat{\bm{S}}] = 0, \qquad [\hat{\pp}, \hat{\bm{S}}] = 0, \qquad [\hat{\bm{L}}, \hat{\bm{S}}] = 0
   \end{align}
+  これらの軌道角運動量 $\hat{\bm{L}}$ とスピン角運動量 $\hat{\bm{S}}$ の和を全角運動量 $\hat{\bm{J}} = \hat{\bm{L}} + \hat{\bm{S}}$ という。
 \end{definition}
 角運動量演算子の固有値は整数だけであったが、スピン角運動量演算子は半整数と成り得る。
 \begin{proposition}
   \begin{align}
-    \hat{\bm{L}}^2              & = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2 \\
-    [\hat{L}_i, \hat{L}_j]      & = i\hbar\epsilon_{ijk}\hat{L}_k           \\
-    [\hat{\bm{L}}^2, \hat{L}_i] & = 0
-  \end{align}
-\end{proposition}
-
-\begin{proposition}
-  \begin{align}
-    [\hat{\bm{s}}^2, \hat{s}_z] = 0, \qquad [\hat{s}_+, \hat{s}_-] = 2\hat{s}_z, \qquad [\hat{s}_z, \hat{s}_\pm] = \pm \hat{s}_\pm, \qquad [\hat{\bm{s}}^2, \hat{s}_\pm] = 0 \\
-    \hat{\bm{s}}^2 = \frac{1}{2}(\hat{s}_+\hat{s}_- + \hat{s}_-\hat{s}_+) + \hat{s}_z^2 = \hat{s}_-\hat{s}_+ + \hat{s}_z + \hat{s}_z^2 = \hat{s}_+\hat{s}_- - \hat{s}_z + \hat{s}_z^2
+    [\hat{\bm{s}}^2, \hat{s}_z] & = 0, \qquad [\hat{s}_+, \hat{s}_-] = 2\hat{s}_z, \qquad [\hat{s}_z, \hat{s}_\pm] = \pm \hat{s}_\pm, \qquad [\hat{\bm{s}}^2, \hat{s}_\pm] = 0                       \\
+    \hat{\bm{s}}^2              & = \frac{1}{2}(\hat{s}_+\hat{s}_- + \hat{s}_-\hat{s}_+) + \hat{s}_z^2 = \hat{s}_-\hat{s}_+ + \hat{s}_z + \hat{s}_z^2 = \hat{s}_+\hat{s}_- - \hat{s}_z + \hat{s}_z^2
   \end{align}
 \end{proposition}
 
@@ -1418,42 +1483,41 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
 \begin{proof}
   1, 2 は調べることで成り立つ。
   \begin{align}
-    [\sigma_i, \sigma_j]     & = \sigma_i\sigma_j - \sigma_j\sigma_i                                                       \\
-                             & = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) - (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) \\
-                             & = 2i\varepsilon_{ijk}\sigma_k                                                               \\
-    \qty{\sigma_i, \sigma_j} & = \sigma_i\sigma_j + \sigma_j\sigma_i                                                       \\
-                             & = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) + (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) \\
-                             & = 2\delta_{ij}I
+    [\sigma_i, \sigma_j]     & = \sigma_i\sigma_j - \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) - (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2i\varepsilon_{ijk}\sigma_k \\
+    \qty{\sigma_i, \sigma_j} & = \sigma_i\sigma_j + \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) + (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2\delta_{ij}I
   \end{align}
 \end{proof}
 
-\begin{proposition}
-  $\hat{s}_z$ の固有状態は次のように表現される。
+\begin{theorem}
+  $s = 1/2$ における $\hat{s}_z$ の固有状態 $\ket|\uparrow>, \ket|\downarrow>$ についてスピンとスピン演算子を行列表現すると次のようになる。
   \begin{align}
-    \ket|\uparrow> = \mqty(1   \\ 0), \qquad
-    \ket|\downarrow> = \mqty(0 \\ 1)
+                                        & \ket|\uparrow> = \mqty(1               \\ 0), \qquad
+    \ket|\downarrow> = \mqty(0                                                   \\ 1) \\
+                                        & \hat{s}_i = \frac{1}{2}\sigma_i, \quad
+    \hat{s}_+ = \mqty(0                 & 1                                      \\ 0 & 0), \quad
+    \hat{s}_- = \mqty(0                 & 0                                      \\ 1 & 0), \quad
+    \hat{\bm{s}}^2 = \frac{3}{4}\mqty(1 & 0                                      \\ 0 & 1)
   \end{align}
-  スピン演算子は次のように表現される。
-  \begin{align}
-    \hat{s}_i = \frac{1}{2}\sigma_i, \qquad
-    \hat{s}_+ = \mqty(0                 & 1 \\ 0 & 0), \qquad
-    \hat{s}_- = \mqty(0                 & 0 \\ 1 & 0), \qquad
-    \hat{\bm{s}}^2 = \frac{3}{4}\mqty(1 & 0 \\ 0 & 1)
-  \end{align}
-\end{proposition}
+\end{theorem}
 
 \begin{proposition}
   完全系を貼るので任意の状態 $\ket|\sigma>$ はその線形結合で書ける。
   \begin{align}
     \ket|\sigma> & = c_1\ket|\uparrow> + c_2\ket|\downarrow>
   \end{align}
-
-
 \end{proposition}
 
 
 
+\section{電磁場中の荷電粒子}
+\begin{align}
+  \hat{H}\to\hat{H} - e\phi(\hat{\rr}, t), \qquad \hat{\pp} \to \hat{\pp} - e\AA(\hat{\rr}, t)
+\end{align}
+
+
+
 \section{摂動論}
+摂動論、変分法、WKB 法
 近似法の一種。有限和で止めるとユニタリティはなくなる。重ね合わせの原理を満たさない。
 \begin{definition}
   ハミルトニアンを主要項である非摂動ハミルトニアン $\hat{H}_0$ と影響の小さい摂動ハミルトニアン $\hat{V}$ に分ける。パラメータ $\lambda$ を用いて $\hat{H} = \hat{H}_0 + \lambda\hat{V}$ とし、次のように展開する。
@@ -1517,5 +1581,9 @@ $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完�
     \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proof}
+
+\begin{proposition}
+  1 次元調和振動子 $\hat{H}_0 = \dfrac{\hat{p}^2}{2m} + \dfrac{1}{2}m\omega^2\hat{x}^2$ に摂動 $\hat{V} = \alpha\hat{x}^2$ を加える。
+\end{proposition}
 
 \end{document}
