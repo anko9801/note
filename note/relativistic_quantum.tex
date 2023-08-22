@@ -310,9 +310,40 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
   よって $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ と書ける。
 \end{proof}
 
-\begin{theorem}
-  ローレンツ共変性
-  $x'^\mu = \Lambda^\mu_\nu x^\mu$, $D'_\mu = \Lambda_\mu^\nu D_\nu$
+\begin{theorem}[ローレンツ共変性]
+  $S_\Lambda^{-1}\gamma^\mu S_\Lambda = \Lambda_\nu^\mu\gamma^\nu$ を満たすように定めた $S_\Lambda$ に対して次の変換はローレンツ共変性を満たす。
+  \begin{align}
+    x'^\mu = \Lambda^\mu_\nu x^\mu, \qquad D'_\mu = \Lambda_\mu^\nu D_\nu, \qquad \psi'(x') = S_\Lambda\psi(x)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  このときディラック方程式は次のように変換でき、共変性を満たす。
+  \begin{align}
+    (i\hbar\gamma^\mu D'_\mu - mc)\psi'(x) & = (i\hbar\gamma^\mu \Lambda^\nu_\mu D_\mu - mc)S_\Lambda\psi(x)                           \\
+                                           & = S_\Lambda(i\hbar S_\Lambda^{-1}\gamma^\mu S_\Lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x)   \\
+                                           & = S_\Lambda(i\hbar\Lambda_{\lambda}^{\mu}\gamma^\lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x) \\
+                                           & = S_\Lambda(i\hbar\delta_{\lambda}^\nu\gamma^\lambda D_\mu - mc)\psi(x)                   \\
+                                           & = S_\Lambda(i\hbar\gamma^\nu D_\mu - mc)\psi(x) = 0
+  \end{align}
+\end{proof}
+
+\begin{theorem}[無限小変換]
+  \begin{align}
+    \Lambda_{\ \nu}^\mu = \delta_\nu^\mu + \omega_{\ \nu}^\mu
+  \end{align}
+  $\Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu = \delta_\nu^\lambda$ であり
+  \begin{align}
+    \Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu = (\delta_\nu^\mu + \omega_{\ \nu}^\mu)(\delta^\lambda_\mu + \omega^{\ \lambda}_\mu) = \delta^\lambda_\nu + \omega^{\ \lambda}_\nu + \omega_{\ \nu}^\lambda
+  \end{align}
+  $\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
+  \begin{align}
+    \omega_{\ \nu}^\mu & = \begin{pmatrix}
+                             0             & -\Delta\eta_x   & -\Delta\eta_y   & -\Delta\eta_z   \\
+                             -\Delta\eta_x & 0               & \Delta\theta_z  & -\Delta\theta_y \\
+                             -\Delta\eta_y & -\Delta\theta_z & 0               & \Delta\theta_x  \\
+                             -\Delta\eta_z & \Delta\theta_y  & -\Delta\theta_x & 0
+                           \end{pmatrix}
+  \end{align}
 \end{theorem}
 
 \begin{proposition}
