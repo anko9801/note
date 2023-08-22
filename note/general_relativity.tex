@@ -10,8 +10,9 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -170,7 +171,9 @@
 \begin{definition}[共変ベクトル・反変ベクトル]
   計量テンソル $g_{\mu\nu}$ とその逆行列 $g^{\mu\nu}$
   \begin{align}
-    g_{\mu\nu} = g^{\mu\nu} = \mqty(1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1)
+    g_{\mu\nu} = g^{\mu\nu} = \begin{pmatrix}
+                                1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1
+                              \end{pmatrix}
   \end{align}
   時刻 $t\in\RR$ と場所 $\bm{x} = (x^1, x^2, x^3)\in\RR^3$ をまとめた時空点 $x = (x^\mu)$ を次の反変ベクトルで表す。
   \begin{align}
@@ -178,7 +181,7 @@
   \end{align}
   $x$ による微分を共変ベクトルとして次のように定義する。
   \begin{align}
-    \partial_\mu & = (\partial_0, \partial_1, \partial_2, \partial_3) := \qty(\frac{1}{c}\pdv{t}, \vnabla)
+    \partial_\mu & = (\partial_0, \partial_1, \partial_2, \partial_3) := \ab(\frac{1}{c}\diffp{}{t}, \nabla)
   \end{align}
 \end{definition}
 
@@ -194,25 +197,25 @@
 
 \begin{definition}[世界間隔]
   \begin{align}
-    \dd{s}^2 & = (c\dd{t})^2 - \dd{x}^2 - \dd{y}^2 - \dd{z}^2 = (c\dd{\tau})^2
+    \dl{s}^2 & = (c\dl{t})^2 - \dl{x}^2 - \dl{y}^2 - \dl{z}^2 = (c\dl{\tau})^2
   \end{align}
   これらを元に四元速度、四元加速度、四元運動量
   \begin{align}
-    u^\mu(t) & = \dv{x^\mu}{\tau} = \gamma(c, \dot{\rr})     \\
-    a^\mu(t) & = \dv[2]{x^\mu}{\tau} = \gamma(0, \ddot{\rr}) \\
-    p^\mu    & = mu^\mu = m\gamma(c, \dot{\rr})              \\
-    j^\mu(x) & := (c\rho, \bm{j})                            \\
+    u^\mu(t) & = \diff{x^\mu}{\tau} = \gamma(c, \dot{\rr})     \\
+    a^\mu(t) & = \diff[2]{x^\mu}{\tau} = \gamma(0, \ddot{\rr}) \\
+    p^\mu    & = mu^\mu = m\gamma(c, \dot{\rr})                \\
+    j^\mu(x) & := (c\rho, \bm{j})                              \\
   \end{align}
 \end{definition}
 
 運動方程式
 \begin{align}
-  m\dv[2]{x^\mu}{\tau} = 0
+  m\diff[2]{x^\mu}{\tau} = 0
 \end{align}
 
 作用
 \begin{align}
-  \delta S & = \int \varepsilon^\mu\delta x_\mu\dd{\tau} = 0
+  \delta S & = \int \varepsilon^\mu\delta x_\mu\dl{\tau} = 0
 \end{align}
 
 \section{一般相対性理論}
@@ -220,5 +223,10 @@
   加速系と重力場の系は局所的には原理的に区別できない。
 \end{axiom}
 例えば宇宙人によって部屋に閉じ込められたとき地球と同じ重力があるからといって地球にいるとは限らない。
+
+\section{曲率}
+\begin{align}
+  \Lambda^\beta_{\ \alpha} = \diffp{\beta}{\alpha}
+\end{align}
 
 \end{document}
