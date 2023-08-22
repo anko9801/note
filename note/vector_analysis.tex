@@ -170,30 +170,30 @@
 
 \begin{definition}[ベクトル空間]
   体 $K$ 上の加群を $K$ 上のベクトル空間といい、ベクトル空間の元をベクトルという。
-  $\AA = A^i\ee_i = A^1\ee_1 + A^2\ee_2 + A^3\ee_3$
+  $\AA = A_i\ee_i = A_1\ee_1 + A_2\ee_2 + A_3\ee_3$
 \end{definition}
 
 \begin{definition}[ベクトル空間における内積と外積]
-  ベクトル $\AA = A^i\ee_i, \BB = B^j\ee_j$ における内積と外積を定義する。
+  ベクトル $\AA = A_i\ee_i, \BB = B_j\ee_j$ における内積と外積を定義する。
   \begin{align}
-    \AA\cdot\BB  & = A^i\ee_i\cdot B^j\ee_j = g_{ij}A^iB^j                                    \\
-    \AA\times\BB & = (A^2B^3 - A^3B^2)\ee_1 + (A^3B^1 - A^1B^3)\ee_2 + (A^1B^2 - A^2B^1)\ee_3
+    \AA\cdot\BB  & = A_i\ee_i\cdot B_j\ee_j = g_{ij}A_iB_j                                    \\
+    \AA\times\BB & = (A_2B_3 - A_3B_2)\ee_1 + (A_3B_1 - A_1B_3)\ee_2 + (A_1B_2 - A_2B_1)\ee_3
   \end{align}
 \end{definition}
 
 \begin{theorem}
   内積と外積について Einstein の縮約記法を用いて次のように書ける。
   \begin{align}
-    \AA\cdot\BB  & = A^i\ee_i\cdot B^j\ee_j = A_iB^i \\
-    \AA\times\BB & = \bm{e}_i\varepsilon^{ijk}A^jB^k
+    \AA\cdot\BB  & = A_i\ee_i\cdot B_j\ee_j = A_iB_i \\
+    \AA\times\BB & = \bm{e}_i\varepsilon_{ijk}A_jB_k
   \end{align}
 \end{theorem}
 \begin{proof}
   内積については自明。外積について次のように求められる。
   \begin{align}
-    (\AA\times\BB)^1 & = \varepsilon^{1jk}A^jB^k = A^2B^3 - A^3B^2 \\
-    (\AA\times\BB)^2 & = \varepsilon^{2jk}A^jB^k = A^3B^1 - A^1B^3 \\
-    (\AA\times\BB)^3 & = \varepsilon^{3jk}A^jB^k = A^1B^2 - A^2B^1
+    (\AA\times\BB)_1 & = \varepsilon_{1jk}A_jB_k = A_2B_3 - A_3B_2 \\
+    (\AA\times\BB)_2 & = \varepsilon_{2jk}A_jB_k = A_3B_1 - A_1B_3 \\
+    (\AA\times\BB)_3 & = \varepsilon_{3jk}A_jB_k = A_1B_2 - A_2B_1
   \end{align}
 \end{proof}
 
@@ -248,12 +248,65 @@
     \diffp{\ee_\alpha}{x^\beta} & = \Gamma^\mu_{\ \alpha\beta}\ee_\mu
   \end{align}
 \end{definition}
-これらを用いて共変微分
 \begin{align}
-  A^\alpha_{\ ;\beta}\ee_\alpha & := \nabla_\beta\AA = \diffp{\AA}{x^\beta} = \diffp{A^\alpha}{x^\beta}\ee_\alpha + A^\alpha\diffp{\ee_\alpha}{x^\beta} = A^\alpha_{\ ,\beta}\ee_\alpha + A^\alpha\Gamma^\mu_{\ \alpha\beta}\ee_\mu \\
-  A^\alpha_{\ ;\beta}           & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}
+  g^{\alpha\beta} & = g_{\alpha\beta}^{-1} \\
+  g_{\alpha\beta} & = g_{\beta\alpha}
 \end{align}
-よりデカルト座標に対しての歪みを
+ベクトル $\AA = A^\alpha\ee_\alpha$ を基底で微分 $\nabla_\beta\AA = A^\alpha_{\ ;\beta}\ee_\alpha$ について
+\begin{align}
+  A^\alpha_{\ ;\beta}\ee_\alpha & = \nabla_\beta\AA = \diffp{\AA}{x^\beta} = \diffp{}{x^\beta}(A^\alpha\ee_\alpha) = \diffp{A^\alpha}{x^\beta}\ee_\alpha + A^\alpha\diffp{\ee_\alpha}{x^\beta} = A^\alpha_{\ ,\beta}\ee_\alpha + A^\alpha\Gamma^\mu_{\ \alpha\beta}\ee_\mu
+\end{align}
+より
+\begin{align}
+  A^\alpha_{\ ;\beta} & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}
+\end{align}
+これを共変微分という。共変ベクトルについても共変微分すると
+\begin{align}
+  A_{\alpha;\mu} & = (g_{\alpha\beta}A^{\beta})_{;\mu} = g_{\alpha\beta;\mu}A^{\beta} + g_{\alpha\beta}A^{\beta}_{\ ;\mu} = g_{\alpha\beta;\mu}A^{\beta} + A_{\alpha;\mu}
+\end{align}
+より次のテンソル方程式が成り立つ。
+\begin{align}
+  g_{\alpha\beta;\mu} & = 0
+\end{align}
+またスカラー場 $\phi$ について 2 階微分することで
+\begin{align}
+  \phi_{,\alpha;\beta} & = \phi_{,\alpha,\beta} + \phi_\mu\Gamma^\mu_{\ \alpha\beta}                                                             \\
+  \phi_{,\beta;\alpha} & = \phi_{,\beta,\alpha} + \phi_\mu\Gamma^\mu_{\ \beta\alpha} = \phi_{,\alpha,\beta} + \phi_\mu\Gamma^\mu_{\ \beta\alpha}
+\end{align}
+より $\phi_{,\alpha;\beta} = \phi_{,\beta;\alpha}$ であるから
+\begin{align}
+  \Gamma^\mu_{\ \alpha\beta} & = \Gamma^\mu_{\ \beta\alpha}
+\end{align}
+となる。
+計量テンソルの共変微分を計算すると
+\begin{align}
+  g_{\alpha\beta;\mu} & = g_{\alpha\beta,\mu} - g_{\nu\beta}\Gamma^\nu_{\ \alpha\mu} - g_{\alpha\nu}\Gamma^\nu_{\ \mu\beta} = 0
+\end{align}
+これを添字を変えたものを適切に足し引きする。
+\begin{align}
+  g_{\alpha\beta,\mu}                                             & = g_{\nu\beta}\Gamma^\nu_{\ \alpha\mu} + g_{\alpha\nu}\Gamma^\nu_{\ \mu\beta} \\
+  g_{\mu\alpha,\beta}                                             & = g_{\nu\alpha}\Gamma^\nu_{\ \mu\beta} + g_{\mu\nu}\Gamma^\nu_{\ \beta\alpha} \\
+  g_{\beta\mu,\alpha}                                             & = g_{\nu\mu}\Gamma^\nu_{\ \beta\alpha} + g_{\beta\nu}\Gamma^\nu_{\ \alpha\mu} \\
+  g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha} & = 2g_{\alpha\nu}\Gamma^\nu_{\ \beta\mu}
+\end{align}
+両辺に $\frac{1}{2}g^{\alpha\gamma}$ を掛けると
+\begin{align}
+  \frac{1}{2}g^{\alpha\gamma}\ab(g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha}) & = g^{\alpha\gamma}g_{\alpha\nu}\Gamma^\nu_{\ \beta\mu} = \delta_{\nu}^\gamma\Gamma^\nu_{\ \beta\mu} = \Gamma^\gamma_{\ \beta\mu}
+\end{align}
+よりクリストッフェル記号を計量テンソルで表すことができる。
+\begin{align}
+  \Gamma^\mu_{\ \alpha\beta} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
+\end{align}
+
+
+\begin{itembox}[l]{テンソル方程式}
+  \begin{align}
+    A^\alpha_{\ ;\beta}        & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}                                  \\
+    g_{\alpha\beta;\mu}        & = 0                                                                                      \\
+    \Gamma^\mu_{\ \alpha\beta} & = \Gamma^\mu_{\ \beta\alpha}                                                             \\
+    \Gamma^\mu_{\ \alpha\beta} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
+  \end{align}
+\end{itembox}
 
 
 \begin{example}[デカルト座標]
@@ -290,18 +343,22 @@
                           0 & r^2
                         \end{pmatrix}
   \end{align}
+  \begin{align}
+    \diffp{\ee_r}{r}           & = \Gamma^{r}_{\ rr}\ee_r + \Gamma^{\theta}_{\ rr}\ee_\theta = 0                                 \\
+    \diffp{\ee_r}{\theta}      & = \Gamma^{r}_{\ r\theta}\ee_r + \Gamma^{\theta}_{\ r\theta}\ee_\theta = \frac{1}{r}\ee_\theta   \\
+    \diffp{\ee_\theta}{r}      & = \Gamma^{r}_{\ \theta r}\ee_r + \Gamma^{\theta}_{\ \theta r}\ee_\theta = \frac{1}{r}\ee_\theta \\
+    \diffp{\ee_\theta}{\theta} & = \Gamma^{r}_{\ \theta\theta}\ee_r + \Gamma^{\theta}_{\ \theta\theta}\ee_\theta = -r\ee_r
+  \end{align}
+  \begin{align}
+    A^\alpha_{\ ;\alpha} & = \diffp{A^\alpha}{\alpha} + \Gamma^\alpha_{\ \mu\alpha}A^\mu \\
+                         & = \diffp{A^r}{r} + \diffp{A^\theta}{\theta} + \frac{1}{r}A^r  \\
+                         & = \frac{1}{r}\diffp{}{r}(rA^r) + \diffp{}{\theta}A^\theta
+  \end{align}
 \end{example}
 
-\begin{theorem}
-  \begin{align}
-    \Gamma^\mu_{\ \alpha\beta} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
-  \end{align}
-\end{theorem}
-\begin{proof}
-
-\end{proof}
 
 
+\section{ベクトル解析}
 \begin{definition}[Kronecker のデルタ]
   \begin{align}
     \delta_{ij} = \begin{cases}
@@ -310,6 +367,7 @@
                   \end{cases}
   \end{align}
 \end{definition}
+
 \begin{definition}[レビ・チビタの完全反対称テンソル (Levi-Civita antisymmetric tensor)]
   $\varepsilon_{\mu_1\cdots\mu_k}$ は $\mu_1\cdots\mu_k$ が順列のとき $1\cdots k$ の偶置換なら $1$、奇置換なら $-1$ とする。順列ではないときは $0$ とする。
   \begin{align}
@@ -329,8 +387,6 @@
     \end{dcases}
   \end{align}
 \end{definition}
-
-\section{ベクトル解析}
 \begin{theorem}
   $f_{ij} = f_{ji}$ と対称性があるとき $\varepsilon_{ijk}f_{ij} = 0$ となる。
 \end{theorem}
@@ -341,17 +397,17 @@
   \end{align}
   となる。
 \end{proof}
+
 \begin{definition}
+  ベクトル $\AA = A_i\ee_i$ について勾配 $\grad{\AA}$ と発散 $\div{\AA}$、回転 $\rot{\AA}$ を次のように定義する。
+  \begin{align}
+    \grad{\bm{A}} & = \ee_i\partial_iA_i                     \\
+    \div{\bm{A}}  & = \partial_iA_i                          \\
+    \rot{\bm{A}}  & = \bm{e}_i\varepsilon_{ijk}\partial_jA_k
+  \end{align}
+  ただし
   \begin{align}
     \partial_i = \diffp{}{x^i}
-  \end{align}
-\end{definition}
-\begin{definition}
-  ベクトル $\AA = A^i\ee_i$ について勾配 $\grad{\AA}$ と発散 $\div{\AA}$、回転 $\rot{\AA}$ を次のように定義する。
-  \begin{align}
-    \grad{\bm{A}} & = \diffp{A^i}{x^i}\ee_i                  \\
-    \div{\bm{A}}  & = \diffp{A^i}{x^i} = \partial_iA^i       \\
-    \rot{\bm{A}}  & = \bm{e}^i\varepsilon^{ijk}\partial_jA^k
   \end{align}
 \end{definition}
 
@@ -365,15 +421,15 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    (\grad{(f+g)})_i            & = \partial_i(f+g)                                                 \\
-                                & = \partial_i f + \partial_i g                                     \\
-                                & = (\grad{f} + \grad{g})_i                                         \\
-    \div{(\bm{A}+\bm{B})}       & = \partial_i(A_i + B_i)                                           \\
-                                & = \partial_i A_i + \partial_i B_i                                 \\
-                                & = \div{\bm{A}}+\div{\bm{B}}                                       \\
-    (\rot{(\bm{A} + \bm{B})})_i & = \varepsilon_{ijk}\partial_j(A_k + B_k)                          \\
-                                & = \varepsilon_{ijk}\partial_jA_k + \varepsilon_{ijk}\partial_jB_k \\
-                                & = \rot{\bm{A}} + \rot{\bm{B}}
+    \grad{(f+g)}            & = \ee_i\partial_i(f+g)                                                      \\
+                            & = \ee_i\partial_i f + \ee_i\partial_i g                                     \\
+                            & = \grad{f} + \grad{g}                                                       \\
+    \div{(\bm{A}+\bm{B})}   & = \partial_i(A_i + B_i)                                                     \\
+                            & = \partial_i A_i + \partial_i B_i                                           \\
+                            & = \div{\bm{A}}+\div{\bm{B}}                                                 \\
+    \rot{(\bm{A} + \bm{B})} & = \ee_i\varepsilon_{ijk}\partial_j(A_k + B_k)                               \\
+                            & = \ee_i\varepsilon_{ijk}\partial_jA_k + \ee_i\varepsilon_{ijk}\partial_jB_k \\
+                            & = \rot{\bm{A}} + \rot{\bm{B}}
   \end{align}
 \end{proof}
 
@@ -387,16 +443,16 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    (\grad{(fg)})_i     & = \partial_i(fg)                                                    \\
-                        & = f\partial_i g + g\partial_i f                                     \\
-                        & = (f\grad{g} + g\grad{f})_i                                         \\
-    \div{(f\bm{A})}     & = \partial_i(fA_i)                                                  \\
-                        & = f\partial_iA_i + A_i\partial_if                                   \\
-                        & = f(\div{\bm{A}}) + \bm{A}\cdot(\grad{f})                           \\
-    (\rot{(f\bm{A})})_i & = \varepsilon_{ijk}\partial_j(fA_k)                                 \\
-                        & = f\varepsilon_{ijk}\partial_jA_k + \varepsilon_{ijk}A_k\partial_jf \\
-                        & = f\varepsilon_{ijk}\partial_jA_k - \varepsilon_{ikj}A_k\partial_jf \\
-                        & = (f(\rot{\bm{A}}) - \bm{A}\times(\grad{f}))_i
+    \grad{(fg)}     & = \ee_i\partial_i(fg)                                                         \\
+                    & = f\ee_i\partial_i g + g\ee_i\partial_i f                                     \\
+                    & = f\grad{g} + g\grad{f}                                                       \\
+    \div{(f\bm{A})} & = \partial_i(fA_i)                                                            \\
+                    & = f\partial_iA_i + A_i\partial_if                                             \\
+                    & = f(\div{\bm{A}}) + \bm{A}\cdot(\grad{f})                                     \\
+    \rot{(f\bm{A})} & = \ee_i\varepsilon_{ijk}\partial_j(fA_k)                                      \\
+                    & = f\ee_i\varepsilon_{ijk}\partial_jA_k + \ee_i\varepsilon_{ijk}A_k\partial_jf \\
+                    & = f\ee_i\varepsilon_{ijk}\partial_jA_k - \ee_i\varepsilon_{ikj}A_k\partial_jf \\
+                    & = f(\rot{\bm{A}}) - \bm{A}\times(\grad{f})
   \end{align}
 \end{proof}
 
@@ -409,22 +465,22 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    (\grad{(\bm{A}\cdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                            \\
-                                   & = (A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i)                         \\
-                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                \\
-                                   & = \varepsilon_{kij}\varepsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                               \\
-                                   & = \varepsilon_{ijk}A_j\varepsilon_{klm}\partial_lB_m + \varepsilon_{ijk}B_j\varepsilon_{klm}\partial_lA_m + A_j\partial_jB_i + B_j\partial_jA_i \\
-                                   & = (\bm{A}\times(\rot{\bm{B}}) + \bm{B}\times(\rot{\bm{A}}) + (\bm{A}\cdot\nabla)\bm{B} + (\bm{B}\cdot\nabla)\bm{A})_i                           \\
-    \div{(\bm{A}\times\bm{B})}     & = \partial_i(\varepsilon_{ijk}A_jB_k)                                                                                                           \\
-                                   & = \varepsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)                                                                                        \\
-                                   & = B_k\varepsilon_{kij}\partial_iA_j - A_j\varepsilon_{jik}\partial_iB_k                                                                         \\
-                                   & = \bm{B}\cdot(\rot{\bm{A}}) - \bm{A}\cdot(\rot{\bm{B}})                                                                                         \\
-    (\rot{(\bm{A}\times\bm{B})})_i & = \varepsilon_{ijk}\partial_j\varepsilon_{klm}A_lB_m                                                                                            \\
-                                   & = \varepsilon_{kij}\varepsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                                                       \\
-                                   & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                                                        \\
-                                   & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                                                                 \\
-                                   & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                                                                     \\
-                                   & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\cdot\nabla)\bm{A} - (\bm{A}\cdot\nabla)\bm{B}
+    \grad{(\bm{A}\cdot\bm{B})} & = \ee_i\partial_i(A_jB_j)                                                                                                                                           \\
+                               & = \ee_i((A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i))                                      \\
+                               & = \ee_i(\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + \ee_i(A_j\partial_jB_i + B_j\partial_jA_i)                          \\
+                               & = \ee_i\varepsilon_{kij}\varepsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + \ee_i(A_j\partial_jB_i + B_j\partial_jA_i)                                         \\
+                               & = \ee_i\varepsilon_{ijk}A_j\varepsilon_{klm}\partial_lB_m + \ee_i\varepsilon_{ijk}B_j\varepsilon_{klm}\partial_lA_m + \ee_iA_j\partial_jB_i + \ee_iB_j\partial_jA_i \\
+                               & = \bm{A}\times(\rot{\bm{B}}) + \bm{B}\times(\rot{\bm{A}}) + (\bm{A}\cdot\nabla)\bm{B} + (\bm{B}\cdot\nabla)\bm{A}                                                   \\
+    \div{(\bm{A}\times\bm{B})} & = \partial_i(\varepsilon_{ijk}A_jB_k)                                                                                                                               \\
+                               & = \varepsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)                                                                                                            \\
+                               & = B_k\varepsilon_{kij}\partial_iA_j - A_j\varepsilon_{jik}\partial_iB_k                                                                                             \\
+                               & = \bm{B}\cdot(\rot{\bm{A}}) - \bm{A}\cdot(\rot{\bm{B}})                                                                                                             \\
+    \rot{(\bm{A}\times\bm{B})} & = \ee_i\varepsilon_{ijk}\partial_j\varepsilon_{klm}A_lB_m                                                                                                           \\
+                               & = \ee_i\varepsilon_{kij}\varepsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                                                                      \\
+                               & = \ee_i(\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                                                                       \\
+                               & = \ee_i(B_j\partial_jA_i + A_i\partial_jB_j) - \ee_i(B_i\partial_jA_j + A_j\partial_jB_i)                                                                           \\
+                               & = \ee_iA_i\partial_jB_j - \ee_iB_i\partial_jA_j + \ee_iB_j\partial_jA_i - \ee_iA_j\partial_jB_i                                                                     \\
+                               & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\cdot\nabla)\bm{A} - (\bm{A}\cdot\nabla)\bm{B}
   \end{align}
 \end{proof}
 
@@ -437,14 +493,14 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    \div{(\rot{\bm{A}})}     & = \partial_i(\varepsilon_{ijk}\partial_jA_k)                               \\
-                             & = \varepsilon_{ijk}\partial_i\partial_jA_k = 0                             \\
-    (\rot{(\grad{f})})_i     & = \varepsilon_{ijk}\partial_j\partial_kf = 0                               \\
-    (\rot{(\rot{\bm{A}})})_i & = \varepsilon_{ijk}\partial_j(\varepsilon_{klm}\partial_lA_m)              \\
-                             & = \varepsilon_{kij}\varepsilon_{klm}\partial_j\partial_lA_m                \\
-                             & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m \\
-                             & = \partial_j\partial_iA_j - \partial_j^2A_i                                \\
-                             & = (\div{(\grad{\bm{A}})} - \laplacian{\bm{A}})_i
+    \div{(\rot{\bm{A}})} & = \partial_i(\varepsilon_{ijk}\partial_jA_k)                                    \\
+                         & = \varepsilon_{ijk}\partial_i\partial_jA_k = 0                                  \\
+    \rot{(\grad{f})}     & = \ee_i\varepsilon_{ijk}\partial_j\partial_kf = 0                               \\
+    \rot{(\rot{\bm{A}})} & = \ee_i\varepsilon_{ijk}\partial_j(\varepsilon_{klm}\partial_lA_m)              \\
+                         & = \ee_i\varepsilon_{kij}\varepsilon_{klm}\partial_j\partial_lA_m                \\
+                         & = \ee_i(\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})\partial_j\partial_lA_m \\
+                         & = \ee_i\partial_j\partial_iA_j - \ee_i\partial_j^2A_i                           \\
+                         & = \grad{(\div{\bm{A}})} - \laplacian{\bm{A}}
   \end{align}
 \end{proof}
 
