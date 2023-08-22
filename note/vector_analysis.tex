@@ -10,8 +10,9 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -56,13 +57,17 @@
 \newcommand{\lt}{<}
 \newcommand{\gt}{>}
 \newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
+% \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
 \renewcommand{\AA}{\bm{A}}
 \newcommand{\BB}{\bm{B}}
 \newcommand{\ee}{\bm{e}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\newcommand{\grad}{\nabla}
+\renewcommand{\div}{\nabla\cdot}
+\newcommand{\rot}{\nabla\times}
+\newcommand{\laplacian}{\nabla^2}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -157,7 +162,146 @@
 \tableofcontents
 \clearpage
 
-\section{記法・記号}
+\section{ベクトル空間}
+\subsection{ベクトルの定義}
+\begin{definition}[Einstein の縮約記法]
+  同じ項で添字が重なる場合にはその添字について和を取る。
+\end{definition}
+
+\begin{definition}[ベクトル空間]
+  体 $K$ 上の加群を $K$ 上のベクトル空間といい、ベクトル空間の元をベクトルという。
+  $\AA = A^i\ee_i = A^1\ee_1 + A^2\ee_2 + A^3\ee_3$
+\end{definition}
+
+\begin{definition}[ベクトル空間における内積と外積]
+  ベクトル $\AA = A^i\ee_i, \BB = B^j\ee_j$ における内積と外積を定義する。
+  \begin{align}
+    \AA\cdot\BB  & = A^i\ee_i\cdot B^j\ee_j = g_{ij}A^iB^j                                    \\
+    \AA\times\BB & = (A^2B^3 - A^3B^2)\ee_1 + (A^3B^1 - A^1B^3)\ee_2 + (A^1B^2 - A^2B^1)\ee_3
+  \end{align}
+\end{definition}
+
+\begin{theorem}
+  内積と外積について Einstein の縮約記法を用いて次のように書ける。
+  \begin{align}
+    \AA\cdot\BB  & = A^i\ee_i\cdot B^j\ee_j = A_iB^i \\
+    \AA\times\BB & = \bm{e}_i\varepsilon^{ijk}A^jB^k
+  \end{align}
+\end{theorem}
+\begin{proof}
+  内積については自明。外積について次のように求められる。
+  \begin{align}
+    (\AA\times\BB)^1 & = \varepsilon^{1jk}A^jB^k = A^2B^3 - A^3B^2 \\
+    (\AA\times\BB)^2 & = \varepsilon^{2jk}A^jB^k = A^3B^1 - A^1B^3 \\
+    (\AA\times\BB)^3 & = \varepsilon^{3jk}A^jB^k = A^1B^2 - A^2B^1
+  \end{align}
+\end{proof}
+
+
+\subsection{座標系}
+\begin{definition}[デカルト座標]
+
+  \begin{align}
+    \ee_x\cdot\ee_x & = \ee_y\cdot\ee_y = 1, \qquad \ee_x\cdot\ee_y = 0
+  \end{align}
+\end{definition}
+
+\begin{definition}[極座標]
+  ユークリッド平面においてデカルト座標 $(x, y)$ から極座標 $(r, \theta)$ への変換は次のように定義する。
+  \begin{align}
+    r = \sqrt{x^2 + y^2}, \qquad \theta = \arctan\frac{y}{x}
+  \end{align}
+  逆に極座標 $(r, \theta)$ からデカルト座標 $(x, y)$ へは次のようになる。
+  \begin{align}
+    x = r\cos\theta, \qquad y = r\sin\theta
+  \end{align}
+\end{definition}
+
+\begin{align}
+  \ee_r      & = \diffp{x}{r}\ee_x + \diffp{y}{r}\ee_y = \cos\theta\ee_x + \sin\theta\ee_y              \\
+  \ee_\theta & = \diffp{x}{\theta}\ee_x + \diffp{y}{\theta}\ee_y = -r\sin\theta\ee_x + r\cos\theta\ee_y
+\end{align}
+\begin{align}
+  \ee_r\cdot\ee_r           & = (\cos\theta\ee_x + \sin\theta\ee_y)\cdot(\cos\theta\ee_x + \sin\theta\ee_y)       \\
+                            & = \cos^2\theta + \sin^2\theta = 1                                                   \\
+  \ee_\theta\cdot\ee_\theta & = (-r\sin\theta\ee_x + r\cos\theta\ee_y)\cdot(-r\sin\theta\ee_x + r\cos\theta\ee_y) \\
+                            & = r^2\sin^2\theta + r^2\cos^2\theta = r^2                                           \\
+  \ee_r\cdot\ee_\theta      & = (\cos\theta\ee_x + \sin\theta\ee_y)\cdot(-r\sin\theta\ee_x + r\cos\theta\ee_y)    \\
+                            & = -r\sin\theta\cos\theta + r\sin\theta\cos\theta = 0
+\end{align}
+
+
+\subsection{様々な座標系における演算}
+どのような座標系においても同じ形の式を作る。
+異なる座標系での内積
+\begin{definition}[座標系の基底ベクトル]
+  座標変換によって基底ベクトルによる
+  \begin{align}
+    \ee_{\alpha'} & = \Lambda_{\ \alpha'}^\beta\ee_\beta = \diffp{x^\beta}{x^{\alpha'}}\ee_\beta
+  \end{align}
+  ある座標系において基底ベクトル同士の内積を計量テンソル $g_{\alpha\beta}$ といい、これが座標系を表現する。
+  \begin{align}
+    \ee_\alpha\cdot\ee_\beta & = g_{\alpha\beta}
+  \end{align}
+  また基底ベクトルの微分による係数をクリストッフェル記号といい、$\Gamma^\mu_{\ \alpha\beta}$ と書く。
+  \begin{align}
+    \diffp{\ee_\alpha}{x^\beta} & = \Gamma^\mu_{\ \alpha\beta}\ee_\mu
+  \end{align}
+\end{definition}
+これらを用いて共変微分
+\begin{align}
+  A^\alpha_{\ ;\beta}\ee_\alpha & := \nabla_\beta\AA = \diffp{\AA}{x^\beta} = \diffp{A^\alpha}{x^\beta}\ee_\alpha + A^\alpha\diffp{\ee_\alpha}{x^\beta} = A^\alpha_{\ ,\beta}\ee_\alpha + A^\alpha\Gamma^\mu_{\ \alpha\beta}\ee_\mu \\
+  A^\alpha_{\ ;\beta}           & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}
+\end{align}
+よりデカルト座標に対しての歪みを
+
+
+\begin{example}[デカルト座標]
+  \begin{align}
+    g_{\alpha\beta}             & = \delta_{\alpha\beta} \\
+    \diffp{\ee_\alpha}{x^\beta} & = 0                    \\
+    \Gamma^\mu_{\ \alpha\beta}  & = 0                    \\
+    A^\alpha_{\ ;\beta}         & = A^\alpha_{\ ,\beta}
+  \end{align}
+\end{example}
+\begin{example}[極座標]
+  \begin{align}
+    \Lambda_{\ \alpha}^\beta & =
+    \begin{pmatrix}
+      \Lambda_{\ r}^{x}      & \Lambda_{\ r}^{y}      \\
+      \Lambda_{\ \theta}^{x} & \Lambda_{\ \theta}^{y}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \diffp{x}{r}      & \diffp{y}{r}      \\
+      \diffp{x}{\theta} & \diffp{y}{\theta}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \cos\theta   & \sin\theta  \\
+      -r\sin\theta & r\cos\theta
+    \end{pmatrix}                                        \\
+    \ee_r                    & = \cos\theta\ee_x + \sin\theta\ee_y    \\
+    \ee_\theta               & = -r\sin\theta\ee_x + r\cos\theta\ee_y
+  \end{align}
+  \begin{align}
+    g_{\alpha\beta} & = \begin{pmatrix}
+                          1 & 0   \\
+                          0 & r^2
+                        \end{pmatrix}
+  \end{align}
+\end{example}
+
+\begin{theorem}
+  \begin{align}
+    \Gamma^\mu_{\ \alpha\beta} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
+  \end{align}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+
 \begin{definition}[Kronecker のデルタ]
   \begin{align}
     \delta_{ij} = \begin{cases}
@@ -186,51 +330,28 @@
   \end{align}
 \end{definition}
 
-\begin{definition}[Einstein の縮約記法]
-  同じ項で添字が重なる場合はその添字について和を取る.
-  \begin{align}
-    A_iB_i = \sum_{i=x,y,z}A_iB_i
-  \end{align}
-\end{definition}
-
-
-\section{ベクトル空間}
-
-\begin{definition}[ベクトル空間]
-  体 $K$ 上の加群を $K$ 上のベクトル空間といい、ベクトル空間の元をベクトルという。
-\end{definition}
-
-\begin{definition}[ベクトル空間における内積と外積]
-  ベクトル $\AA = (A_x, A_y, A_z), \BB = (B_x, B_y, B_z)$ における内積と外積を定義する。
-  \begin{align}
-    \AA\vdot\BB  & = A_xB_x + A_yB_y + A_zB_z                            \\
-    \AA\cross\BB & = (A_yB_z - A_zB_y, A_zB_x - A_xB_z, A_xB_y - A_yB_x)
-  \end{align}
-\end{definition}
-
+\section{ベクトル解析}
 \begin{theorem}
-  内積と外積について Einstein の縮約記法を用いて次のように書ける。
-  \begin{align}
-    \AA\vdot\BB  & = A_iB_i                          \\
-    \AA\cross\BB & = \bm{e}_i\varepsilon_{ijk}A_jB_k
-  \end{align}
+  $f_{ij} = f_{ji}$ と対称性があるとき $\varepsilon_{ijk}f_{ij} = 0$ となる。
 \end{theorem}
 \begin{proof}
-  内積については自明。外積について次のように求められる。
+  $i, j$ を交換しても等しいことから
   \begin{align}
-    (\AA\cross\BB)_1 & = \varepsilon_{1jk}A_jB_k = A_2B_3 - A_3B_2 \\
-    (\AA\cross\BB)_2 & = \varepsilon_{2jk}A_jB_k = A_3B_1 - A_1B_3 \\
-    (\AA\cross\BB)_3 & = \varepsilon_{3jk}A_jB_k = A_1B_2 - A_2B_1
+    \varepsilon_{ijk}f_{ij} = \varepsilon_{jik}f_{ji} = -\varepsilon_{ijk}f_{ij} = 0
   \end{align}
+  となる。
 \end{proof}
-
-\section{ベクトル解析}
 \begin{definition}
-  ベクトル $\AA = (A_x, A_y, A_z)$ について勾配 $\grad{\AA}$ と発散 $\div{\AA}$、回転 $\rot{\AA}$ を次のように定義する。
   \begin{align}
-    \grad{\bm{A}} & = \qty(\pdv{A_x}{x}, \pdv{A_y}{y}, \pdv{A_z}{z})                                                                                       \\
-    \div{\bm{A}}  & = \pdv{A_x}{x} + \pdv{A_y}{y} + \pdv{A_z}{z} = \partial_iA_i                                                                           \\
-    \rot{\bm{A}}  & = \qty(\pdv{A_z}{y} - \pdv{A_y}{z}, \pdv{A_x}{z} - \pdv{A_z}{x}, \pdv{A_y}{x} - \pdv{A_x}{y}) = \bm{e}_i\varepsilon_{ijk}\partial_jA_k
+    \partial_i = \diffp{}{x^i}
+  \end{align}
+\end{definition}
+\begin{definition}
+  ベクトル $\AA = A^i\ee_i$ について勾配 $\grad{\AA}$ と発散 $\div{\AA}$、回転 $\rot{\AA}$ を次のように定義する。
+  \begin{align}
+    \grad{\bm{A}} & = \diffp{A^i}{x^i}\ee_i                  \\
+    \div{\bm{A}}  & = \diffp{A^i}{x^i} = \partial_iA^i       \\
+    \rot{\bm{A}}  & = \bm{e}^i\varepsilon^{ijk}\partial_jA^k
   \end{align}
 \end{definition}
 
@@ -260,8 +381,8 @@
   スカラー倍はそれぞれ次のようになる。
   \begin{align}
     \grad{(fg)}     & = f\grad{g} + g\grad{f}                    \\
-    \div{(f\bm{A})} & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})  \\
-    \rot{(f\bm{A})} & = f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f})
+    \div{(f\bm{A})} & = f(\div{\bm{A}}) + \bm{A}\cdot(\grad{f})  \\
+    \rot{(f\bm{A})} & = f(\rot{\bm{A}}) - \bm{A}\times(\grad{f})
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -271,39 +392,39 @@
                         & = (f\grad{g} + g\grad{f})_i                                         \\
     \div{(f\bm{A})}     & = \partial_i(fA_i)                                                  \\
                         & = f\partial_iA_i + A_i\partial_if                                   \\
-                        & = f(\div{\bm{A}}) + \bm{A}\vdot(\grad{f})                           \\
+                        & = f(\div{\bm{A}}) + \bm{A}\cdot(\grad{f})                           \\
     (\rot{(f\bm{A})})_i & = \varepsilon_{ijk}\partial_j(fA_k)                                 \\
                         & = f\varepsilon_{ijk}\partial_jA_k + \varepsilon_{ijk}A_k\partial_jf \\
                         & = f\varepsilon_{ijk}\partial_jA_k - \varepsilon_{ikj}A_k\partial_jf \\
-                        & = (f(\rot{\bm{A}}) - \bm{A}\cross(\grad{f}))_i
+                        & = (f(\rot{\bm{A}}) - \bm{A}\times(\grad{f}))_i
   \end{align}
 \end{proof}
 
 \begin{theorem}[ベクトルの内積・外積の勾配・発散・回転]
   \begin{align}
-    \grad{(\bm{A}\vdot\bm{B})} & = \bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A} \\
-    \div{(\bm{A}\cross\bm{B})} & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                             \\
-    \rot{(\bm{A}\cross\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
+    \grad{(\bm{A}\cdot\bm{B})} & = \bm{A}\times(\rot{\bm{B}}) + \bm{B}\times(\rot{\bm{A}}) + (\bm{A}\cdot\nabla)\bm{B} + (\bm{B}\cdot\nabla)\bm{A} \\
+    \div{(\bm{A}\times\bm{B})} & = \bm{B}\cdot(\rot{\bm{A}}) - \bm{A}\cdot(\rot{\bm{B}})                                                           \\
+    \rot{(\bm{A}\times\bm{B})} & = \bm{A}(\div{\bm{B}}) - \bm{B}(\div{\bm{A}}) + (\bm{B}\cdot\nabla)\bm{A} - (\bm{A}\cdot\nabla)\bm{B}
   \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-    (\grad{(\bm{A}\vdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                            \\
+    (\grad{(\bm{A}\cdot\bm{B})})_i & = \partial_i(A_jB_j)                                                                                                                            \\
                                    & = (A_j\partial_iB_j + B_j\partial_iA_j) - (A_j\partial_jB_i + B_j\partial_jA_i) + (A_j\partial_jB_i + B_j\partial_jA_i)                         \\
                                    & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                \\
                                    & = \varepsilon_{kij}\varepsilon_{klm}(A_j\partial_lB_m + B_j\partial_lA_m) + (A_j\partial_jB_i + B_j\partial_jA_i)                               \\
                                    & = \varepsilon_{ijk}A_j\varepsilon_{klm}\partial_lB_m + \varepsilon_{ijk}B_j\varepsilon_{klm}\partial_lA_m + A_j\partial_jB_i + B_j\partial_jA_i \\
-                                   & = (\bm{A}\cross(\rot{\bm{B}}) + \bm{B}\cross(\rot{\bm{A}}) + (\bm{A}\vdot\vnabla)\bm{B} + (\bm{B}\vdot\vnabla)\bm{A})_i                         \\
-    \div{(\bm{A}\cross\bm{B})}     & = \partial_i(\varepsilon_{ijk}A_jB_k)                                                                                                           \\
+                                   & = (\bm{A}\times(\rot{\bm{B}}) + \bm{B}\times(\rot{\bm{A}}) + (\bm{A}\cdot\nabla)\bm{B} + (\bm{B}\cdot\nabla)\bm{A})_i                           \\
+    \div{(\bm{A}\times\bm{B})}     & = \partial_i(\varepsilon_{ijk}A_jB_k)                                                                                                           \\
                                    & = \varepsilon_{ijk}(B_k\partial_iA_j + A_j\partial_iB_k)                                                                                        \\
                                    & = B_k\varepsilon_{kij}\partial_iA_j - A_j\varepsilon_{jik}\partial_iB_k                                                                         \\
-                                   & = \bm{B}\vdot(\rot{\bm{A}}) - \bm{A}\vdot(\rot{\bm{B}})                                                                                         \\
-    (\rot{(\bm{A}\cross\bm{B})})_i & = \varepsilon_{ijk}\partial_j\varepsilon_{klm}A_lB_m                                                                                            \\
+                                   & = \bm{B}\cdot(\rot{\bm{A}}) - \bm{A}\cdot(\rot{\bm{B}})                                                                                         \\
+    (\rot{(\bm{A}\times\bm{B})})_i & = \varepsilon_{ijk}\partial_j\varepsilon_{klm}A_lB_m                                                                                            \\
                                    & = \varepsilon_{kij}\varepsilon_{klm}(B_m\partial_jA_l + A_l\partial_jB_m)                                                                       \\
                                    & = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})(B_m\partial_jA_l + A_l\partial_jB_m)                                                        \\
                                    & = (B_j\partial_jA_i + A_i\partial_jB_j) - (B_i\partial_jA_j + A_j\partial_jB_i)                                                                 \\
                                    & = A_i\partial_jB_j - B_i\partial_jA_j + B_j\partial_jA_i - A_j\partial_jB_i                                                                     \\
-                                   & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\vdot\vnabla)\bm{A} - (\bm{A}\vdot\vnabla)\bm{B}
+                                   & = \bm{A}(\div{\bm{B}}) + \bm{B}(\div{\bm{A}}) + (\bm{B}\cdot\nabla)\bm{A} - (\bm{A}\cdot\nabla)\bm{B}
   \end{align}
 \end{proof}
 
@@ -316,21 +437,8 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    \div{(\rot{\bm{A}})} & = \partial_i(\varepsilon_{ijk}\partial_jA_k) \\
-                         & = \varepsilon_{ijk}\partial_i\partial_jA_k
-  \end{align}
-  このとき対称性から $i$, $j$ を交換しても等しい。
-  \begin{align}
-         & \varepsilon_{ijk}\partial_i\partial_jA_k = \varepsilon_{jik}\partial_j\partial_iA_k  \\
-    \iff & \varepsilon_{ijk}\partial_i\partial_jA_k = -\varepsilon_{ijk}\partial_i\partial_jA_k \\
-    \iff & \varepsilon_{ijk}\partial_i\partial_jA_k = 0
-  \end{align}
-  よって
-  \begin{align}
-    \div{(\rot{\bm{A}})} & = 0
-  \end{align}
-  他も同様にして
-  \begin{align}
+    \div{(\rot{\bm{A}})}     & = \partial_i(\varepsilon_{ijk}\partial_jA_k)                               \\
+                             & = \varepsilon_{ijk}\partial_i\partial_jA_k = 0                             \\
     (\rot{(\grad{f})})_i     & = \varepsilon_{ijk}\partial_j\partial_kf = 0                               \\
     (\rot{(\rot{\bm{A}})})_i & = \varepsilon_{ijk}\partial_j(\varepsilon_{klm}\partial_lA_m)              \\
                              & = \varepsilon_{kij}\varepsilon_{klm}\partial_j\partial_lA_m                \\
@@ -342,7 +450,7 @@
 
 \begin{theorem}[Gauss の定理]
   \begin{align}
-    \int_V\div{\AA}\dd{V} & = \oint_{\partial V}\AA\cdot\dd{\bm{S}}
+    \int_V\div{\AA}\dl{V} & = \oint_{\partial V}\AA\cdot\dl{\bm{S}}
   \end{align}
 \end{theorem}
 
