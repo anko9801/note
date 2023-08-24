@@ -13,6 +13,12 @@
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
 \usepackage{diffcoeff}
+\difdef { f, fp, s, sp } { | }
+{
+outer-Ldelim = \left . ,
+outer-Rdelim = \right |,
+sub-nudge = 0 mu
+}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -23,6 +29,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{mathtools}
+\usepackage{mathrsfs}
 \usepackage{xspace}
 \usepackage{xy}
 \usepackage{xypic}
@@ -380,23 +387,97 @@
 \end{example}
 
 \subsection{局所平坦性定理}
+\begin{theorem}
+  任意の計量 $g_{\alpha\beta}$ は座標変換することである点で平坦な計量となる。
+  \begin{align}
+    (\eta_{\mu\nu}) = \begin{pmatrix}
+                        -1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1
+                      \end{pmatrix}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  一般相対論において計量は 3 つの正の固有値と 1 つの負の固有値を持つ。これより任意の計量 $g_{\alpha\beta}$ に対して次のように定式化できる。
+  \begin{align}
+    g_{\mu\nu}(x^\gamma) = \Lambda^{\alpha}_{\ \mu}\Lambda^{\beta}_{\ \nu}g_{\alpha\beta} & = \eta_{\mu\nu} + O[(x^\gamma - \mathscr{P})^2]
+  \end{align}
+  つまり次のように書ける。
+  \begin{align}
+    g_{\mu\nu}|_\mathscr{P}               & = \Lambda^{\alpha}_{\ \mu}|_\mathscr{P}\Lambda^{\beta}_{\ \nu}|_\mathscr{P}g_{\alpha\beta}|_\mathscr{P} = \eta_{\mu\nu} \\
+    g_{\mu\nu,\gamma}|_\mathscr{P}        & = 0                                                                                                                     \\
+    g_{\mu\nu,\gamma\lambda}|_\mathscr{P} & \neq 0
+  \end{align}
+  これらはそれぞれ $10$ 個、$10 \times 4 = 40$ 個、$10 \times 10 = 100$ 個の独立な成分を持つ。
+  それぞれのテンソルをテイラー展開する。
+  \begin{align}
+    \Lambda^{\alpha}_{\ \mu} & = \Lambda^{\alpha}_{\ \mu}|_\mathscr{P} + (x^\gamma - x_0^\gamma)\diffp.|.{\Lambda^{\alpha}_{\ \mu}}{x^\gamma}[\mathscr{P}] + \frac{1}{2}(x^\gamma - x_0^\gamma)(x^\lambda - x_0^\lambda)\diffp.|.{\Lambda^{\alpha}_{\ \mu}}{x^\lambda,x^\gamma}[\mathscr{P}] + \cdots                                                                            \\
+                             & = \Lambda^{\alpha}_{\ \mu}|_\mathscr{P} + (x^\gamma - x_0^\gamma)\diffp.|.{x^\alpha}{x^\gamma,x^\mu}[\mathscr{P}] + \frac{1}{2}(x^\gamma - x_0^\gamma)(x^\lambda - x_0^\lambda)\diffp.|.{x^\alpha}{x^\lambda,x^\gamma,x^\mu}[\mathscr{P}] + \cdots                                                                                                \\
+    g_{\alpha\beta}(x)       & = g_{\alpha\beta}|_\mathscr{P} + (x^\gamma - x_0^\gamma)\diffp.|.{g_{\alpha\beta}}{x^\gamma}[\mathscr{P}] + \frac{1}{2}(x^\gamma - x_0^\gamma)(x^\lambda - x_0^\lambda)\diffp.|.{g_{\alpha\beta}}{x^\lambda,x^\gamma}[\mathscr{P}] + \cdots                                                                                                       \\
+    g_{\mu\nu}(x)            & = [\Lambda^{\alpha}_{\ \mu}\Lambda^{\beta}_{\ \nu}g_{\alpha\beta}]_\mathscr{P} + (x^\gamma - x_0^\gamma)\ab[\Lambda^{\alpha}_{\ \mu}\Lambda^{\beta}_{\ \nu}g_{\alpha\beta,\lambda} + \Lambda^{\alpha}_{\ \mu}\Lambda^{\beta}_{\ \nu,\lambda}g_{\alpha\beta} + \Lambda^{\alpha}_{\ \mu,\lambda}\Lambda^{\beta}_{\ \nu}g_{\alpha\beta}]_\mathscr{P} \\
+                             & + \frac{1}{2}(x^\gamma - x_0^\gamma)(x^\lambda - x_0^\lambda)[\cdots]_\mathscr{P} + \cdots
+  \end{align}
+  $\Lambda^{\alpha}_{\ \mu}|_\mathscr{P}$, $\Lambda^{\alpha}_{\ \mu,\gamma}|_\mathscr{P}$, $\Lambda^{\alpha}_{\ \mu,\gamma\lambda}|_\mathscr{P}$ は偏微分の対称性よりそれぞれ $4 \times 4 = 16$ 個、$4\times 10 = 40$ 個、$4\times 20 = 80$ 個を持つ。
+  \begin{align}
+    g_{\mu\nu}|_\mathscr{P} & = \Lambda^{\alpha}_{\ \mu}|_\mathscr{P}\Lambda^{\beta}_{\ \nu}|_\mathscr{P}g_{\alpha\beta}|_\mathscr{P} = \eta_{\mu\nu}
+  \end{align}
+  の 10 個の方程式を満たすことは $\Lambda^{\alpha}_{\ \mu}|_\mathscr{P}$ の 16 個の成分によってできる。残りの 6 個の成分はローレンツ変換の自由度に対応している。(速度の 3 成分とある軸による回転の 3 成分)
+  \begin{align}
+    g_{\mu\nu,\gamma}|_\mathscr{P} & = 0
+  \end{align}
+  については 40 個と 40 個でなんとか満たすことができる。
+  \begin{align}
+    g_{\mu\nu,\gamma\lambda}|_\mathscr{P} & = 0
+  \end{align}
+  を満たすことについては 100 個に対して 80 個で不可能である。
+\end{proof}
+\begin{proposition}
+  長さ $l$ と体積
+  \begin{align}
+    \dl{l}                           & = \ab|\AA|\dl{\lambda}                          \\
+    \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \sqrt{-g}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
+  \end{align}
+\end{proposition}
+\begin{proof}
+  \begin{align}
+    \dl{l} & = |g_{\alpha\beta}\dl{x^\alpha}\dl{x^\beta}|^{1/2}                                      \\
+           & = \ab|g_{\alpha\beta}\diff{x^\alpha}{\lambda}\diff{x^\beta}{\lambda}|^{1/2}\dl{\lambda} \\
+           & = \ab|g_{\alpha\beta}A^\alpha A^\beta|^{1/2}\dl{\lambda}                                \\
+           & = \ab|\AA|\dl{\lambda}                                                                  \\
+  \end{align}
+
+  \begin{align}
+    \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \diffp{(x^0, x^1, x^2, x^3)}{(x'^0\, x'^1\, x'^2\, x'^3)}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}                     \\
+                                     & = \begin{vmatrix}
+                                           \partial x^0/\partial x'^0 & \partial x^0/\partial x'^1 & \partial x^0/\partial x'^2 & \partial x^0/\partial x'^3 \\
+                                           \partial x^1/\partial x'^0 & \partial x^1/\partial x'^1 & \partial x^1/\partial x'^2 & \partial x^1/\partial x'^3 \\
+                                           \partial x^2/\partial x'^0 & \partial x^2/\partial x'^1 & \partial x^2/\partial x'^2 & \partial x^2/\partial x'^3 \\
+                                           \partial x^3/\partial x'^0 & \partial x^3/\partial x'^1 & \partial x^3/\partial x'^2 & \partial x^3/\partial x'^3 \\
+                                         \end{vmatrix}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3} \\
+                                     & = \det(\Lambda^\alpha_{\ \beta})\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
+  \end{align}
+  \begin{align}
+    (g_{\alpha\beta})              & = (\Lambda^\alpha_{\ \beta})(\eta_{\alpha\beta})(\Lambda^\alpha_{\ \beta})^T                                               \\
+    g = \det(g_{\alpha\beta})      & = \det(\Lambda^\alpha_{\ \beta})\det(\eta_{\alpha\beta})\det(\Lambda^\alpha_{\ \beta}) = -\det(\Lambda^\alpha_{\ \beta})^2 \\
+    \det(\Lambda^\alpha_{\ \beta}) & = \sqrt{-g}
+  \end{align}
+  \begin{align}
+    \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \sqrt{-g}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
+  \end{align}
+\end{proof}
+
+これより
+\begin{itembox}[l]{局所慣性系}
+  ある点 $\mathscr{P}$ が局所慣性系となっているとき
+  \begin{align}
+    g_{\alpha\beta}            & = \eta_{\alpha\beta} \\
+    g_{\alpha\beta,\mu}        & = 0                  \\
+    \Gamma^\mu_{\ \alpha\beta} & = 0
+  \end{align}
+\end{itembox}
 \begin{align}
-  \eta_{\mu\nu} = \eta^{\mu\nu} = \begin{pmatrix}
-                                    -1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1
-                                  \end{pmatrix}
-\end{align}
-\begin{align}
-  \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \diffp{(x^0, x^1, x^2, x^3)}{(x'^0, x'^1, x'^2, x'^3)}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3} \\
-                                   & = \det(\Lambda^\alpha_{\ \beta})\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}                         \\
-                                   & = \sqrt{-g}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
+  A^\alpha_{\ ;\beta} & = A^\alpha_{\ ,\beta} \\
+  g_{\alpha\beta;\mu} & =  = 0
 \end{align}
 
-\begin{align}
-  (g_{\alpha\beta})              & = (\Lambda^\alpha_{\ \beta})(\eta_{\alpha\beta})(\Lambda^\alpha_{\ \beta})^T               \\
-  g = \det(g_{\alpha\beta})      & = \det(\Lambda^\alpha_{\ \beta})\det(\eta_{\alpha\beta})\det((\Lambda^\alpha_{\ \beta})^T) \\
-                                 & = -\det(\Lambda^\alpha_{\ \beta})^2                                                        \\
-  \det(\Lambda^\alpha_{\ \beta}) & = \sqrt{-g}
-\end{align}
 \begin{theorem}[発散の公式]
   \begin{align}
     A^\alpha_{\ ;\alpha} & = \frac{1}{\sqrt{-g}}(\sqrt{-g}A^\mu)_{,\mu}
@@ -404,10 +485,10 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    \Gamma^\alpha_{\ \mu\alpha} & = \frac{1}{2}g^{\alpha\beta}(g_{\mu\beta,\alpha} + g_{\alpha\beta,\mu} - g_{\mu\alpha,\beta})                                                                                                                     \\
-                                & = \frac{1}{2}\underbrace{g^{\alpha\beta}}_{対称}\underbrace{(g_{\mu\beta,\alpha} - g_{\mu\alpha,\beta})}_{反対称} + \frac{1}{2}g^{\alpha\beta}g_{\alpha\beta,\mu}                                                      \\
-                                & = \frac{1}{2}g^{\alpha\beta}g_{\alpha\beta,\mu}                                                                                                                                                                   \\
-                                & = \frac{(\sqrt{-g})_{,\mu}}{\sqrt{-g}}                                                                                                                       & (g_{,\mu} & = gg^{\alpha\beta}g_{\alpha\beta,\mu}) \\
+    \Gamma^\alpha_{\ \mu\alpha} & = \frac{1}{2}g^{\alpha\beta}(g_{\mu\beta,\alpha} + g_{\alpha\beta,\mu} - g_{\mu\alpha,\beta})                                                                \\
+                                & = \frac{1}{2}\underbrace{g^{\alpha\beta}}_{対称}\underbrace{(g_{\mu\beta,\alpha} - g_{\mu\alpha,\beta})}_{反対称} + \frac{1}{2}g^{\alpha\beta}g_{\alpha\beta,\mu} \\
+                                & = \frac{1}{2}g^{\alpha\beta}g_{\alpha\beta,\mu}                                                                                                              \\
+                                & = \frac{1}{\sqrt{-g}}(\sqrt{-g})_{,\mu} \qquad (g_{,\mu} = gg^{\alpha\beta}g_{\alpha\beta,\mu})
   \end{align}
   \begin{align}
     A^\alpha_{\ ;\alpha} & = A^\alpha_{\ ,\alpha} + A^\mu\Gamma^\alpha_{\ \mu\alpha}           \\
@@ -416,6 +497,7 @@
   \end{align}
 
 \end{proof}
+測地線
 \begin{align}
   V^\alpha(B) - V^\alpha(A) & = \int_A^B\diffp{V^\alpha}{x^1}\dl{x^1} = -\int_{x^2 = b}\Gamma^\alpha_{\ \mu 1}V^\mu\dl{x^1}
 \end{align}
@@ -427,26 +509,61 @@
                   & = \delta a\delta b[\Gamma^\alpha_{\ \mu\sigma,\lambda} - \Gamma^\alpha_{\ \mu\lambda,\sigma} + \Gamma^\alpha_{\ \nu\lambda}\Gamma^\nu_{\ \mu\sigma} - \Gamma^\alpha_{\ \nu\sigma}\Gamma^\nu_{\ \mu\lambda}]V^\mu
 \end{align}
 \begin{definition}[リーマンの曲率テンソル]
+  ぱっと見テンソルではないけどテンソルとなる。
   \begin{align}
-    R^\alpha_{\ \beta\mu\nu} & := \Gamma^\alpha_{\ \beta\nu,\mu} - \Gamma^\alpha_{\ \beta\mu,\nu} + \Gamma^\alpha_{\ \sigma\mu}\Gamma^\sigma_{\ \beta\nu} - \Gamma^\alpha_{\ \sigma\nu}\Gamma^\nu_{\ \beta\mu}
+    R^\alpha_{\ \beta\mu\nu} & = \Gamma^\alpha_{\ \beta\nu,\mu} - \Gamma^\alpha_{\ \beta\mu,\nu} + \Gamma^\alpha_{\ \sigma\mu}\Gamma^\sigma_{\ \beta\nu} - \Gamma^\alpha_{\ \sigma\nu}\Gamma^\nu_{\ \beta\mu} \\
+    R_{\alpha\beta\mu\nu}    & = g_{\alpha\lambda}R^\lambda_{\ \beta\mu\nu}
+  \end{align}
+  \begin{align}
+    R^\alpha_{\ \beta\mu\nu} = 0 \iff 平坦な多様体
   \end{align}
 \end{definition}
+\begin{theorem}
+  \begin{align}
+     & R_{\alpha\beta\mu\nu} = -R_{\beta\alpha\mu\nu} = -R_{\alpha\beta\nu\mu} = R_{\mu\nu\alpha\beta}   \\
+     & R_{\alpha\beta\mu\nu} + R_{\alpha\nu\beta\mu} + R_{\alpha\mu\nu\beta} = 0                         \\
+     & R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu} = 0
+  \end{align}
+\end{theorem}
 局所慣性系において $\Gamma^\alpha_{\ \mu\nu} = 0$ であるから
 \begin{align}
   R^\alpha_{\ \beta\mu\nu} & = \Gamma^\alpha_{\ \beta\nu,\mu} - \Gamma^\alpha_{\ \beta\mu,\nu}                                                                                                                                               \\
                            & = \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\mu\nu} + g_{\sigma\nu,\beta\mu} - g_{\beta\nu,\sigma\mu}) - \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\nu\mu} + g_{\sigma\mu,\beta\nu} - g_{\beta\mu,\sigma\nu}) \\
-                           & = \frac{1}{2}g^{\alpha\sigma}\ab(g_{\sigma\nu,\beta\mu} - g_{\sigma\mu,\beta\nu} + g_{\beta\mu,\sigma\nu} - g_{\beta\nu,\sigma\mu})
-\end{align}
-
-\begin{align}
-  R_{\alpha\beta\mu\nu} & = g_{\alpha\lambda}R^\lambda_{\ \beta\mu\nu} = \frac{1}{2}\ab(g_{\alpha\nu,\beta\mu} - g_{\alpha\mu,\beta\nu} + g_{\beta\mu,\alpha\nu} - g_{\beta\nu,\alpha\mu})
+                           & = \frac{1}{2}g^{\alpha\sigma}\ab(g_{\sigma\nu,\beta\mu} - g_{\sigma\mu,\beta\nu} + g_{\beta\mu,\sigma\nu} - g_{\beta\nu,\sigma\mu})                                                                             \\
+  R_{\alpha\beta\mu\nu}    & = g_{\alpha\lambda}R^\lambda_{\ \beta\mu\nu} = \frac{1}{2}\ab(g_{\alpha\nu,\beta\mu} - g_{\alpha\mu,\beta\nu} + g_{\beta\mu,\alpha\nu} - g_{\beta\nu,\alpha\mu})
 \end{align}
 \begin{align}
-   & R_{\alpha\beta\mu\nu} = -R_{\beta\alpha\mu\nu} = -R_{\alpha\beta\nu\mu} = R_{\mu\nu\alpha\beta} \\
-   & R_{\alpha\beta\mu\nu} + R_{\alpha\nu\beta\mu} + R_{\alpha\mu\nu\beta} = 0
+   & R_{\alpha\beta\mu\nu} = -R_{\beta\alpha\mu\nu} = -R_{\alpha\beta\nu\mu} = R_{\mu\nu\alpha\beta}   \\
+   & R_{\alpha\beta\mu\nu} + R_{\alpha\nu\beta\mu} + R_{\alpha\mu\nu\beta} = 0                         \\
+   & R_{\alpha\beta\mu\nu,\lambda} + R_{\alpha\beta\lambda\mu,\nu} + R_{\alpha\beta\nu\lambda,\mu} = 0 \\
+   & R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu} = 0
+\end{align}
+\begin{align}
+  [\nabla_\alpha,\nabla_\beta]V^\mu = R^\mu_{\nu\alpha\beta}V^\nu
 \end{align}
 
-
+\begin{definition}
+  \begin{align}
+    R_{\alpha\beta} & = R^\mu_{\ \alpha\mu\beta} = R_{\beta\alpha}                            \\
+    R               & = g^{\mu\nu}R_{\mu\nu} = g^{\mu\nu}g^{\alpha\beta}R_{\alpha\mu\beta\nu} \\
+    G^{\alpha\beta} & = R^{\alpha\beta} - \frac{1}{2}g^{\alpha\beta}R
+  \end{align}
+\end{definition}
+ビアンキ恒等式に対して $\alpha\mu$、$\beta\nu$ の順に縮約を取ると
+\begin{align}
+  R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu} = 0
+\end{align}
+\begin{align}
+   & \quad\ g^{\beta\nu}g^{\alpha\mu}[R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu}] \\
+   & = g^{\beta\nu}[R_{\beta\nu;\lambda} + (- R_{\beta\lambda;\nu}) + R^\mu_{\ \beta\nu\lambda;\mu}]                                 \\
+   & = R_{;\lambda} + (- R^\nu_{\ \lambda;\nu}) + (-R^\mu_{\ \lambda;\mu})                                                           \\
+   & = R_{;\lambda} - 2R^\mu_{\ \lambda;\mu}                                                                                         \\
+   & = \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu} = 0
+\end{align}
+これはアインシュタイン・テンソルを用いて
+\begin{align}
+  \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu} = -2g_{\lambda\gamma}\ab(R^{\mu\gamma} - \frac{1}{2}g^{\mu\gamma}R)_{;\mu} = 0
+\end{align}
 
 
 \end{document}
