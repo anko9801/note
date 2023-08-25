@@ -271,7 +271,7 @@ sub-nudge = 0 mu
   \begin{align}
     \ee_{\alpha'} & = \Lambda_{\ \alpha'}^\beta\ee_\beta = \diffp{x^\beta}{x^{\alpha'}}\ee_\beta
   \end{align}
-  ある座標系において基底ベクトル同士の内積を計量テンソル $g_{\alpha\beta}$ といい、これが座標系を表現する。
+  ある座標系において基底ベクトル同士の内積を計量テンソル $g_{\alpha\beta}$ といい、場所の複雑な関数である。
   \begin{align}
     \ee_\alpha\cdot\ee_\beta & = g_{\alpha\beta}
   \end{align}
@@ -285,43 +285,47 @@ sub-nudge = 0 mu
   g_{\alpha\beta} & = g_{\beta\alpha}                                            \\
   g_{\mu\nu}      & = \Lambda^\alpha_{\ \mu}\Lambda^\beta_{\ \nu}g_{\alpha\beta}
 \end{align}
-ベクトル $\AA = A^\alpha\ee_\alpha$ を基底で微分 $\nabla_\beta\AA = A^\alpha_{\ ;\beta}\ee_\alpha$ について
+ベクトル $\AA = A^\alpha\ee_\alpha$ を基底で微分 $\nabla_\beta\AA = \difsp{\AA}{x^\beta} = A^\alpha_{\ ;\beta}\ee_\alpha$ について
 \begin{align}
-  A^\alpha_{\ ;\beta}\ee_\alpha & = \nabla_\beta\AA = \diffp{\AA}{x^\beta} = \diffp{}{x^\beta}(A^\alpha\ee_\alpha) = \diffp{A^\alpha}{x^\beta}\ee_\alpha + A^\alpha\diffp{\ee_\alpha}{x^\beta} = A^\alpha_{\ ,\beta}\ee_\alpha + A^\alpha\Gamma^\mu_{\ \alpha\beta}\ee_\mu
+  A^\alpha_{\ ;\beta}\ee_\alpha & = \diffp{}{x^\beta}(A^\alpha\ee_\alpha) = \diffp{A^\alpha}{x^\beta}\ee_\alpha + A^\alpha\diffp{\ee_\alpha}{x^\beta} = A^\alpha_{\ ,\beta}\ee_\alpha + A^\alpha\Gamma^\mu_{\ \alpha\beta}\ee_\mu
 \end{align}
 より
 \begin{align}
   A^\alpha_{\ ;\beta} & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}
 \end{align}
-これを共変微分という。共変ベクトルについても共変微分すると
-\begin{align}
-  A_{\alpha;\mu} & = (g_{\alpha\beta}A^{\beta})_{;\mu} = g_{\alpha\beta;\mu}A^{\beta} + g_{\alpha\beta}A^{\beta}_{\ ;\mu} = g_{\alpha\beta;\mu}A^{\beta} + A_{\alpha;\mu}
-\end{align}
-より次のテンソル方程式が成り立つ。
-\begin{align}
-  g_{\alpha\beta;\mu} & = 0
-\end{align}
-またスカラー場 $\phi$ について 2 階微分することで
+これを共変微分という。スカラー場 $\phi$ について微分と共変微分をすることについて
 \begin{align}
   \phi_{,\alpha;\beta} & = \phi_{,\alpha,\beta} + \phi_\mu\Gamma^\mu_{\ \alpha\beta}                                                             \\
   \phi_{,\beta;\alpha} & = \phi_{,\beta,\alpha} + \phi_\mu\Gamma^\mu_{\ \beta\alpha} = \phi_{,\alpha,\beta} + \phi_\mu\Gamma^\mu_{\ \beta\alpha}
 \end{align}
-より $\phi_{,\alpha;\beta} = \phi_{,\beta;\alpha}$ であるから
+であり、$\phi_{,\alpha;\beta} = \phi_{,\beta;\alpha}$ であるから
 \begin{align}
   \Gamma^\mu_{\ \alpha\beta} & = \Gamma^\mu_{\ \beta\alpha}
 \end{align}
 となる。
-計量テンソルの共変微分を計算すると
+
+共変ベクトルについても共変微分すると
+\begin{align}
+  A_{\alpha;\mu} & = (g_{\alpha\beta}A^{\beta})_{;\mu} = g_{\alpha\beta;\mu}A^{\beta} + g_{\alpha\beta}A^{\beta}_{\ ;\mu} = g_{\alpha\beta;\mu}A^{\beta} + A_{\alpha;\mu}
+\end{align}
+より最初と結果を比較することで次のテンソル方程式が成り立つ。
+\begin{align}
+  g_{\alpha\beta;\mu} & = 0
+\end{align}
+また計量テンソルの共変微分を計算すると
 \begin{align}
   g_{\alpha\beta;\mu} & = g_{\alpha\beta,\mu} - g_{\nu\beta}\Gamma^\nu_{\ \alpha\mu} - g_{\alpha\nu}\Gamma^\nu_{\ \mu\beta} = 0
 \end{align}
-これを添字を変えたものを適切に足し引きして両辺に $\frac{1}{2}g^{\alpha\nu}$ を掛けると
+より、これを添字を変えたものを
 \begin{align}
-  g_{\alpha\beta,\mu}                                                                          & = g_{\nu\beta}\Gamma^\nu_{\ \alpha\mu} + g_{\alpha\nu}\Gamma^\nu_{\ \mu\beta} & \\
-  g_{\mu\alpha,\beta}                                                                          & = g_{\nu\alpha}\Gamma^\nu_{\ \mu\beta} + g_{\mu\nu}\Gamma^\nu_{\ \beta\alpha}   \\
-  g_{\beta\mu,\alpha}                                                                          & = g_{\nu\mu}\Gamma^\nu_{\ \beta\alpha} + g_{\beta\nu}\Gamma^\nu_{\ \alpha\mu}   \\
-  g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha}                              & = 2g_{\alpha\nu}\Gamma^\nu_{\ \beta\mu}                                         \\
-  \frac{1}{2}g^{\alpha\nu}\ab(g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha}) & = \Gamma^\nu_{\ \beta\mu}
+  g_{\alpha\beta,\mu} & = g_{\nu\beta}\Gamma^\nu_{\ \alpha\mu} + g_{\alpha\nu}\Gamma^\nu_{\ \mu\beta} \\
+  g_{\mu\alpha,\beta} & = g_{\nu\alpha}\Gamma^\nu_{\ \mu\beta} + g_{\mu\nu}\Gamma^\nu_{\ \beta\alpha} \\
+  g_{\beta\mu,\alpha} & = g_{\nu\mu}\Gamma^\nu_{\ \beta\alpha} + g_{\beta\nu}\Gamma^\nu_{\ \alpha\mu}
+\end{align}
+適切に足し引きして両辺に $\frac{1}{2}g^{\alpha\nu}$ を掛けると
+\begin{align}
+  2g_{\alpha\nu}\Gamma^\nu_{\ \beta\mu} & = g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha}                              \\
+  \Gamma^\nu_{\ \beta\mu}               & = \frac{1}{2}g^{\alpha\nu}\ab(g_{\alpha\beta,\mu} + g_{\mu\alpha,\beta} - g_{\beta\mu,\alpha})
 \end{align}
 よりクリストッフェル記号を計量テンソルで表すことができる。
 \begin{align}
@@ -329,14 +333,18 @@ sub-nudge = 0 mu
 \end{align}
 
 \begin{itembox}[l]{テンソル方程式}
+  テンソルの共変微分は次のようになる。
   \begin{align}
-    A^\alpha_{\ ;\beta}        & = A^\alpha_{\ ,\beta} + A^\mu\Gamma^\alpha_{\ \mu\beta}                                  \\
-    g_{\alpha\beta;\mu}        & = 0                                                                                      \\
-    \Gamma^\mu_{\ \alpha\beta} & = \Gamma^\mu_{\ \beta\alpha}                                                             \\
-    \Gamma^\mu_{\ \alpha\beta} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
+    V^\alpha_{\ ;\beta}            & = V^\alpha_{\ ,\beta} + \Gamma^\alpha_{\ \mu\beta}V^\mu                                                              \\
+    P_{\alpha;\beta}               & = P_{\alpha,\beta} + \Gamma^\mu_{\ \alpha\beta}P_\mu                                                                 \\
+    T^{\alpha\beta}_{\quad;\gamma} & = T^{\alpha\beta}_{\quad,\gamma} + \Gamma^\alpha_{\ \mu\gamma}T^{\mu\beta} + \Gamma^\beta_{\ \mu\gamma}T^{\alpha\mu}
+  \end{align}
+  更に
+  \begin{align}
+    g_{\alpha\beta;\mu}                                     & = 0                                                                                      \\
+    \Gamma^\mu_{\ \alpha\beta} = \Gamma^\mu_{\ \beta\alpha} & = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu})
   \end{align}
 \end{itembox}
-
 
 
 \begin{example}[デカルト座標]
@@ -429,21 +437,23 @@ sub-nudge = 0 mu
   \end{align}
   を満たすことについては 100 個に対して 80 個で不可能である。
 \end{proof}
+
 \begin{proposition}
-  長さ $l$ と体積
+  長さ $\dl{l}$ と体積 $\dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3}$ について
   \begin{align}
     \dl{l}                           & = \ab|\AA|\dl{\lambda}                          \\
     \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \sqrt{-g}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
   \end{align}
 \end{proposition}
 \begin{proof}
+  長さ $\dl{l}$ を計算する。
   \begin{align}
     \dl{l} & = |g_{\alpha\beta}\dl{x^\alpha}\dl{x^\beta}|^{1/2}                                      \\
            & = \ab|g_{\alpha\beta}\diff{x^\alpha}{\lambda}\diff{x^\beta}{\lambda}|^{1/2}\dl{\lambda} \\
            & = \ab|g_{\alpha\beta}A^\alpha A^\beta|^{1/2}\dl{\lambda}                                \\
-           & = \ab|\AA|\dl{\lambda}                                                                  \\
+           & = \sqrt{|\AA^2|}\dl{\lambda}
   \end{align}
-
+  体積 $\dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3}$ について
   \begin{align}
     \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \diffp{(x^0, x^1, x^2, x^3)}{(x'^0\, x'^1\, x'^2\, x'^3)}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}                     \\
                                      & = \begin{vmatrix}
@@ -454,29 +464,26 @@ sub-nudge = 0 mu
                                          \end{vmatrix}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3} \\
                                      & = \det(\Lambda^\alpha_{\ \beta})\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
   \end{align}
+  $\det(\Lambda^\alpha_{\ \beta})$ について計算すると
   \begin{align}
     (g_{\alpha\beta})              & = (\Lambda^\alpha_{\ \beta})(\eta_{\alpha\beta})(\Lambda^\alpha_{\ \beta})^T                                               \\
     g = \det(g_{\alpha\beta})      & = \det(\Lambda^\alpha_{\ \beta})\det(\eta_{\alpha\beta})\det(\Lambda^\alpha_{\ \beta}) = -\det(\Lambda^\alpha_{\ \beta})^2 \\
     \det(\Lambda^\alpha_{\ \beta}) & = \sqrt{-g}
   \end{align}
+  となるから
   \begin{align}
     \dl{x^0}\dl{x^1}\dl{x^2}\dl{x^3} & = \sqrt{-g}\dl{x'^0}\dl{x'^1}\dl{x'^2}\dl{x'^3}
   \end{align}
+  となる。
 \end{proof}
 
-これより
 \begin{itembox}[l]{局所慣性系}
   ある点 $\mathscr{P}$ が局所慣性系となっているとき
   \begin{align}
-    g_{\alpha\beta}            & = \eta_{\alpha\beta} \\
-    g_{\alpha\beta,\mu}        & = 0                  \\
-    \Gamma^\mu_{\ \alpha\beta} & = 0
+    g_{\alpha\beta}     & = \eta_{\alpha\beta}                        \\
+    g_{\alpha\beta,\mu} & = 0 \implies \Gamma^\mu_{\ \alpha\beta} = 0
   \end{align}
 \end{itembox}
-\begin{align}
-  A^\alpha_{\ ;\beta} & = A^\alpha_{\ ,\beta} \\
-  g_{\alpha\beta;\mu} & =  = 0
-\end{align}
 
 \begin{theorem}[発散の公式]
   \begin{align}
@@ -495,7 +502,6 @@ sub-nudge = 0 mu
                          & = A^\alpha_{\ ,\alpha} + \frac{1}{\sqrt{-g}}A^\mu(\sqrt{-g})_{,\mu} \\
                          & = \frac{1}{\sqrt{-g}}(\sqrt{-g}A^\mu)_{,\mu}
   \end{align}
-
 \end{proof}
 測地線
 \begin{align}
@@ -508,6 +514,10 @@ sub-nudge = 0 mu
                   & \approx \delta a\delta b\ab[\diffp{}{x^\lambda}(\Gamma^\alpha_{\ \mu\sigma}V^\mu) - \diffp{}{x^\sigma}(\Gamma^\alpha_{\ \mu\lambda}V^\mu)]                                                                                                                                                               \\
                   & = \delta a\delta b[\Gamma^\alpha_{\ \mu\sigma,\lambda} - \Gamma^\alpha_{\ \mu\lambda,\sigma} + \Gamma^\alpha_{\ \nu\lambda}\Gamma^\nu_{\ \mu\sigma} - \Gamma^\alpha_{\ \nu\sigma}\Gamma^\nu_{\ \mu\lambda}]V^\mu
 \end{align}
+\begin{align}
+  [\nabla_\alpha,\nabla_\beta]V^\mu = R^\mu_{\nu\alpha\beta}V^\nu
+\end{align}
+
 \begin{definition}[リーマンの曲率テンソル]
   ぱっと見テンソルではないけどテンソルとなる。
   \begin{align}
@@ -527,21 +537,23 @@ sub-nudge = 0 mu
 \end{theorem}
 局所慣性系において $\Gamma^\alpha_{\ \mu\nu} = 0$ であるから
 \begin{align}
-  R^\alpha_{\ \beta\mu\nu} & = \Gamma^\alpha_{\ \beta\nu,\mu} - \Gamma^\alpha_{\ \beta\mu,\nu}                                                                                                                                               \\
-                           & = \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\mu\nu} + g_{\sigma\nu,\beta\mu} - g_{\beta\nu,\sigma\mu}) - \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\nu\mu} + g_{\sigma\mu,\beta\nu} - g_{\beta\mu,\sigma\nu}) \\
-                           & = \frac{1}{2}g^{\alpha\sigma}\ab(g_{\sigma\nu,\beta\mu} - g_{\sigma\mu,\beta\nu} + g_{\beta\mu,\sigma\nu} - g_{\beta\nu,\sigma\mu})                                                                             \\
-  R_{\alpha\beta\mu\nu}    & = g_{\alpha\lambda}R^\lambda_{\ \beta\mu\nu} = \frac{1}{2}\ab(g_{\alpha\nu,\beta\mu} - g_{\alpha\mu,\beta\nu} + g_{\beta\mu,\alpha\nu} - g_{\beta\nu,\alpha\mu})
+  R^\alpha_{\ \beta\mu\nu}      & = \Gamma^\alpha_{\ \beta\nu,\mu} - \Gamma^\alpha_{\ \beta\mu,\nu}                                                                                                                                               \\
+                                & = \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\mu\nu} + g_{\sigma\nu,\beta\mu} - g_{\beta\nu,\sigma\mu}) - \frac{1}{2}g^{\alpha\sigma}(g_{\sigma\beta,\nu\mu} + g_{\sigma\mu,\beta\nu} - g_{\beta\mu,\sigma\nu}) \\
+                                & = \frac{1}{2}g^{\alpha\sigma}\ab(g_{\sigma\nu,\beta\mu} - g_{\sigma\mu,\beta\nu} + g_{\beta\mu,\sigma\nu} - g_{\beta\nu,\sigma\mu})                                                                             \\
+  R_{\alpha\beta\mu\nu}         & = g_{\alpha\lambda}R^\lambda_{\ \beta\mu\nu} = \frac{1}{2}\ab(g_{\alpha\nu,\beta\mu} - g_{\alpha\mu,\beta\nu} + g_{\beta\mu,\alpha\nu} - g_{\beta\nu,\alpha\mu})                                                \\
+  R_{\alpha\beta\mu\nu,\lambda} & = \frac{1}{2}\ab(g_{\alpha\nu,\beta\mu\lambda} - g_{\alpha\mu,\beta\nu\lambda} + g_{\beta\mu,\alpha\nu\lambda} - g_{\beta\nu,\alpha\mu\lambda})
 \end{align}
+これらについて次のような関係式が成り立つ。
 \begin{align}
    & R_{\alpha\beta\mu\nu} = -R_{\beta\alpha\mu\nu} = -R_{\alpha\beta\nu\mu} = R_{\mu\nu\alpha\beta}   \\
    & R_{\alpha\beta\mu\nu} + R_{\alpha\nu\beta\mu} + R_{\alpha\mu\nu\beta} = 0                         \\
-   & R_{\alpha\beta\mu\nu,\lambda} + R_{\alpha\beta\lambda\mu,\nu} + R_{\alpha\beta\nu\lambda,\mu} = 0 \\
-   & R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu} = 0
+   & R_{\alpha\beta\mu\nu,\lambda} + R_{\alpha\beta\lambda\mu,\nu} + R_{\alpha\beta\nu\lambda,\mu} = 0
 \end{align}
+これよりテンソル方程式
 \begin{align}
-  [\nabla_\alpha,\nabla_\beta]V^\mu = R^\mu_{\nu\alpha\beta}V^\nu
+  R_{\alpha\beta\mu\nu;\lambda} + R_{\alpha\beta\lambda\mu;\nu} + R_{\alpha\beta\nu\lambda;\mu} = 0
 \end{align}
-
+これをビアンキの恒等式という。
 \begin{definition}
   \begin{align}
     R_{\alpha\beta} & = R^\mu_{\ \alpha\mu\beta} = R_{\beta\alpha}                            \\
@@ -558,12 +570,44 @@ sub-nudge = 0 mu
    & = g^{\beta\nu}[R_{\beta\nu;\lambda} + (- R_{\beta\lambda;\nu}) + R^\mu_{\ \beta\nu\lambda;\mu}]                                 \\
    & = R_{;\lambda} + (- R^\nu_{\ \lambda;\nu}) + (-R^\mu_{\ \lambda;\mu})                                                           \\
    & = R_{;\lambda} - 2R^\mu_{\ \lambda;\mu}                                                                                         \\
-   & = \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu} = 0
+   & = \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu}                                                                         \\
+   & = g_{\lambda\gamma}\ab(g^{\mu\gamma}R - 2R^{\mu\gamma})_{;\mu}
 \end{align}
 これはアインシュタイン・テンソルを用いて
 \begin{align}
-  \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu} = -2g_{\lambda\gamma}\ab(R^{\mu\gamma} - \frac{1}{2}g^{\mu\gamma}R)_{;\mu} = 0
+  \ab(\delta^\mu_\lambda R - 2R^\mu_{\ \lambda})_{;\mu} & = -2g_{\lambda\gamma}\ab(R^{\mu\gamma} - \frac{1}{2}g^{\mu\gamma}R)_{;\mu} = 0 \\
+  G^{\alpha\beta}_{\ \ ;\beta}                          & = 0
 \end{align}
+
+\subsection{曲がった時空での物理}
+\begin{enumerate}
+  \item 時空 (すべての事象の集合) は、メトリックをもった四次元多様体である。
+  \item メトリックは棒と時計で測ることができる。二つの近傍の点の間の棒に沿った距離は $|\dl{x}^2|^{1/2}$ であり、短時間に引き続いて起こる二つの事象を通過した時計の測る、それらの時間間隔は、$|-\dl{x}^2|^{1/2}$ である。
+  \item 時空のメトリックは、適当な座標系を選ぶことによって任意の一点でローレンツ系での形 $\eta_{\alpha\beta}$ とすることである。
+  \item アインシュタインの等価原理: 重力作用を考えなくてよい局所的な物理実験はどんなものであっても自由落下する慣性系で測定すれば、特殊相対論の成り立つ平坦な時空でなされる実験と同じ結果を与える。
+\end{enumerate}
+
+特殊相対論における粒子、エントロピー、四元運動量の保存則は次のように表された。
+\begin{align}
+  (nU^\alpha)_{,\alpha}  & = 0 \\
+  U^\alpha S_{,\alpha}   & = 0 \\
+  T^{\mu\nu}_{\quad,\nu} & = 0
+\end{align}
+これはアインシュタインの等価原理によってテンソル方程式が成り立つ。
+\begin{align}
+  (nU^\alpha)_{;\alpha}  & = 0 \\
+  U^\alpha S_{;\alpha}   & = 0 \\
+  T^{\mu\nu}_{\quad;\nu} & = 0
+\end{align}
+
+\begin{align}
+  T^{\mu\nu} & = (\rho + p)U^\mu U^\nu + pg^{\mu\nu}
+\end{align}
+\begin{align}
+  \dl{s}^2 = -(1 + 2\phi)\dl{t}^2 + (1 - 2\phi)(\dl{x}^2 + \dl{y}^2 + \dl{z}^2)
+\end{align}
+
+
 
 
 \end{document}
