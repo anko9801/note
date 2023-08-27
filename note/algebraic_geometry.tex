@@ -46,12 +46,10 @@
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
+\newcommand{\FF}{\mathcal{F}}
 \renewcommand{\AA}{\mathbb{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
@@ -393,5 +391,21 @@
 \end{definition}
 斉次式
 
+\begin{definition}[層]
+  位相空間 $X$ 上の各開集合 $U$ に対して加群 $\mathcal{F}(U)$ が対応し、開集合 $V\subseteq U$ に対して制限写像と呼ばれる加群の準同型写像 $\rho_{V,U}: \FF(U)\to\FF(V)$ が定義され、
+  以下の性質を満たすとき、$\mathcal{F}$ を $X$ 上の前層 (presheaf) という。
+  \begin{enumerate}
+    \item $\rho_{U, U} = id_{\FF(U)}$
+    \item $\rho_{W, U} = \rho_{W,V}\circ\rho_{V,U}$
+  \end{enumerate}
+  さらに次の 2 つの性質を満足するとき、$\mathcal{F}$ を $X$ 上の層 (sheaf) という。
+  \begin{enumerate}
+    \item $a\in\FF(U)$ が $\rho_{U_j, U}(a) = 0, j\in J$ を満足すれば $a = 0$ となる。
+    \item $a_j\in\FF(U_j), j\in J$ が $\rho_{U_i\cap U_j, U_j}(a_j) = \rho_{U_i\cap U_j, U_i}(a_i), i,j\in J$ ならば $a_j = \rho_{U_j,U}(a)$ となる $a\in\FF(U)$ が存在する。
+  \end{enumerate}
+  \begin{align}
+    \FF(U) \to \prod_j\FF(U_i) \rightrightarrows \prod_{i,j}\FF(U_i\cap U_j)
+  \end{align}
+\end{definition}
 
 \end{document}
