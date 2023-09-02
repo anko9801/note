@@ -165,6 +165,29 @@
 
 \section{代数多様体}
 代数幾何学は代数方程式で定められる図形の幾何学である。
+
+代数閉体上の $n$ 変数連立方程式のイデアルの解を代数的集合という。代数的集合はグラフ上の点、曲線、曲面の組み合わせと幾何的に捉えられる。
+そして代数的集合を閉集合とする位相空間 (Zariski 位相) の元を多様体という。
+\begin{itemize}
+  \item 極大イデアルと点が対応する。
+  \item 素イデアルと既約な閉集合が対応する。豊かな性質を持つ。
+  \item イデアルと閉集合が対応する。既約な閉集合から構成できる。
+\end{itemize}
+特に重要な既約な閉集合について考える。
+\begin{itemize}
+  \item 多様体 $Y$ による座標環 $A(Y)$ と $Y$ 上で正則な関数の環 $\mathcal{O}(Y)$ は同型
+\end{itemize}
+
+これを代数閉体から一般の可換環に適用したい。Grothendieck は素イデアルに注目し、スキームを導入することで解決させた。
+素イデアルの集合 素スペクトル
+\begin{itemize}
+  \item 素スペクトル同士の写像
+  \item 局所化された環同士での元の対応
+  \item 関数 $f$ によって局所化された環と $f$ を含まない素イデアルが対応する
+\end{itemize}
+
+
+
 \begin{theorem}[Hilbert の基底定理]
   Noether 環のイデアルは有限生成である。
 
@@ -180,65 +203,58 @@
   V(f_1, \ldots, f_l) & = \lbrace(a_1, \ldots, a_n)\in k^n\mid f_\alpha(a_1,\ldots,a_n) = 0,\ \alpha = 1,\ldots,l\rbrace \\
   V(I)                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall f\in I \ f(a_1,\ldots,a_n) = 0\rbrace
 \end{align}
+このとき極大イデアル $\mm = (x_1 - a_1,\ldots,x_n - a_n)$ の代数的集合 $V(\mm) = \lbrace(a_1,\ldots,a_n)\rbrace$ は 1 点と対応する。
 
-\begin{itembox}[l]{点、直線}
-  \begin{equation*}
-    \Downarrow
-  \end{equation*}
-  代数的閉体 $k$ 上の多項式環 $k[x_1,\ldots,x_n]$ の極大イデアルの代数的集合を
-  \begin{align}
-    \mm    & = (x_1 - a_1,\ldots,x_n - a_n)   \\
-    V(\mm) & = \lbrace(a_1,\ldots,a_n)\rbrace
-  \end{align}
-\end{itembox}
 \begin{proposition}
-  \begin{enumerate}
-    \item $V((f_1,\ldots,f_l)) = V(f_1,\ldots,f_l)$
-    \item $V(I)\cup V(J) = V(I\cap J)$
-    \item $\bigcup V(I_\lambda) \subsetneq V(\bigcap I_\lambda)$
-    \item $\bigcap V(I_\lambda) = V(\sum_{\lambda}I_\lambda)$
-    \item $\sqrt{I}\supset\sqrt{J}$ であれば $V(I)\supset V(J)$
-    \item $I = (1) \iff V(I) = \emptyset$
-    \item $I = (0) \iff V(I) = \AA_k^n$
-    \item $I(V(J)) = \sqrt{J}$ Hilbert の零点定理
-  \end{enumerate}
+  代数的集合について次の性質がわかる。
+  \begin{align}
+    V((f_1,\ldots,f_l))       & = V(f_1,\ldots,f_l)                  \\
+    V(I)\cup V(J)             & = V(I\cap J)                         \\
+    \bigcup V(I_\lambda)      & \subseteq V\ab(\bigcap I_\lambda)    \\
+    \bigcap V(I_\lambda)      & = V\ab(\sum I_\lambda)               \\
+    V((1))                    & = \emptyset, \qquad V((0)) = \AA_k^n \\
+    \sqrt{I}\supseteq\sqrt{J} & \implies V(I)\subseteq V(J)          \\
+    I(V(J))                   & = \sqrt{J}
+  \end{align}
 \end{proposition}
 \begin{proof}
   \begin{enumerate}
     \item イデアル $I = (f_1,\ldots,f_l)$ の任意の元 $f(x_1,\ldots,x_n)\in I$ について
           \begin{align}
-            f(x_1,\ldots,x_n) & = \sum_{\alpha=1}^{l}g_\alpha(x_1,\ldots,x_n)f_\alpha(x_1,\ldots,x_n)
+            f(x_1,\ldots,x_n) & = \sum_{\alpha=1}^{l}g_\alpha(x_1,\ldots,x_n)f_\alpha(x_1,\ldots,x_n)                                       \\
+            f(a_1,\ldots,a_n) & = \sum_{\alpha=1}^{l}g_\alpha(a_1,\ldots,a_n)f_\alpha(a_1,\ldots,a_n) = 0 \iff f_\alpha(a_1,\ldots,a_n) = 0
           \end{align}
-          と書ける。これより
-          \begin{alignat}{3}
-             & (a_1,\ldots,a_n)\in V(f_1,\ldots,f_l) & f(a_1,\ldots,a_n) = 0        & \implies V(f_1,\ldots,f_l)\subseteq V(I) \\
-             & (b_1,\ldots,b_n)\in V(I)              & f_\alpha(b_1,\ldots,b_n) = 0 & \implies V(f_1,\ldots,f_l)\supseteq V(I)
-          \end{alignat}
-          よって $V(I) = V(f_1,\ldots,f_l)$ となる。
-    \item 方程式の包含関係を考えることで
+          と書ける。よって
           \begin{align}
-            V(I) \subseteq V(I\cap J), V(J) \subseteq V(I\cap J) \implies V(I) \cup V(J) \subseteq V(I\cap J)
+            V(f_1, \ldots, f_l) & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall \alpha = 1,\ldots,l \ f_\alpha(a_1,\ldots,a_n) = 0\rbrace                                 \\
+                                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall g_\alpha \ \sum_{\alpha=1}^{l}g_\alpha(a_1,\ldots,a_n)f_\alpha(a_1,\ldots,a_n) = 0\rbrace \\
+                                & = \lbrace(a_1, \ldots, a_n)\in k^n\mid \forall f\in I \ f(a_1,\ldots,a_n) = 0\rbrace                                                     \\
+                                & = V(I)
           \end{align}
-          となる。逆に $(a_1,\ldots,a_n)\in V(I\cap J)$ について $I\cap J\supseteq IJ$ より $f\in I, g\in J$ とすると $fg\in I\cap J$ であるから
+    \item イデアルの包含関係を
           \begin{align}
-            f(a_1,\ldots,a_n)g(a_1,\ldots,a_n) = 0 \implies f(a_1,\ldots,a_n) = 0 または g(a_1,\ldots,a_n) = 0
+                     & I,J \supseteq I\cap J                            \\
+            \implies & V(I), V(J)\subseteq V(I\cap J)                   \\
+            \implies & V(I) \cup V(J) \subseteq V(I\cap J)              \\
+                     & I\cap J\supseteq IJ                              \\
+            \implies & V(I)\cup V(J)\supseteq V(IJ)\supseteq V(I\cap J)
           \end{align}
-          より $(a_1,\ldots,a_n)\in V(I)\cup V(J)$ となる。よって $V(I) \cup V(J) = V(I\cap J)$ となる。
+          よって $V(I) \cup V(J) = V(I\cap J)$ となる。
     \item 可算無限個の相違なる元 $c_1,\ldots,c_n,\ldots$ を取り出し $k[x]$ のイデアル $I_j = (x - c_j)$ とすると $\bigcup_j V(I_j) = \lbrace c_1, c_2, \ldots \rbrace$ である。一方、可算無限次数の多項式は存在しないので
           \begin{align}
             V(I_{j_1}\cap \cdots\cap I_{j_n}) & = V\ab(\ab(\prod_{i=1}^{n}(x - c_{j_i}))) = \lbrace c_{j_1},\ldots,c_{j_n} \rbrace \\
-            V\ab(\bigcap_j I_j)               & = V\ab((0)) = \AA_k^1                                                              \\
-            \bigcup_j V(I_j)                  & \subsetneq V\ab(\bigcap_j I_j)
+            \bigcup_j V(I_j)                  & \subsetneq V\ab(\bigcap_j I_j) = V\ab((0)) = \AA_k^1
           \end{align}
           となる。
-    \item $\mu$ に対して
+    \item a
           \begin{align}
-            V(I_\mu) \supseteq V\ab(\sum_\lambda I_\lambda)
+                     & \forall\mu \ I_\mu \subseteq \sum_\lambda I_\lambda                 \\
+            \implies & \forall\mu \ V(I_\mu) \supseteq V\ab(\sum_\lambda I_\lambda)        \\
+            \implies & \bigcap_\lambda V(I_\lambda) \supseteq V\ab(\sum_\lambda I_\lambda)
           \end{align}
-          $(a_1,\ldots,a_n)\in\bigcup_\lambda V(I_\lambda)$ について $I_\lambda = (h_{\lambda 1},\ldots,h_{\lambda m_\lambda})$ とすると
           \begin{align}
              & h_{\lambda i}(a_1,\ldots,a_n) = 0                                    \\
-             & \sum_{\lambda, i} f(a_1,\ldots,a_n)h_{\lambda i}(a_1,\ldots,a_n) = 0
+             & \sum_{\lambda, i} f(a_1,\ldots,a_n)h_{\lambda_i}(a_1,\ldots,a_n) = 0
           \end{align}
           より
           \begin{align}
