@@ -34,6 +34,7 @@
 %
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Image}{Im}
 \DeclareMathOperator{\ch}{ch}
 \DeclareMathOperator{\Aut}{Aut}
@@ -50,6 +51,7 @@
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\TT}{\mathbb{T}}
 \newcommand{\FF}{\mathcal{F}}
+\newcommand{\OO}{\mathcal{O}}
 \renewcommand{\AA}{\mathbb{A}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
@@ -163,6 +165,34 @@
 \tableofcontents
 \clearpage
 
+\section{スキーム}
+\begin{definition}[前層]
+  位相空間 $X$ 上の各開集合 $U$ に対して加群 $\mathcal{F}(U)$ が対応し、開集合 $V\subseteq U$ に対して制限写像と呼ばれる加群の準同型写像 $\rho_{V,U}: \FF(U)\to\FF(V)$ が定義され、
+  以下の性質を満たすとき、$\mathcal{F}$ を $X$ 上の前層 (presheaf) という。
+  \begin{enumerate}
+    \item $\FF(\emptyset) = 0$
+    \item $\rho_{U, U} = id_{\FF(U)}$
+    \item $\rho_{W, U} = \rho_{W,V}\circ\rho_{V,U}$
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[層]
+  さらに次の 2 つの性質を満足するとき、$\mathcal{F}$ を $X$ 上の層 (sheaf) という。
+  \begin{enumerate}
+    \item $a\in\FF(U)$ が $\rho_{U_j, U}(a) = 0, j\in J$ を満足すれば $a = 0$ となる。
+    \item $a_j\in\FF(U_j), j\in J$ が $\rho_{U_i\cap U_j, U_j}(a_j) = \rho_{U_i\cap U_j, U_i}(a_i), i,j\in J$ ならば $a_j = \rho_{U_j,U}(a)$ となる $a\in\FF(U)$ が存在する。
+  \end{enumerate}
+  \begin{align}
+    \FF(U) \to \prod_j\FF(U_i) \rightrightarrows \prod_{i,j}\FF(U_i\cap U_j)
+  \end{align}
+\end{definition}
+
+位相空間 $X$ 上の点 $P$ における茎 (stalk) $\FF_P$ を $P$ を含むすべての開集合 $U$ に対する $\FF(U)$ と制限写像がなす順系に関する順極限と定義する。
+\begin{align}
+  \FF_P = \varinjlim_{P\in U}\FF(U)
+\end{align}
+点 $P$ における $\FF$ の切断の芽 (germ) ともいう。
+
 \section{代数多様体}
 代数幾何学は代数方程式で定められる図形の幾何学である。
 
@@ -185,14 +215,6 @@
   \item 局所化された環同士での元の対応
   \item 関数 $f$ によって局所化された環と $f$ を含まない素イデアルが対応する
 \end{itemize}
-
-
-
-\begin{theorem}[Hilbert の基底定理]
-  Noether 環のイデアルは有限生成である。
-
-  特に多項式環 $k[x_1,\ldots,x_n]$ は Noether 環であるからイデアルは $I = (f_1,\ldots,f_n)$ と書ける。
-\end{theorem}
 
 \subsection{アフィン空間}
 \begin{definition}[アフィン空間]
@@ -407,21 +429,23 @@
 \end{definition}
 斉次式
 
-\begin{definition}[層]
-  位相空間 $X$ 上の各開集合 $U$ に対して加群 $\mathcal{F}(U)$ が対応し、開集合 $V\subseteq U$ に対して制限写像と呼ばれる加群の準同型写像 $\rho_{V,U}: \FF(U)\to\FF(V)$ が定義され、
-  以下の性質を満たすとき、$\mathcal{F}$ を $X$ 上の前層 (presheaf) という。
-  \begin{enumerate}
-    \item $\rho_{U, U} = id_{\FF(U)}$
-    \item $\rho_{W, U} = \rho_{W,V}\circ\rho_{V,U}$
-  \end{enumerate}
-  さらに次の 2 つの性質を満足するとき、$\mathcal{F}$ を $X$ 上の層 (sheaf) という。
-  \begin{enumerate}
-    \item $a\in\FF(U)$ が $\rho_{U_j, U}(a) = 0, j\in J$ を満足すれば $a = 0$ となる。
-    \item $a_j\in\FF(U_j), j\in J$ が $\rho_{U_i\cap U_j, U_j}(a_j) = \rho_{U_i\cap U_j, U_i}(a_i), i,j\in J$ ならば $a_j = \rho_{U_j,U}(a)$ となる $a\in\FF(U)$ が存在する。
-  \end{enumerate}
-  \begin{align}
-    \FF(U) \to \prod_j\FF(U_i) \rightrightarrows \prod_{i,j}\FF(U_i\cap U_j)
-  \end{align}
+
+\begin{align}
+  X = \Spec R       & = \lbrace \pp\mid\pp \text{ is prime ideal}\rbrace \\
+  X_f = (\Spec R)_f & = \lbrace \pp\in\Spec R\mid f\notin\pp\rbrace      \\
+  V(I)              & = \lbrace \pp\in\Spec R\mid I\subseteq\pp\rbrace   \\
+  U_\pp             & = \lbrace X_f\mid\pp\in X_f\rbrace
+\end{align}
+
+\begin{align}
+  \Gamma(U, \OO_X)                  & = \OO_X(U) = \bigcap_{\pp\in U} R_\pp = \ab\lbrace \lbrace s_\pp\rbrace\in\prod_{\pp\in U}R_\pp\mid U の開被覆 \lbrace X_{f_\beta}\rbrace_{\beta\in B}\rbrace \\
+  \Gamma(X, \OO_X)                  & = \OO_X(X) = R                                                                                                                                            \\
+  \Gamma(X_f, \OO_X)                & = \OO_X(X_f) = R_f                                                                                                                                        \\
+  \lim_{\pp\in U}\Gamma(X_f, \OO_X) & = \OO_{X,\pp} = R_\pp
+\end{align}
+\subsection{代入}
+
+\begin{definition}
 \end{definition}
 
 \end{document}
