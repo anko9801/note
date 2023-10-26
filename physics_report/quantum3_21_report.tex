@@ -199,11 +199,12 @@
   \iff       & \textrm{いかなる観測量の期待値は粒子交換に関して不変である.} \\
   \impliedby & \textrm{いかなる粒子状態は粒子交換に関して不変である.}
 \end{align}
-これを対称化の要請と呼ぶ. ここでは対称化の要請をせずに複数の同一粒子を区別できないという事実だけで導けることを考える.
+この要請を「対称化の要請」と呼ぶ. ここでは対称化の要請をせずに複数の同一粒子を区別できないという事実だけで導けることを考える.
 
 \begin{definition}[複数の同一粒子系における Hilbert 空間]
   1 粒子状態の Hilbert 空間 $\HH_{single}$ に対して $N$ 個の粒子の粒子状態の Hilbert 空間はテンソル積 $\HH^{(N)}\cong\HH_{single}\otimes\cdots\otimes\HH_{single}$ で表現される.
-  そして $\HH^{(N)}$ の粒子状態は $\ket|\psi_1>\cdots\ket|\psi_N> \in\HH^{(N)}$ と書き, $\ket|\psi_1>\cdots\ket|\psi_N>, \ket|\psi_1'>\cdots\ket|\psi_N'>$ の内積は次のように定義する.
+  そして $\HH^{(N)}$ の粒子状態は $\ket|\psi_1>\cdots\ket|\psi_N> \in\HH^{(N)}$ と書き, 定数倍は同一視する.
+  また $\ket|\psi_1>\cdots\ket|\psi_N>, \ket|\psi_1'>\cdots\ket|\psi_N'>$ の内積は次のように定義する.
   \begin{align}
     (\bra<\psi_1|\cdots\bra<\psi_N|)\cdot(\ket|\psi_1'>\cdots\ket|\psi_N'>) = \braket<\psi_1|\psi_1'>\cdots\braket<\psi_N|\psi_N'>.
   \end{align}
@@ -235,7 +236,7 @@
 \begin{problem}[Q21-1(i)]
 粒子が区別できないならば粒子状態を区別できないとは示せないが, ここでは粒子状態を区別できないと仮定する. このとき粒子状態 $\ket|\Psi>\in\HH^{(2)}$ は粒子を交換しても不変であるから位相を考慮して次の式が成り立つ.
 \begin{align}
-  \ket|\Psi> & \sim \hat{E}\ket|\Psi> \iff c_1\ket|\alpha>\ket|\beta> + c_2\ket|\beta>\ket|\alpha> \sim c_1\ket|\beta>\ket|\alpha> + c_2\ket|\alpha>\ket|\beta> \iff c_1 = \pm c_2.
+  \ket|\Psi> & = \hat{E}\ket|\Psi> \iff c_1\ket|\alpha>\ket|\beta> + c_2\ket|\beta>\ket|\alpha> = c_1\ket|\beta>\ket|\alpha> + c_2\ket|\alpha>\ket|\beta> \iff c_1 = \pm c_2.
 \end{align}
 よって粒子状態は次のようになる.
 \begin{align}
@@ -259,23 +260,17 @@
   \end{align}
 \end{proposition}
 \begin{proof}
-  まず十分性について $D$ を満たす任意の粒子状態 $\ket|\Psi>\in\HH^{(2)}$ は $\ket|\alpha>\ket|\beta>, \ket|\beta>\ket|\alpha>$ の重ね合わせにより表現できる. これより
+  $D$ を満たす任意の粒子状態 $\ket|\Psi>\in\HH^{(2)}$ は次のように書ける.
   \begin{align}
     \ket|\Psi> & = c_1\ket|\alpha>\ket|\beta> + c_2\ket|\beta>\ket|\alpha>                                                                                         \\
                & = \frac{c_1 + c_2}{2}(\ket|\alpha>\ket|\beta> + \ket|\beta>\ket|\alpha>) + \frac{c_1 - c_2}{2}(\ket|\alpha>\ket|\beta> - \ket|\beta>\ket|\alpha>) \\
                & = \frac{c_1 + c_2}{\sqrt{2}}\ket|\Psi_S> + \frac{c_1 - c_2}{\sqrt{2}}\ket|\Psi_A>.
   \end{align}
-  であり, 次のようにおくことで $\ket|\Psi>$ は $\ket|\Psi_S>, \ket|\Psi_A>$ の重ね合わせとして表現できる.
+  よって次のように係数をおくことで $\ket|\Psi>$ は $\ket|\alpha>\ket|\beta>, \ket|\beta>\ket|\alpha>$ と $\ket|\Psi_S>, \ket|\Psi_A>$ のそれぞれの重ね合わせが同値な表現となることがわかる.
   \begin{align}
-    c_S & = \frac{c_1 + c_2}{\sqrt{2}}, \quad c_A = \frac{c_1 - c_2}{\sqrt{2}}.
+    c_S & = \frac{c_1 + c_2}{\sqrt{2}}, \quad c_A = \frac{c_1 - c_2}{\sqrt{2}}  \\
+    c_1 & = \frac{c_S + c_A}{\sqrt{2}}, \quad c_2 = \frac{c_S - c_A}{\sqrt{2}}.
   \end{align}
-  逆に必要性について任意の係数 $c_S, c_A$ について $\ket|\alpha>\ket|\beta>, \ket|\beta>\ket|\alpha>$ の重ね合わせで表現できることは次のように分かる.
-  \begin{align}
-    \ket|\Psi> & = c_S\ket|\Psi_S> + c_A\ket|\Psi_A>                                                                                                                 \\
-               & = \frac{c_S}{\sqrt{2}}(\ket|\alpha>\ket|\beta> + \ket|\beta>\ket|\alpha>) + \frac{c_A}{\sqrt{2}}(\ket|\alpha>\ket|\beta> - \ket|\beta>\ket|\alpha>) \\
-               & = \frac{c_S + c_A}{\sqrt{2}}\ket|\alpha>\ket|\beta> + \frac{c_S - c_A}{\sqrt{2}}\ket|\beta>\ket|\alpha>.
-  \end{align}
-  よって同値な表現であることが示された.
 \end{proof}
 
 \begin{proposition}[Q21-1(iii)(iv)(v)]
@@ -374,7 +369,7 @@
 \begin{definition}[$n$ 次対称群]
   $X$ を集合とするとき $X$ から $X$ への全単射写像 $\sigma: X\to X$ を $X$ の置換という.
   $\sigma,\tau$ を置換とするとき, その積 $\sigma\tau$ を写像としての合成 $\sigma\circ\tau$ と定義する. $X$ の置換全体の集合はこの演算により群となり, これを $X$ の置換群という.
-  $X = \{1,2,\ldots,n\}$ のとき $X$ の置換群を $n$ 次対称群といい $\SS_n$ と書く.
+  $\ZZ_n := \{1,2,\ldots,n\}$ の置換群を $n$ 次対称群といい $\SS_n$ と書く.
 \end{definition}
 繰り返すが置換の積は写像の合成であり写像は右結合である. (Q21-2(i))
 \begin{problem}[Q21-2(ii)]
@@ -442,7 +437,7 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \end{proof}
 
 \begin{proposition}[Q21-5(i)(ii), Q21-6(i)(ii)]
-  $\sigma_0\in\SS_n$ とすると $\sigma_0\SS_n = \SS_n\sigma_0 = \SS_n^{-1} = \SS_n$ である.
+  $\sigma_0\in\SS_n$ とすると $\SS_n = \sigma_0\SS_n = \SS_n\sigma_0 = \SS_n^{-1}$ である.
 \end{proposition}
 \begin{proof}
   $\sigma_0$ を左から掛けることに対して $\sigma_0^{-1}$ を左から掛けることは逆写像となるから, 全単射となる. よって $\sigma_0\SS_n = \SS_n$ となる. 逆も同様なので $\SS_n\sigma_0 = \SS_n$ となる.
@@ -455,17 +450,14 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 
 \begin{definition}[互換, 巡回置換]
   置換 $\sigma\in\SS_n$ に対して $1\leq i < j\leq n$ のとき $k \neq i,j$ なら $\sigma(k) = k$ で $\sigma(i) = j$, $\sigma(j) = i$ であるとき $\sigma$ を互換といい $(i\ j)$ と書く.
-
   より一般に $i_1\mapsto i_2\mapsto\cdots\mapsto i_m\mapsto i_1$ と移し, 他の元は変えない置換を巡回置換といい $(i_1\ \cdots\ i_m)$ と書く.
 \end{definition}
-
 \begin{lemma}
   任意の置換は一意の巡回置換の積で表現できる.
 \end{lemma}
 \begin{proof}
   置換 $\sigma\in\SS_n$ においてある元 $i_1\in X$ を選び, 移していくと鳩ノ巣原理より必ず $i_1\mapsto i_2\mapsto\cdots\mapsto i_m\mapsto i_1$ と巡回する. これより巡回置換 $(i_1\ \cdots\ i_m)$ と $i_1,\ldots,i_m$ を変えず他の元を $i\mapsto\sigma(i)$ とする置換 $\sigma'$ を用いて $\sigma = (i_1\ \cdots\ i_m)\sigma'$ と表現できる.
-
-  次に $\sigma'$ に対しては $i_1,\ldots,i_m$ ではない元を選び同様の操作を行う. これを帰納的に行うことで巡回置換の積で表せられ, 積の順番を除いて一意に定まることが分かる.
+  次は $\sigma'$ の $i_1,\ldots,i_m$ ではない元に対してと, 帰納的に同様の操作をすることで置換は巡回置換の積で表せられ, 積の順番を除いて一意に定まることが分かる.
 \end{proof}
 
 \begin{theorem}[Q21-7(i)]
@@ -744,7 +736,7 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \begin{theorem}[Q21-19(i), Q21-20(i)(ii)(iii)]
   完全対称な粒子基底 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S$ は粒子数 $n_i$ を用いて次のように表現できる.
   \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \sqrt{\frac{N!}{\prod_{i\in I}n_i!}}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \sqrt{\frac{N!}{\prod_{i\in I}n_i!}}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}.
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -753,11 +745,11 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
     \ab\|\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\| & = \sqrt{\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{\S}^{(N)\dagger}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>}                                                                  \\
                                                                 & = \frac{1}{N!}\sqrt{\sum_{\sigma\in\SS_N}\sum_{\tau\in\SS_N}\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{P}(\tau)^\dagger\hat{P}(\sigma)\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>}             \\
                                                                 & = \frac{1}{N!}\sqrt{\sum_{\sigma\in\SS_N}\sum_{\tau\in\SS_N}\bra<\phi_{\tau^{-1}(i_1)}|\cdots\bra<\phi_{\tau^{-1}(i_N)}|\ket|\phi_{\sigma^{-1}(i_1)}>\cdots\ket|\phi_{\sigma^{-1}(i_N)}>} \\
-                                                                & = \sqrt{\frac{\prod_{i\in I}n_i!}{N!}}
+                                                                & = \sqrt{\frac{\prod_{i\in I}n_i!}{N!}}.
   \end{align}
   これより基底状態は次のように書ける.
   \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \sqrt{\frac{N!}{\prod_{i\in I}n_i!}}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \sqrt{\frac{N!}{\prod_{i\in I}n_i!}}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>.
   \end{align}
   さらに変形を進めると次のようになる.
   \begin{align}
@@ -770,7 +762,7 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
                                                                                \vdots                 & \ddots & \vdots                 \\
                                                                                \ket|\phi_{i_1}>^{(N)} & \cdots & \ket|\phi_{i_N}>^{(N)}
                                                                              \end{bmatrix}                                           \\
-                                                         & = \frac{1}{N!}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
+                                                         & = \frac{1}{N!}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}.
   \end{align}
   よって次のようになる.
   \begin{align}
@@ -780,22 +772,19 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 
 \begin{proposition}[Q21-20(iv)(v)(vi)]
   粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S$ は $\HH_S^{(N)}$ の完全正規直交系となる.
+  \label{symmetric completely orthonormal system}
 \end{proposition}
 \begin{proof}
-  粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S\in\HH_S^{(N)}$ は次のように展開できる. これを用いて計算する.
-  \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \sqrt{\frac{N!}{\prod_{i\in I}n_i!}}\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\sum_{\sigma\in\SS_N}\hat{P}(\sigma)\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>
-  \end{align}
   まず正規直交関係については次のように計算できる.
   \begin{align}
     \langle\phi_{i_1}\cdots\phi_{i_N}|\phi_{i_1'}\cdots\phi_{i_N'}\rangle_S & = \frac{N!^{-1}}{\sqrt{\prod_{i\in I}n_i!n_i'!}}\sum_{\sigma\in\SS_N}\sum_{\tau\in\SS_N}\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{P}(\sigma^{-1}\tau)|\phi_{i_1'}\rangle\cdots|\phi_{i_N'}\rangle \\
                                                                             & = \frac{1}{\sqrt{\prod_{i\in I}n_i!n_i'!}}\sum_{\sigma\in\SS_N}\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{P}(\sigma)|\phi_{i_1'}\rangle\cdots|\phi_{i_N'}\rangle                                   \\
-                                                                            & = \delta_{i_1i_1'}\cdots\delta_{i_Ni_N'}
+                                                                            & = \delta_{i_1i_1'}\cdots\delta_{i_Ni_N'}.
   \end{align}
   次に完全性については係数を取り除いて次のように計算できる.
   \begin{align}
     \HH_S^{(N)} & = \Span\ab\{\hat{\S}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> \mid (i_1,\ldots,i_N)\in I_S^{(N)} \} \\
-                & = \Span\ab\{\ket|\phi_{i_1'}\cdots\phi_{i_N'}>_S \mid (i_1,\ldots,i_N)\in I_S^{(N)} \}
+                & = \Span\ab\{\ket|\phi_{i_1'}\cdots\phi_{i_N'}>_S \mid (i_1,\ldots,i_N)\in I_S^{(N)} \}.
   \end{align}
   そして完備性については次のように計算できる.
   \begin{align}
@@ -811,7 +800,7 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \begin{theorem}[Q21-19(ii), Q21-21(i)(ii)]
   完全反対称な粒子基底 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ は粒子数 $n_i$ を用いて次のように表現できる.
   \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \sqrt{N!}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \sqrt{N!}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}.
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -820,11 +809,11 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
     \ab\|\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\| & = \sqrt{\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{\A}^{(N)\dagger}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>}                                                                      \\
                                                                 & = \frac{1}{N!}\sqrt{\sum_{\sigma\in\SS_N}\sum_{\tau\in\SS_N}\sgn(\tau\sigma)\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{P}(\tau)^\dagger\hat{P}(\sigma)\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>} \\
                                                                 & = \frac{1}{N!}\sqrt{\sum_{\sigma\in\SS_N}\sgn(\sigma^2)}                                                                                                                                      \\
-                                                                & = \frac{1}{\sqrt{N!}}
+                                                                & = \frac{1}{\sqrt{N!}}.
   \end{align}
   これより基底状態は次のように書ける.
   \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \sqrt{N!}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \sqrt{N!}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>.
   \end{align}
   さらに変形を進めると次のようになる.
   \begin{align}
@@ -838,22 +827,19 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
                                                                              \end{bmatrix}                                      \\
                                                          & = \frac{1}{N!}\Det\begin{bmatrix}
                                                                                \ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>
-                                                                             \end{bmatrix}
+                                                                             \end{bmatrix}.
   \end{align}
   よって次のようになる.
   \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}.
   \end{align}
 \end{proof}
 
 \begin{proposition}[Q21-21(iii)(iv)(v)]
   粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ は $\HH_A^{(N)}$ の完全正規直交系となる.
+  \label{asymmetric completely orthonormal system}
 \end{proposition}
 \begin{proof}
-  粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_A\in\HH_A^{(N)}$ は次のように展開できる. これをそれぞれに適用することで示す.
-  \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \sqrt{N!}\hat{\A}^{(N)}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}> = \frac{1}{\sqrt{N!}}\sum_{\sigma\in\SS_N}\sgn(\sigma)\hat{P}(\sigma)\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>
-  \end{align}
   まず正規直交関係については次のように計算できる.
   \begin{align}
     \langle\phi_{i_1}\cdots\phi_{i_N}|\phi_{i_1'}\cdots\phi_{i_N'}\rangle_A & = \frac{1}{N!}\sum_{\sigma\in\SS_N}\sum_{\tau\in\SS_N}\sgn(\sigma^{-1}\tau)\bra<\phi_{i_1}|\cdots\bra<\phi_{i_N}|\hat{P}(\sigma^{-1}\tau)|\phi_{i_1'}\rangle\cdots|\phi_{i_N'}\rangle \\
@@ -877,34 +863,29 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \end{proof}
 
 \begin{proposition}[Q21-22(i)(ii)(iii)(iv), Q21-23(i)(ii)(iii)(iv)]
-  完全正規直交系 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S, \ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ について完全対称性, 完全反対称性, 線形性が成り立つ.
+  完全正規直交系 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S, \ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ についてそれぞれ完全対称性, 完全反対称性が成り立ち, どちらも線形性が成り立つ.
   \begin{align}
-    \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_S                                         & = \ket|\phi_{i_1}\cdots\phi_{i_N}>_S                                                                                                    \\
-    \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_A                                         & = \sgn(\sigma)\ket|\phi_{i_1}\cdots\phi_{i_N}>_A                                                                                        \\
-    \ket|\phi_{i_1}\cdots a^{(0)}\phi_{i_\mu}^{(0)} + a^{(1)}\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_S + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S \\
-    \ket|\phi_{i_1}\cdots a^{(0)}\phi_{i_\mu}^{(0)} + a^{(1)}\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_A + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A
+    \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_S                                         & = \ket|\phi_{i_1}\cdots\phi_{i_N}>_S                                                                                                     \\
+    \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_A                                         & = \sgn(\sigma)\ket|\phi_{i_1}\cdots\phi_{i_N}>_A                                                                                         \\
+    \ket|\phi_{i_1}\cdots a^{(0)}\phi_{i_\mu}^{(0)} + a^{(1)}\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_S + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S  \\
+    \ket|\phi_{i_1}\cdots a^{(0)}\phi_{i_\mu}^{(0)} + a^{(1)}\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_A + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A.
   \end{align}
 \end{proposition}
 \begin{proof}
-  まず基底状態について次のように展開できる.
-  \begin{align}
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_S & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix} \\
-    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
-  \end{align}
   行列に関する性質より次のようになる.
   \begin{align}
     \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_S & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\per\begin{bmatrix}\ket|\phi_{i_{\sigma(1)}}> & \cdots & \ket|\phi_{i_{\sigma(N)}}>\end{bmatrix} \\
                                                            & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\sum_{\tau\in\SS_N}\ket|\phi_{i_{\sigma\tau(1)}}>\cdots\ket|\phi_{i_{\sigma\tau(N)}}>                                              \\
                                                            & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\sum_{\tau\in\SS_N}\ket|\phi_{i_{\tau(1)}}>\cdots\ket|\phi_{i_{\tau(N)}}>                                                          \\
                                                            & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\per\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}                                                       \\
-                                                           & = \ket|\phi_{i_1}\cdots\phi_{i_N}>_S
+                                                           & = \ket|\phi_{i_1}\cdots\phi_{i_N}>_S.
   \end{align}
   \begin{align}
     \ket|\phi_{i_{\sigma(1)}}\cdots\phi_{i_{\sigma(N)}}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_{\sigma(1)}}> & \cdots & \ket|\phi_{i_{\sigma(N)}}>\end{bmatrix} \\
                                                            & = \frac{1}{\sqrt{N!}}\sum_{\tau\in\SS_N}\sgn(\tau)\ket|\phi_{i_{\sigma\tau(1)}}>\cdots\ket|\phi_{i_{\sigma\tau(N)}}>                                    \\
                                                            & = \frac{1}{\sqrt{N!}}\sum_{\tau\in\SS_N}\sgn(\sigma)\sgn(\tau)\ket|\phi_{i_{\tau(1)}}>\cdots\ket|\phi_{i_{\tau(N)}}>                                    \\
                                                            & = \frac{1}{\sqrt{N!}}\sgn(\sigma)\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}                                           \\
-                                                           & = \sgn(\sigma)\ket|\phi_{i_1}\cdots\phi_{i_N}>_A
+                                                           & = \sgn(\sigma)\ket|\phi_{i_1}\cdots\phi_{i_N}>_A.
   \end{align}
   次に線形性について順当に計算する.
   \begin{align}
@@ -913,7 +894,7 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
      & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\sum_{\sigma\in\SS_N}\ket|\phi_{i_{\sigma(1)}}>\cdots\ab(a^{(0)}\ket|\phi_{i_\mu}^{(0)}> + a^{(1)}\ket|\phi_{i_\mu}^{(1)}>)\cdots\ket|\phi_{i_{\sigma(N)}}>                                                                    \\
      & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\sum_{\sigma\in\SS_N}\ab(a^{(0)}\ket|\phi_{i_{\sigma(1)}}>\cdots\ket|\phi_{i_\mu}^{(0)}>\cdots\ket|\phi_{i_{\sigma(N)}}> + a^{(1)}\ket|\phi_{i_{\sigma(1)}}>\cdots\ket|\phi_{i_\mu}^{(1)}>\cdots\ket|\phi_{i_{\sigma(N)}}>)    \\
      & = \frac{1}{\sqrt{N!\prod_{i\in I}n_i!}}\ab(a^{(0)}\per\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_\mu}^{(0)}>\cdots\ket|\phi_{i_N}>\end{bmatrix} + a^{(1)}\per\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_\mu}^{(1)}>\cdots\ket|\phi_{i_N}>\end{bmatrix}) \\
-     & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_S + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S
+     & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_S + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_S.
   \end{align}
   \begin{align}
      & \ket|\phi_{i_1}\cdots a^{(0)}\phi_{i_\mu}^{(0)} + a^{(1)}\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A                                                                                                                                                               \\
@@ -921,14 +902,20 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
      & = \frac{1}{\sqrt{N!}}\sum_{\sigma\in\SS_N}\sgn(\sigma)\ket|\phi_{i_{\sigma(1)}}>\cdots\ab(a^{(0)}\ket|\phi_{i_\mu}^{(0)}> + a^{(1)}\ket|\phi_{i_\mu}^{(1)}>)\cdots\ket|\phi_{i_{\sigma(N)}}>                                                                 \\
      & = \frac{1}{\sqrt{N!}}\sum_{\sigma\in\SS_N}\sgn(\sigma)\ab(a^{(0)}\ket|\phi_{i_{\sigma(1)}}>\cdots\ket|\phi_{i_\mu}^{(0)}>\cdots\ket|\phi_{i_{\sigma(N)}}> + a^{(1)}\ket|\phi_{i_{\sigma(1)}}>\cdots\ket|\phi_{i_\mu}^{(1)}>\cdots\ket|\phi_{i_{\sigma(N)}}>) \\
      & = \frac{1}{\sqrt{N!}}\ab(a^{(0)}\Det\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_\mu}^{(0)}>\cdots\ket|\phi_{i_N}>\end{bmatrix} + a^{(1)}\Det\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_\mu}^{(1)}>\cdots\ket|\phi_{i_N}>\end{bmatrix})          \\
-     & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_A + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A
+     & = a^{(0)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(0)}\cdots\phi_{i_N}>_A + a^{(1)}\ket|\phi_{i_1}\cdots\phi_{i_\mu}^{(1)}\cdots\phi_{i_N}>_A.
   \end{align}
   よって成り立つ.
 \end{proof}
 
 \section{複数の同一粒子からなる量子系の状態に対する対称化の要請}
-\begin{definition}
-  $N$ 個の同一の Bose 粒子による Hilbert 空間は $\HH_S^{(N)}$, また Fermi 粒子による Hilbert 空間は $\HH_A^{(N)}$ となる.
+\begin{definition}[スピン統計定理]
+  $N$ 個の同一の Bose 粒子による Hilbert 空間は完全対称な Hilbert 空間 $\HH_S^{(N)}$, また Fermi 粒子による Hilbert 空間は完全反対称な Hilbert 空間 $\HH_A^{(N)}$ となる.
+  また全粒子数を固定しない Bose, Fermi 粒子系の Hilbert 空間を $\HH_{Bose}, \HH_{Fermi}$ と書き, 次のように定義する.
+  \begin{align}
+    \HH_{Bose}  & = \bigoplus_{N = 0}^{\infty} \HH_S^{(N)} \\
+    \HH_{Fermi} & = \bigoplus_{N = 0}^{\infty} \HH_A^{(N)}
+  \end{align}
+  特に断りのない限り, 随伴関手は省略するものとする.
 \end{definition}
 
 \section{計算練習}
@@ -964,19 +951,6 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \end{example}
 
 \section{Bose, Fermi 粒子系の量子状態の粒子数表示}
-Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付けされていた.
-\begin{align}
-   & \ket|\phi_{i_1}\cdots\phi_{i_N}>_S \qquad (i_1,\ldots,i_N\in I, i_1\leq\cdots\leq i_N) \\
-   & \ket|\phi_{i_1}\cdots\phi_{i_N}>_A \qquad (i_1,\ldots,i_N\in I, i_1<\cdots<i_{N}).
-\end{align}
-これより粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S, \ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ の粒子数をそれぞれ $n_i^{(s)}, n_i^{(a)}$ とおくと次のような性質を満たす.
-\begin{align}
-  \begin{alignedat}{3}
-    n_i^{(s)} & \in \ZZ_{\geq 0}, \qquad && \sum_{i\in I}n_i^{(s)} = N \\
-    n_i^{(a)} & \in\{0, 1\}, && \sum_{i\in I}n_i^{(a)} = N.
-  \end{alignedat}
-\end{align}
-この粒子数を用いて状態を表現することを考える.
 \begin{definition}[Bose, Fermi 粒子系の量子状態の粒子数表示]
   Bose, Fermi 粒子系の粒子状態は粒子数 $n_i$ を用いて次のように表現できる.
   \begin{align}
@@ -985,61 +959,59 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
   これを粒子数表示または占有数表示という.
 \end{definition}
-添字 $S, A$ は省略してはいけない.
-
+粒子状態 $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S, \ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ の粒子数をそれぞれ $n_i^{(s)}, n_i^{(a)}$ とおくと次のような性質を満たす.
+\begin{align}
+  n_i^{(s)} & \in \ZZ_{\geq 0}, \qquad \sum_{i\in I}n_i^{(s)} = N \\
+  n_i^{(a)} & \in\{0, 1\}, \quad \sum_{i\in I}n_i^{(a)} = N.
+\end{align}
 \begin{proposition}
   Bose, Fermi 粒子系の粒子数表示は well-defined である.
   \label{particles well defined}
 \end{proposition}
 \begin{proof}
-  Bose, Fermi 粒子系の次の粒子数表示があったときに一意に完全正規直交系が存在することを示す.
+  Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付けされていた.
+  \begin{align}
+     & \ket|\phi_{i_1}\cdots\phi_{i_N}>_S \qquad (i_1,\ldots,i_N\in I, i_1\leq\cdots\leq i_N) \\
+     & \ket|\phi_{i_1}\cdots\phi_{i_N}>_A \qquad (i_1,\ldots,i_N\in I, i_1<\cdots<i_{N}).
+  \end{align}
+  これらの完全正規直交系はどちらも昇順にソートされているのである粒子数表示に対して完全正規直交系は一意に存在する.
   \begin{align}
      & \ket|(n_i)_{i\in I}>_S \qquad \ab(n_i\in\ZZ_{\geq 0}, \sum_{i\in I}n_i = N) \\
      & \ket|(n_i)_{i\in I}>_A \qquad \ab(n_i\in\{0, 1\}, \sum_{i\in I}n_i = N)
   \end{align}
-  Bose 粒子系の粒子数表示に対して完全正規直交系の表現が存在することは定義から分かり, 昇順にソートされているので一意に $\ket|\phi_{i_1}\cdots\phi_{i_N}>_S$ が定まる. Fermi 粒子系も同様.
+  逆に完全正規直交系に対して条件を満たすような粒子数表示は一意に存在する. よって同値な表現であることがわかる.
 \end{proof}
 
 \begin{theorem}
-  $N$ 個の Bose, Fermi 粒子系の状態の粒子数表示は完全正規直交系となる.
-  \label{Fermi N character}
+  Bose, Fermi 粒子系の粒子数表示 $\{\ket|(n_i)_{i\in I}>_S \mid n_i\in\ZZ_{\leq 0} \}, \{\ket|(n_i)_{i\in I}>_A \mid n_i\in\{0, 1\}\}$ は完全正規直交系となる.
 \end{theorem}
 \begin{proof}
-  命題 \ref{particles well defined} より Bose, Fermi 粒子系の粒子数表示と完全正規直交系が対応するから成り立つ.
+  まず全粒子数 $N$ の Hilbert 空間 $\HH_S^{(N)}, \HH_A^{(N)}$ の粒子数表示について命題 \ref{particles well defined} より粒子数表示と完全正規直交系が対応する.
+  よって命題 \ref{symmetric completely orthonormal system}, 命題 \ref{asymmetric completely orthonormal system} より粒子数表示は完全正規直交系となる.
+  これより次の式が成り立つ.
   \begin{align}
      & \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_S = \prod_{i\in I}\delta_{n_in_i'}                                    \\
      & \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_A = \prod_{i\in I}\delta_{n_in_i'}                                    \\
-     & \Span\ab\{\ket|(n_i)_{i\in I}>_S \mid n_i\in\ZZ_{\geq 0}, \sum_{i\in I}n_i = N \} = \HH_S^{(N)}               \\
-     & \Span\ab\{\ket|(n_i)_{i\in I}>_A \mid n_i\in\{0, 1\}, \sum_{i\in I}n_i = N \} = \HH_A^{(N)}                   \\
+     & \HH_S^{(N)} = \Span\ab\{\ket|(n_i)_{i\in I}>_S \mid n_i\in\ZZ_{\geq 0}, \sum_{i\in I}n_i = N \}               \\
+     & \HH_A^{(N)} = \Span\ab\{\ket|(n_i)_{i\in I}>_A \mid n_i\in\{0, 1\}, \sum_{i\in I}n_i = N \}                   \\
      & \sum_{n_i\in\ZZ_{\geq 0}, \sum_i n_i = N}\ket|(n_i)_{i\in I}>_S\bra<(n_i)_{i\in I}|_S = \hat{1}_{\HH_S^{(N)}} \\
      & \sum_{n_i\in\{0, 1\}, \sum_i n_i = N} \ket|(n_i)_{i\in I}>_A\bra<(n_i)_{i\in I}|_A = \hat{1}_{\HH_A^{(N)}}
   \end{align}
-\end{proof}
-
-\begin{definition}
-  また全粒子数を固定しない Bose 粒子系の Hilbert 空間を $\HH_{Bose}$ と書き, 次のように定義する.
+  次に全粒子数を固定しない Hilbert 空間 $\HH_{Bose}, \HH_{Fermi}$ について考える.
+  まず正規直交関係について Hilbert 空間 $\HH_{Bose}, \HH_{Fermi}$ の定義より異なる全粒子数の状態は直交するから次のように計算できる.
   \begin{align}
-    \HH_{Bose}  & = \bigoplus_{N=0}^\infty \HH_S^{(N)}     \\
-    \HH_{Fermi} & = \bigoplus_{N = 0}^{\infty} \HH_A^{(N)}
+    \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_S & = \delta_{NN'}\prod_{i\in I}\delta_{n_in_i'} = \prod_{i\in I}\delta_{n_in_i'} \\
+    \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_A & = \delta_{NN'}\prod_{i\in I}\delta_{n_in_i'} = \prod_{i\in I}\delta_{n_in_i'}
   \end{align}
-  定義から
+  次に空間全体を張ることは定義より自明.
   \begin{align}
-    N \neq N' \iff \HH_S^{(N)}\perp\HH_S^{(N')} \\
-    N\neq N' \iff \HH_A^{(N)}\perp\HH_A^{(N')}
+    \Span\ab\{\ket|(n_i)_{i\in I}>_S \mid n_i\in\ZZ_{\geq 0} \} & = \sum_{N = 0}^{\infty}\HH_S^{(N)} = \HH_{Bose}  \\
+    \Span\ab\{\ket|(n_i)_{i\in I}>_A \mid n_i\in\{0, 1\} \}     & = \sum_{N = 0}^{\infty}\HH_A^{(N)} = \HH_{Fermi}
   \end{align}
-\end{definition}
-\begin{theorem}
-  一般の Bose, Fermi 粒子系について完全正規直交系となる.
-\end{theorem}
-\begin{proof}
-  全体粒子数が異なれば異なる粒子数が存在するから正規直交関係を満たし, それぞれの全粒子数の恒等演算子を和を取ることで恒等演算子となり, それぞれの全粒子数で生成する.
+  最後に完備性については次のように計算できる.
   \begin{align}
-     & \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_S = \prod_{i\in I}\delta_{n_in_i'}                   \\
-     & \braket<(n_i)_{i\in I}|(n_i')_{i\in I}>_A = \prod_{i\in I}\delta_{n_in_i'}                   \\
-     & \sum_{n_i\in\ZZ_{\geq 0}}\ket|(n_i)_{i\in I}>_S\bra<(n_i)_{i\in I}|_S = \hat{1}_{\HH_{Bose}} \\
-     & \sum_{n_i\in\{0, 1\}} \ket|(n_i)_{i\in I}>_A\bra<(n_i')_{i\in I}|_A = \hat{1}_{\HH_{Fermi}}  \\
-     & \HH_{Bose} = \Span\ab\{\ket|(n_i)_{i\in I}>_S \mid n_i\in\ZZ_{\geq 0} \}                     \\
-     & \HH_{Fermi} = \Span\ab\{\ket|(n_i)_{i\in I}>_A \mid n_i\in\{0, 1\} \}
+    \sum_{n_i\in\ZZ_{\geq 0}}\ket|(n_i)_{i\in I}>_S\bra<(n_i)_{i\in I}|_S & = \sum_{N = 0}^{\infty}\hat{1}_{\HH_S^{(N)}} = \hat{1}_{\HH_{Bose}}  \\
+    \sum_{n_i\in\{0, 1\}} \ket|(n_i)_{i\in I}>_A\bra<(n_i')_{i\in I}|_A   & = \sum_{N = 0}^{\infty}\hat{1}_{\HH_A^{(N)}} = \hat{1}_{\HH_{Fermi}}
   \end{align}
 \end{proof}
 
@@ -1054,7 +1026,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
   その上で個数演算子 $\hat{n}_i = \hat{a}_i^\dagger\hat{a}$ と全粒子数演算子 $\hat{N} = \sum_{i\in I}\hat{n}_i$ と定義する.
 \end{definition}
-\begin{theorem}
+\begin{theorem}[Q21-35]
   Bose 粒子系の消滅, 生成演算子の定義と次は同値である.
   \begin{align}
     \begin{dcases}
@@ -1089,7 +1061,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   よって $\HH_S^{(N)}$ の完全正規直交系で表現できる.
 \end{proof}
 
-\begin{theorem}[Q21-35, Q21-36]
+\begin{theorem}[Q21-36]
   Bose 粒子系の消滅, 生成演算子の定義と次は同値である.
   \begin{align}
     \begin{dcases}
@@ -1103,7 +1075,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   定理 \ref{Bose creation and annihilation 1} を吟味することで消滅演算子によって添字 $i$ の 1 粒子状態を消滅させ, 生成演算子によって添字 $i$ の 1 粒子状態を生成していることがわかる. よって粒子数表示に直すことで定義と同値となる.
 \end{proof}
 
-\begin{proposition}[Q21-37]
+\begin{proposition}[Q21-37(i)(ii)(iii)(iv)(v)(vi)(vii)]
   Bose 粒子系における消滅, 生成演算子の交換関係は次のようになる.
   \begin{align}
     [\hat{a}_i, \hat{a}_j^\dagger] & = \delta_{ij}, \qquad [\hat{a}_i, \hat{a}_j] = [\hat{a}_i^\dagger, \hat{a}_j^\dagger] = 0
@@ -1134,7 +1106,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   よって示された.
 \end{proof}
 
-\begin{proposition}[Q21-38]
+\begin{proposition}[Q21-38(i)(ii)]
   Bose 粒子系における消滅, 生成演算子は互いに Hermite 共役である.
 \end{proposition}
 \begin{proof}
@@ -1151,7 +1123,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
 \end{proof}
 
-\begin{proposition}[Q21-39]
+\begin{proposition}[Q21-39(i)(ii)(iii)(iv)]
   個数演算子 $\hat{n}_i$ と全粒子数演算子 $\hat{N}$ は Hermite 演算子であり, 固有値は $\hat{n}_i = n_i, \hat{N} = N$ となる.
 \end{proposition}
 \begin{proof}
@@ -1167,7 +1139,33 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
 \end{proof}
 
-\begin{theorem}[Q21-41]
+ここで粒子が 1 個も存在しないという真空状態を用いて状態を構成することを考える.
+\begin{align}
+  \ket|\mathrm{vac}> = \ket|0,0,0,\ldots>
+\end{align}
+\begin{definition}
+  真空状態 $\ket|\mathrm{vac}>$ を次のように定義する.
+  \begin{align}
+    \begin{dcases}
+      \hat{a}_i\ket|\mathrm{vac}> = 0 & (\forall i\in I) \\
+      \braket<\mathrm{vac}|\mathrm{vac}> = 1
+    \end{dcases}
+  \end{align}
+\end{definition}
+\begin{proposition}[Q21-40(i)(ii)]
+  このとき次のような性質が認められる.
+  \begin{align}
+    \ket|(n_i)_{i\in I}> & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
+  \end{align}
+\end{proposition}
+\begin{proof}
+  それぞれ定義を展開することで導かれる.
+  \begin{align}
+    \ket|(n_i)_{i\in I}> & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
+  \end{align}
+\end{proof}
+
+\begin{theorem}[Q21-41(i)]
   Bose 粒子系における消滅演算子 $\hat{a}_i$ と生成演算子 $\hat{a}_i^\dagger$ において次の性質は定義と同値である.
   \begin{align}
     (\hat{a}_i)^\dagger = \hat{a}_i^\dagger, \qquad [\hat{a}_i, \hat{a}_j^\dagger] = \delta_{ij}, \qquad [\hat{a}_i, \hat{a}_j] = [\hat{a}_i^\dagger, \hat{a}_j^\dagger] = 0, \qquad \hat{n}_i = \hat{a}_i^\dagger\hat{a}_i = n_i
@@ -1191,40 +1189,19 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
     \hat{a}_i\ket|\ldots,n_i,\ldots>         & = \sqrt{n_i}\ket|\ldots,n_i-1,\ldots>     \\
     \hat{a}_i^\dagger\ket|\ldots,n_i,\ldots> & = \sqrt{n_i + 1}\ket|\ldots,n_i+1,\ldots>
   \end{align}
-  これらの式から定理 \ref{Bose feature} より定義を導ける.
-\end{proof}
-
-\begin{proposition}
-  真空状態 $\ket|\mathrm{vac}>$ を次のように定義する.
-  \begin{align}
-    \ket|\mathrm{vac}> = \ket|0,0,0,\ldots>
-  \end{align}
-  このとき次のような性質が認められる.
-  \begin{align}
-    \hat{a}_i\ket|\mathrm{vac}>        & = 0                                                                             \\
-    \braket<\mathrm{vac}|\mathrm{vac}> & = 1                                                                             \\
-    \ket|(n_i)_{i\in I}>               & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
-  \end{align}
-\end{proposition}
-\begin{proof}
-  それぞれ定義を展開することで導かれる.
-  \begin{align}
-    \hat{a}_i\ket|\mathrm{vac}>        & = \hat{a}_i\ket|0,0,\ldots> = 0                                                                                                                               \\
-    \braket<\mathrm{vac}|\mathrm{vac}> & = \braket<0,0,\ldots|0,0,\ldots> = \prod_{i\in I}\delta_{0,0} = 1                                                                                             \\
-    \ket|(n_i)_{i\in I}>               & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|0,0,\ldots> = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
-  \end{align}
+  これらの式から定理 \ref{Bose creation and annihilation 1} より定義を導ける.
 \end{proof}
 
 \section{Fermi 粒子系の消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$}
 \begin{definition}
+  Fermi 粒子系の消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$ を次のように定義する.
   \begin{align}
-     & \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{(-1)^\mu n_i}{\sqrt{(N-1)!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}>\ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
+     & \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in\ZZ_N                                                                     \\ i_\mu = i}}(-1)^\mu\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
      & \hat{c}_i^\dagger\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
   \end{align}
-  $\hat{n}_i = \hat{c}_i^\dagger\hat{c}_i$
-  $\hat{N} = \sum_{i\in I}\hat{n}_i$
+  その上で個数演算子 $\hat{n}_i = \hat{c}_i^\dagger\hat{c}$ と全粒子数演算子 $\hat{N} = \sum_{i\in I}\hat{n}_i$ と定義する.
 \end{definition}
-\begin{theorem}
+\begin{theorem}[Q21-50]
   \begin{align}
     \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A         & = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
     \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = (-1)^\mu\ket|\phi_{i_1}\cdots\phi_i\cdots\phi_{i_N}>_A
@@ -1247,22 +1224,17 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
 \end{proof}
 
-\begin{theorem}[Q21-50, Q21-51]
+\begin{theorem}[Q21-51]
   Fermi 粒子系の消滅, 生成演算子を状態に適用すると次のようになる.
-  \begin{align}
-    \hat{c}_i\ket|\ldots,n_i,\ldots>         & = (-1)^{\sum_{j=1}^{i-1}n_j}n_i\ket|\ldots,1-n_i,\ldots>       \\
-    \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots> & = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\ket|\ldots,1-n_i,\ldots>
-  \end{align}
-\end{theorem}
-\begin{proof}
-  よって次の式は同値である.
   \begin{align}
     \hat{c}_i\ket|\ldots,n_i,\ldots>_A         & = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,1-n_i,\ldots>_A    \\
     \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A & = (-1)^{\sum_{j=1}^{i-1}n_j}(1-n_i)\ket|\ldots,1-n_i,\ldots>_A
   \end{align}
+\end{theorem}
+\begin{proof}
 \end{proof}
 
-\begin{theorem}[Q21-52]
+\begin{theorem}[Q21-52(i)(ii)(iii)(iv)(v)(vi)(vii)(viii)(ix)(x)(xi)(xii)(xiii)(xiv)(xv)(xvi)(xvii)(xviii)(xix)(xx)]
   Fermi 粒子系における消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$ の反交換関係は次のようになる.
   \begin{align}
     \{\hat{c}_i, \hat{c}_j^\dagger\} = \delta_{ij}, \qquad \{\hat{c}_i, \hat{c}_j\} = \{\hat{c}_i^\dagger, \hat{c}_j^\dagger\} = 0
@@ -1299,7 +1271,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Q21-53(i)(ii)]
   Fermi 粒子系における消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$ は互いに Hermite 共役である.
 \end{proposition}
 \begin{proof}
@@ -1312,7 +1284,7 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   より Hermite 共役である.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Q21-54(i)(ii)(iii)(iv)]
   \begin{align}
     \hat{n}_i^\dagger & = \hat{n}_i, \hat{n}_i\ket|\ldots,n_i,\ldots>_A = n_i\ket|\ldots,n_i,\ldots>_A \\
     \hat{N}^\dagger   & = \hat{N}, \hat{N}\ket|(n_i)_{i\in I}>_A = N\ket|(n_i)_{i\in I}>_A
@@ -1327,13 +1299,18 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
   \end{align}
 \end{proof}
 
-\begin{proposition}
+\begin{definition}
+  真空状態 $\ket|\mathrm{vac}>$ を次のように定義する.
   \begin{align}
-    \ket|\mathrm{vac}> = \ket|0,0,\ldots>
+    \begin{dcases}
+      \hat{c}_i\ket|\mathrm{vac}> = 0 & (i\in I) \\
+      \braket<\mathrm{vac}|\mathrm{vac}> = 1
+    \end{dcases}
   \end{align}
+\end{definition}
+\begin{proposition}[Q21-55]
   \begin{align}
-    \hat{c}_i\ket|\mathrm{vac}> = 0 \\
-    \braket<\mathrm{vac}|\mathrm{vac}> = 1
+    \ket|(n_i)_{i\in I}> = \prod_{\mu\in\ZZ_N}\hat{c}_{i_\mu}\ket|\mathrm{vac}>
   \end{align}
 \end{proposition}
 \begin{proof}
@@ -1342,12 +1319,15 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
 
 \section{Bose, Fermi 粒子系の消滅演算子 $\hat{b}_i$ と生成演算子 $\hat{b}_i^\dagger$}
 前 2 章で行った生成, 消滅演算子を統一する.
-完全正規直交系
 \begin{definition}
   1 粒子状態の Hilbert 空間 $\HH_{single}$ の完全正規直交系 $(\ket|\phi_i>)_{i\in I}$ に対して
-\end{definition}
-
-\begin{definition}
+  完全正規直交系
+  \begin{align}
+    \HH_{\mathrm{M.P.}} := \begin{dcases}
+                             \HH_{Bose}  & (Bose)  \\
+                             \HH_{Fermi} & (Fermi)
+                           \end{dcases}
+  \end{align}
   \begin{align}
     \hat{b}_i & = \begin{dcases}
                     \hat{a}_i & (Bose)  \\
@@ -1360,36 +1340,33 @@ Bose, Fermi 粒子系の完全正規直交系は次のようにラベル付け�
     [\hat{A}, \hat{B}]_\mp = \begin{dcases}
                                [\hat{A}, \hat{B}]   & (-) \\
                                \{\hat{A}, \hat{B}\} & (+)
-                             \end{dcases} \\
+                             \end{dcases}
+  \end{align}
+  真空状態 $\ket|\mathrm{vac}>$
+  \begin{align}
     \begin{dcases}
-      \hat{b}_i\ket|\mathrm{vac}> = 0        \\
-      \braket<\mathrm{vac}|\mathrm{vac}> = 1 \\
+      \hat{b}_i\ket|\mathrm{vac}> = 0 & (i\in I) \\
+      \braket<\mathrm{vac}|\mathrm{vac}> = 1
     \end{dcases}
   \end{align}
 \end{definition}
 これより次の定理が成り立つ. 証明は略.
 \begin{theorem}
-  \begin{align*}
+  \begin{align}
      & \hat{b}_i\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in X                                                                                \\ i_\mu = i}}(\pm1)^\mu\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
      & \hat{b}_i^\dagger\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
-  \end{align*}
+  \end{align}
   \begin{align}
     [\hat{b}_i, \hat{b}_j^\dagger]_\mp & = \delta_{ij}, \quad [\hat{b}_i, \hat{b}_j]_\mp = [\hat{b}_i^\dagger, \hat{b}_j^\dagger]_\mp = 0 \\
-    \hat{n}_i                          & = \hat{b}_i^\dagger\hat{b}_i = n_i
   \end{align}
   \begin{align}
     \Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_{\sigma(1)}}> \cdots \ket|\phi_{i_{\sigma(N)}}>\end{bmatrix} = (\pm 1)^\sigma\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
   \end{align}
+  基底状態
   \begin{align}
-    \hat{b}_i\ket|\mathrm{vac}>
+    \frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\end{bmatrix}
   \end{align}
 \end{theorem}
-
-基底状態
-\begin{align}
-  \frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\end{bmatrix}
-\end{align}
-
 
 \section{演算子の粒子数表示: 1 粒子演算子とその和、2 粒子演算子とその和の導入}
 現実の粒子系における観測量はある 1 つの相互作用に関して関与する粒子数は 1 個か 2 個しかない. これを 1 粒子演算子, 2 粒子演算子と呼ぶ.
@@ -1441,7 +1418,7 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
     \hat{f}^{\mathrm{tot}} & = \sum_{\substack{\mu_1,\ldots,\mu_n\in X \\ \mu_1 < \cdots < \mu_n}}\hat{f}_{\mu_1\cdots\mu_n} = \frac{1}{n!}\sum_{\substack{\mu_1,\ldots,\mu_n\in X \\ \mu_n \neq \mu_{n'}}}\hat{f}_{\mu_1\cdots\mu_n}
   \end{align}
 \end{proof}
-\begin{example}
+\begin{example}[Q21-58, Q21-59, Q21-60]
   1 粒子演算子 $\hat{h}$, 2 粒子演算子 $\hat{v}$ についても上の定理が成り立つ.
   \begin{align}
     \hat{h} & = \hat{P}(\sigma)\hat{h}\hat{P}^\dagger(\sigma)  \\
@@ -1503,10 +1480,10 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
 \end{proof}
 
 \section{1 粒子状態の完全正規直交系の取り替え}
-\begin{theorem}
+\begin{theorem}[Q21-79(i)(ii)(iii)]
   2 つの完全正規直交系 $(\ket|\phi_i>)_{i\in I}, (\ket|\phi_i'>)_{i\in I}$ に対してそれぞれ消滅演算子 $\hat{b}_i, \hat{b}_i'$
   \begin{align}
-    \hat{b}_i' = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j
+    \hat{b}_i' & = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -1549,22 +1526,26 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
 \end{proof}
 
 \section{場の演算子の導入}
-\begin{definition}
-  位置座標・スピンの $z$ 成分に固有状態 $(\ket|\rr, s_z>)_{\rr\in\RR^3, s_z = -s,-s+1,\ldots,s-1,s}$ は完全正規直交系 $(\ket|\phi_i'>)_{i\in I'}$ を用いて表現できる.
+\begin{definition}[場の演算子]
+  スピン $s$ を持つ 1 粒子系について考える.
+
+  その Hilbert 空間 $\HH_{single}$ の完全正規直交系を $(\ket|\phi_i>)_{i\in I}$ とする代わりに粒子の位置座標 $\rr\in\RR^3$ とスピンの $z$ 成分 $s_z\in\{-s,-s+1,\ldots,s-1,s\}$ の固有状態 $\ket|\rr, s_z>$ からなる完全正規直交系とする.
+  このときの消滅演算子 $\hat{b}_{\rr,s_z}'$ を場の演算子 $\hat{\phi}(\rr, s_z)$ と定義する.
+  また粒子数密度演算子 $\hat{\rho}(\rr, s_z)$ を次のように定義する.
   \begin{align}
-    (\ket|\phi_i'>)_{i\in I'} & := (\ket|\rr, s_z>)_{\rr\in\RR^3, s_z = -s,-s+1,\ldots,s-1,s}
-  \end{align}
-  これに対して場の演算子 $\hat{\phi}(\rr, s_z)$ や 1 粒子状態 $\ket|\phi_i>$ $(i\in I)$ に関する波動関数 $\phi_i(\rr, s_z)$ を次のように定義する.
-  \begin{align}
-    \hat{\phi}(\rr, s_z) & := \hat{b}_{\rr,s_z}'       \\
-    \phi_i(\rr, s_z)     & := \braket<\rr, s_z|\phi_i>
+    \hat{\rho}(\rr, s_z) & := \hat{\phi}^\dagger(\rr, s_z)\hat{\phi}(\rr, s_z)
   \end{align}
 \end{definition}
-\begin{theorem}[Q21-81(i)(ii), Q21-82]
+今までの消滅, 生成演算子 $\hat{b}_i, \hat{b}_i^\dagger$ から場の演算子へ書き換える. (Q21-81(i)(ii), Q21-82, Q21-83, Q21-84, Q21-85(i)(ii))
+\begin{theorem}
+  ある固有状態 $\ket|\phi_i>$ に関して位置座標・スピンの z 成分により表示を固定した波動関数を $\phi_i(\rr, s_z)$ とする.
+  \begin{align}
+    \phi_i(\rr, s_z) & := \braket<\rr, s_z|\phi_i>
+  \end{align}
   場の演算子とその Hermite 共役 $\hat{\phi}, \hat{\phi}^\dagger$ と消滅, 生成演算子 $\hat{b}_i, \hat{b}_i^\dagger$ は互いに表現できる.
   \begin{align}
-    \hat{\phi}(\rr, s_z)         & = \sum_{i\in I}\phi_i(\rr, s_z)\hat{b}_i           & \hat{b}_i         & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i^*(\rr, s_z)\hat{\phi}(\rr, s_z)       \\
-    \hat{\phi}^\dagger(\rr, s_z) & = \sum_{i\in I}\phi_i^*(\rr, s_z)\hat{b}_i^\dagger & \hat{b}_i^\dagger & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i(\rr, s_z)\hat{\phi}^\dagger(\rr, s_z)
+    \hat{\phi}(\rr, s_z)         & = \sum_{i\in I}\phi_i(\rr, s_z)\hat{b}_i           \\
+    \hat{\phi}^\dagger(\rr, s_z) & = \sum_{i\in I}\phi_i^*(\rr, s_z)\hat{b}_i^\dagger
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -1577,6 +1558,7 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
     \hat{b}_i^\dagger & = \sum_{s_z = -s}^s\int\dl{\rr}\braket<\rr, s_z|\phi_i>\hat{b}_{\rr,s_z}^{\prime\dagger} = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i(\rr, s_z)\hat{\phi}^\dagger(\rr, s_z)
   \end{align}
 \end{proof}
+
 \begin{theorem}
   場の演算子とその Hermite 共役の交換・反交換関係
   \begin{align}
@@ -1584,42 +1566,53 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
     [\hat{\phi}(\rr, s_z), \hat{\phi}(\rr', s_z')]_\mp         & = [\hat{\phi}^\dagger(\rr, s_z), \hat{\phi}^\dagger(\rr', s_z')]_\mp = 0
   \end{align}
 \end{theorem}
+
 \begin{theorem}
   粒子数密度演算子
-\end{theorem}
-\begin{proof}
   \begin{align}
     \hat{N} & = \sum_{i\in I}\hat{b}_i^\dagger\hat{b}_i = \sum_{s_z = -s}^{s}\int\dl{\rr}\hat{\rho}(\rr, s_z)
   \end{align}
+\end{theorem}
+\begin{proof}
+
 \end{proof}
-\begin{definition}
+
+\begin{definition}[複数の同種粒子の場]
+  スピン $s$ を持つ複数の同種粒子がある系を考える.
+  まず真空状態 $\ket|\mathrm{vac}>$ を次のように定義する.
   \begin{align}
-    \hat{\phi}(\rr, s_z)\ket|\mathrm{vac}> = 0 \\
-    \braket<\mathrm{vac}|\mathrm{vac}> = 1
+    \begin{dcases}
+      \hat{\phi}(\rr, s_z)\ket|\mathrm{vac}> = 0 & (\rr\in\RR^3, s_z = -s,\ldots,s) \\
+      \braket<\mathrm{vac}|\mathrm{vac}> = 1
+    \end{dcases}
   \end{align}
+  このとき複数の粒子状態は真空状態に場の演算子の Hermite 共役を適用することで表現できる.
   \begin{align}
-    |(\rr_\mu, s_{z\mu})_{\mu\in X}) & := \frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_1, s_{z,1})\cdots\hat{\phi}^\dagger(\rr_N, s_{z,N})\ket|\mathrm{vac}>
+    |(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) & := \frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_1, s_{z,1})\cdots\hat{\phi}^\dagger(\rr_N, s_{z,N})\ket|\mathrm{vac}>
   \end{align}
 \end{definition}
-\begin{theorem}
+
+\begin{theorem}[Q21-86(i)]
+  置換すると次のようになる.
   \begin{align}
-    |(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X}) & = (\pm 1)^\sigma|(\rr_{\mu}, s_{z\mu})_{\mu\in X})                                                  \\
-    |(\rr_{\mu}, s_{z\mu})_{\mu\in X})                 & = \frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma|(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X})
+    |(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X}) & = (\pm 1)^\sigma|(\rr_{\mu}, s_{z\mu})_{\mu\in\ZZ_N})
   \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-    |(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X}) & = \frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_{\sigma(1)}, s_{z\sigma(1)})\cdots\hat{\phi}^\dagger(\rr_{\sigma(N)}, s_{z\sigma(N)})\ket|\mathrm{vac}>             \\
-                                                       & = \frac{1}{\sqrt{N!}}\hat{b}^{\prime\dagger}_{\rr_{\sigma(1)}, s_{z\sigma(1)}}\cdots\hat{b}^{\prime\dagger}_{\rr_{\sigma(N)}, s_{z\sigma(N)}}\ket|\mathrm{vac}> \\
-                                                       & = (\pm 1)^\sigma\frac{1}{\sqrt{N!}}\hat{b}^{\prime\dagger}_{\rr_1, s_{z1}}\cdots\hat{b}^{\prime\dagger}_{\rr_{N}, s_{zN}}\ket|\mathrm{vac}>                     \\
-                                                       & = (\pm 1)^\sigma\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\hat{\phi}^\dagger(\rr_N, s_{zN})\ket|\mathrm{vac}>                                   \\
+    |(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X}) & = \frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_{\sigma(1)}, s_{z\sigma(1)})\cdots\hat{\phi}^\dagger(\rr_{\sigma(N)}, s_{z\sigma(N)})\ket|\mathrm{vac}> \\
+                                                       & = (\pm 1)^\sigma\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\hat{\phi}^\dagger(\rr_N, s_{zN})\ket|\mathrm{vac}>                       \\
                                                        & = (\pm 1)^\sigma|(\rr_{\mu}, s_{z\mu})_{\mu\in X})
   \end{align}
 \end{proof}
-\begin{theorem}
+\begin{align}
+  |(\rr_{\mu}, s_{z\mu})_{\mu\in X}) & = \frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma|(\rr_{\sigma(\mu)}, s_{z\sigma(\mu)})_{\mu\in X})
+\end{align}
+
+\begin{theorem}[Q21-86(ii)]
+  正規直交関係については次のようになる.
   \begin{align}
-     & ((\rr_{\mu}, s_{z\mu})_{\mu\in X}|(\rr_{\mu}', s_{z\mu}')_{\mu\in X'})                                                                                                                          \\
-     & = \delta_{NN'}\frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}
+    ((\rr_{\mu}, s_{z\mu})_{\mu\in X}|(\rr_{\mu}', s_{z\mu}')_{\mu\in X'}) & = \delta_{NN'}\frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -1635,8 +1628,7 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
   \end{align}
   真空状態について交換関係・反交換関係を用いて次のように計算できる.
   \begin{align}
-    \hat{\phi}(\rr, s_z)\hat{\phi}^\dagger(\rr', s_z')\ket|\mathrm{vac}> & = \pm\hat{\phi}^\dagger(\rr', s_z')\hat{\phi}(\rr, s_z)\ket|\mathrm{vac}> + \delta(\rr - \rr')\delta_{s_zs_z'}\ket|\mathrm{vac}> \\
-                                                                         & = \delta(\rr - \rr')\delta_{s_zs_z'}\ket|\mathrm{vac}>
+    \hat{\phi}(\rr, s_z)\hat{\phi}^\dagger(\rr', s_z')\ket|\mathrm{vac}> & = \pm\hat{\phi}^\dagger(\rr', s_z')\hat{\phi}(\rr, s_z)\ket|\mathrm{vac}> + \delta(\rr - \rr')\delta_{s_zs_z'}\ket|\mathrm{vac}> = \delta(\rr - \rr')\delta_{s_zs_z'}\ket|\mathrm{vac}>
   \end{align}
   これを帰納的に適用することで次のように計算できる.
   \begin{align}
@@ -1646,32 +1638,31 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
   \end{align}
   よって
   \begin{align}
-     & ((\rr_{\mu}, s_{z\mu})_{\mu\in X}|(\rr_{\mu}', s_{z\mu}')_{\mu\in X})                                                                                                               \\
-     & = \frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}
+    ((\rr_{\mu}, s_{z\mu})_{\mu\in X}|(\rr_{\mu}', s_{z\mu}')_{\mu\in X}) & = \frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}
   \end{align}
   となる. $N \neq N'$ の場合, Bose, Fermi 粒子系どちらも粒子数が異なる状態の内積は 0 より固有状態の内積も 0 となる.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Q21-86(iii)]
+  単位演算子の分解は次のようになる.
   \begin{align}
     \hat{1} & = \sum_{N = 0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}|(\rr_\mu, s_{z\mu})_{\mu\in X})((\rr_\mu, s_{z\mu})_{\mu\in X}|
   \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-     & \sum_{N = 0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}|(\rr_\mu, s_{z\mu})_{\mu\in X})((\rr_\mu, s_{z\mu})_{\mu\in X}|(\rr_\mu', s_{z\mu}')_{\mu\in X'}) \\
-     & = \sum_{N = 0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}|(\rr_\mu, s_{z\mu})_{\mu\in X})                                                                 \\
-     & \quad\ \delta_{NN'}\frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}  \\
-     & = \frac{1}{N'!}\sum_{\sigma\in\SS_{N'}}(\pm 1)^\sigma\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN'} = -s}^{s}\int\dl{\rr_{N'}}|(\rr_\mu, s_{z\mu})_{\mu\in X})                               \\
-     & \quad\ \delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_{N'} - \rr_{\sigma(N')}')\delta_{s_{zN'}s_{z\sigma(N')}'}                                                       \\
-     & = \frac{1}{N'!}\sum_{\sigma\in\SS_{N'}}(\pm 1)^\sigma|(\rr_{\sigma(\mu)}', s_{z\sigma(\mu)}')_{\mu\in X'})                                                                                            \\
+     & \quad \sum_{N = 0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}|(\rr_\mu, s_{z\mu})_{\mu\in X})((\rr_\mu, s_{z\mu})_{\mu\in X}|(\rr_\mu', s_{z\mu}')_{\mu\in X'}) \\
+     & = \sum_{N = 0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}|(\rr_\mu, s_{z\mu})_{\mu\in X})                                                                       \\
+     & \quad\ \delta_{NN'}\frac{1}{N!}\sum_{\sigma\in\SS_N}(\pm 1)^\sigma\delta(\rr_1 - \rr_{\sigma(1)}')\delta_{s_{z1}s_{z\sigma(1)}'}\cdots\delta(\rr_N - \rr_{\sigma(N)}')\delta_{s_{zN}s_{z\sigma(N)}'}        \\
+     & = \frac{1}{N'!}\sum_{\sigma\in\SS_{N'}}(\pm 1)^\sigma|(\rr_{\sigma(\mu)}', s_{z\sigma(\mu)}')_{\mu\in X'})                                                                                                  \\
      & = |(\rr_{\mu}', s_{z\mu}')_{\mu\in X'})
   \end{align}
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Q21-86(iv)(v)(vi)]
   \begin{align}
-    \hat{\rho}(\rr, s_z)|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) = \ab(\sum_{\mu\in\ZZ_N}\delta(\rr - \rr_\mu)\delta_{s_zs_{z\mu}})|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})
+    \hat{\rho}(\rr, s_z)|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) & = \ab(\sum_{\mu\in\ZZ_N}\delta(\rr - \rr_\mu)\delta_{s_zs_{z\mu}})|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) \\
+    \hat{N}|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})              & = N|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -1687,89 +1678,190 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
                                                             & + \ab(\sum_{\mu\in\ZZ_N}\delta(\rr - \rr_\mu)\delta_{s_zs_{z\mu}})\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(\rr_1, s_{z,1})\cdots\hat{\phi}^\dagger(\rr_N, s_{z,N})\ket|\mathrm{vac}> \\
                                                             & = \ab(\sum_{\mu\in\ZZ_N}\delta(\rr - \rr_\mu)\delta_{s_zs_{z\mu}})|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})
   \end{align}
-\end{proof}
-
-\begin{theorem}
   \begin{align}
-    \hat{N}|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) = N|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})
-  \end{align}
-\end{theorem}
-\begin{proof}
-\end{proof}
-
-\begin{theorem}
-  \begin{align}
-    \hat{f}^{\mathrm{tot}} =
-  \end{align}
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    \hat{b}_i         & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i^*(\rr, s_z)\hat{\phi}(\rr, s_z)       \\
-    \hat{b}_i^\dagger & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i(\rr, s_z)\hat{\phi}^\dagger(\rr, s_z)
-  \end{align}
-  \begin{align}
-    \hat{f}^{\mathrm{tot}} & = \frac{1}{n!}\sum_{\substack{i_1,\ldots,i_n\in I                                                                                                                                                                     \\ j_1,\ldots,j_n\in I}}\bra<\phi_{i_1}\cdots\phi_{i_n}|f\ket|\phi_{j_1}\cdots\phi_{j_n}>\hat{b}_{i_1}^\dagger\cdots\hat{b}_{i_n}^\dagger\hat{b}_{j_n}\cdots\hat{b}_{j_1} \\
-                           & = \frac{1}{n!}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\cdots\sum_{s_{zn} = -s}^s\int\dl{\rr_n}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\cdots\sum_{s_{zn}' = -s}^s\int\dl{\rr_n'}                                                \\
-                           & \sum_{\substack{i_1,\ldots,i_n\in I                                                                                                                                                                                   \\ j_1,\ldots,j_n\in I}}
-    \braket<\phi_{i_1}|\rr_1,s_{z1}>\cdots\braket<\phi_{i_n}|\rr_n,s_{zn}>\braket<\rr_1',s_{z1}'|\phi_{j_1}>\cdots\braket<\rr_n',s_{zn}'|\phi_{j_n}>                                                                                               \\
-                           & \bra<\rr_1,s_{z1},\ldots,\rr_n,s_{zn}|f\ket|\rr_1',s_{z1}',\ldots,\rr_n',s_{zn}'>                                                                                                                                     \\
-                           & \phi_{i_1}(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\phi_{i_n}(\rr_n, s_{zn})\hat{\phi}^\dagger(\rr_n, s_{zn})                                                                                            \\
-                           & \phi_{j_n}^*(\rr_n', s_{zn}')\hat{\phi}(\rr_n', s_{zn}')\cdots\phi_{j_1}^*(\rr_1', s_{z1}')\hat{\phi}(\rr_1', s_{z1}')                                                                                                \\
-                           & = \frac{1}{n!}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\cdots\sum_{s_{zn} = -s}^s\int\dl{\rr_n}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\cdots\sum_{s_{zn}' = -s}^s\int\dl{\rr_n'}                                                \\
-                           & \hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\hat{\phi}^\dagger(\rr_n, s_{zn})\bra<\rr_1,s_{z1},\ldots,\rr_n,s_{zn}|f\ket|\rr_1',s_{z1}',\ldots,\rr_n',s_{zn}'>\hat{\phi}(\rr_n', s_{zn}')\cdots\hat{\phi}(\rr_1', s_{z1}') \\
-                           & = \frac{1}{n!}\sum_{1,\ldots,2n}\hat{\phi}^\dagger(1)\cdots\hat{\phi}^\dagger(n)\bra<1,\ldots,n|f\ket|n+1,\ldots,2n>\hat{\phi}(2n)\cdots\hat{\phi}(n+1)
+    \hat{N}|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) & = \sum_{s_z = -s}^{s}\int\dl{\rr}\hat{\rho}(\rr, s_z)|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})                                             \\
+                                               & = \sum_{s_z = -s}^{s}\int\dl{\rr}\ab(\sum_{\mu\in\ZZ_N}\delta(\rr - \rr_\mu)\delta_{s_zs_{z\mu}})|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N}) \\
+                                               & = N|(\rr_\mu, s_{z\mu})_{\mu\in\ZZ_N})
   \end{align}
 \end{proof}
 
 \begin{theorem}
-
+  \begin{align}
+    \hat{f}^{\mathrm{tot}} & = \frac{1}{n!}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\cdots\sum_{s_{zn} = -s}^s\int\dl{\rr_n}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\cdots\sum_{s_{zn}' = -s}^s\int\dl{\rr_n'}                                                       \\
+                           & \quad\ \hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\hat{\phi}^\dagger(\rr_n, s_{zn})\bra<\rr_1,s_{z1},\ldots,\rr_n,s_{zn}|f\ket|\rr_1',s_{z1}',\ldots,\rr_n',s_{zn}'>\hat{\phi}(\rr_n', s_{zn}')\cdots\hat{\phi}(\rr_1', s_{z1}')
+  \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-    \hat{h}^{\mathrm{tot}} & = \sum_{s_z = -s}^{s}\sum_{s_z' = -s}^{s}\int\dl{\rr}\hat{\phi}^\dagger(\rr, s_z)\ab[-\frac{\hbar^2}{2m}\delta_{s_zs_z'}\Delta_{\rr} + V_{s_zs_z'}(\rr)]\hat{\phi}(\rr, s_z')                     \\
-                           & = \sum_{s_z = -s}^{s}\sum_{s_z' = -s}^{s}\int\dl{\rr}\hat{\phi}^\dagger(\rr, s_z)\ab[-\frac{\hbar^2}{2m}\delta_{s_zs_z'}\Delta_{\rr} + \bra<s_z|V(\rr, \hat{\ss})\ket|s_z'>]\hat{\phi}(\rr, s_z')
+    \hat{f}^{\mathrm{tot}} & = \frac{1}{n!}\sum_{\substack{i_1,\ldots,i_n\in I                                                                                                                                                                            \\ j_1,\ldots,j_n\in I}}\bra<\phi_{i_1}\cdots\phi_{i_n}|f\ket|\phi_{j_1}\cdots\phi_{j_n}>\hat{b}_{i_1}^\dagger\cdots\hat{b}_{i_n}^\dagger\hat{b}_{j_n}\cdots\hat{b}_{j_1} \\
+                           & = \frac{1}{n!}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\cdots\sum_{s_{zn} = -s}^s\int\dl{\rr_n}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\cdots\sum_{s_{zn}' = -s}^s\int\dl{\rr_n'}                                                       \\
+                           & \sum_{\substack{i_1,\ldots,i_n\in I                                                                                                                                                                                          \\ j_1,\ldots,j_n\in I}}
+    \phi_{i_1}^*(\rr_1,s_{z1})\cdots\phi_{i_n}^*(\rr_n,s_{zn})\phi_{j_1}(\rr_1',s_{z1}')\cdots\phi_{j_n}(\rr_n',s_{zn}')
+    \bra<\rr_1,s_{z1},\ldots,\rr_n,s_{zn}|f\ket|\rr_1',s_{z1}',\ldots,\rr_n',s_{zn}'>                                                                                                                                                                     \\
+                           & \quad\ \phi_{i_1}(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\phi_{i_n}(\rr_n, s_{zn})\hat{\phi}^\dagger(\rr_n, s_{zn})
+    \phi_{j_n}^*(\rr_n', s_{zn}')\hat{\phi}(\rr_n', s_{zn}')\cdots\phi_{j_1}^*(\rr_1', s_{z1}')\hat{\phi}(\rr_1', s_{z1}')                                                                                                                                \\
+                           & = \frac{1}{n!}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\cdots\sum_{s_{zn} = -s}^s\int\dl{\rr_n}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\cdots\sum_{s_{zn}' = -s}^s\int\dl{\rr_n'}                                                       \\
+                           & \quad\ \hat{\phi}^\dagger(\rr_1, s_{z1})\cdots\hat{\phi}^\dagger(\rr_n, s_{zn})\bra<\rr_1,s_{z1},\ldots,\rr_n,s_{zn}|f\ket|\rr_1',s_{z1}',\ldots,\rr_n',s_{zn}'>\hat{\phi}(\rr_n', s_{zn}')\cdots\hat{\phi}(\rr_1', s_{z1}')
   \end{align}
 \end{proof}
-
-\begin{align}
-  V_{s_zs_z'}(\rr) = \bra<s_z|V(\rr, \hat{\ss})\ket|s_z'> = \bra<s_z'|V(\rr, \hat{\ss})\ket|s_z>^* = V_{s_z's_z}(\rr)^*
-\end{align}
-\begin{align}
-  V_{s_{z1}s_{z2}s_{z1}'s_{z2}'}(\rr_1, \rr_2) & = \bra<s_{z1}s_{z2}|V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)\ket|s_{z1}'s_{z2}'>   \\
-                                               & = \bra<s_{z1}'s_{z2}'|V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)\ket|s_{z1}s_{z2}>^* \\
-                                               & = V_{s_{z1}'s_{z2}'s_{z1}s_{z2}}(\rr_1, \rr_2)^*
-\end{align}
-
-\begin{example}
+\begin{example}[Q21-87, Q21-88, Q21-89(i)(ii), Q21-90, Q21-91(i)(ii)(iii)(iv), Q21-92]
+  1 粒子演算子, 2 粒子演算子の和も同様に成り立ち, よくある物理系では次の関数を選ぶ.
   \begin{align}
-    \hat{h} & = \frac{\hat{\pp}^2}{2m} + V(\hat{\rr}, \hat{\ss}) = -\frac{\hbar^2}{2m}\nabla_{\rr}^2 + V(\hat{\rr}, \hat{\ss})
+    \hat{h} & = - \frac{\hbar^2}{2m}\nabla_{\rr}^2 + V(\rr, \hat{\ss}) \\
+    \hat{v} & = V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)
   \end{align}
   \begin{align}
-    \hat{H} & = \sum_{s_z = -s}^{s}\int\dl{\rr}\hat{\phi}^\dagger(\rr, s_z)
+    \hat{h}^{\mathrm{tot}} & = \sum_{s_{z1} = -s}^s\int\dl{\rr_1}\sum_{s_{z2} = -s}^s\int\dl{\rr_2}\hat{\phi}^\dagger(\rr_1, s_{z1})\bra<\rr_1,s_{z1}|h\ket|\rr_2,s_{z2}>\hat{\phi}(\rr_2, s_{z2})                                                                                                                 \\
+                           & = \sum_{s_z = -s}^s\int\dl{\rr}\sum_{s_z' = -s}^s\int\dl{\rr'}\hat{\phi}^\dagger(\rr, s_z)\bra<\rr,s_z|\ab[-\frac{\hbar^2}{2m}\nabla_{\rr}^2 + V(\rr, \hat{\ss})]\ket|\rr',s_z'>\hat{\phi}(\rr', s_z')                                                                                \\
+                           & = \sum_{s_z = -s}^s\int\dl{\rr}\sum_{s_z' = -s}^s\int\dl{\rr'}\hat{\phi}^\dagger(\rr, s_z)\ab[-\frac{\hbar^2}{2m}\braket<\rr,s_z|\rr',s_z'>\nabla_{\rr}^2 + \braket<\rr|\rr'>\bra<s_z|V(\rr, \hat{\ss})\ket|s_z'>]\hat{\phi}(\rr', s_z')                                              \\
+                           & = \sum_{s_z = -s}^{s}\sum_{s_z' = -s}^{s}\int\dl{\rr}\hat{\phi}^\dagger(\rr, s_z)\ab[-\frac{\hbar^2}{2m}\delta_{s_zs_z'}\Delta_{\rr} + V_{s_zs_z'}(\rr)]\hat{\phi}(\rr, s_z')                                                                                                         \\
+    \hat{v}^{\mathrm{tot}} & = \frac{1}{2}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\sum_{s_{z2} = -s}^s\int\dl{\rr_2}\sum_{s_{z3} = -s}^s\int\dl{\rr_3}\sum_{s_{z4} = -s}^s\int\dl{\rr_4}                                                                                                                                 \\
+                           & \quad\ \hat{\phi}^\dagger(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_2, s_{z2})\bra<\rr_1,s_{z1},\rr_2,s_{z2}|v\ket|\rr_3,s_{z3},\rr_4,s_{z4}>\hat{\phi}(\rr_4, s_{z4})\hat{\phi}(\rr_3, s_{z3})                                                                                            \\
+                           & = \frac{1}{2}\sum_{s_{z1} = -s}^s\int\dl{\rr_1}\sum_{s_{z2} = -s}^s\int\dl{\rr_2}\sum_{s_{z1}' = -s}^s\int\dl{\rr_1'}\sum_{s_{z2}' = -s}^s\int\dl{\rr_2'}                                                                                                                             \\
+                           & \quad\ \hat{\phi}^\dagger(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_2, s_{z2})\bra<\rr_1,s_{z1},\rr_2,s_{z2}|V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)\ket|\rr_1',s_{z1}',\rr_2',s_{z2}'>\hat{\phi}(\rr_2', s_{z2}')\hat{\phi}(\rr_1', s_{z1}')                                            \\
+                           & = \frac{1}{2}\sum_{s_{z1} = -s}^s\sum_{s_{z1}' = -s}^s\int\dl{\rr_1}\sum_{s_{z2} = -s}^s\sum_{s_{z2}' = -s}^s\int\dl{\rr_2}\hat{\phi}^\dagger(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_2, s_{z2})V_{s_{z1}, s_{z2}, s_{z1}', s_{z2}'}\hat{\phi}(\rr_2, s_{z2}')\hat{\phi}(\rr_1, s_{z1}')
+  \end{align}
+  \begin{align}
+    V_{s_zs_z'}(\rr)                             & = \bra<s_z|V(\rr, \hat{\ss})\ket|s_z'> = \bra<s_z'|V(\rr, \hat{\ss})\ket|s_z>^* = V_{s_z's_z}(\rr)^* \\
+    V_{s_{z1}s_{z2}s_{z1}'s_{z2}'}(\rr_1, \rr_2) & = \bra<s_{z1}s_{z2}|V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)\ket|s_{z1}'s_{z2}'>                    \\
+                                                 & = \bra<s_{z1}'s_{z2}'|V(\rr_1, \hat{\ss}_1, \rr_2, \hat{\ss}_2)\ket|s_{z1}s_{z2}>^*                  \\
+                                                 & = V_{s_{z1}'s_{z2}'s_{z1}s_{z2}}(\rr_1, \rr_2)^*
   \end{align}
 \end{example}
-
-\section{量子化された場の理論は粒子数を固定しない多体系の量子力学に等しい。}
-\begin{definition}
+\begin{definition}[省略記法]
+  ある粒子 $\mu$ の位置座標 $\rr_\mu\in\RR^3$ とスピンの $z$ 成分 $s_{z\mu} = -s,-s+1,\ldots,s-1,s$ の組 $(\rr_\mu, s_{z\mu})$ を $\mu$ とラベル付けする. ラベル $\mu$ と $\ZZ$ への随伴関手は省略する.
+  つまり次のように
   \begin{align}
-    \hat{H}                & = \hat{H}_{\mathrm{one}} + \hat{H}_{\mathrm{two}}                                                                                                                                                                                                                                     \\
-    \hat{H}_{\mathrm{one}} & = \sum_{s_z = -s}^{s}\sum_{s_z' = -s}^{s}\int\dl{\rr}\hat{\phi}^\dagger(\rr, s_z)\ab[-\frac{\hbar^2}{2m}\delta_{s_zs_z'}\Delta_{\rr} + V_{s_zs_z'}(\rr)]\hat{\phi}(\rr, s_z')                                                                                                         \\
-    \hat{H}_{\mathrm{two}} & = \frac{1}{2}\sum_{s_{z1} = -s}^{s}\sum_{s_{z1}' = -s}^{s}\int\dl{\rr_1}\sum_{s_{z2} = -s}^{s}\sum_{s_{z2}' = -s}^{s}\int\dl{\rr_2}\hat{\phi}^\dagger(\rr_1, s_{z1})\hat{\phi}^\dagger(\rr_2, s_{z2})V_{s_{z1}s_{z2}s_{z1}'s_{z2}'}\hat{\phi}(\rr_1, s_{z1})\hat{\phi}(\rr_2, s_{z2})
-  \end{align}
-  \begin{align}
-    i\hbar\diff{}{t}\ket|\Psi(t)> = \hat{H}\ket|\Psi(t)>
-  \end{align}
-  \begin{align}
-    \ket|\Psi(t)> & = \sum_{N=0}^{\infty}\sum_{s_{z1} = -s}^{s}\int\dl{\rr_1}\cdots\sum_{s_{zN} = -s}^{s}\int\dl{\rr_N}\Psi(\rr_1,s_{z1},\ldots,\rr_N,s_{zN};t)|\rr_1,s_{z1},\ldots,\rr_N,s_{zN})
+     & \sum_{\mu}f(\mu) = \sum_{s_z = -s}^{s}\sum_{s_z' = -s}^{s}\int\dl{\rr}f(s_{z\mu}, s_{z'\mu}, \rr_\mu)
   \end{align}
 \end{definition}
-\begin{theorem}
+\begin{align}
+   & (1,\ldots,N|1',\ldots,N') = \delta_{NN'}\delta(1, 1')\cdots\delta(N, N') \\
+   & \hat{1} = \sum_{N = 0}^{\infty}\sum_{1,\ldots,N}|1,\ldots,N)(1,\ldots,N|
+\end{align}
+\begin{align}
+  \hat{f}^{\mathrm{tot}} & = \frac{1}{n!}\sum_{1,\ldots,2n}\hat{\phi}^\dagger(1)\cdots\hat{\phi}^\dagger(n)\bra<1\cdots n|f\ket|n+1\cdots 2n>\hat{\phi}(2n)\cdots\hat{\phi}(n+1)
+\end{align}
+\begin{align}
+  \hat{h}^{\mathrm{tot}} & = \sum_{1,2}\hat{\phi}^\dagger(1)\bra<1|h\ket|2>\hat{\phi}(2)                                                    \\
+                         & = \sum_{1}\hat{\phi}^\dagger(1)\ab[-\frac{\hbar^2}{2m}\Delta_{1} + V(1)]\hat{\phi}(1)                            \\
+  \hat{v}^{\mathrm{tot}} & = \frac{1}{2}\sum_{1,2,3,4}\hat{\phi}^\dagger(1)\hat{\phi}^\dagger(2)\bra<12|v\ket|34>\hat{\phi}(4)\hat{\phi}(3) \\
+                         & = \frac{1}{2}\sum_{1,2}\hat{\phi}^\dagger(1)\hat{\phi}^\dagger(2)V(1, 2)\hat{\phi}(2)\hat{\phi}(1)
+\end{align}
+\begin{align}
+  \begin{dcases}
+    [\hat{\phi}(\mu), \hat{\phi}^\dagger(\nu)]_\mp = \delta(\mu, \nu) \\
+    [\hat{\phi}(\mu), \hat{\phi}(\nu)]_\mp = [\hat{\phi}^\dagger(\mu), \hat{\phi}^\dagger(\nu)]_\mp = 0
+  \end{dcases}
+\end{align}
+
+\section{量子化された場の理論は粒子数を固定しない多体系の量子力学に等しい。}
+\begin{definition}[場の理論]
+  このとき Schrödinger 方程式は次のように書ける.
   \begin{align}
-    \Psi(\rr_{\sigma(1)},s_{z\sigma(1)},\ldots,\rr_{\sigma(N)},s_{z\sigma(N)};t) = (\pm 1)^\sigma\Psi(\rr_1, s_{z1},\ldots,\rr_N,s_{zN}; t)
+    i\hbar\diff{}{t}\ket|\Psi(t)> & = \hat{H}\ket|\Psi(t)>
+  \end{align}
+  ただし場の理論の状態 $\ket|\Psi(t)>$ と Hamiltonian $\hat{H}$ は次のように展開できる.
+  \begin{align}
+     & \ket|\Psi(t)> = \sum_{N=0}^{\infty}\sum_{1,\ldots,N}\Psi(1,\ldots,N; t)|1,\ldots,N)                                                                                                                                                                \\
+     & \hat{H} = \hat{H}_{\mathrm{one}} + \hat{H}_{\mathrm{two}} = \sum_{1}\hat{\phi}^\dagger(1)\ab[-\frac{\hbar^2}{2m}\Delta_{1} + V(1)]\hat{\phi}(1) + \frac{1}{2}\sum_{1,2}\hat{\phi}^\dagger(1)\hat{\phi}^\dagger(2)V(1, 2)\hat{\phi}(2)\hat{\phi}(1)
+  \end{align}
+  $N$ 粒子の多体系の波動関数
+\end{definition}
+\begin{theorem}[Q21-93]
+  展開係数の粒子の置換に関する対称性
+  \begin{align}
+    \Psi(\sigma(1),\ldots,\sigma(N);t) = (\pm 1)^\sigma\Psi(1,\ldots,N; t)
   \end{align}
 \end{theorem}
 \begin{proof}
-
+  \begin{align}
+    \ket|\Psi(t)> & = \sum_{N=0}^{\infty}\sum_{1,\ldots,N}\Psi(1,\ldots,N; t)|1,\ldots,N)                                 \\
+                  & = \sum_{N=0}^{\infty}\sum_{1,\ldots,N}\Psi(\sigma(1),\ldots,\sigma(N); t)|\sigma(1),\ldots,\sigma(N)) \\
+                  & = \sum_{N=0}^{\infty}\sum_{1,\ldots,N}(\pm 1)^\sigma\Psi(\sigma(1),\ldots,\sigma(N); t)|1,\ldots,N)
+  \end{align}
 \end{proof}
+
+\begin{theorem}[Q21-94(i)(ii)(iii)(iv)(v)]
+  \begin{align}
+    [\hat{H}, \hat{N}] & = 0
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    (1,\ldots,N\ket|\Psi(t)> & = \sum_{N' = 0}^{\infty}\sum_{1',\ldots,N''}\Psi(1',\ldots,N''; t)(1,\ldots,N|1',\ldots,N'')                    \\
+                             & = \sum_{N' = 0}^{\infty}\sum_{1',\ldots,N''}\Psi(1',\ldots,N''; t)\delta_{NN'}\delta(1, 1')\cdots\delta(N, N'') \\
+                             & = \sum_{1',\ldots,N'}\Psi(1',\ldots,N'; t)\delta(1, 1')\cdots\delta(N, N')                                      \\
+                             & = \Psi(1,\ldots,N; t)
+  \end{align}
+  \begin{align}
+    [\hat{H}, \hat{N}] & = \hat{H}_{\mathrm{one}} + \hat{H}_{\mathrm{two}} = \sum_{1}\hat{\phi}^\dagger(1)\ab[-\frac{\hbar^2}{2m}\Delta_{1} + V(1)]\hat{\phi}(1) + \frac{1}{2}\sum_{1,2}\hat{\phi}^\dagger(1)\hat{\phi}^\dagger(2)V(1, 2)\hat{\phi}(2)\hat{\phi}(1)
+  \end{align}
+  $N \neq N'$ のとき
+  \begin{align}
+    (1,\ldots,N|\hat{H}|1',\ldots,N'')
+  \end{align}
+\end{proof}
+
+\begin{theorem}[Q21-94(v)(vi)(vii)(viii)(ix)(x)(xi)(xii)(xiii)(xiv)(xv)(xvi)(xvii)(xviii)(xix)(xx)(xxi)(xxii) \\ (xxiii)(xxiv)(xxv)(xxvi)(xxvii)(xxviii)]
+  \begin{align}
+    i\hbar\diffp{}{t}\Psi(1,\ldots,N; t) & = \ab(\sum_{I = 1}^{N}\ab[-\frac{\hbar^2}{2m}\Delta_I + V(I)] + \frac{1}{2}\sum_{\substack{1\leq I\leq N \\ 1\leq J\leq N \\ I \neq J}}V(I, J))\Psi(1,\ldots,N; t)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    i\hbar\diffp{}{t}\Psi(1,\ldots,N; t) & = \sum_{N' = 0}^{\infty}\sum_{1',\ldots,N''}(1,\ldots,N|\hat{H}|1',\ldots,N'')\Psi(1',\ldots,N''; t) \\
+                                         & = \sum_{1',\ldots,N'}(1,\ldots,N|\hat{H}|1',\ldots,N')\Psi(1',\ldots,N'; t)
+  \end{align}
+  \begin{align}
+     & \quad\ \hat{H}_{\mathrm{one}}|1',\ldots,N')                                                                                                                                                                                                                                                               \\
+     & = \sum_{I}\hat{\phi}^\dagger(I)\ab[-\frac{\hbar^2}{2m}\Delta_I + V(I)]\hat{\phi}(I)\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                                                                                \\
+     & = \sum_{I}\hat{\phi}^\dagger(I)\ab[-\frac{\hbar^2}{2m}\Delta_I + V(I)]\frac{1}{\sqrt{N!}}\sum_{J' = 1'}^{N'}(\pm 1)^{J'}\delta(I, J')\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(J'-1)\hat{\phi}^\dagger(J'+1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                           \\
+     & = \sum_{J' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\sum_{I}\hat{\phi}^\dagger(I)\Delta_I\delta(I, J') + \sum_{I}\hat{\phi}^\dagger(I)V(I)\delta(I, J')](\pm 1)^{J'}\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(J'-1)\hat{\phi}^\dagger(J'+1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}> \\
+     & = \sum_{J' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\Delta_{J'}\hat{\phi}^\dagger(J') + V(J')\hat{\phi}^\dagger(J')](\pm 1)^{J'}\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(J'-1)\hat{\phi}^\dagger(J'+1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                     \\
+     & = \sum_{J' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\Delta_{J'} + V(J')]\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                                                                                                   \\
+     & = \sum_{J' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\Delta_{J'} + V(J')]|1',\ldots,N')
+  \end{align}
+  \begin{align}
+     & \quad\ \hat{H}_{\mathrm{two}}|1',\ldots,N')                                                                                                                                                                                                                                        \\
+     & = \frac{1}{2}\sum_{I,J}\hat{\phi}^\dagger(I)\hat{\phi}^\dagger(J)V(I, J)\hat{\phi}(J)\hat{\phi}(I)\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                                          \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(I)\hat{\phi}^\dagger(J)\hat{\phi}(J)\hat{\phi}(I)\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                                          \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(I)\hat{\phi}^\dagger(J)\hat{\phi}(J)\sum_{K' = 1'}^{N'}(\pm 1)^{K'}\delta(I, K')\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(K' - 1)\hat{\phi}^\dagger(K' + 1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}> \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\frac{1}{\sqrt{N!}}\hat{\phi}^\dagger(I)\sum_{K' = 1'}^{N'}(\pm 1)^{K'}\delta(I, K')\sum_{\substack{L' = 1'                                                                                                                                          \\ K' \neq L'}}^{N'}\delta(J, L')\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(K' - 1)\hat{\phi}^\dagger(K' + 1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                                                                                              \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\frac{1}{\sqrt{N!}}\sum_{\substack{1'\leq K'\leq N'                                                                                                                                                                                                  \\ 1'\leq L'\leq N' \\ K' \neq L'}}(\pm 1)^{K'}\delta(I, K')\delta(J, L')\hat{\phi}^\dagger(K')\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(K' - 1)\hat{\phi}^\dagger(K' + 1)\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                        \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\frac{1}{\sqrt{N!}}\sum_{\substack{1'\leq K'\leq N'                                                                                                                                                                                                  \\ 1'\leq L'\leq N' \\ K' \neq L'}}\delta(I, K')\delta(J, L')\hat{\phi}^\dagger(1')\cdots\hat{\phi}^\dagger(N')\ket|\mathrm{vac}>                                                                        \\
+     & = \frac{1}{2}\sum_{I,J}V(I, J)\sum_{\substack{1'\leq K'\leq N'                                                                                                                                                                                                                     \\ 1'\leq L'\leq N' \\ K' \neq L'}}\delta(I, K')\delta(J, L')|1',\ldots,N')
+  \end{align}
+  \begin{align}
+    (1,\ldots,N|\hat{H}_{\mathrm{one}}|1',\ldots,N') & = \sum_{I' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\Delta_{I'} + V(I')](1,\ldots,N|1',\ldots,N')                   \\
+                                                     & = \sum_{I' = 1'}^{N'}\ab[-\frac{\hbar^2}{2m}\Delta_{I'} + V(I')]\delta_{NN}\delta(1, 1')\cdots\delta(N, N') \\
+                                                     & = \sum_{I = 1}^{N}\ab[-\frac{\hbar^2}{2m}\Delta_{I} + V(I)]\delta(1, 1')\cdots\delta(N, N')                 \\
+    (1,\ldots,N|\hat{H}_{\mathrm{two}}|1',\ldots,N') & = \frac{1}{2}\sum_{I,J}V(I, J)\sum_{\substack{1'\leq K'\leq N'                                              \\ 1'\leq L'\leq N' \\ K' \neq L'}}\delta(I, K')\delta(J, L')(1,\ldots,N|1',\ldots,N') \\
+                                                     & = \frac{1}{2}\sum_{I,J}V(I, J)\sum_{\substack{1'\leq K'\leq N'                                              \\ 1'\leq L'\leq N' \\ K' \neq L'}}\delta(I, K')\delta(J, L')\delta_{NN'}\delta(1, 1')\cdots\delta(N, N') \\
+                                                     & = \frac{1}{2}\sum_{\substack{1\leq I\leq N                                                                  \\ 1\leq J\leq N \\ I \neq J}}V(I, J)\delta(1, 1')\cdots\delta(N, N')
+  \end{align}
+  \begin{align}
+    i\hbar\diffp{}{t}\Psi(1,\ldots,N; t) & = \sum_{1',\ldots,N'}(1,\ldots,N|\hat{H}|1',\ldots,N')\Psi(1',\ldots,N'; t)                                                   \\
+                                         & = \sum_{1',\ldots,N'}\ab(\sum_{I = 1}^{N}\ab[-\frac{\hbar^2}{2m}\Delta_{I} + V(I)] + \frac{1}{2}\sum_{\substack{1\leq I\leq N \\ 1\leq J\leq N \\ I \neq J}}V(I, J))\delta(1, 1')\cdots\delta(N, N')\Psi(1',\ldots,N'; t) \\
+                                         & =\ab(\sum_{I = 1}^{N}\ab[-\frac{\hbar^2}{2m}\Delta_{I} + V(I)] + \frac{1}{2}\sum_{\substack{1\leq I\leq N                     \\ 1\leq J\leq N \\ I \neq J}}V(I, J))\Psi(1,\ldots,N; t)
+  \end{align}
+\end{proof}
+
+\section{Heisenberg 表示での場の演算子の運動方程式}
+\begin{theorem}
+  $V_{s_{z0}s_{z1}s_{z0}'s_{z1}'}(\rr_0, \rr_1) = 0$
+  \begin{align}
+    i\hbar\diffp{}{t}\hat{\phi}(\rr, s_z; t) & = -\frac{\hbar^2}{2m}\Delta_{\rr}\hat{\phi}(\rr, s_z; t) + \sum_{s_z' = -s}^{s}V_{s_zs_z'}(\rr)\hat{\phi}(\rr, s_z'; t)
+  \end{align}
+\end{theorem}
+
+\section{第二量子化 - 場の正準量子化の手続き}
+
+\begin{align}
+  -i\hbar\diffp{}{t}\phi(\rr, s_z; t)   & = -\frac{\hbar^2}{2m}\Delta_{\rr}\phi(\rr, s_z; t) + \sum_{s_z' = -s}^{s}V_{s_zs_z'}(\rr)\phi(\rr, s_z'; t)     \\
+  -i\hbar\diffp{}{t}\phi^*(\rr, s_z; t) & = -\frac{\hbar^2}{2m}\Delta_{\rr}\phi^*(\rr, s_z; t) + \sum_{s_z' = -s}^{s}\phi^*(\rr, s_z'; t)V_{s_z's_z}(\rr)
+\end{align}
+
+\section{第二量子化 - 波動描像から粒子描像へ}
 
 \end{document}
