@@ -1112,14 +1112,11 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \begin{proof}
   次の計算により $\hat{a}_i, \hat{a}_i^\dagger$ は互いに Hermite 共役であることがわかる.
   \begin{align}
-    \bra<(n_j)_{j\in I}|\hat{a}_i|(n_j')_{j\in I}\rangle         & = \begin{dcases}
-                                                                       \sqrt{n_i'} & (n_i = n_i' - 1) \\
-                                                                       0           & (n_i \neq n_i')
-                                                                     \end{dcases}    \\
-    \langle(n_j')_{j\in I}|\hat{a}_i^\dagger\ket|(n_j)_{j\in I}> & = \begin{dcases}
-                                                                       \sqrt{n_i + 1} & (n_i + 1 = n_i') \\
-                                                                       0              & (n_i \neq n_i')
-                                                                     \end{dcases}
+    (\bra<n_1,\ldots, n_i, \ldots|\hat{a}_i)\ket|n_1',\ldots, n_i', \ldots> & = \sqrt{n_i + 1}\braket<n_1,\ldots, n_i + 1, \ldots|n_1',\ldots, n_i', \ldots> \\
+                                                                            & = \delta_{n_1n_1'}\cdots\sqrt{n_i + 1}\delta_{n_i+1,n_i'}\cdots                \\
+                                                                            & = \delta_{n_1n_1'}\cdots\sqrt{n_i'}\delta_{n_i,n_i'-1}\cdots                   \\
+                                                                            & = \sqrt{n_i'}\braket<n_1,\ldots, n_i, \ldots|n_1',\ldots, n_i' - 1, \ldots>    \\
+                                                                            & = \bra<n_1,\ldots, n_i, \ldots|(\hat{a}_i\ket|n_1',\ldots, n_i', \ldots>)
   \end{align}
 \end{proof}
 
@@ -1127,22 +1124,18 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
   個数演算子 $\hat{n}_i$ と全粒子数演算子 $\hat{N}$ は Hermite 演算子であり, 固有値は $\hat{n}_i = n_i, \hat{N} = N$ となる.
 \end{proposition}
 \begin{proof}
-  個数演算子 $\hat{n}_i$ は生成消滅演算子に展開することで計算できる.
+  個数演算子 $\hat{n}_i$, 全粒子数演算子 $\hat{N}$ はそれぞれ生成消滅演算子, 個数演算子に展開でき, Hermite 演算子であることがわかる.
   \begin{align}
-    \hat{n}_i^\dagger                & = (\hat{a}_i^\dagger\hat{a}_i)^\dagger = \hat{a}_i^\dagger\hat{a}_i = \hat{n}_i  \\
-    \hat{n}_i\ket|\ldots,n_i,\ldots> & = \hat{a}_i^\dagger\hat{a}_i\ket|\ldots,n_i,\ldots> = n_i\ket|\ldots,n_i,\ldots>
+    \hat{n}_i & = \hat{a}_i^\dagger\hat{a}_i & \hat{n}_i^\dagger & = (\hat{a}_i^\dagger\hat{a}_i)^\dagger = \hat{a}_i^\dagger\hat{a}_i = \hat{n} \\
+    \hat{N}   & = \sum_{i\in I}\hat{n}_i     & \hat{N}^\dagger   & = \sum_{i\in I}\hat{n}_i^\dagger = \sum_{i\in I}\hat{n}_i = \hat{N}
   \end{align}
-  全粒子数演算子 $\hat{N}$ は個数演算子に展開することで計算できる.
+  そして固有値は次のように計算できる.
   \begin{align}
-    \hat{N}^\dagger & = \sum_{i\in I}\hat{n}_i^\dagger = \sum_{i\in I}\hat{n}_i = \hat{N} \\
-    \hat{N}         & = \sum_{i\in I}\hat{n}_i = \sum_{i\in I}n_i = N
+    \hat{n}_i\ket|\ldots,n_i,\ldots> & = \hat{a}_i^\dagger\hat{a}_i\ket|\ldots,n_i,\ldots> = \sqrt{n_i}\hat{a}_i^\dagger\ket|\ldots,n_i-1,\ldots> = n_i\ket|\ldots,n_i,\ldots> \\
+    \hat{N}\ket|(n_i)_{i\in I}>      & = \sum_{j\in I}\hat{n}_j\ket|(n_i)_{i\in I}> = \sum_{j\in I}n_j\ket|(n_i)_{i\in I}> = N\ket|(n_i)_{i\in I}>
   \end{align}
 \end{proof}
 
-ここで粒子が 1 個も存在しないという真空状態を用いて状態を構成することを考える.
-\begin{align}
-  \ket|\mathrm{vac}> = \ket|0,0,0,\ldots>
-\end{align}
 \begin{definition}
   真空状態 $\ket|\mathrm{vac}>$ を次のように定義する.
   \begin{align}
@@ -1152,16 +1145,29 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
     \end{dcases}
   \end{align}
 \end{definition}
-\begin{proposition}[Q21-40(i)(ii)]
-  このとき次のような性質が認められる.
+\begin{proposition}[Q21-40(i)]
+  真空状態 $\ket|\mathrm{vac}>$ は粒子が 1 個も存在しない状態 $\ket|0,\ldots,0,\ldots>$ と同じである.
+  \label{Bose vac 0}
+\end{proposition}
+\begin{proof}
+  任意の個数演算子で係数が $0$ となることから分かる.
+  \begin{align}
+    \hat{n}_i\ket|\mathrm{vac}> & = \hat{a}_i^\dagger\hat{a}_i\ket|\mathrm{vac}> = 0
+  \end{align}
+\end{proof}
+
+\begin{proposition}[Q21-40(ii)]
+  任意の完全正規直交系の元は真空状態を用いて表現できる.
   \begin{align}
     \ket|(n_i)_{i\in I}> & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
   \end{align}
 \end{proposition}
 \begin{proof}
-  それぞれ定義を展開することで導かれる.
+  命題 \ref{Bose vac 0} より次のように変形できる.
   \begin{align}
-    \ket|(n_i)_{i\in I}> & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
+    \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}> & = \prod_{i\in I}\frac{(\hat{a}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|0,\ldots,0,\ldots> \\
+                                                                                  & = \prod_{i\in I}\frac{1}{\sqrt{n_i!}}\sqrt{n_i!}\ket|0,\ldots,n_i,\ldots>            \\
+                                                                                  & = \ket|n_1,\ldots,n_i,\ldots>
   \end{align}
 \end{proof}
 
@@ -1196,42 +1202,79 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
 \begin{definition}
   Fermi 粒子系の消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$ を次のように定義する.
   \begin{align}
-     & \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in\ZZ_N                                                                     \\ i_\mu = i}}(-1)^\mu\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
-     & \hat{c}_i^\dagger\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
+    \begin{dcases}
+      \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in\ZZ_N \\ i_\mu = i}}(-1)^\mu\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
+      \hat{c}_i^\dagger\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
+    \end{dcases}
   \end{align}
   その上で個数演算子 $\hat{n}_i = \hat{c}_i^\dagger\hat{c}$ と全粒子数演算子 $\hat{N} = \sum_{i\in I}\hat{n}_i$ と定義する.
 \end{definition}
 \begin{theorem}[Q21-50]
+  Fermi 粒子系の消滅, 生成演算子 $\hat{c}_i, \hat{c}_i^\dagger$ の定義は次の式と同値である.
   \begin{align}
-    \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A         & = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
-    \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = (-1)^\mu\ket|\phi_{i_1}\cdots\phi_i\cdots\phi_{i_N}>_A
+    \begin{dcases}
+      \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
+      \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu\ket|\phi_{i_1}\cdots\phi_i\cdots\phi_{i_N}>_A
+    \end{dcases}
   \end{align}
 \end{theorem}
 \begin{proof}
   Fermi 粒子系の消滅, 生成演算子の定義は $\ket|\phi_{i_1}\cdots\phi_{i_N}>_A$ の粒子数 $n_i$ を用いて次のようになる.
   \begin{align}
-    \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}         & = \frac{(-1)^\mu}{\sqrt{(N-1)!}}n_i\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}>\ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
-    \hat{c}_i^\dagger\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} & = \frac{1}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
+    \hat{c}_i\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}         & = \frac{(-1)^\mu n_i}{\sqrt{(N-1)!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
+    \hat{c}_i^\dagger\frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} & = \frac{1}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}                                                                                            \\
+                                                                                                                 & = \frac{(-1)^\mu}{\sqrt{(N+1)!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_i> \cdots \ket|\phi_{i_N}>\end{bmatrix}
   \end{align}
-  Fermi 粒子系の粒子数表示は次のように展開できる.
+  Fermi 粒子系の状態は次のように展開できる.
   \begin{align}
-    \ket|n_1,n_2,\ldots,n_i,\ldots> = \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
+    \ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \frac{1}{\sqrt{N!}}\Det\begin{bmatrix}\ket|\phi_{i_1}> & \cdots & \ket|\phi_{i_N}>\end{bmatrix}
   \end{align}
   これより定義と次の式は同値である.
   \begin{align}
-    \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A         & = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
-    \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A & = \ket|\phi_i\phi_{i_1}\cdots\phi_{i_N}>_A
+    \begin{dcases}
+      \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
+      \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu\ket|\phi_{i_1}\cdots\phi_i\cdots\phi_{i_N}>_A
+    \end{dcases}
   \end{align}
 \end{proof}
 
 \begin{theorem}[Q21-51]
-  Fermi 粒子系の消滅, 生成演算子を状態に適用すると次のようになる.
+  Fermi 粒子系の消滅, 生成演算子 $\hat{c}_i, \hat{c}_i^\dagger$ の定義は次と同値である.
   \begin{align}
-    \hat{c}_i\ket|\ldots,n_i,\ldots>_A         & = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,1-n_i,\ldots>_A    \\
-    \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A & = (-1)^{\sum_{j=1}^{i-1}n_j}(1-n_i)\ket|\ldots,1-n_i,\ldots>_A
+    \begin{dcases}
+      \hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,1-n_i,\ldots>_A \\
+      \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}(1-n_i)\ket|\ldots,1-n_i,\ldots>_A
+    \end{dcases}
   \end{align}
 \end{theorem}
 \begin{proof}
+  Fermi 粒子系の粒子数表示は次のように展開できる.
+  \begin{align}
+    \ket|n_1,\ldots,n_i,\ldots>_A & = \ket|\phi_{i_1}\cdots\phi_{i_N}>_A
+  \end{align}
+  これに加え, 粒子数が 2 以上だと零状態となることから次のように変形できる.
+  \begin{align}
+     & \begin{dcases}
+         \hat{c}_i\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu n_i\ket|\phi_{i_1}\cdots\phi_{i_{\mu-1}}\phi_{i_{\mu+1}}\cdots\phi_{i_N}>_A \\
+         \hat{c}_i^\dagger\ket|\phi_{i_1}\cdots\phi_{i_N}>_A = (-1)^\mu\ket|\phi_{i_1}\cdots\phi_i\cdots\phi_{i_N}>_A
+       \end{dcases} \\
+    \iff
+     & \begin{dcases}
+         \hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,n_i - 1,\ldots>_A \\
+         \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}\ket|\ldots,n_i + 1,\ldots>_A
+       \end{dcases}                                                                  \\
+    \iff
+     & \begin{dcases}
+         \hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,1 - n_i,\ldots>_A \\
+         \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\ket|\ldots,1 - n_i,\ldots>_A
+       \end{dcases}                                                         \\
+    \iff
+     & \begin{dcases}
+         \hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j} n_i\ket|\ldots,0,\ldots>_A \\
+         \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\ket|\ldots,1,\ldots>_A
+       \end{dcases}
+  \end{align}
+  よって定義と同値である.
 \end{proof}
 
 \begin{theorem}[Q21-52(i)(ii)(iii)(iv)(v)(vi)(vii)(viii)(ix)(x)(xi)(xii)(xiii)(xiv)(xv)(xvi)(xvii)(xviii)(xix)(xx)]
@@ -1241,20 +1284,25 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
   \end{align}
 \end{theorem}
 \begin{proof}
+  消滅演算子 $\hat{c}_i$, 生成演算子 $\hat{c}_i^\dagger$ は次のように表現できた.
   \begin{align}
-    \hat{c}_i\ket|\ldots,n_i,\ldots>_A         & = (-1)^{\sum_{j=1}^{i-1}n_j}n_i\ket|\ldots,0,\ldots>_A       \\
-    \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A & = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\ket|\ldots,1,\ldots>_A
+    \begin{dcases}
+      \hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}n_i\ket|\ldots,0,\ldots>_A \\
+      \hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\ket|\ldots,1,\ldots>_A
+    \end{dcases}
   \end{align}
+  消滅演算子 $\hat{c}_i$, 生成演算子 $\hat{c}_i^\dagger$ を状態 $\ket|\ldots,n_i,\ldots>_A\in\HH_{Fermi}$ に適用すると
   \begin{align}
     \hat{c}_i\hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A         & = (1 - n_i)\ket|\ldots,0,\ldots>_A \\
     \hat{c}_i^\dagger\hat{c}_i\ket|\ldots,n_i,\ldots>_A         & = n_i\ket|\ldots,1,\ldots>_A       \\
     \hat{c}_i\hat{c}_i\ket|\ldots,n_i,\ldots>_A                 & = 0                                \\
     \hat{c}_i^\dagger\hat{c}_i^\dagger\ket|\ldots,n_i,\ldots>_A & = 0
   \end{align}
+  よりそれぞれの反交換関係は次のようになる.
   \begin{align}
     \{\hat{c}_i, \hat{c}_i^\dagger\} = 1, \qquad \{\hat{c}_i, \hat{c}_i\} = \{\hat{c}_i^\dagger, \hat{c}_i^\dagger\} = 0
   \end{align}
-  添字 $i, j$ が $i < j$ の順となっているとき先に $\hat{c}_i$ が適用されると後置の演算子で粒子数が 1 ずれることを考慮して次のようになる.
+  次に異なる添字 $i, j$ が $i < j$ の順となっているとき状態 $\ket|\ldots,n_i,\ldots,n_j,\ldots>\in\HH_{Bose}$ に適用すると次のようになる.
   \begin{align}
     \hat{c}_i\hat{c}_j^\dagger\ket|\ldots,n_i,\ldots,n_j,\ldots>_A         & = (-1)^{\sum_{k=i}^{j-1}n_k}n_i(1 - n_j)\ket|\ldots,1-n_i,\ldots,1-n_j,\ldots>_A           \\
     \hat{c}_j^\dagger\hat{c}_i\ket|\ldots,n_i,\ldots,n_j,\ldots>_A         & = (-1)^{1 + \sum_{k=i}^{j-1}n_k}n_i(1 - n_j)\ket|\ldots,1-n_i,\ldots,1-n_j,\ldots>_A       \\
@@ -1265,35 +1313,38 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
     \hat{c}_i^\dagger\hat{c}_j^\dagger\ket|\ldots,n_i,\ldots,n_j,\ldots>_A & = (-1)^{\sum_{k=i}^{j-1}n_k}(1 - n_i)(1 - n_j)\ket|\ldots,1-n_i,\ldots,1-n_j,\ldots>_A     \\
     \hat{c}_j^\dagger\hat{c}_i^\dagger\ket|\ldots,n_i,\ldots,n_j,\ldots>_A & = (-1)^{1 + \sum_{k=i}^{j-1}n_k}(1 - n_i)(1 - n_j)\ket|\ldots,1-n_i,\ldots,1-n_j,\ldots>_A
   \end{align}
-  $\{A, B\} = \{B, A\}$ 次の反交換関係が求まる.
+  これより $\{A, B\} = \{B, A\}$ も用いてそれぞれの反交換関係は次のようになる.
   \begin{align}
     \{\hat{c}_i, \hat{c}_j^\dagger\} = \{\hat{c}_i, \hat{c}_j\} = \{\hat{c}_i^\dagger, \hat{c}_j^\dagger\} & = 0 \qquad (i\neq j)
   \end{align}
+  よって示された.
 \end{proof}
 
 \begin{proposition}[Q21-53(i)(ii)]
   Fermi 粒子系における消滅演算子 $\hat{c}_i$ と生成演算子 $\hat{c}_i^\dagger$ は互いに Hermite 共役である.
 \end{proposition}
 \begin{proof}
+  次のように計算することで Hermite 共役であることがわかる.
   \begin{align}
-    \bra<n_1',\ldots,n_i',\ldots|\hat{c}_i^\dagger\ket|n_1,\ldots,n_i,\ldots>_A & = (-1)^{\sum_{j=1}^{i-1}n_j}\braket<n_1',\ldots,n_i',\ldots|n_1,\ldots,n_i+1,\ldots>_A                                        \\
-                                                                                & = (-1)^{\sum_{j=1}^{i-1}n_j}\delta_{n_1n_1'}\cdots\delta_{n_{i-1}n_{i-1}'}\delta_{n_i+1n_{i}'}\delta_{n_{i+1}n_{i+1}'}\cdots  \\
-    \bra<n_1,\ldots,n_i,\ldots|\hat{c}_i\ket|n_1',\ldots,n_i',\ldots>_A         & = (-1)^{\sum_{j=1}^{i-1}n_j'}\braket<n_1,\ldots,n_i,\ldots|n_1',\ldots,n_i'-1,\ldots>_A                                       \\
-                                                                                & = (-1)^{\sum_{j=1}^{i-1}n_j'}\delta_{n_1n_1'}\cdots\delta_{n_{i-1}n_{i-1}'}\delta_{n_i+1n_{i}'}\delta_{n_{i+1}n_{i+1}'}\cdots
+    \bra<n_1,\ldots,n_i,\ldots|_A(\hat{c}_i\ket|n_1',\ldots,n_i',\ldots>_A) & = (-1)^{\sum_{j=1}^{i-1}n_j'}n_i'\braket<n_1,\ldots,n_i,\ldots|n_1',\ldots,1-n_i',\ldots>_A       \\
+                                                                            & = (-1)^{\sum_{j=1}^{i-1}n_j'}n_i'\delta_{n_1n_1'}\cdots\delta_{n_i,1-n_i'}\cdots                  \\
+                                                                            & = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\delta_{n_1n_1'}\cdots\delta_{1-n_i,n_i'}\cdots              \\
+                                                                            & = (-1)^{\sum_{j=1}^{i-1}n_j}(1 - n_i)\braket<n_1,\ldots,1 - n_i,\ldots|n_1',\ldots,n_i',\ldots>_A \\
+                                                                            & = (\bra<n_1,\ldots,n_i,\ldots|_A \hat{c}_i)\ket|n_1',\ldots,n_i',\ldots>_A
   \end{align}
-  より Hermite 共役である.
 \end{proof}
 
 \begin{proposition}[Q21-54(i)(ii)(iii)(iv)]
-  \begin{align}
-    \hat{n}_i^\dagger & = \hat{n}_i, \hat{n}_i\ket|\ldots,n_i,\ldots>_A = n_i\ket|\ldots,n_i,\ldots>_A \\
-    \hat{N}^\dagger   & = \hat{N}, \hat{N}\ket|(n_i)_{i\in I}>_A = N\ket|(n_i)_{i\in I}>_A
-  \end{align}
+  個数演算子 $\hat{n}_i$ と全粒子数演算子 $\hat{N}$ は Hermite 演算子であり, それぞれの固有値はそれぞれ $n_i$, $N$ となる.
 \end{proposition}
 \begin{proof}
+  Fermi 系の個数演算子 $\hat{n}_i$ と全粒子数演算子 $\hat{N}$ は次のように展開でき, Hermite 演算子であることがわかる.
   \begin{align}
-    \hat{n}_i^\dagger                  & = (\hat{c}_i^\dagger\hat{c}_i)^\dagger = \hat{c}_i^\dagger\hat{c}_i = \hat{n}_i                                                                  \\
-    \hat{N}^\dagger                    & = \sum_{i\in I}\hat{n}_i^\dagger = \sum_{i\in I}\hat{n}_i = \hat{N}                                                                              \\
+    \hat{n}_i & = \hat{c}_i^\dagger\hat{c}_i & \hat{n}_i^\dagger & = (\hat{c}_i^\dagger\hat{c}_i)^\dagger = \hat{c}_i^\dagger\hat{c}_i = \hat{n}_i \\
+    \hat{N}   & = \sum_{i\in I}\hat{n}_i     & \hat{N}^\dagger   & = \sum_{i\in I}\hat{n}_i^\dagger = \sum_{i\in I}\hat{n}_i = \hat{N}             \\
+  \end{align}
+  また完全正規直交系の粒子数表示 $\ket|(n_i)_{i\in I}>_A$ の固有値は次のようになる.
+  \begin{align}
     \hat{n}_i\ket|\ldots,n_i,\ldots>_A & = \hat{c}_i^\dagger\hat{c}_i\ket|\ldots,n_i,\ldots>_A = (-1)^{2\sum_{j=1}^{i-1}n_j}n_i^2\ket|\ldots,n_i,\ldots>_A = n_i\ket|\ldots,n_i,\ldots>_A \\
     \hat{N}\ket|(n_i)_{i\in I}>_A      & = \sum_{i\in I}\hat{n}_i\ket|(n_i)_{i\in I}>_A = \sum_{i\in I}n_i\ket|(n_i)_{i\in I}>_A = N\ket|(n_i)_{i\in I}>_A
   \end{align}
@@ -1308,26 +1359,39 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
     \end{dcases}
   \end{align}
 \end{definition}
-\begin{proposition}[Q21-55]
-  \begin{align}
-    \ket|(n_i)_{i\in I}> = \prod_{\mu\in\ZZ_N}\hat{c}_{i_\mu}\ket|\mathrm{vac}>
-  \end{align}
+\begin{proposition}[Q21-55(i)]
+  真空状態 $\ket|\mathrm{vac}>$ は粒子が 1 つもない状態 $\ket|0,\ldots,0,\ldots>$ と同じである.
 \end{proposition}
 \begin{proof}
+  個数演算子 $\hat{n}_i$ を適用すると $n_i = 0$ であり, $\ket|0,\ldots,0,\ldots>$ であることがわかる.
+  \begin{align}
+    \hat{n}_i\ket|\mathrm{vac}> = \hat{c}_i^\dagger\hat{c}_i\ket|\mathrm{vac}> = 0
+  \end{align}
+\end{proof}
 
+\begin{theorem}[Q21-55(ii)]
+  任意の完全正規直交系の元は真空状態を用いて表現できる.
+  \begin{align}
+    \ket|(n_i)_{i\in I}> & = \hat{c}_{i_1}^\dagger\cdots\hat{c}_{i_N}^\dagger\ket|\mathrm{vac}> \qquad (i_1 < \cdots < i_N)
+  \end{align}
+\end{theorem}
+\begin{proof}
+  適用する順番が大きい順である為, それ以前の粒子数は必ず $0$ となる. これより次のように計算できる.
+  \begin{align}
+    \hat{c}_{i_1}^\dagger\cdots\hat{c}_{i_N}^\dagger\ket|\mathrm{vac}> & = \hat{c}_{i_1}^\dagger\cdots\hat{c}_{i_N}^\dagger\ket|0,\ldots,0,\ldots> = \ket|(n_i)_{i\in I}>
+  \end{align}
 \end{proof}
 
 \section{Bose, Fermi 粒子系の消滅演算子 $\hat{b}_i$ と生成演算子 $\hat{b}_i^\dagger$}
-前 2 章で行った生成, 消滅演算子を統一する.
-\begin{definition}
-  1 粒子状態の Hilbert 空間 $\HH_{single}$ の完全正規直交系 $(\ket|\phi_i>)_{i\in I}$ に対して
-  完全正規直交系
+\begin{definition}[Bose, Fermi 粒子系の統一]
+  まず Bose 粒子系と Fermi 粒子系を統一した系の Hilbert 空間を $\HH_{\mathrm{M.P.}}$ と定義する.
   \begin{align}
     \HH_{\mathrm{M.P.}} := \begin{dcases}
                              \HH_{Bose}  & (Bose)  \\
                              \HH_{Fermi} & (Fermi)
                            \end{dcases}
   \end{align}
+  更に消滅演算子や行列式, 交換関係の統一的な表記を次のように定義する.
   \begin{align}
     \hat{b}_i & = \begin{dcases}
                     \hat{a}_i & (Bose)  \\
@@ -1342,31 +1406,36 @@ $X = \{0, 1, 2, 3\}$ の置換群 $G$ に対して $\sigma,\tau\in G$ の積 $\s
                                \{\hat{A}, \hat{B}\} & (+)
                              \end{dcases}
   \end{align}
-  真空状態 $\ket|\mathrm{vac}>$
-  \begin{align}
-    \begin{dcases}
-      \hat{b}_i\ket|\mathrm{vac}> = 0 & (i\in I) \\
-      \braket<\mathrm{vac}|\mathrm{vac}> = 1
-    \end{dcases}
-  \end{align}
+  その上で個数演算子 $\hat{n}_i = \hat{b}_i^\dagger\hat{b}_i$ と全粒子数演算子 $\hat{N} = \sum_{i\in I}\hat{n}_i$ を定義する.
 \end{definition}
-これより次の定理が成り立つ. 証明は略.
-\begin{theorem}
-  \begin{align}
-     & \hat{b}_i\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in X                                                                                \\ i_\mu = i}}(\pm1)^\mu\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
-     & \hat{b}_i^\dagger\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
-  \end{align}
-  \begin{align}
-    [\hat{b}_i, \hat{b}_j^\dagger]_\mp & = \delta_{ij}, \quad [\hat{b}_i, \hat{b}_j]_\mp = [\hat{b}_i^\dagger, \hat{b}_j^\dagger]_\mp = 0 \\
-  \end{align}
-  \begin{align}
-    \Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_{\sigma(1)}}> \cdots \ket|\phi_{i_{\sigma(N)}}>\end{bmatrix} = (\pm 1)^\sigma\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
-  \end{align}
-  基底状態
-  \begin{align}
-    \frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\end{bmatrix}
-  \end{align}
-\end{theorem}
+今までの Bose, Fermi 粒子系の定義, 定理を統一的に表記する.
+
+まず生成演算子, 消滅演算子の定義は次のように書ける.
+\begin{align}
+  \begin{dcases}
+    \hat{b}_i\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N-1)!}}\sum_{\substack{\mu\in X \\ i_\mu = i}}(\pm1)^\mu\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_{\mu-1}}> & \ket|\phi_{i_{\mu+1}}>\cdots\ket|\phi_{i_N}>\end{bmatrix} \\
+    \hat{b}_i^\dagger\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix} = \frac{1}{\sqrt{(N+1)!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_i> & \ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}
+  \end{dcases}
+\end{align}
+そしてその交換関係・反交換関係は次のようになる.
+\begin{align}
+  [\hat{b}_i, \hat{b}_j^\dagger]_\mp & = \delta_{ij}, \quad [\hat{b}_i, \hat{b}_j]_\mp = [\hat{b}_i^\dagger, \hat{b}_j^\dagger]_\mp = 0
+\end{align}
+真空状態 $\ket|\mathrm{vac}>$ をこのように定義する.
+\begin{align}
+  \begin{dcases}
+    \hat{b}_i\ket|\mathrm{vac}> = 0 & (i\in I) \\
+    \braket<\mathrm{vac}|\mathrm{vac}> = 1
+  \end{dcases}
+\end{align}
+\begin{align}
+  \ket|(n_i)_{i\in I}> & = \prod_{i\in I}\frac{(\hat{b}_i^\dagger)^{n_i}}{\sqrt{n_i!}}\ket|\mathrm{vac}>
+\end{align}
+
+\begin{align}
+  \Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_{\sigma(1)}}> \cdots \ket|\phi_{i_{\sigma(N)}}>\end{bmatrix} & = (\pm 1)^\sigma\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}> \cdots \ket|\phi_{i_N}>\end{bmatrix}    \\
+  \ket|\phi_{i_1}\cdots\phi_{i_N}>                                                                                                       & = \frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}>\cdots\ket|\phi_{i_N}>\end{bmatrix}
+\end{align}
 
 \section{演算子の粒子数表示: 1 粒子演算子とその和、2 粒子演算子とその和の導入}
 現実の粒子系における観測量はある 1 つの相互作用に関して関与する粒子数は 1 個か 2 個しかない. これを 1 粒子演算子, 2 粒子演算子と呼ぶ.
@@ -1481,12 +1550,14 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
 
 \section{1 粒子状態の完全正規直交系の取り替え}
 \begin{theorem}[Q21-79(i)(ii)(iii)]
-  2 つの完全正規直交系 $(\ket|\phi_i>)_{i\in I}, (\ket|\phi_i'>)_{i\in I}$ に対してそれぞれ消滅演算子 $\hat{b}_i, \hat{b}_i'$
+  2 つの完全正規直交系 $(\ket|\phi_i>)_{i\in I}, (\ket|\phi_i'>)_{i\in I'}$ に対してそれぞれの消滅, 生成演算子 $\hat{b}_i, \hat{b}_i^\dagger$, $\hat{b}_i', \hat{b}_i^{\prime\dagger}$ は次のような関係式が成り立つ.
   \begin{align}
-    \hat{b}_i' & = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j
+    \hat{b}_i'                & = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j         \\
+    \hat{b}_i^{\prime\dagger} & = \sum_{j\in I}\braket<\phi_j|\phi_i'>\hat{b}_j^\dagger
   \end{align}
 \end{theorem}
 \begin{proof}
+  生成演算子の定義より次のように計算できる.
   \begin{align}
     \hat{b}_i^{\prime\dagger}\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}'>\cdots\ket|\phi_{i_N}'>\end{bmatrix}
      & = \frac{1}{\sqrt{(N+1)!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_i'> & \ket|\phi_{i_1}'>\cdots\ket|\phi_{i_N}'>\end{bmatrix}                                    \\
@@ -1495,12 +1566,10 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
      & = \sum_{j\in I}\braket<\phi_j|\phi_i'>\hat{b}_j^\dagger\frac{1}{\sqrt{N!}}\Det^{(\pm)}\begin{bmatrix}\ket|\phi_{i_1}'>\cdots\ket|\phi_{i_N}'>\end{bmatrix}
   \end{align}
   これを
-  \begin{align}
-    \hat{b}_i^{\prime\dagger} & = \sum_{j\in I}\braket<\phi_j|\phi_i'>\hat{b}_j^\dagger
-  \end{align}
   Hermite 共役を取ると示される.
   \begin{align}
-    \hat{b}_i^{\prime} & = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j
+    \hat{b}_i^{\prime\dagger} & = \sum_{j\in I}\braket<\phi_j|\phi_i'>\hat{b}_j^\dagger \\
+    \hat{b}_i^{\prime}        & = \sum_{j\in I}\braket<\phi_i'|\phi_j>\hat{b}_j
   \end{align}
 \end{proof}
 さらに完全正規直交系を入れ替えると次のような式が成り立つ. (Q21-79(iv))
@@ -1513,16 +1582,14 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
   ある完全正規直交系の生成消滅演算子について交換・反交換関係が成り立つことは他の完全正規直交系でも成り立つことと同値である.
 \end{proposition}
 \begin{proof}
-  \begin{align}
-    [\hat{b}_i, \hat{b}_j^\dagger]_\mp = \delta_{ij}, \quad [\hat{b}_i, \hat{b}_j]_\mp = [\hat{b}_i^\dagger, \hat{b}_j^\dagger]_\mp = 0
-  \end{align}
+  $\hat{b}_i', \hat{b}_i^{\prime\dagger}$ について交換・反交換関係が成り立つとき $\hat{b}_i, \hat{b}_i^\dagger$ についても成り立つことを示す.
   \begin{align}
     [\hat{b}_i, \hat{b}_j^\dagger]_\mp         & = \ab[\sum_{k\in I}\braket<\phi_i|\phi_k'>\hat{b}_k', \sum_{l\in I}\braket<\phi_l'|\phi_j>\hat{b}_l^{\prime\dagger}]_\mp = \sum_{k\in I}\sum_{l\in I}\braket<\phi_i|\phi_k'>\braket<\phi_l'|\phi_j>\ab[\hat{b}_k', \hat{b}_l^{\prime\dagger}]_\mp                                   \\
                                                & = \sum_{k\in I}\sum_{l\in I}\braket<\phi_i|\phi_k'>\braket<\phi_l'|\phi_j>\delta_{kl} = \sum_{k\in I}\braket<\phi_i|\phi_k'>\braket<\phi_k'|\phi_j> = \braket<\phi_i|\phi_j> = \delta_{ij}                                                                                          \\
     [\hat{b}_i, \hat{b}_j]_\mp                 & = \ab[\sum_{k\in I}\braket<\phi_i|\phi_k'>\hat{b}_k', \sum_{l\in I}\braket<\phi_j|\phi_l'>\hat{b}_l']_\mp = \sum_{k\in I}\sum_{l\in I}\braket<\phi_i|\phi_k'>\braket<\phi_j|\phi_l'>\ab[\hat{b}_k', \hat{b}_l']_\mp = 0                                                             \\
     [\hat{b}_i^\dagger, \hat{b}_j^\dagger]_\mp & = \ab[\sum_{k\in I}\braket<\phi_k'|\phi_i>\hat{b}_k^{\prime\dagger}, \sum_{l\in I}\braket<\phi_l'|\phi_j>\hat{b}_l^{\prime\dagger}]_\mp = \sum_{k\in I}\sum_{l\in I}\braket<\phi_k'|\phi_i>\braket<\phi_j|\phi_l'>\ab[\hat{b}_k^{\prime\dagger}, \hat{b}_l^{\prime\dagger}]_\mp = 0
   \end{align}
-  完全正規直交系を入れ替えれば逆も示せることがわかる.
+  完全正規直交系を入れ替えれば逆も示せるので同値であることがわかる.
 \end{proof}
 
 \section{場の演算子の導入}
@@ -1538,21 +1605,20 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
 \end{definition}
 今までの消滅, 生成演算子 $\hat{b}_i, \hat{b}_i^\dagger$ から場の演算子へ書き換える. (Q21-81(i)(ii), Q21-82, Q21-83, Q21-84, Q21-85(i)(ii))
 \begin{theorem}
-  ある固有状態 $\ket|\phi_i>$ に関して位置座標・スピンの z 成分により表示を固定した波動関数を $\phi_i(\rr, s_z)$ とする.
-  \begin{align}
-    \phi_i(\rr, s_z) & := \braket<\rr, s_z|\phi_i>
-  \end{align}
+  ある固有状態 $\ket|\phi_i>$ に関して位置座標・スピンの z 成分により表示を固定した波動関数を $\phi_i(\rr, s_z) := \braket<\rr, s_z|\phi_i>$ とする.
   場の演算子とその Hermite 共役 $\hat{\phi}, \hat{\phi}^\dagger$ と消滅, 生成演算子 $\hat{b}_i, \hat{b}_i^\dagger$ は互いに表現できる.
   \begin{align}
-    \hat{\phi}(\rr, s_z)         & = \sum_{i\in I}\phi_i(\rr, s_z)\hat{b}_i           \\
-    \hat{\phi}^\dagger(\rr, s_z) & = \sum_{i\in I}\phi_i^*(\rr, s_z)\hat{b}_i^\dagger
+    \hat{\phi}(\rr, s_z)         & = \sum_{i\in I}\phi_i(\rr, s_z)\hat{b}_i           & \hat{b}_i         & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i^*(\rr, s_z)\hat{\phi}(\rr, s_z)       \\
+    \hat{\phi}^\dagger(\rr, s_z) & = \sum_{i\in I}\phi_i^*(\rr, s_z)\hat{b}_i^\dagger & \hat{b}_i^\dagger & = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i(\rr, s_z)\hat{\phi}^\dagger(\rr, s_z)
   \end{align}
 \end{theorem}
 \begin{proof}
+  まず場の演算子は消滅, 生成演算子を用いて次のように表現できる.
   \begin{align}
     \hat{\phi}(\rr, s_z)         & = \hat{b}_{\rr,s_z}' = \sum_{i\in I}\braket<\rr,s_z|\phi_i>\hat{b}_i = \sum_{i\in I}\phi_i(\rr, s_z)\hat{b}_i                                  \\
     \hat{\phi}^\dagger(\rr, s_z) & = \hat{b}_{\rr,s_z}^{\prime\dagger} = \sum_{i\in I}\braket<\phi_i|\rr,s_z>\hat{b}_i^\dagger = \sum_{i\in I}\phi_i^*(\rr, s_z)\hat{b}_i^\dagger
   \end{align}
+  逆に消滅, 生成演算子は次のように表現できる.
   \begin{align}
     \hat{b}_i         & = \sum_{s_z = -s}^s\int\dl{\rr}\braket<\phi_i|\rr, s_z>\hat{b}_{\rr,s_z}' = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i^*(\rr, s_z)\hat{\phi}(\rr, s_z)                      \\
     \hat{b}_i^\dagger & = \sum_{s_z = -s}^s\int\dl{\rr}\braket<\rr, s_z|\phi_i>\hat{b}_{\rr,s_z}^{\prime\dagger} = \sum_{s_z = -s}^s\int\dl{\rr}\phi_i(\rr, s_z)\hat{\phi}^\dagger(\rr, s_z)
@@ -1566,6 +1632,12 @@ Bose, Fermi 粒子系や 1, 2 粒子演算子を分ける理由がよく分か�
     [\hat{\phi}(\rr, s_z), \hat{\phi}(\rr', s_z')]_\mp         & = [\hat{\phi}^\dagger(\rr, s_z), \hat{\phi}^\dagger(\rr', s_z')]_\mp = 0
   \end{align}
 \end{theorem}
+\begin{proof}
+  \begin{align}
+    [\hat{\phi}(\rr, s_z), \hat{\phi}^\dagger(\rr', s_z')]_\mp & = \delta(\rr - \rr')\delta_{s_zs_z'}                                     \\
+    [\hat{\phi}(\rr, s_z), \hat{\phi}(\rr', s_z')]_\mp         & = [\hat{\phi}^\dagger(\rr, s_z), \hat{\phi}^\dagger(\rr', s_z')]_\mp = 0
+  \end{align}
+\end{proof}
 
 \begin{theorem}
   粒子数密度演算子
