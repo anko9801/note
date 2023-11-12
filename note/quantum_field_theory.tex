@@ -10,6 +10,8 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
+\usepackage{mhchem}
+\usepackage{siunitx}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
 \usepackage{diffcoeff}
@@ -28,7 +30,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{多様体}
+\title{場の理論}
 \author{anko9801}
 \makeatletter
 %
@@ -41,7 +43,6 @@
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Span}{span}
 %
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\RR}{\mathbb{R}}
@@ -55,7 +56,6 @@
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
 \renewcommand{\AA}{\bm{A}}
-\renewcommand{\SS}{\mathfrak{S}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
@@ -167,62 +167,53 @@
 \tableofcontents
 \clearpage
 
-\section{ユークリッド空間}
-ユークリッド空間 $\RR^n$ はすべての多様体の原型となるもの。すべての多様体は局所的に $\RR^n$ のように見える。
-実ベクトル空間 $V, W$
-\begin{align}
-  \Hom(V, W) \ni f: V \to W         \\
-  \alpha^i: \sum v^ie_i \mapsto v^i \\
-  \begin{array}{rccc}
-    f\colon & A                     & \longrightarrow & B                     \\
-            & \rotatebox{90}{$\in$} &                 & \rotatebox{90}{$\in$} \\
-            & x                     & \longmapsto     & f(x)
-  \end{array}
-\end{align}
+\section{量子力学}
+銀 \ce{Ag} を熱して飛ばした銀原子を不均一磁場に通す。
+電子は原子をくるくる回っているので角運動量があり、磁束が出来上がっている。これをスピンと呼ぶ。
+$z$ 方向と $x$ 方向の 2 種類通すことを考える。
+$z$ 方向で $S_z\pm$ が出てきて $S_z+$ を取り出し、$x$ 方向で
 
-座標関数 $\alpha^i$
+光の偏光について縦フィルターを通してから横フィルターを通しても光量ゼロなのに縦と横の間に斜め 45 度フィルターを通すと光が出てくる。
 
 
-曲面の接平面上にあるベクトルを接ベクトルという。
-
-$\RR^n$ の点 $p$ における接空間 $T_p(\RR^n), T_p\RR^n$ の元を接ベクトルという。
-
-\section{}
-\begin{definition}[線形写像]
+\begin{definition}[Hilbert 空間]
+  $\mathcal{H}$ がヒルベルト空間であるとは、$H$ は複素内積空間であって、さらに内積によって誘導される距離関数に関して完備距離空間をなすことを言う。
   \begin{align}
-    L(u + v) & = L(u) + L(v) \\
-    L(rv)    & = rL(v)
+    \langle y, x\rangle           & = \langle x, y\rangle^*                           \\
+    \langle ax_1 + bx_2, y\rangle & = a\langle x_1, y\rangle + b\langle x_2, y\rangle \\
+    \langle x, x\rangle           & \geq 0, \quad \langle x, x\rangle = 0 \iff x = 0
   \end{align}
 \end{definition}
-\begin{definition}[コベクトル]
-  ベクトル空間上の $k$ 変数交代多重線形関数は次数 $k$ の多重コベクトル
+$\mathcal{H}$ に内積が！
+$\mathcal{H}^*$
+$f: V\to W$ $\Hom(V, W)$
+\begin{align}
+  (\ket|a>, \ket|a>) = \braket<a|a> \\
+  a^*\bra<a|
+\end{align}
+$V$ $V$
+関数との関係とは？
+
+\begin{definition}
+  代数を構築する
+  ケット空間
 \end{definition}
 
-\begin{align}
-  V = \Span\{e_i\} \\
-  T_p(\RR^n) = \Span\ab\{\diffp{}{x^i}[p]\}
-\end{align}
-
-余接空間
-\begin{align}
-  T_p^*(\RR^n), T_p^*\RR^n
-\end{align}
-
-
-\begin{definition}[テンソル積]
-  \begin{align}
-    (f\otimes g)(v_1, \ldots, v_{k+l}) = f(v_1,\ldots,v_k)g(v_{k+1},\ldots,v_{k+l})
-  \end{align}
-  \begin{align}
-    \sigma f(v_1,\ldots,v_k) = f(v_{\sigma(1)},\ldots,v_{\sigma(k)})
-  \end{align}
-  \begin{align}
-    Sf & = \sum_{\sigma\in\SS_k}\sigma f             \\
-    Af & = \sum_{\sigma\in\SS_k}(\sgn\sigma)\sigma f
-  \end{align}
-  \begin{align}
-    f\land g & = \frac{1}{k!l!}A(f\otimes g)
-  \end{align}
+\begin{definition}
+  内積
+  ケット空間のコベクトルとしてブラ空間がある。
+  双対空間 $V^*$
+  コベクトル空間 $V^\lor = \Hom(V, \RR)$
 \end{definition}
+
+無限次元ベクトル表現を持つ
+
+
+\section{普遍性}
+\begin{axiom}
+  いかなる粒子状態も粒子交換に関して位相を除いて不変である.
+  組み紐群
+\end{axiom}
+テンソルは定数
 
 \end{document}

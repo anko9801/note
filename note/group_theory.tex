@@ -10,8 +10,12 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
+\usepackage{mhchem}
+\usepackage{siunitx}
+\usepackage{physics2}
+\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
+\usepackage{diffcoeff}
+% \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
@@ -58,6 +62,7 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\renewcommand{\SS}{\mathfrak{S}}
 
 \let\oldcite=\cite
 \renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
@@ -152,18 +157,105 @@
 \tableofcontents
 \clearpage
 
-\section{群論}
+\section{群に触れる}
+\subsection{群ってなんだろう？}
 \begin{definition}[群]
   空集合でない集合 $G$ 上で単位元と逆元を持つ結合的な演算が定義されているとき $G$ を群という。
+  演算 $\cdot$
+  \begin{align}
+    ae = ea = a           \\
+    aa^{-1} = a^{-1}a = e \\
+    (a + b) + c = a + (b + c)
+  \end{align}
 \end{definition}
 
+これはもう覚えるしかないです。
 
+「単位元と逆元を持つ結合的な演算」
+
+と覚えてください。
+
+まずは足し算 $+$ の群を探しに行きます。
+
+$$
+  \CC\supset\RR\supset\QQ\supset\ZZ\supset 2\ZZ\supset\{0\}
+$$
+
+これらが群となっているのは単位元と逆元を持つ結合的な演算であることを調べればいいです。
+\begin{enumerate}
+  \item $(a + b) + c = a + (b + c)$
+  \item $e := 0$, $a^{-1} := -a$
+\end{enumerate}
+
+次に掛け算 $\times$ の群はどうでしょう。
+
+$$
+  \CC^\times\supset\RR^\times\supset\QQ^\times\supset\ZZ^\times\supset\{1\}
+$$
+
+右肩に $\times$ があるのは掛け算に使えない元を取り除いたものと考えればいいです。(環の乗法群)
+例えば実数 $\RR$ は $0$ の逆元はないのでそれを取り除いたものです。
+以下のように大体の代数では $0$ だけを除いたものと思えばいいですが、整数 $\ZZ$ は例外でほとんどの整数の逆元は分数となってしまって整数に戻ってきません。
+辛うじて $\pm 1$ の逆元は $\pm 1\in\ZZ$ なので整数に入って
+
+\begin{align}
+  \CC^\times & = \CC\backslash\{0\} \\
+  \RR^\times & = \RR\backslash\{0\} \\
+  \QQ^\times & = \QQ\backslash\{0\} \\
+  \ZZ^\times & = \{\pm 1\}
+\end{align}
+
+これらが群となっているのは単位元と逆元を持つ結合的な演算であることを調べればいいです。
+\begin{enumerate}
+  \item $(a \times b) \times c = a \times (b \times c)$
+  \item $e := 1$, $a^{-1} := \frac{1}{a}$
+\end{enumerate}
+
+群というのはこのようなものです。
+
+準同型定理、表現論などとても豊富な性質があります。
+一つでも条件を外すと (それらの研究をしている人には申し訳ないが) 殺風景となってしまいます。
+最小の条件でもっとも幅広い分野に適用できる代数構造というのが群なのです。
+
+可換法則 $ab = ba$ が成り立つとき可換群という。
+
+環や体は和と積
+
+\subsection{部分群と生成元}
+
+\begin{definition}[部分群]
+  群 $G$ の部分集合 $H$ が群となるとき $H$ は $G$ の部分群であるという。
+\end{definition}
+
+\begin{definition}
+  $G$ を群として $g\in G$
+  \begin{align}
+    \langle g\rangle := \{g^n\mid n\in\ZZ\}
+  \end{align}
+\end{definition}
+一般的な代数を扱っているのに整数が入っていいのか！？
+
+例えば加法群 $\ZZ$ において $2\in\ZZ$ の巡回部分群は
+\begin{align}
+  \langle 2\rangle = \{2n\mid n\in\ZZ\} = \{\ldots,-4, -2, 0, 2, 4\ldots\} = 2\ZZ \subset\ZZ
+\end{align}
+これが群となっていることがわかるでしょう。
+
+乗法群 $\QQ^\times$ において $2\in\QQ^\times$ の巡回部分群は
+\begin{align}
+  \langle 2\rangle = \{2^n\mid n\in\ZZ\} = \ab\{\ldots, \frac{1}{4}, \frac{1}{2}, 1, 2, 4, 8\ldots\}\subset\QQ
+\end{align}
+
+\subsection{位数}
 \begin{definition}[群の位数]
   群 $G$ の濃度 $|G|$ を群 $G$ の位数という。 \\
   また $G$ について $|G| < \infty$ のとき有限群, $|G| \geq \infty$ のとき無限群という。
 \end{definition}
 
-\begin{definition}[部分群]
-  群 $G$ の部分集合 $H$ が群となるとき $H$ は $G$ の部分群であるという。
-\end{definition}
+
+\subsection{剰余群}
+
+
+
 \end{document}
+
