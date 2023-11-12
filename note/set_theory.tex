@@ -261,7 +261,7 @@
 \begin{definition}
   関係
 
-  任意の要素が順序対となる集合.
+  任意の要素が順序対となる集合。
 
   関係 $R$ に対し, 定義域 $\mathrm{dom}(R)$ と値域 $\mathrm{ran}(R)$ は次のように定義する。
   \begin{align}
@@ -280,6 +280,7 @@
 \begin{proof}
   $R$ は関係であるから任意の $R$ の元は順序対であり, それぞれに対し反転を2回行えば元に戻る。
 \end{proof}
+
 
 \begin{definition}[関数]
   関係 $f$ が $\forall x\in\mathrm{dom}(f),\exists y\in\mathrm{ran}(f)\{\ab<x,y>\in f\}$ を満たすとき $f$ を関数と呼ぶ。また, 関数 $f$ について $A=\mathrm{dom}(f), B\supset\mathrm{ran}(f)$ を満たすとき, $f:A\to B$ と書く。
@@ -305,13 +306,20 @@
 \begin{definition}
   同型写像
   集合と関係の対 $\ab<A, R>, \ab<B, S>$ について
-  全単射 $f:A\to B$ が存在し $\forall x,y\in A(xRy\iff f(x)Sf(y))$ となるとき $\ab<A,R>\cong\ab<B,S>$ と書き, $f$ を同型写像と呼ぶ。
+  全単射 $f:A\to B$ が存在し
+  \begin{align}
+    \ab<A,R>\cong\ab<B,S>:\iff \forall x,y\in A(xRy\iff f(x)Sf(y))
+  \end{align}
+  $f$ を同型写像と呼ぶ。
 
   整列順序
+
   全順序 $\ab<A,R>$ について $A$ の空でない任意の部分集合に必ず $R$-最小の要素があるとき, $\ab<A,R>$ が整列順序であるという。
 
   切片
-  $\mathrm{pred}(A,x,R)\coloneq\{y\in A:yRx\}$
+  \begin{align}
+    \mathrm{pred}(A,x,R) := \{y\in A:yRx\}
+  \end{align}
 \end{definition}
 
 \begin{theorem}
@@ -347,6 +355,13 @@
 \begin{axiom}[選択公理]
   $\forall A\exists R(\text{RはAを整列順序づけする})$
 \end{axiom}
+
+\begin{align}
+  f(x)     & = \{y\in b\mid (x, y)\in f\}                             \\
+  f[a']    & = \{y\in b\mid \exists x(x\in a'\land (x, y)\in f)\}     \\
+  f^{-1}   & = \{(y, x)\in b\times a\mid (x, y)\in f\}                \\
+  g\circ f & = \{(x, z)\in a\times c\mid f(x)\cap g^{-1}(z)\neq\phi\}
+\end{align}
 
 
 \subsection{順序数}
