@@ -56,6 +56,8 @@
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
+\renewcommand{\aa}{\bm{a}}
+\newcommand{\bb}{\bm{b}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
 \newcommand{\ignore}[1]{}
@@ -164,7 +166,38 @@
 \tableofcontents
 \clearpage
 
-\section{金属の Drude 理論}
-金属中ではイオンと伝導電子に分かれ、伝導電子は気体のように振る舞う。
+\section{格子}
+基本単位胞 (primitive unit cell)
+単純立方格子
+
+体心立方格子
+ウィグナーザイツ胞
+
+基本並進ベクトル
+\begin{align}
+  \bm{R}_n = n_1\aa_1 + n_2\aa_2 + n_3\aa_3
+\end{align}
+
+\begin{align}
+  f(\rr + \bm{R}_n) & = f(\rr)
+\end{align}
+1 次元複素 Fourier 変換を拡張することで
+\begin{align}
+  f(\rr) & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)
+\end{align}
+と書けるとする。周期条件を適用することで
+\begin{align}
+  f(\rr + \bm{R}_n) & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot(\rr + \bm{R}_n))                \\
+                    & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)\exp(i\bm{G}_m\cdot\bm{R}_n) \\
+  f(\rr)            & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)
+\end{align}
+より $\bm{G}_m\cdot\bm{R}_n = 2\pi N$ となるから
+\begin{align}
+  \bm{G}_m        & = m_1\bb_1 + m_2\bb_2 + m_3\bb_3 \\
+  \aa_i\cdot\bb_j & = 2\pi\delta_{ij}
+\end{align}
+
+
+
 
 \end{document}

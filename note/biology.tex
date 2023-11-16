@@ -10,6 +10,8 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
+\usepackage{mhchem}
+\usepackage{siunitx}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
 \usepackage{diffcoeff}
@@ -28,7 +30,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{多様体}
+\title{生物学}
 \author{anko9801}
 \makeatletter
 %
@@ -40,8 +42,6 @@
 \DeclareMathOperator{\Log}{Log}
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Span}{span}
 %
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\RR}{\mathbb{R}}
@@ -55,7 +55,6 @@
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
 \renewcommand{\AA}{\bm{A}}
-\renewcommand{\SS}{\mathfrak{S}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
@@ -167,68 +166,20 @@
 \tableofcontents
 \clearpage
 
-\section{ユークリッド空間}
-ユークリッド空間 $\RR^n$ はすべての多様体の原型となるもの。すべての多様体は局所的に $\RR^n$ のように見える。
-実ベクトル空間 $V, W$
-\begin{align}
-  \Hom(V, W) \ni f: V \to W         \\
-  \alpha^i: \sum v^ie_i \mapsto v^i \\
-  \begin{array}{rccc}
-    f\colon & A                     & \longrightarrow & B                     \\
-            & \rotatebox{90}{$\in$} &                 & \rotatebox{90}{$\in$} \\
-            & x                     & \longmapsto     & f(x)
-  \end{array}
-\end{align}
+\section{進化論}
+\subsection{}
+進化とは
+比喩的に
+生物の集団
+\subsection{歴史}
+ミトコンドリア
 
-座標関数 $\alpha^i$
+\subsection{新社会性の DNA の遺伝}
+遺伝は 1/4 の情報
 
+メスは 2 本、オスは 1 本
+メスから
+3/4
 
-曲面の接平面上にあるベクトルを接ベクトルという。
-
-$\RR^n$ の点 $p$ における接空間 $T_p(\RR^n), T_p\RR^n$ の元を接ベクトルという。
-
-\section{}
-\begin{definition}[線形写像]
-  \begin{align}
-    L(u + v) & = L(u) + L(v) \\
-    L(rv)    & = rL(v)
-  \end{align}
-\end{definition}
-\begin{definition}[コベクトル]
-  ベクトル空間上の $k$ 変数交代多重線形関数は次数 $k$ の多重コベクトル
-\end{definition}
-
-\begin{align}
-  V = \Span\{e_i\} \\
-  T_p(\RR^n) = \Span\ab\{\diffp{}{x^i}[p]\}
-\end{align}
-
-余接空間
-\begin{align}
-  T_p^*(\RR^n), T_p^*\RR^n
-\end{align}
-
-
-\begin{definition}[テンソル積]
-  \begin{align}
-    (f\otimes g)(v_1, \ldots, v_{k+l}) = f(v_1,\ldots,v_k)g(v_{k+1},\ldots,v_{k+l})
-  \end{align}
-  \begin{align}
-    \sigma f(v_1,\ldots,v_k) = f(v_{\sigma(1)},\ldots,v_{\sigma(k)})
-  \end{align}
-  \begin{align}
-    Sf & = \sum_{\sigma\in\SS_k}\sigma f             \\
-    Af & = \sum_{\sigma\in\SS_k}(\sgn\sigma)\sigma f
-  \end{align}
-  \begin{align}
-    f\land g & = \frac{1}{k!l!}A(f\otimes g)
-  \end{align}
-\end{definition}
-\begin{align}
-  f(\ldots, v_{i+1}, v_i, \ldots) = -f(\ldots, v_i, v_{i+1}, \ldots)
-\end{align}
-\begin{align}
-  f(v_1,\ldots,v_k) = 0
-\end{align}
 
 \end{document}

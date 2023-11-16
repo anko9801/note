@@ -175,45 +175,84 @@ sub-nudge = 0 mu
   光の速度は全ての慣性系で、光源の速度によらず一定である。
 \end{definition}
 
-\begin{definition}[共変ベクトル・反変ベクトル]
-  計量テンソル $g_{\mu\nu}$ とその逆行列 $g^{\mu\nu}$
-  \begin{align}
-    g_{\mu\nu} = g^{\mu\nu} = \begin{pmatrix}
-                                1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1
-                              \end{pmatrix}
-  \end{align}
-  時刻 $t\in\RR$ と場所 $\bm{x} = (x^1, x^2, x^3)\in\RR^3$ をまとめた時空点 $x = (x^\mu)$ を次の反変ベクトルで表す。
-  \begin{align}
-    x^\mu & = (x^0, x^1, x^2, x^3) := (ct, \rr(t))
-  \end{align}
-  $x$ による微分を共変ベクトルとして次のように定義する。
-  \begin{align}
-    \partial_\mu & = (\partial_0, \partial_1, \partial_2, \partial_3) := \ab(\frac{1}{c}\diffp{}{t}, \nabla)
-  \end{align}
-\end{definition}
+世界線がどんな慣性系
+Lorentz 変換に対して不変
+\begin{align}
+  \dl{s}^2 & := (c\dl{t})^2 - \dl{x}^2 - \dl{y}^2 - \dl{z}^2 = (c\dl{\tau})^2
+\end{align}
+すべての慣性系から見て $ds^2$ は不変であることがわかる。
 
-\begin{proposition}
-  $g < 0$
-\end{proposition}
-\begin{proof}
-  \begin{align}
-    g_{\mu\nu} & = M\eta_{\mu\nu}M^\top                          \\
-    g          & = \det(\eta_{\mu\nu})\det(M)^2 = -\det(M)^2 < 0
-  \end{align}
-\end{proof}
+時刻 $t\in\RR$ と場所 $\bm{x} = (x^1, x^2, x^3)\in\RR^3$ をまとめた時空点 $x = (x^\mu)$ を次の反変ベクトルで表す。
+4次元時空座標 $x^\mu$ を定義する。
+\begin{align}
+  x^\mu & := (x^0, x^1, x^2, x^3) = (ct, x, y, z)    \\
+  x_\mu & := (x_0, x_1, x_2, x_3) = (ct, -x, -y, -z)
+\end{align}
+添字の上下で
+\begin{align}
+  x^0 = x_0, \quad x^1 = -x_1, \quad x^2 = -x_2, \quad x^3 = -x_3
+\end{align}
+これが次のように表される。
+\begin{align}
+  ds^2 & = \sum_{\mu = 0}^3 dx_\mu dx^\mu            \\
+       & = dx_0dx^0 + dx_1dx^1 + dx_2dx^2 + dx_3dx^3 \\
+       & = (cdt)^2 - dx^2 - dy^2 - dz^2
+\end{align}
+このように上付き添字を持つものは反変ベクトル $V^\mu$, 下付き添字を持つものは共変ベクトル $V_\mu$ と呼びます。
+物理的な内容は同じですが表現が違うものです。
+ただの表記の違い
 
-\begin{definition}[世界間隔]
-  \begin{align}
-    \dl{s}^2 & = (c\dl{t})^2 - \dl{x}^2 - \dl{y}^2 - \dl{z}^2 = (c\dl{\tau})^2
-  \end{align}
-  これらを元に四元速度、四元加速度、四元運動量
-  \begin{align}
-    u^\mu(t) & = \diff{x^\mu}{\tau} = \gamma(c, \dot{\rr})     \\
-    a^\mu(t) & = \diff[2]{x^\mu}{\tau} = \gamma(0, \ddot{\rr}) \\
-    p^\mu    & = mu^\mu = m\gamma(c, \dot{\rr})                \\
-    j^\mu(x) & := (c\rho, \bm{j})                              \\
-  \end{align}
-\end{definition}
+次に基本となる反変ベクトルだけで世界線を表すことを考えてみましょう。これには次の計量テンソル $g_{\mu\nu}$ を定義します。
+\begin{align}
+  g_{\mu\nu} = \begin{pmatrix}
+                 1 & 0  & 0  & 0  \\
+                 0 & -1 & 0  & 0  \\
+                 0 & 0  & -1 & 0  \\
+                 0 & 0  & 0  & -1
+               \end{pmatrix}_{\mu\nu}
+\end{align}
+これにより
+\begin{align}
+  ds^2 & = \sum_{\mu = 0}^3\sum_{\nu = 0}^3 g_{\mu\nu}dx^\mu dx^\nu          \\
+       & = g_{00}dx^0dx^0 + g_{11}dx^1dx^1 + g_{22}dx^2dx^2 + g_{33}dx^3dx^3 \\
+       & = (cdt)^2 - dx^2 - dy^2 - dz^2
+\end{align}
+総和記号が多くなってきたので Einstein の縮約記法を用いると
+\begin{align}
+  ds^2 = dx_\mu dx^\mu = g_{\mu\nu}dx^\mu dx^\nu
+\end{align}
+計量テンソル $g_{\mu\nu}$ は添字を上下する。
+\begin{align}
+  ds^2 = - d\tau^2
+\end{align}
+
+\begin{align}
+  A^\mu A_\mu = A^\nu A_\nu
+\end{align}
+$x$ による微分を共変ベクトルとして次のように定義する。
+\begin{align}
+  \partial_\mu & := (\partial_0, \partial_1, \partial_2, \partial_3) = \ab(\diffp{}{x^0}, \diffp{}{x^1}, \diffp{}{x^2}, \diffp{}{x^3}) = \ab(\frac{1}{c}\diffp{}{t}, \diffp{}{x}, \diffp{}{y}, \diffp{}{z})
+\end{align}
+
+\subsection{計量}
+とその逆行列 $g^{\mu\nu}$
+\begin{align}
+  g_{\mu\nu} = g^{\mu\nu} = \begin{pmatrix}
+                              1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1
+                            \end{pmatrix}
+\end{align}
+\begin{align}
+  g_{\mu\nu} & = M\eta_{\mu\nu}M^\top                          \\
+  g          & = \det(\eta_{\mu\nu})\det(M)^2 = -\det(M)^2 < 0
+\end{align}
+
+これらを元に四元速度、四元加速度、四元運動量
+\begin{align}
+  u^\mu(t) & = \diff{x^\mu}{\tau} = \gamma(c, \dot{\rr})     \\
+  a^\mu(t) & = \diff[2]{x^\mu}{\tau} = \gamma(0, \ddot{\rr}) \\
+  p^\mu    & = mu^\mu = m\gamma(c, \dot{\rr})                \\
+  j^\mu(x) & := (c\rho, \bm{j})
+\end{align}
 
 運動方程式
 \begin{align}
