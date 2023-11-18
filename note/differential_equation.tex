@@ -58,6 +58,7 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\LL}{\mathcal{L}}
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
 \renewcommand{\AA}{\bm{A}}
@@ -157,6 +158,23 @@
 \maketitle
 \tableofcontents
 \clearpage
+
+\section{ラプラス変換}
+
+\begin{align}
+  \LL[f(t)] & = \int_0^\infty f(t)e^{-st}\dd{t}
+\end{align}
+例えば
+\begin{align}
+  \LL[1]      & = \int_0^\infty e^{-st}\dd{t} = \qty[-\frac{1}{s}e^{-st}]_0^\infty = \frac{1}{s}                                                    \\
+  \LL[t]      & = \int_0^\infty te^{-st}\dd{t} = \qty[-\frac{t}{s}e^{-st}]_0^\infty - \int_0^\infty \qty(-\frac{1}{s}e^{-st})\dd{t} = \frac{1}{s^2} \\
+  \LL[\sin t] & = \int_0^\infty \sin te^{-st}\dd{t} = \int_0^\infty \frac{e^{it} - e^{-it}}{2i}e^{-st}\dd{t}                                        \\
+              & = \frac{1}{2i}\int_0^\infty \qty(e^{-st+it} - e^{-st-it})\dd{t}
+\end{align}
+
+\begin{align}
+  \LL^{-1}[f] & = \lim_{p\to\infty}\frac{1}{2\pi i}\int_{c-ip}^{c+ip}f(s)e^{st}\dd{s}
+\end{align}
 
 \section{特殊関数}
 \subsection{ガウス積分}
