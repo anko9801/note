@@ -10,9 +10,17 @@
 \usepackage{amsthm}
 \usepackage{ascmac}
 % \usepackage[hyphens]{url}
+\usepackage{mhchem}
+\usepackage{siunitx}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
-\usepackage{diffcoeff}
+\usepackage[DIF = {
+op-symbol = d,
+op-order-nudge = 1 mu,
+outer-Ldelim = \left . ,
+outer-Rdelim = \right |,
+sub-nudge = 0 mu
+}]{diffcoeff}
 % \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
@@ -53,6 +61,7 @@
 \newcommand{\EE}{\bm{E}}
 \newcommand{\BB}{\bm{B}}
 \renewcommand{\AA}{\bm{A}}
+\newcommand{\R}{\bm{R}}
 \newcommand{\rr}{\bm{r}}
 \newcommand{\kk}{\bm{k}}
 \newcommand{\pp}{\bm{p}}
@@ -167,37 +176,223 @@
 \clearpage
 
 \section{格子}
-基本単位胞 (primitive unit cell)
-単純立方格子
 
-体心立方格子
-ウィグナーザイツ胞
+\subsection{基本単位胞}
+結晶中での原子・分子は周期的に配列された格子 (lattice) という構造を持っている。
+\begin{definition}[格子]
+  ユークリッド空間 $\RR^n$ において基底となる $\{\aa_i\}_{1\leq i\leq n}$ を選び、$\R_n$ をその整数倍の線形結合で表現できるとする。
+  \begin{align}
+    \R_n & = \sum_{i = 1}^n n_i\aa_i \qquad (n_i\in\ZZ)
+  \end{align}
+  このとき $\aa_i$ を基本並進ベクトル (primitive translation vector) と呼び、$\R_n$ を格子点 (lattice point) または格子ベクトル、$\R_n$ の集合全体を格子 (lattice) と呼ぶ。
+\end{definition}
+\begin{theorem}
+  同じ格子でも基本並進ベクトルの取り方は無数にある。\\
+\end{theorem}
 
-基本並進ベクトル
+3 次元格子の格子点を原子・分子と対応付けたものが結晶構造となる。
+そして格子を細かく区切っていくとある形の繰り返しの構造となっていて、その内面積最小となるものを基本単位胞 (primitive unit cell) と呼ぶ。
+基本単位胞の形状も無数にあり、点のない場所に枠を作ってもよい。
+格子点同士を結ぶ線分の垂直二等分面で囲まれた領域を基本単位胞と選んだものをウィグナーザイツ胞 (Wigner-Seitz cell) と呼ぶ。 \\
+
+1850 年に Bravie は 3 次元空間における格子は 14 種類に限られることを示した。
+その格子群は Bravie 格子と呼ばれる。
+対称性によって格子を分類する。
+\begin{itemize}
+  \item 並進対称性: すべての格子がもつ
+  \item 回転対称性: $C_1$ (恒等), $C_2$ (180\textdegree), $C_3$ (120\textdegree), $C_4$ (90\textdegree), $C_6$ (60\textdegree) のみ
+  \item 鏡映 $m$: $(x, y, z)\mapsto(-x, y, z)$
+  \item 反転 $\overline{1}$: $(x, y, z)\mapsto(-x, -y, -z)$
+  \item 回反 $\overline{4}$: 90\textdegree 回転し上下反転して一致する。
+\end{itemize}
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    対称性    & 格子条件                                  & 対称性      \\
+    \hline \hline
+    正方格子   & $a = b, \theta = 90$\textdegree       & $C_4, m$ \\
+    直方格子   & $a \neq b, \theta = 90$\textdegree    & $C_2, m$ \\
+    斜方格子   & $a \neq b, \theta \neq 90$\textdegree & $C_2$    \\
+    面心直方格子 & $a \neq b, \theta = 90$\textdegree    & $C_2, m$ \\
+    六方格子   & $\theta = 60$\textdegree              & $C_6$    \\
+    \hline
+  \end{tabular}
+  \caption{2 次元 Bravie 格子}
+  \label{table:2D Bravie}
+\end{table}
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    結晶系 & 格子条件        & 単純     & 体心     & 面心     & 底心 \\
+    \hline \hline
+    立方晶 & $a = b = c$ & 単純立方格子 & 体心立方格子 & 面心立方格子 &    \\
+    正方晶 & $a = b = c$ &        &        &        &    \\
+    直方晶 & $a = b = c$ &        &        &        &    \\
+    単斜晶 & $a = b = c$ &        &        &        &    \\
+    三斜晶 & $a = b = c$ &        &        &        &    \\
+    三方晶 & $a = b = c$ &        &        &        &    \\
+    六方晶 & $a = b = c$ &        &        &        &    \\
+    \hline
+  \end{tabular}
+  \caption{3 次元 Bravie 格子}
+  \label{table:3D Bravie}
+\end{table}
+単純立方格子 ($3C_4, 4C_3, 7m$)
+
+周期条件 $f(\rr + \bm{R}_n) = f(\rr)$ を満たす関数 $f(\rr)$ を Fourier 変換すると次のようになる。
 \begin{align}
-  \bm{R}_n = n_1\aa_1 + n_2\aa_2 + n_3\aa_3
+  f(\rr) & = \sum_{m}A_m\exp(i\bm{G}_m\cdot\rr) \qquad \ab(\exp(i\bm{G}_m\cdot\bm{R}_n) = 1)
+\end{align}
+これより $\bm{G}_m\cdot\bm{R}_n = 2\pi N$ となるから $\bm{G}_m$ は次のように表現できる。
+\begin{align}
+  \bm{G}_m & = m_1\bb_1 + m_2\bb_2 + m_3\bb_3 \qquad \ab(\aa_i\cdot\bb_j = 2\pi\delta_{ij})
+\end{align}
+$\bm{G}_m$ を 3 次元の逆格子ベクトル (reciprocal lattice vector) といい、$\bb_1, \bb_2, \bb_3$ を逆格子の基本ベクトルと呼ぶ。
+逆格子ベクトルの集合を逆格子空間と呼ぶ。
+Wigner-Seitz 胞の逆格子空間を Brillouin ゾーンという。
+
+Miller 指数 (Miller indices)
+$[h\ k\ l]$
+\begin{align}
+  \bm{A} & = h\aa_1 + k\aa_2 + l\aa_3
+\end{align}
+
+回折
+
+ラウエ条件 (Laue conditions)
+\begin{align}
+  \bm{K} = \bm{G}_m
+\end{align}
+
+\section{固体における結合}
+
+\subsection{}
+共有結合
+
+電子に対して陽子は質量が大きい為、陽子は固定されていると考えるのが断熱近似
+\begin{align}
+  \hat{H} & = -\frac{\hbar^2}{2m_e}\nabla^2 - \frac{e^2}{4\pi\varepsilon_0r_1} - \frac{e^2}{4\pi\varepsilon_0r_2} + \frac{e^2}{4\pi\varepsilon_0R}
+\end{align}
+LCAO 法 (linear combination of atomic orbitals method)
+\begin{align}
+  H\varphi_i & = \mathcal{E}\varphi_i        \\
+  \varphi    & = c_1\varphi_1 + c_2\varphi_2
+\end{align}
+\begin{align}
+  H_{ij} & := \int\varphi_i^*\hat{H}\varphi_j\dl{\rr} \\
+  S_{ij} & := \int\varphi_i^*\varphi_j\dl{\rr}
+\end{align}
+とすると $H_{11} = H_{22}$, $H_{12} = H_{21}$, $S_{11} = S_{22} = 1$, $S_{12} = S_{21}$ となる。
+このとき計算すると次のような
+\begin{align}
+  \begin{pmatrix}
+    H_{11} - S_{11}\mathcal{E} & H_{12} - S_{12}\mathcal{E} \\
+    H_{21} - S_{21}\mathcal{E} & H_{22} - S_{22}\mathcal{E} \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    c_1 \\ c_2
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    H_{11} - \mathcal{E}  & H_{12} - S\mathcal{E} \\
+    H_{12} - S\mathcal{E} & H_{11} - \mathcal{E}  \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    c_1 \\ c_2
+  \end{pmatrix}
+  = 0
+\end{align}
+このとき行列式を考えることで次の式が成り立つ。
+\begin{align}
+  (H_{11} - \mathcal{E})^2 - (H_{12} - S\mathcal{E})^2 & = 0
+\end{align}
+\begin{align}
+  \mathcal{E}_\pm & = \frac{H_{11} \pm H_{12}}{1 \pm S}                    \\
+  c_1 = c_2       & = \frac{1}{\sqrt{2(1 \pm S)}}                          \\
+  \varphi_\pm     & = \frac{1}{\sqrt{2(1 \pm S)}}(\varphi_1 \pm \varphi_2)
+\end{align}
+
+\section{フォノン}
+\begin{align}
+  M\diff[2]{u_j}{t} & = K(u_{j-1} - u_j) + K(u_{j+1} - u_j) = -K(2u_j - u_{j-1} - u_{j+1})
+\end{align}
+この方程式の解を
+\begin{align}
+  u_j & = Ae^{ijka}e^{-i\omega t}
+\end{align}
+とおくと
+\begin{align}
+  -M\omega^2 & = -K(2 - e^{-ika} - e^{ika})               \\
+             & = -2K(1 - \cos ka)                         \\
+             & = -4K\sin^2\frac{ka}{2}                    \\
+  \omega     & = 2\sqrt{\frac{K}{M}}\ab|\sin\frac{ka}{2}|
+\end{align}
+$\omega$ と $k$ の関係は分散関係 (dispersion relation) と呼ぶ。
+このとき $\omega$ は周期 $\frac{2\pi}{a}$ で振動する。
+\begin{align}
+  k & = 0 \qquad \omega = 0                               \\
+  k & = \frac{\pi}{a} \qquad \omega = 2\sqrt{\frac{K}{M}} \\
+  k & = \frac{2\pi}{a} \qquad \omega = 0
+\end{align}
+
+
+\subsection{}
+結晶には 2 種類以上の原子からなるものも多い。
+\ce{GaAs} など
+\begin{align}
+  M_A\diff[2]{u_j^A}{t} & = c(u_j^B - u_j^A) - c(u_j^A - u_{j-1}^B) \\
+  M_B\diff[2]{u_j^B}{t} & = c(u_{j+1}^A - u_j^B) - c(u_j^B - u_j^A)
+\end{align}
+\begin{align}
+  u_j^A & = Ae^{ik(n-1)a - i\omega t}           \\
+  u_j^B & = Be^{ik(n-\frac{1}{2})a - i\omega t}
+\end{align}
+\begin{align}
+  -M_A\omega^2A & = -c(2A - B - Be^{-ika}) \\
+  -M_B\omega^2B & = -c(2B - A - Ae^{ika})
+\end{align}
+\begin{align}
+  \begin{pmatrix}
+    M_A\omega^2 - 2c & c(1 + e^{-ika})  \\
+    c(1 + e^{ika})   & M_B\omega^2 - 2c
+  \end{pmatrix}
+  \begin{pmatrix}
+    A \\ B
+  \end{pmatrix}
+  = 0
+\end{align}
+行列式が $0$ であることから
+\begin{align}
+  \omega^2 & = c\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B})\pm\sqrt{\ab(\frac{1}{M_A} + \frac{1}{M_B})^2 - 4\frac{\sin^2\frac{ka}{2}}{M_AM_B}})
+\end{align}
+$k \approx 0$ において
+\begin{align}
+  \omega^2 & = c\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B})\pm\sqrt{\ab(\frac{1}{M_A} + \frac{1}{M_B})^2 - 4\frac{\sin^2\frac{ka}{2}}{M_AM_B}}) \\
+           & \approx c\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B})\pm\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B}) - \frac{(ka)^2}{2(M_A + M_B)}))      \\
+           & \approx 2c\ab(\frac{1}{M_A} + \frac{1}{M_B}), \frac{c(ka)^2}{2(M_A + M_B)}                                                    \\
+  \omega   & \approx \sqrt{2c\ab(\frac{1}{M_A} + \frac{1}{M_B})}, a\sqrt{\frac{c}{2(M_A + M_B)}}k
+\end{align}
+これより $k \approx 0$ において線形的な部分と定数的な部分に分けられる。
+音響モードは同じ向き
+光学モードは逆向き
+音速が速いと硬い
+
+波数 $\kk$ とモードの種類 $s$ のフォノンのエネルギーは $E_{\kk,s}$
+\begin{align}
+  E_{\kk,s} = \ab(n_{\kk,s} + \frac{1}{2})\hbar\omega_{\kk,s}
 \end{align}
 
 \begin{align}
-  f(\rr + \bm{R}_n) & = f(\rr)
-\end{align}
-1 次元複素 Fourier 変換を拡張することで
-\begin{align}
-  f(\rr) & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)
-\end{align}
-と書けるとする。周期条件を適用することで
-\begin{align}
-  f(\rr + \bm{R}_n) & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot(\rr + \bm{R}_n))                \\
-                    & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)\exp(i\bm{G}_m\cdot\bm{R}_n) \\
-  f(\rr)            & = \sum_{\bm{G}_m}A_{\bm{G}_m}\exp(i\bm{G}_m\cdot\rr)
-\end{align}
-より $\bm{G}_m\cdot\bm{R}_n = 2\pi N$ となるから
-\begin{align}
-  \bm{G}_m        & = m_1\bb_1 + m_2\bb_2 + m_3\bb_3 \\
-  \aa_i\cdot\bb_j & = 2\pi\delta_{ij}
+  [a_k, a_{k'}^\dagger] = \delta_{kk'}
 \end{align}
 
 
-
+\subsection{Nearly free electron model}
+$V(\rr) \ll 1$
+\begin{align}
+  V(\rr) & = \sum_{\kk}V_{\kk}e^{i\kk\cdot\rr}
+\end{align}
 
 \end{document}
