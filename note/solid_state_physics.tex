@@ -177,7 +177,7 @@ sub-nudge = 0 mu
 
 \section{格子}
 
-\subsection{基本単位胞}
+\subsection{格子空間と逆格子空間}
 結晶中での原子・分子は周期的に配列された格子 (lattice) という構造を持っている。
 \begin{definition}[格子]
   ユークリッド空間 $\RR^n$ において基底となる $\{\aa_i\}_{1\leq i\leq n}$ を選び、$\R_n$ をその整数倍の線形結合で表現できるとする。
@@ -253,21 +253,48 @@ $\bm{G}_m$ を 3 次元の逆格子ベクトル (reciprocal lattice vector) と�
 逆格子ベクトルの集合を逆格子空間と呼ぶ。
 Wigner-Seitz 胞の逆格子空間を Brillouin ゾーンという。
 
+例えば単純立方格子の逆格子空間は単純立方格子
+\begin{align}
+  \begin{alignedat}{3}
+    \aa_1 & = a(1, 0, 0) & \bb_1 & = \frac{2\pi}{a}(1, 0, 0) \\
+    \aa_2 & = a(0, 1, 0) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(0, 1, 0) \\
+    \aa_3 & = a(0, 0, 1) & \bb_3 & = \frac{2\pi}{a}(0, 0, 1)
+  \end{alignedat}
+\end{align}
+面心立方格子の逆格子空間は体心立方格子
+\begin{align}
+  \begin{alignedat}{3}
+    \aa_1 & = \frac{a}{2}(0, 1, 1) & \bb_1 & = \frac{2\pi}{a}(-1, 1, 1) \\
+    \aa_2 & = \frac{a}{2}(1, 0, 1) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(1, -1, 1) \\
+    \aa_3 & = \frac{a}{2}(1, 1, 0) & \bb_3 & = \frac{2\pi}{a}(1, 1, -1)
+  \end{alignedat}
+\end{align}
+体心立方格子の逆格子空間は面心立方格子
+\begin{align}
+\end{align}
+
+\subsection{回折}
+Laue 条件
+\begin{align}
+  \kk = \kk_0 + \bm{G}_m
+\end{align}
+$\kk$ と $\kk_0$ のなす角 $2\theta$
+\begin{align}
+  2|\kk|\sin\theta & = |\bm{G}_m|                                                                    \\
+  2d\sin\theta     & = \lambda \qquad \ab(|\kk| = \frac{2\pi}{\lambda}, |\bm{G}_m| = \frac{2\pi}{d})
+\end{align}
+これを Bragg の条件という。
+
+\subsection{Miller}
 Miller 指数 (Miller indices)
 $[h\ k\ l]$
 \begin{align}
   \bm{A} & = h\aa_1 + k\aa_2 + l\aa_3
 \end{align}
 
-回折
 
-ラウエ条件 (Laue conditions)
-\begin{align}
-  \bm{K} = \bm{G}_m
-\end{align}
 
 \section{固体における結合}
-
 \subsection{}
 共有結合
 
@@ -314,15 +341,14 @@ LCAO 法 (linear combination of atomic orbitals method)
   \varphi_\pm     & = \frac{1}{\sqrt{2(1 \pm S)}}(\varphi_1 \pm \varphi_2)
 \end{align}
 
-\section{フォノン}
+\section{格子振動}
+\subsection{1 種類の原子からなる 1 次元格子振動}
 \begin{align}
-  M\diff[2]{u_j}{t} & = K(u_{j-1} - u_j) + K(u_{j+1} - u_j) = -K(2u_j - u_{j-1} - u_{j+1})
+  M\diff[2]{u_j}{t} & = -K(u_j - u_{j-1}) + K(u_{j+1} - u_j)
 \end{align}
-この方程式の解を
 \begin{align}
   u_j & = Ae^{ijka}e^{-i\omega t}
 \end{align}
-とおくと
 \begin{align}
   -M\omega^2 & = -K(2 - e^{-ika} - e^{ika})               \\
              & = -2K(1 - \cos ka)                         \\
@@ -338,7 +364,7 @@ $\omega$ と $k$ の関係は分散関係 (dispersion relation) と呼ぶ。
 \end{align}
 
 
-\subsection{}
+\subsection{2 種類の原子からなる 1 次元格子振動}
 結晶には 2 種類以上の原子からなるものも多い。
 \ce{GaAs} など
 \begin{align}
@@ -371,28 +397,54 @@ $k \approx 0$ において
 \begin{align}
   \omega^2 & = c\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B})\pm\sqrt{\ab(\frac{1}{M_A} + \frac{1}{M_B})^2 - 4\frac{\sin^2\frac{ka}{2}}{M_AM_B}}) \\
            & \approx c\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B})\pm\ab(\ab(\frac{1}{M_A} + \frac{1}{M_B}) - \frac{(ka)^2}{2(M_A + M_B)}))      \\
-           & \approx 2c\ab(\frac{1}{M_A} + \frac{1}{M_B}), \frac{c(ka)^2}{2(M_A + M_B)}                                                    \\
-  \omega   & \approx \sqrt{2c\ab(\frac{1}{M_A} + \frac{1}{M_B})}, a\sqrt{\frac{c}{2(M_A + M_B)}}k
+           & \approx 2c\ab(\frac{1}{M_A} + \frac{1}{M_B}), \quad \frac{c(ka)^2}{2(M_A + M_B)}                                              \\
+  \omega   & \approx \sqrt{2c\ab(\frac{1}{M_A} + \frac{1}{M_B})}, \quad a\sqrt{\frac{c}{2(M_A + M_B)}}k
 \end{align}
-これより $k \approx 0$ において線形的な部分と定数的な部分に分けられる。
+これより $k \approx 0$ において線形的な音響モードと定数的な光学モードに分けられる。
 音響モードは同じ向き
 光学モードは逆向き
 音速が速いと硬い
 
+1次元の格子振動を量子化する。
+より一般の 3 次元の格子振動はモードの種類 ($s = 1, 2, 3$) による。
+
+\subsection{フォノン}
+\begin{align}
+  u_j                            & = \frac{1}{\sqrt{N}}\sum_{k}u_ke^{ijka} \\
+  \sum_{j = 1}^N e^{ij(k + k')a} & = N\delta_{k,-k'}
+\end{align}
+\begin{align}
+  H & = \sum_{j = 1}^{N}\ab(\frac{1}{2}M\ab(\diffp{u_j}{t})^2 + \frac{1}{2}K(u_{j+1} - u_j)^2)                                                                                    \\
+    & = \sum_{j = 1}^{N}\ab(\frac{1}{2}M\ab(\frac{1}{\sqrt{N}}\sum_{k}\diffp{u_k}{t}e^{ijka})^2 + \frac{1}{2}K\ab(\frac{1}{\sqrt{N}}\sum_{k}u_ke^{ijka}(e^{ika} - 1))^2)          \\
+    & = \sum_{j = 1}^{N}\ab(\frac{1}{2N}M\sum_{k,k'}\diffp{u_k}{t}\diffp{u_{k'}}{t}e^{ij(k + k')a} + \frac{1}{2N}K\sum_{k,k'}u_ku_{k'}(e^{ika} - 1)(e^{ik'a} - 1)e^{ij(k + k')a}) \\
+    & = \frac{1}{2}M\sum_{k}\diffp{u_k}{t}\diffp{u_{-k}}{t} + \frac{1}{2N}K\sum_{k}u_ku_{-k}(e^{ika} - 1)(e^{-ika} - 1)                                                           \\
+    & = \sum_{k}\ab(\frac{1}{2}M\diffp{u_k}{t}\diffp{u_{-k}}{t} + 2K\sin^2\frac{ka}{2}u_ku_{-k})                                                                                  \\
+    & = \sum_{k}\ab(\frac{p_{k}p_{-k}}{2M} + \frac{1}{2}M\omega^2u_ku_{-k})
+\end{align}
+\begin{align}
+  \hat{a}_k         & = \sqrt{\frac{M\omega}{2\hbar}}u_k + \frac{i}{\sqrt{2M\hbar\omega}}p_{-k}   \\
+  \hat{a}_k^\dagger & = \sqrt{\frac{M\omega}{2\hbar}}u_{-k} - \frac{i}{\sqrt{2M\hbar\omega}}p_{k}
+\end{align}
+\begin{align}
+  \hat{H} = \sum_{k}\ab(\hat{a}_k^\dagger\hat{a}_k + \frac{1}{2})\hbar\omega
+\end{align}
+\begin{align}
+  [a_k, a_{k'}^\dagger] = \delta_{kk'}
+\end{align}
 波数 $\kk$ とモードの種類 $s$ のフォノンのエネルギーは $E_{\kk,s}$
 \begin{align}
   E_{\kk,s} = \ab(n_{\kk,s} + \frac{1}{2})\hbar\omega_{\kk,s}
 \end{align}
 
-\begin{align}
-  [a_k, a_{k'}^\dagger] = \delta_{kk'}
-\end{align}
+\section{固体の熱的性質}
+\subsection{}
 
-
+\section{自由電子}
 \subsection{Nearly free electron model}
 $V(\rr) \ll 1$
 \begin{align}
   V(\rr) & = \sum_{\kk}V_{\kk}e^{i\kk\cdot\rr}
 \end{align}
+
 
 \end{document}
