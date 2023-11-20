@@ -277,17 +277,18 @@ $1 \si{u} = M(\ce{^12C})/12 = 931.494$ \si{MeV/c2}
 
 
 \subsection{独立粒子模型}
-核子同士の相互作用を無視してポテンシャルに対して核子を動かす。
-スピンの影響があるので平均するとよくない。
-独立粒子模型がよく成立→平均場近似がよく成立
-他の核子からの核力の平均となる場 平均場は Woods-Saxon Potential となる。
-1 個の核子の運動に着目 1 粒子軌道
+多数の実験結果から陽子または中性子の数が 2, 8, 20, 28, 50, 82, 126 のとき結合エネルギーが大きく、安定していることが結論づけられている。
+これを魔法数 (magic number) と呼ぶ。
+
+原子核は核子の多体問題となっているが、フェルミガス模型から分かるように核子同士の相互作用を無視する独立粒子模型がよい近似となっていることがわかる。
+これより他の核子からの核力の平均の場中で核子の運動を考える平均場近似をする。
+その平均場でよく用いられる Woods-Saxon Potential は次のようになる。
 \begin{align}
-  V(r) & = -\frac{U_0}{1 + \exp(\frac{r - R}{a})}
+  V(r) & = -\frac{U_0}{1 + \exp\ab(\dfrac{r - R}{a})}
 \end{align}
 Woods-Saxon Potential はシュレーディンガー方程式で解析的に解けないので調和振動子のポテンシャルに近似する。
 \begin{align}
-  V(r) & = -V_0 + \frac{1}{2}m\omega^2r^2
+  V(r) & = -V_0 + \frac{1}{2}m\omega^2r^2 \qquad (V_0 = 40\ \si{MeV})
 \end{align}
 このとき量子力学でやったように 3 次元極座標系の微分方程式を解くと波動関数 $\psi_{nlm}(\rr) = R_{nl}(r)Y_{lm}(\theta, \varphi)$ に対してエネルギーは次のようになる。
 \begin{align}
@@ -297,51 +298,165 @@ Woods-Saxon Potential はシュレーディンガー方程式で解析的に解�
 これより $N = 2n + l$ とおくと表 \ref{table:oscillator} のようになる。
 \begin{table}[hbtp]
   \centering
-  \begin{tabular}{|c|c|c|c|c|c|}
+  \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    表示 & $N$ & $n$ & $l$ & $m$                & 縮退度 \\
+    表示 & $N$ & $n$ & $l$ & $m$                & 縮退度 & 殻     \\
     \hline \hline
-    1s & 0   & 0   & 0   & 0                  & 2   \\
-    1p & 1   & 0   & 1   & $-1,0,1$           & 6   \\
-    1d & 2   & 0   & 2   & $-2,-1,0,1,2$      & 10  \\
-    2s & 2   & 1   & 0   & 0                  & 2   \\
-    1f & 3   & 0   & 3   & $-3,-2,-1,0,1,2,3$ & 14  \\
-    2d & 3   & 1   & 1   & $-1,0,1$           & 6   \\
+    1s & 0   & 0   & 0   & 0                  & 2   & 1(2)  \\
+    1p & 1   & 0   & 1   & $-1,0,1$           & 6   & 2(8)  \\
+    1d & 2   & 0   & 2   & $-2,-1,0,1,2$      & 10  & 3(20) \\
+    2s & 2   & 1   & 0   & 0                  & 2   & 3(20) \\
+    1f & 3   & 0   & 3   & $-3,-2,-1,0,1,2,3$ & 14  & 4(40) \\
+    2d & 3   & 1   & 1   & $-1,0,1$           & 6   & 4(40) \\
     \hline
   \end{tabular}
   \caption{調和振動子系の縮退度}
   \label{table:oscillator}
 \end{table}
-spdfghi
+これより平均場近似では魔法数 2, 8, 20, 28, 50, 82, 126 を説明することはできない。
 
-核子が埋まっている
+統計力学を考える。核子が埋まっている
 \begin{align}
-  \sum_{N = 0}^{N_{max}}(N + 1)(N + 2) = \frac{1}{3}(N_{max} + 1)(N_{max} + 2)(N_{max} + 3) \approx \frac{1}{3}(N_{max} + 2)^3
+  D                       & = \sum_{N = 0}^{N_{\max}}(N + 1)(N + 2) = \frac{1}{3}(N_{\max} + 1)(N_{\max} + 2)(N_{\max} + 3)                         \\
+  A                       & = 2D \approx \frac{2}{3}(N_{\max} + 2)^3                                                                                \\
+  \bra<N|r^2\ket|N>       & = \bra<N|x^2 + y^2 + z^2\ket|N> = \frac{\hbar}{m\omega}\ab(N + \frac{3}{2})                                             \\
+  A\ab<r^2>               & = \sum_{N = 0}^{N_{\max}}\frac{\hbar}{m\omega}\ab(N + \frac{3}{2})2(N + 1)(N + 2)                                       \\
+                          & = \frac{1}{2}\frac{\hbar}{m\omega}(N_{\max} + 1)(N_{\max} + 2)^2(N_{\max} + 3)                                          \\
+                          & \approx\frac{1}{2}\frac{\hbar}{m\omega}(N_{\max} + 2)^4 \approx \frac{1}{2}\frac{\hbar}{m\omega}\ab(\frac{3}{2}A)^{4/3} \\
+  \ab<r^2>                & = \frac{\int_0^Rr^24\pi r^2\dl{r}}{\int_0^R4\pi r^2\dl{r}} = \frac{3}{5}R^2 = \frac{3}{5}r_0^2A^{2/3}                   \\
+  \frac{3}{5}r_0^2A^{5/3} & \approx \frac{1}{2}\frac{\hbar}{m\omega}\ab(\frac{3}{2}A)^{4/3}                                                         \\
+  \hbar\omega             & \approx \frac{5}{4}\ab(\frac{3}{2})^{1/3}\frac{\hbar^2}{mr_0^2}A^{-1/3} \approx 40A^{-1/3}\ \si{MeV}
 \end{align}
+結合エネルギーの飽和性 $V_0 \approx 50$ \si{MeV}
 
-$N$ ごとに累積和をとると 2, 8, 20, 40, 70
-
-これより平均場近似では魔法数 2, 8, 20, 50, 82, 126 を説明することはできない。
-
-これに対し Mayer, Jensen はスピン軌道結合力を取り入れることで魔法数を説明した。
-これが強い理由に軸性ベクトル (擬ベクトル) の話がある
+Mayer, Jensen はスピン軌道結合力 (L-S 力) を取り入れることで魔法数を説明した。
 \begin{align}
   V(r) = -V_0 + \underbrace{\frac{1}{2}m\omega^2r^2}_{調和振動⼦} + \underbrace{V_{ls}\bm{l}\cdot\bm{s}}_{スピン軌道結合力}
 \end{align}
-$V_{ls} = -20A^{-2/3}$ \si{MeV}
-
+多数の実験結果から $V_{ls} = -20A^{-2/3}$ \si{MeV} となることが分かっている。
 \begin{align}
-  \langle \bm{l}\cdot\bm{s}\rangle & = \frac{1}{2}[\bm{j}^2 - \bm{l}^2 - \bm{s}^2] = \frac{1}{2} + 1 + 1-
+  \langle \bm{l}\cdot\bm{s}\rangle & = \frac{1}{2}[\bm{j}^2 - \bm{l}^2 - \bm{s}^2] = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - s(s + 1)) \\
+                                   & = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - \frac{3}{4})                                            \\
+                                   & = \begin{dcases}
+                                         \frac{1}{2}l         & (j = l + 1/2) \\
+                                         \frac{1}{2}(- l - 1) & (j = l - 1/2) \\
+                                       \end{dcases}
 \end{align}
-
-標準核密度 $\rho_0 = 0.17$ \si{fm^{-3}}
+これが強い理由に軸性ベクトル (擬ベクトル) の話がある。
+原子核の内部では力が働かず、表面において強い相互作用が働く P-inv, T-inv となるから
 \begin{align}
   V(r) = -V_0 + \underbrace{\frac{1}{2}m\omega^2r^2}_{調和振動⼦} + \underbrace{V_{ls}\bm{l}\cdot\bm{s}}_{スピン軌道結合力} + \underbrace{D\bm{l}^2}_{表面項}
 \end{align}
 
 
-結合エネルギーの飽和性
-$V_0 \approx 50$ \si{MeV}
+
+\subsection{核スピン}
+各核子の波動関数は軌道 $(n, l, j^\pi)$ に依存する。spdfghi
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $(n, l, j^\pi)$ & 表示         & 縮退度 & パリティ & 核 (魔法数) \\
+    \hline \hline
+    $(0, 0, 1/2)$   & $1s_{1/2}$ & 2   & $+$  & 1 (2)   \\
+    $(0, 1, 3/2)$   & $1p_{3/2}$ & 4   & $-$  & 2 (8)   \\
+    $(0, 1, 3/2)$   & $1p_{1/2}$ & 2   & $-$  & 2 (8)   \\
+    $(0, 2, 5/2)$   & $1d_{5/2}$ & 6   & $+$  & 3 (20)  \\
+    $(1, 0, 1/2)$   & $2s_{1/2}$ & 2   & $+$  & 3 (20)  \\
+    $(0, 2, 3/2)$   & $1d_{3/2}$ & 4   & $+$  & 3 (20)  \\
+    $(0, 3, 7/2)$   & $1f_{7/2}$ & 8   & $-$  & 4 (28)  \\
+    $(1, 1, 3/2)$   & $2p_{3/2}$ & 4   & $-$  & 5 (50)  \\
+    $(0, 3, 5/2)$   & $1f_{5/2}$ & 6   & $-$  & 5 (50)  \\
+    $(1, 1, 1/2)$   & $2p_{1/2}$ & 2   & $-$  & 5 (50)  \\
+    $(0, 4, 9/2)$   & $1g_{9/2}$ & 10  & $+$  & 5 (50)  \\
+    \hline
+  \end{tabular}
+  \caption{魔法数}
+  \label{table:magic number}
+\end{table}
+
+\begin{definition}[殻模型]
+  Woods-Saxon ポテンシャルと軌道スピン相互作用により核子の軌道が数 \si{MeV} 以上離れたグループ化した軌道を殻と呼ぶ。
+  その殻の準位数を魔法数と呼び、次のような数となる。
+  \begin{align}
+    2, 8, 20, 28, 50, 82, 126
+  \end{align}
+  ある殻までのすべての軌道が詰まっている状態を閉殻またはコア核という。真空状態ともいう。そこから核子が減った状態を空孔という。
+  それに対して核子がまだ埋まっていない殻をオープン殻という。
+  基底状態は下から順に核子が埋まっている状態、励起状態は飛ばして上の準位が埋まっている状態とする。
+\end{definition}
+\begin{definition}[核スピンとパリティ]
+  原子核において軌道角運動量 $l$, スピン角運動量 $s$ とその和の全⾓運動量を核スピン $J^\pi$
+  \begin{align}
+    \bm{J} & = \sum_{i=1}^{A}\bm{j}_i = \sum_{i=1}^{A}(\bm{l}_i + \bm{s}_i) = \bm{L} + \bm{S}
+  \end{align}
+  パリティは $(-)^l$ となる。
+\end{definition}
+核は Pauli の原理より偶数ならスピンが逆向きになる。
+\begin{itemize}
+  \item 偶偶核の基底状態 $J^\pi = 0^+$
+  \item 偶偶核の第一励起状態 $J^\pi = 2^+$
+\end{itemize}
+閉殻は全ての軌道が埋まっており核スピンが $0^+$ で方向性を持たないから球形となる。
+Finite Range Liquid Drop Model によるとオープン核に核子があると集団的に楕円形に変形する。(自発的対称性の破れ)
+Atomic Data and Nuclear Data Tables,109,1 (2016).
+P.Moller, A.J.Sierk, T.Ichikawa, H.Sagawa
+
+閉殻 $0^+$ に 1 核子 (中性子) をオープン核に入れることを考える。
+このとき全体の核スピン $J^\pi$ は核子のスピン $j^\pi$ と一致する。
+\begin{align}
+  (原⼦核  の波動関数) \approx (⼀粒⼦軌道の波動関数) \otimes (コア核 \ce{^AZ} の波動関数)
+\end{align}
+\begin{align}
+  \Psi(\ce{^{A+1}Z}(J^\pi)) \approx \phi(n,l,j^\pi)\otimes\Psi(\ce{^AZ}(0^+))
+\end{align}
+\begin{align}
+  \Psi(\ce{^41Ca}(7/2^-))   & \approx \phi_n(1f_{7/2})\otimes\Psi(\ce{^40Ca(0^+)})             \\
+  \Psi(\ce{^17O}\ab(5/2^+)) & = \sqrt{S_j}\phi_n(1d_{5/2})\otimes\Psi(\ce{^16O(0^+)}) + \cdots
+\end{align}
+$S_j$ スペクトロスコピック因⼦
+断⾯積: →⼀粒⼦軌道の度合いがSjからわかる。
+17Oの場合 $S_j \approx 1$ であることが実験から分かっている
+→閉殻＋１の場合, ⼀つの⼀粒⼦軌道が占有
+
+⼀粒⼦軌道状態はストリッピング反応 (Stripping Reaction) により調べられる。
+\begin{align}
+  \ce{^16O} + d \to \ce{^17O} + p
+\end{align}
+このエネルギー保存則、運動量保存則より重陽子の運動エネルギーと出てきた陽子の運動量が分かれば \ce{^17O} の質量が分かる。
+
+⼀空孔軌道状態はピックアップ反応 (Pickup Reaction) により
+\begin{align}
+  \ce{^16O} + p \to \ce{^15O} + d
+\end{align}
+
+
+$l = 0$ (s軌道) に中性⼦が⼊るとき、⾓度分布は0度にピークを持つことを証明せよ
+$\rr\top \bm{q}$
+\begin{align}
+  \bm{l} & = \frac{1}{\hbar}\rr\times\pp
+\end{align}
+
+真反対⽅向に回る２核⼦が対相互作⽤が⼀番強くなる
+核⼦間⼒は“短距離⼒(引⼒)”なので
+(対相互作⽤などのオープン殻の核⼦-核⼦間相互作⽤を残留相互作⽤と呼ぶ）
+したがって(閉殻+2)原⼦核
+の基底状態: �g = 0h
+àすべての偶偶核の基底状態: �! = 0"
+
+偶偶核
+基底状態：例外なく全て $J^\pi = 0^+$
+第⼀励起状態：ほとんど $J^\pi = 2^+$
+
+偶偶核の基底状態はすべて0+である。なぜ？
+奇奇核の場合も基底状態ではあまりないが、励起状態に0+がある可能性がある。
+奇偶核の場合は核スピンは半整数になる。
+
+エネルギースケールが違う
+超微細構造
+
+歪曲波ボルン近似Distorted-Wave Born Approximation DWBA
+平⾯波ボルン近似 Plain-Wave Born Approximation PWBA
 
 
 \subsection{核力}
@@ -437,113 +552,6 @@ r,w交換, 2p交換
 
 低エネルギーのp+p,p+n散乱から散乱の位相差
 も到達距離(ポテンシャルの形）や引⼒か斥⼒かを評価できる。
-
-
-\subsection{核スピン}
-TODO: 軌道と殻の関係の図をここに入れる。
-各核子の波動関数は軌道 $(n, l, j^\pi)$ に依存する。
-\begin{table}[hbtp]
-  \centering
-  \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    $(n, l, j^\pi)$ & 表示         & 縮退度 & パリティ & 核 (魔法数) \\
-    \hline \hline
-    $(0, 0, 1/2)$   & $1s_{1/2}$ & 2   & $+$  & 1 (2)   \\
-    $(0, 1, 3/2)$   & $1p_{3/2}$ & 4   & $-$  & 2 (8)   \\
-    $(0, 1, 3/2)$   & $1p_{1/2}$ & 2   & $-$  & 2 (8)   \\
-    $(0, 2, 5/2)$   & $1d_{5/2}$ &     & $+$  & 3 (20)  \\
-    $(1, 0, 1/2)$   & $2s_{1/2}$ & 2   & $+$  & 3 (20)  \\
-    $(0, 2, 3/2)$   & $1d_{3/2}$ &     & $+$  & 3 (20)  \\
-    $(0, 3, 7/2)$   & $1f_{7/2}$ & 8   & $-$  & 4 (28)  \\
-    \hline
-  \end{tabular}
-  \caption{魔法数}
-  \label{table:}
-\end{table}
-
-\begin{definition}[殻模型]
-  Woods-Saxon ポテンシャルと軌道スピン相互作用により核子の軌道が数 \si{MeV} 以上離れたグループ化した軌道を殻と呼ぶ。
-  その殻の準位数を魔法数と呼び、次のような数となる。
-  \begin{align}
-    2, 8, 20, 50, 82, 126
-  \end{align}
-  ある殻までのすべての軌道が詰まっている状態を閉殻またはコア核という。真空状態ともいう。そこから核子が減った状態を空孔という。
-  それに対して核子がまだ埋まっていない殻をオープン殻という。
-  基底状態は下から順に核子が埋まっている状態、励起状態は飛ばして上の準位が埋まっている状態とする。
-\end{definition}
-\begin{definition}[核スピンとパリティ]
-  原子核において軌道角運動量 $l$, スピン角運動量 $s$ とその和の全⾓運動量を核スピン $J^\pi$
-  \begin{align}
-    \bm{J} & = \sum_{i=1}^{A}\bm{j}_i = \sum_{i=1}^{A}(\bm{l}_i + \bm{s}_i) = \bm{L} + \bm{S}
-  \end{align}
-  パリティは $(-)^l$ となる。
-\end{definition}
-閉殻のときは核スピン $J^\pi = 0^+$ となる。
-形状
-閉殻なら核スピンは $0^+$ であるから球形となる。
-Finite Range Liquid Drop Model によるとオープン核に核子があると集団的に楕円形に変形を引き起こす。(自発的対称性の破れ)
-変形パラメータ $\beta$
-\begin{align}
-  r(\theta) & = R_0(1 + \beta_2Y_0^2(\theta))
-\end{align}
-Atomic Data and Nuclear Data Tables,109,1 (2016).
-P.Moller, A.J.Sierk, T.Ichikawa, H.Sagawa
-
-閉殻 $0^+$ に 1 核子 (中性子) をオープン核に入れることを考える。
-このとき全体の核スピン $J^\pi$ は核子のスピン $j^\pi$ と一致する。
-\begin{align}
-  (原⼦核  の波動関数) \approx (⼀粒⼦軌道の波動関数) \otimes (コア核 \ce{^AZ} の波動関数)
-\end{align}
-\begin{align}
-  \Psi(\ce{^{A+1}Z}(J^\pi)) \approx \phi(n,l,j^\pi)\otimes\Psi(\ce{^AZ}(0^+))
-\end{align}
-\begin{align}
-  \Psi(\ce{^41Ca}(7/2^-))   & \approx \phi_n(1f_{7/2})\otimes\Psi(\ce{^40Ca(0^+)})             \\
-  \Psi(\ce{^17O}\ab(5/2^+)) & = \sqrt{S_j}\phi_n(1d_{5/2})\otimes\Psi(\ce{^16O(0^+)}) + \cdots
-\end{align}
-$S_j$ スペクトロスコピック因⼦
-断⾯積: →⼀粒⼦軌道の度合いがSjからわかる。
-17Oの場合 $S_j \approx 1$ であることが実験から分かっている
-→閉殻＋１の場合, ⼀つの⼀粒⼦軌道が占有
-
-⼀粒⼦軌道状態はストリッピング反応 (Stripping Reaction) により調べられる。
-\begin{align}
-  \ce{^16O} + d \to \ce{^17O} + p
-\end{align}
-このエネルギー保存則、運動量保存則より重陽子の運動エネルギーと出てきた陽子の運動量が分かれば \ce{^17O} の質量が分かる。
-
-⼀空孔軌道状態はピックアップ反応 (Pickup Reaction) により
-\begin{align}
-  \ce{^16O} + p \to \ce{^15O} + d
-\end{align}
-
-
-$l = 0$ (s軌道) に中性⼦が⼊るとき、⾓度分布は0度にピークを持つことを証明せよ
-$\rr\top \bm{q}$
-\begin{align}
-  \bm{l} & = \frac{1}{\hbar}\rr\times\pp
-\end{align}
-
-真反対⽅向に回る２核⼦が対相互作⽤が⼀番強くなる
-核⼦間⼒は“短距離⼒(引⼒)”なので
-(対相互作⽤などのオープン殻の核⼦-核⼦間相互作⽤を残留相互作⽤と呼ぶ）
-したがって(閉殻+2)原⼦核
-の基底状態: �g = 0h
-àすべての偶偶核の基底状態: �! = 0"
-
-偶偶核
-基底状態：例外なく全て $J^\pi = 0^+$
-第⼀励起状態：ほとんど $J^\pi = 2^+$
-
-偶偶核の基底状態はすべて0+である。なぜ？
-奇奇核の場合も基底状態ではあまりないが、励起状態に0+がある可能性がある。
-奇偶核の場合は核スピンは半整数になる。
-
-エネルギースケールが違う
-超微細構造
-
-歪曲波ボルン近似Distorted-Wave Born Approximation DWBA
-平⾯波ボルン近似 Plain-Wave Born Approximation PWBA
 
 \subsection{Fermi 理論}
 ニュートリノ (neutrino)
