@@ -193,13 +193,60 @@ sub-nudge = 0 mu
 - 外力
 - 重力
 
+\begin{definition}[仕事]
+  \begin{align}
+    \dl{W} & = \bm{F}\cdot\dl{\rr}        \\
+    W      & = \int_C \bm{F}\cdot\dl{\rr}
+  \end{align}
+  一般に仕事は経路 $C$ に依存する。
+  仕事が経路に依らない力を保存力という。
+\end{definition}
+保存力のとき始点 $\rr_0$ と終点 $\rr$ を用いて
+\begin{align}
+  W = \int_{\rr_0}^{\rr}\bm{F}\cdot\dl{\rr}
+\end{align}
+ポテンシャルエネルギー $U(\rr)$ を基準点 $\rr_0$ から $\rr$ までに進むのに必要な仕事と定義する。
+\begin{align}
+  U & = -\int_{\rr_0}^{\rr}\bm{F}\cdot\dl{\rr}
+\end{align}
+これは保存力でしか定義できない。
+
+\begin{theorem}[エネルギー保存則]
+  \begin{align}
+    T + U(\rr)
+  \end{align}
+\end{theorem}
+
 
 \section{解析力学}
 ニュートンの運動方程式の書き換えを行う。目的は解きやすくするためと定式化の適用範囲を拡張するためである。
+\begin{align}
+  U(\rr) = -\int_{\rr_0}^{\rr}\bm{F}\dl{\rr}
+\end{align}
 保存力に関するニュートンの運動方程式
 \begin{align}
   m\diff[2]{\rr}{t} = -\nabla U
 \end{align}
+運動エネルギー
+\begin{align}
+  T & = \frac{1}{2}m\dot\rr^2
+\end{align}
+ポテンシャルエネルギー
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline \hline
+    保存力         & ポテンシャルエネルギー                                  & \\
+    \hline \hline
+    重力 (local)  & $mgh$                                        & \\
+    重力 (global) & $-G\dfrac{Mm}{r}$                            & \\
+    バネの力        & $\dfrac{1}{2}kx^2$                           & \\
+    電磁気力        & $- q\phi(\rr, t) + q\dot\rr\cdot\AA(\rr, t)$ & \\
+    \hline
+  \end{tabular}
+  \caption{ポテンシャルエネルギーの表式}
+  \label{table:potential}
+\end{table}
 
 \subsection{ラグランジュ形式}
 \begin{definition}[ラグランジアン]
@@ -225,9 +272,6 @@ sub-nudge = 0 mu
 \begin{align}
   \frac{\partial L}{\partial q_i} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) & = -\frac{\partial U}{\partial q_i} - \frac{dp_i}{dt} = -(\nabla U)_i - ma_i
 \end{align}
-\begin{align}
-  dx^\mu = \frac{\partial x^\mu}{\partial x^\nu}dx^\nu
-\end{align}
 ある座標変換に対して作用積分が対称ならばその対称性に対応する保存量が存在する
 
 
@@ -235,7 +279,7 @@ sub-nudge = 0 mu
 \begin{definition}[ハミルトニアン]
   ハミルトニアン (Hamiltonian)
   \begin{align}
-    H           & = \frac{\pp^2}{2m} + U(\rr) \\
+    H           & = \frac{\pp^2}{2m} + U(\rr, \dot\rr) \\
     H(q_i, p_i) & = \sum_{i}p_i\dot{q}_i - L
   \end{align}
 \end{definition}
@@ -256,8 +300,8 @@ sub-nudge = 0 mu
 \end{axiom}
 作用とは
 \begin{align}
-  S[q]                           & = \int_{t_1}^{t_2}L(q(t), \dot{q}(t), t)\ dt                                                           \\
-  \frac{\delta S[q]}{\delta q_i} & = \frac{\partial L}{\partial q_i} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) = 0
+  S[q]                           & = \int_{t_1}^{t_2}L(q(t), \dot{q}(t), t)\dl{t}                                                 \\
+  \frac{\delta S[q]}{\delta q_i} & = \frac{\partial L}{\partial q_i} - \frac{d}{dt}\ab(\frac{\partial L}{\partial \dot{q}_i}) = 0
 \end{align}
 ボールを投げたときに放物線を描くのはどんな運動もさまざまな軌道の中で等速に近くポテンシャルが高くなるような"ちょうどいい"軌道を選ぶ。
 
@@ -265,6 +309,54 @@ sub-nudge = 0 mu
 変分原理にトキメキを感じるくらい基礎のように見えたならあなたはセンスがあります。
 
 ただトキメキを感じなければ運動方程式と数学的に同値な表現と思った方がいいです。一般の座標系にしただけで意味がない
+
+\subsection{Noether の定理}
+
+\begin{theorem}[Noether's theorem]
+  無限小変換に対して
+  \begin{align}
+    t   & \to t' = t + \delta t       \\
+    q_i & \to q_i' = q_i + \delta q_i
+  \end{align}
+  作用積分が不変に保たれるならば保存量 $\Phi$ が存在する。
+  \begin{align}
+    \Phi = p_i(\delta q_i - \dot{q}_i\delta t) + L\delta t
+  \end{align}
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    \delta S = S' - S & = \int_{t_1'}^{t_2'}L\ab(q_i', \diff{q_i'}{t'})\dl{t'} - \int_{t_1}^{t_2}L(q_i, \dot{q}_i)\dl{t}                                               \\
+                      & = \int_{t_1}^{t_2}L\ab(q_i', \diff{q_i'}{t'})\diff{t'}{t}\dl{t} - \int_{t_1}^{t_2}L(q_i, \dot{q}_i)\dl{t}                                      \\
+                      & = \int_{t_1}^{t_2}\ab(L\ab(q_i', \diff{q_i'}{t'}) - L(q_i, \dot{q}_i))\dl{t} + \int_{t_1}^{t_2}L\ab(q_i', \diff{q_i'}{t'})\dot{\delta t}\dl{t} \\
+                      & = \int_{t_1}^{t_2}\ab(\delta L + L\ab(q_i, \dot{q}_i)\dot{\delta t})\dl{t}
+  \end{align}
+  任意の時間で $\delta S = 0$ となるから $\delta L + L\ab(q_i, \dot{q}_i)\dot{\delta t} = 0$ となる。
+  \begin{align}
+    \delta\dot{q}_i & = \diff{q_i'}{t'} - \dot{q}_i = \diff{t}{t'}\diff{q_i'}{t} - \dot{q}_i = (1 - \dot{\delta t})(\dot{q}_i + \dot{\delta q_i}) - \dot{q}_i = - \dot{q}_i\dot{\delta t} + \dot{\delta q_i}
+  \end{align}
+  \begin{align}
+    \delta L                                      & = L\ab(q_i', \diff{q_i'}{t'}) - L(q_i, \dot{q}_i)                                                                                                                                                                                                      \\
+                                                  & = \diffp{L}{q_i}\delta q_i + \diffp{L}{\dot{q}_i}\ab(- \dot{q}_i\dot{\delta t} + \dot{\delta q_i})                                                                                                                                                     \\
+                                                  & = \ab(\diffp{L}{q_i} - \diff{}{t}\ab(\diffp{L}{\dot{q}_i}))\delta q_i + \diff{}{t}\ab(\diffp{L}{\dot{q}_i}(\delta q_i - \dot{q}_i\delta t)) + \diff{}{t}\ab(\diffp{L}{\dot{q}_i}\dot{q}_i)\delta t                                                     \\
+    \delta L + L\ab(q_i, \dot{q}_i)\dot{\delta t} & = \diff{}{t}\ab(\diffp{L}{\dot{q}_i}(\delta q_i - \dot{q}_i\delta t) + L\delta t) + \diff{}{t}\ab(\diffp{L}{\dot{q}_i}\dot{q}_i)\delta t - \diff{L}{t}\delta t                                                                                         \\
+                                                  & = \diff{}{t}\ab(\diffp{L}{\dot{q}_i}(\delta q_i - \dot{q}_i\delta t) + L\delta t) + \ab(\diff{}{t}\ab(\diffp{L}{\dot{q}_i})\dot{q}_i + \diffp{L}{\dot{q}_i}\ddot{q}_i)\delta t - \ab(\diffp{L}{q_i}\dot{q}_i + \diffp{L}{\dot{q}_i}\ddot{q}_i)\delta t \\
+                                                  & = \diff{}{t}\ab(\diffp{L}{\dot{q}_i}(\delta q_i - \dot{q}_i\delta t) + L\delta t) - \ab(\diffp{L}{q_i} - \diff{}{t}\ab(\diffp{L}{\dot{q}_i}))\dot{q}_i\delta t                                                                                         \\
+                                                  & = \diff{}{t}\ab(\diffp{L}{\dot{q}_i}(\delta q_i - \dot{q}_i\delta t) + L\delta t) = 0
+  \end{align}
+\end{proof}
+
+\begin{example}
+  微少量 $\varepsilon$ を用いて表現する。
+  $p_i(\delta q_i - \dot{q}_i\delta t) + L\delta t$
+  \begin{itemize}
+    \item 並進対称性 $\delta q_i = \varepsilon$, $\delta t = 0$ より $p_i$ は保存量となる。
+    \item 回転対称性 $\delta x_i = -\varepsilon y_i$, $\delta y_i = \varepsilon x_i$, $\delta t = 0$ より $x_ip_{y_i} - y_ip_{x_i} = (\rr\times\pp)_z = L_z$ は保存量となる。
+    \item 時間推進対称性 $\delta q_i = 0$, $\delta t = -\varepsilon$ より $p_i\dot{q}_i - L = H$ は保存量となる。
+  \end{itemize}
+\end{example}
+
+
+\subsection{正準変換}
 
 \subsection{解析力学の復習：点正準変換}
 ある $N$ 自由度の系の一般化座標を $q_1, \ldots, q_N$ として Lagrange 形式では一般化座標 $q_i$ と一般化速度 $\dot{q}_i$ を用いて表現される. このとき一般化運動量 $p_i$ は次のように定められる.
