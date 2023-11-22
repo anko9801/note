@@ -230,7 +230,6 @@ https://www.nobelprize.org/prizes/physics/1961/hofstadter/lecture/
   m_n & = 939.565\ \si{MeV/c^2} \\
   m_e & = 0.511\ \si{MeV/c^2}
 \end{align}
-$1 \si{u} = M(\ce{^12C})/12 = 931.494$ \si{MeV/c2}
 核子は水素原子の電子と同じような軌道となるのか？
 
 原子核の半径 $R$ は核子 1 個当たりの半径 $r_0 = 1.25$ \si{fm} から求まる。
@@ -266,6 +265,10 @@ $1 \si{u} = M(\ce{^12C})/12 = 931.494$ \si{MeV/c2}
   E_F       & = \frac{p_F^2}{2m} = \frac{(\hbar k_F)^2}{2m} = \frac{\hbar^2}{2m}\ab(\frac{3\pi^2 N}{V})^{2/3}                                      \\
   n         & = 2\int d\rr \int d\pp \frac{1}{h^3} = 2\frac{\Omega}{(2\pi)^3}\int_0^{k_F}4\pi k^2dk = 2\frac{\Omega}{(2\pi)^3}\frac{4}{3}\pi k_F^3 \\
   k_F       & = \ab(3\pi^2\frac{n}{\Omega})^{1/3}
+\end{align}
+\begin{align}
+  P_{Fn} & = \hbar k_{Fn} = \hbar\ab(3\pi^2\rho_n)^{1/3} \\
+  P_{Fp} & = \hbar k_{Fp} = \hbar\ab(3\pi^2\rho_p)^{1/3}
 \end{align}
 
 フェルミガス模型に従うことから核子が原子核中でかなり自由に動いていることがわかる。
@@ -333,15 +336,22 @@ Mayer, Jensen はスピン軌道結合力 (L-S 力) を取り入れることで�
 \begin{align}
   V(r) = -V_0 + \underbrace{\frac{1}{2}m\omega^2r^2}_{調和振動⼦} + \underbrace{V_{ls}\bm{l}\cdot\bm{s}}_{スピン軌道結合力}
 \end{align}
+\begin{align}
+  \ab<\bm{l}\cdot\bm{s}> & = \frac{1}{2}[\bm{j}^2 - \bm{l}^2 - \bm{s}^2] = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - s(s + 1)) \\
+                         & = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - \frac{3}{4})                                            \\
+                         & = \begin{dcases}
+                               \frac{1}{2}l         & (j = l + 1/2) \\
+                               \frac{1}{2}(- l - 1) & (j = l - 1/2) \\
+                             \end{dcases}
+\end{align}
 多数の実験結果から $V_{ls} = -20A^{-2/3}$ \si{MeV} となることが分かっている。
 \begin{align}
-  \langle \bm{l}\cdot\bm{s}\rangle & = \frac{1}{2}[\bm{j}^2 - \bm{l}^2 - \bm{s}^2] = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - s(s + 1)) \\
-                                   & = \frac{1}{2}\ab(j(j + 1) - l(l + 1) - \frac{3}{4})                                            \\
-                                   & = \begin{dcases}
-                                         \frac{1}{2}l         & (j = l + 1/2) \\
-                                         \frac{1}{2}(- l - 1) & (j = l - 1/2) \\
-                                       \end{dcases}
+  \Delta\varepsilon_{ls} & = V_{ls}\ab<\bm{l}\cdot\bm{s}> = \begin{dcases}
+                                                              -10A^{-2/3}l       & (j = l + 1/2) \\
+                                                              +10A^{-2/3}(l + 1) & (j = l - 1/2) \\
+                                                            \end{dcases}
 \end{align}
+スピン軌道結合⼒よりスピンと軌道角運動量が同じ向きの方が安定する。
 これが強い理由に軸性ベクトル (擬ベクトル) の話がある。
 原子核の内部では力が働かず、表面において強い相互作用が働く P-inv, T-inv となるから
 \begin{align}
@@ -392,11 +402,23 @@ Mayer, Jensen はスピン軌道結合力 (L-S 力) を取り入れることで�
   \end{align}
   パリティは $(-)^l$ となる。
 \end{definition}
-核は Pauli の原理より偶数ならスピンが逆向きになる。
-\begin{itemize}
-  \item 偶偶核の基底状態 $J^\pi = 0^+$
-  \item 偶偶核の第一励起状態 $J^\pi = 2^+$
-\end{itemize}
+対相互作⽤などのオープン殻の核⼦-核⼦間相互作⽤を残留相互作⽤と呼ぶ
+同じ軌道で傾きが同じで真反対⽅向に回る 2 核⼦が対相互作⽤が⼀番強くなるから核は偶数ならスピンが逆向きになる。$(j, m)$ $(j, -m)$
+
+すべての偶偶核の基底状態: $J^\pi = 0^+$
+Fermi 粒子であるから
+\begin{align}
+  \psi(J, M) & = \frac{1}{2}\sum_{m,m'}(jmjm'|JM)[\phi_1(m)\phi_2(m') - \phi_1(m')\phi_2(m)] \\
+             & = \frac{1}{2}\sum_{m,m'}[(jmjm'|JM) - (jm'jm|JM)]\phi_1(m)\phi_2(m')          \\
+             & = \frac{1}{2}[1 - (-1)^{2j - J}]\sum_{m,m'}(jmjm'|JM)\phi_1(m)\phi_2(m')
+\end{align}
+偶偶核の第⼀励起状態：ほとんど $J^\pi = 2^+$
+\begin{align}
+  J^\pi = 0^+, 2^+, 4^+,\ldots
+\end{align}
+奇奇核の場合も基底状態ではあまりないが、励起状態に0+がある可能性がある。
+奇偶核の場合は核スピンは半整数になる。
+
 閉殻は全ての軌道が埋まっており核スピンが $0^+$ で方向性を持たないから球形となる。
 Finite Range Liquid Drop Model によるとオープン核に核子があると集団的に楕円形に変形する。(自発的対称性の破れ)
 Atomic Data and Nuclear Data Tables,109,1 (2016).
@@ -405,19 +427,18 @@ P.Moller, A.J.Sierk, T.Ichikawa, H.Sagawa
 閉殻 $0^+$ に 1 核子 (中性子) をオープン核に入れることを考える。
 このとき全体の核スピン $J^\pi$ は核子のスピン $j^\pi$ と一致する。
 \begin{align}
-  (原⼦核  の波動関数) \approx (⼀粒⼦軌道の波動関数) \otimes (コア核 \ce{^AZ} の波動関数)
+  (原⼦核 \ce{^{A+1}Z} の波動関数) \approx (⼀粒⼦軌道の波動関数) \otimes (コア核 \ce{^AZ} の波動関数)
 \end{align}
 \begin{align}
   \Psi(\ce{^{A+1}Z}(J^\pi)) \approx \phi(n,l,j^\pi)\otimes\Psi(\ce{^AZ}(0^+))
 \end{align}
 \begin{align}
-  \Psi(\ce{^41Ca}(7/2^-))   & \approx \phi_n(1f_{7/2})\otimes\Psi(\ce{^40Ca(0^+)})             \\
-  \Psi(\ce{^17O}\ab(5/2^+)) & = \sqrt{S_j}\phi_n(1d_{5/2})\otimes\Psi(\ce{^16O(0^+)}) + \cdots
+  \Psi(\ce{^41Ca}(7/2^-))   & \approx \phi_n(1f_{7/2})\otimes\Psi(\ce{^40Ca(0^+)})                                          \\
+  \Psi(\ce{^17O}\ab(5/2^+)) & = \sqrt{S_j}\phi_n(1d_{5/2})\otimes\Psi(\ce{^16O(0^+)}) + \cdots                              \\
+                            & \approx \phi_n(1d_{5/2})\otimes\Psi(\ce{^16O(0^+)}) + \cdots     & (\ce{^17O}: S_j \approx 1)
 \end{align}
-$S_j$ スペクトロスコピック因⼦
-断⾯積: →⼀粒⼦軌道の度合いがSjからわかる。
-17Oの場合 $S_j \approx 1$ であることが実験から分かっている
-→閉殻＋１の場合, ⼀つの⼀粒⼦軌道が占有
+スペクトロスコピック因⼦ $S_j$ は⼀粒⼦軌道の度合いである。
+閉殻＋１の場合, ⼀つの⼀粒⼦軌道が占有してるから
 
 ⼀粒⼦軌道状態はストリッピング反応 (Stripping Reaction) により調べられる。
 \begin{align}
@@ -430,27 +451,11 @@ $S_j$ スペクトロスコピック因⼦
   \ce{^16O} + p \to \ce{^15O} + d
 \end{align}
 
-
 $l = 0$ (s軌道) に中性⼦が⼊るとき、⾓度分布は0度にピークを持つことを証明せよ
 $\rr\top \bm{q}$
 \begin{align}
   \bm{l} & = \frac{1}{\hbar}\rr\times\pp
 \end{align}
-
-真反対⽅向に回る２核⼦が対相互作⽤が⼀番強くなる
-核⼦間⼒は“短距離⼒(引⼒)”なので
-(対相互作⽤などのオープン殻の核⼦-核⼦間相互作⽤を残留相互作⽤と呼ぶ）
-したがって(閉殻+2)原⼦核
-の基底状態: �g = 0h
-àすべての偶偶核の基底状態: �! = 0"
-
-偶偶核
-基底状態：例外なく全て $J^\pi = 0^+$
-第⼀励起状態：ほとんど $J^\pi = 2^+$
-
-偶偶核の基底状態はすべて0+である。なぜ？
-奇奇核の場合も基底状態ではあまりないが、励起状態に0+がある可能性がある。
-奇偶核の場合は核スピンは半整数になる。
 
 エネルギースケールが違う
 超微細構造
@@ -514,7 +519,8 @@ $\pi^0$ は弱い相互作⽤で崩壊しないから電磁気力的に崩壊す
 \end{align}
 
 核⼒ポテンシャル
-r,w交換, 2p交換
+質量が大きくなると到達距離は短くなる。
+$1\pi$ 交換ポテンシャル, $\rho, \omega$ 交換, $2\pi$ 交換
 斥力芯 (クォークパウリ効果等) -0.5fm
 
 \begin{table}[hbtp]
@@ -579,6 +585,11 @@ r,w交換, 2p交換
   W(E)\dl{E} & = \frac{2\pi}{\hbar}\frac{g^2}{V^2}|M_{if}|^2\diff{N}{E_0} = \frac{g^2|M_{if}|^2}{2\pi^3c^5\hbar^7}p(E_0 - E)^2\dl{E}
 \end{align}
 
+\begin{align}
+  \diff{N}{t} & = -\lambda N                                                 \\
+  N(t)        & = N_0\exp(-\lambda t) = N_0\exp(-t/\tau) = N_02^{-t/T_{1/2}}
+\end{align}
+角運動量を3変える「禁止遷移」のため起こりにくい→長寿命
 
 
 \subsection{アイソスピン}
@@ -655,6 +666,7 @@ https://www.nndc.bnl.gov/nudat3/
 https://people.physics.anu.edu.au/~ecs103/chart3d/
 
 偶偶核の第一励起状態 21+ の励起エネルギー魔法数 2, 8, 20, 28, 50, 82, 126 の筋が現れる。
+$1 \si{u} = M(\ce{^12C})/12 = 931.494$ \si{MeV/c2}
 
 \begin{table}[hbtp]
   \centering

@@ -168,6 +168,13 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{axiom}[粒子の波動性]
   すべての粒子は波動性を持つ。
 \end{axiom}
+光子や電子の性質から粒子の性質と対応付ける。
+\begin{definition}[ド・ブロイの関係式]
+  質量 $m$ の粒子の粒子性と波動性は次のように表現できる。
+  \begin{align}
+    E & = \hbar\omega = \frac{p^2}{2m} + V(\rr), \qquad p = \hbar k
+  \end{align}
+\end{definition}
 
 \subsection{波動関数}
 \begin{definition}[波動関数]
@@ -176,23 +183,10 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     \int\rho(\rr, t)\dd{\rr} = 1
   \end{align}
 \end{definition}
-
-光子や電子の性質から粒子の性質と対応付ける。
-\begin{definition}[ド・ブロイの関係式]
-  光子と同様に任意の粒子は次のような関係式が成り立つとする。
-  \begin{align}
-    E & = \hbar\omega, \qquad p = \hbar k
-  \end{align}
-  また質量 $m$ の粒子の持つ力学的エネルギーは運動エネルギーとポテンシャルエネルギーの和で与えられる。
-  \begin{align}
-    E & = \frac{p^2}{2m} + V(\rr)
-  \end{align}
-\end{definition}
-
 \begin{theorem}[Schrödinger の方程式]
-  このとき波動関数 $\psi(\rr, t)$ について次の関係式が成り立つ。
+  波動関数 $\psi(\rr, t)$ は次の Schrödinger の方程式に従う。
   \begin{align}
-    i\hbar\pdv{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+    i\hbar\diffp{}{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -200,32 +194,34 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \begin{align}
     \frac{k^2}{\omega^2}\pdv[2]{\psi(\rr, t)}{t} & = \nabla^2\psi(\rr, t)
   \end{align}
-  このときダランベールの解より $|\kk|^2 = k^2$ を満たす $\kk$ を用いて波動関数は $f(\kk\vdot\rr - \omega t)$ の重ね合わせとなる。ここでは特に次の関数となると考える。
+  このときダランベールの解より波数ベクトル $\kk$ を用いて波動関数は $f(\kk\vdot\rr - \omega t)$ の重ね合わせとなる。ここでは特に次の関数となると考える。
   \begin{align}
     \psi(\rr, t) & = \int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk}
   \end{align}
+  \begin{align}
+    \diffp{}{t}\psi(\rr, t) & = \diffp{}{t}\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -i\omega\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -i\omega\psi(\rr, t) \\
+    \nabla^2\psi(\rr, t)    & = \nabla^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -k^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -k^2\psi(\rr, t)
+  \end{align}
   よって波動方程式は次のようになる。
   \begin{align}
-    -k^2\psi(\rr, t)          & = \nabla^2\psi(\rr, t)                                                      \\
-    k^2 = \frac{p^2}{\hbar^2} & = \frac{2m}{\hbar^2}(E - V(\rr)) = \frac{2m}{\hbar^2}(\hbar\omega - V(\rr)) \\
-    \hbar\omega\psi(\rr, t)   & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)                    \\
-    i\hbar\pdv{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+    i\hbar\diffp{}{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
   \end{align}
 \end{proof}
 
 \begin{theorem}
   粒子の確率密度について連続の方程式を満たす。
   \begin{align}
-    \pdv{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
+    \diffp{}{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
   \end{align}
+  粒子の全存在確率は保存する。
 \end{theorem}
 \begin{proof}
   確率密度の時間微分を考えると
   \begin{align}
-    \pdv{t}\rho(\rr, t) & = \psi^*(\rr, t)\qty(\pdv{t}\psi(\rr, t)) + \qty(\pdv{t}\psi^*(\rr, t))\psi(\rr, t)                                                                                                      \\
-                        & = \psi^*(\rr, t)\qty(-\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)) + \qty(\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\psi(\rr, t) \\
-                        & = \frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\nabla^2\psi(\rr, t) - \nabla^2\psi^*(\rr, t)\psi(\rr, t))                                                                                         \\
-                        & = \frac{i\hbar}{2m}\vnabla\vdot\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
+    \diffp{}{t}\rho(\rr, t) & = \psi^*(\rr, t)\qty(\diffp{}{t}\psi(\rr, t)) + \qty(\diffp{}{t}\psi^*(\rr, t))\psi(\rr, t)                                                                                              \\
+                            & = \psi^*(\rr, t)\qty(-\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)) + \qty(\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\psi(\rr, t) \\
+                            & = \frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\nabla^2\psi(\rr, t) - \nabla^2\psi^*(\rr, t)\psi(\rr, t))                                                                                         \\
+                            & = \frac{i\hbar}{2m}\vnabla\vdot\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
   \end{align}
   より確率の流れ $\bm{j}(\rr, t)$ を次のように解釈する。
   \begin{align}
@@ -233,14 +229,9 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   これより連続の方程式を満たす。
   \begin{align}
-    \pdv{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
+    \diffp{}{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
   \end{align}
-\end{proof}
-
-\begin{theorem}
-  粒子の全存在確率は保存する。
-\end{theorem}
-\begin{proof}
+  これは
   \begin{align}
     \dv{t}\int\rho(\rr, t)\dd{V} & = -\int\vnabla\vdot\bm{j}(\rr, t)\dd{V} = -\lim_{|\rr|\to\infty}\int\bm{j}(\rr, t)\vdot\bm{n}\dd{S} = 0
   \end{align}
@@ -265,7 +256,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   \begin{align}
     \ev{\pp} & = m\dv{\ev{\rr}}{t} = m\dv{t}\int\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                                                                                       \\
-             & = m\int\qty(\psi^*(\rr, t)\rr\pdv{t}\psi(\rr, t) + \pdv{t}\psi^*(\rr, t)\rr\psi(\rr, t))\dd{\rr}                                                                                                             \\
+             & = m\int\qty(\psi^*(\rr, t)\rr\diffp{}{t}\psi(\rr, t) + \diffp{}{t}\psi^*(\rr, t)\rr\psi(\rr, t))\dd{\rr}                                                                                                     \\
              & = -m\int\psi^*(\rr, t)\rr\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)\dd{\rr} + m\int\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr} \\
              & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\nabla^2\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                      \\
              & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\psi^*(\rr, t)(\nabla^2\rr\psi(\rr, t))\dd{\rr}                                                                    \\
@@ -274,7 +265,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   \begin{align}
     m\dv[2]{\ev{\rr}}{t} & = \dv{\ev{\pp}}{t} = -i\hbar\dv{t}\int\psi^*(\rr, t)\vnabla\psi(\rr, t)\dd{\rr}                                                                                                                  \\
-                         & = -\int\psi^*(\rr, t)\vnabla\qty(i\hbar\pdv{t}\psi(\rr, t))\dd{\rr} + \int\qty(-i\hbar\pdv{t}\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                          \\
+                         & = -\int\psi^*(\rr, t)\vnabla\qty(i\hbar\diffp{}{t}\psi(\rr, t))\dd{\rr} + \int\qty(-i\hbar\diffp{}{t}\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                  \\
                          & = -\int\psi^*(\rr, t)\vnabla\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t))\dd{\rr} + \int\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} \\
                          & = \frac{\hbar^2}{2m}\int\psi^*(\rr, t)\vnabla\qty(\nabla^2\psi(\rr, t))\dd{\rr} - \int\psi^*(\rr, t)\vnabla\qty(V(\rr)\psi(\rr, t))\dd{\rr}                                                      \\
                          & - \frac{\hbar^2}{2m}\int\qty(\nabla^2\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} + \int\qty(V(\rr)\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                      \\
@@ -289,7 +280,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \begin{align}
     \hat{\rr} := \rr, \qquad \hat{\pp} := -i\hbar\vnabla, \qquad \hat{H} := \frac{\hat{\pp}^2}{2m} + V(\hat{\rr}, t)
   \end{align}
-  ただし任意の演算子はエルミート演算子であるとする。
+  ただしエルミート演算子であるとする。
   \begin{align}
     \int\phi^*(\rr, t)\hat{F}\psi(\rr, t)\dd{\rr} = \int(\hat{F}\phi(\rr, t))^*\psi(\rr, t)\dd{\rr}
   \end{align}
@@ -328,17 +319,15 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proof}
   波動関数が次のような関数のとき
   \begin{align}
-    \Psi(\rr, t) & := (is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))\psi(\rr, t)
+    \Psi(\rr, t) & := \ab(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))\psi(\rr, t)
   \end{align}
 
   \begin{align}
-    \int|\Psi(\rr, t)|^2\dd{\rr} & = \int\Psi^*(\rr, t)\Psi(\rr, t)\dd{\rr}                                                                                                                                                                                               \\
-                                 & = \int(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})\psi(\rr, t))^*(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})\psi(\rr, t))\dd{\rr}                                                                 \\
-                                 & = \int\psi^*(\rr, t)(-is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))(is(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j}))\psi(\rr, t)\dd{\rr}                                                                \\
-                                 & = \int\psi^*(\rr, t)(s^2(\hat{r}_i - \ev{\hat{r}_i})^2 - is(\hat{r}_i - \ev{\hat{r}_i})(\hat{p}_j - \ev{\hat{p}_j}) + is(\hat{p}_j - \ev{\hat{p}_j})(\hat{r}_i - \ev{\hat{r}_i}) + (\hat{p}_j - \ev{\hat{p}_j})^2)\psi(\rr, t)\dd{\rr} \\
-                                 & = s^2\ev{(\hat{r}_i - \ev{\hat{r}_i})^2} + s\hbar\delta_{ij} + \ev{(\hat{p}_j - \ev{\hat{p}_j})^2}                                                                                                                                     \\
-                                 & = s^2\Delta r_i^2 + s\hbar\delta_{ij} + \Delta p_j^2                                                                                                                                                                                   \\
-                                 & = \qty(s + \frac{\hbar\delta_{ij}}{2\Delta r_i^2})^2\Delta r_i^2 - \frac{\hbar^2\delta_{ij}}{4\Delta r_i^2} + \Delta p_j^2 \geq 0                                                                                                      \\
+    \int|\Psi(\rr, t)|^2\dd{\rr} & = \int\Psi^*(\rr, t)\Psi(\rr, t)\dd{\rr}                                                                                                                                     \\
+                                 & = \int\psi^*(\rr, t)\ab(s^2(\hat{r}_i - \ev{\hat{r}_i})^2 - is[\hat{r}_i - \ev{\hat{r}_i}, \hat{p}_j - \ev{\hat{p}_j}] + (\hat{p}_j - \ev{\hat{p}_j})^2)\psi(\rr, t)\dd{\rr} \\
+                                 & = s^2\ev{(\hat{r}_i - \ev{\hat{r}_i})^2} + s\hbar\delta_{ij} + \ev{(\hat{p}_j - \ev{\hat{p}_j})^2}                                                                           \\
+                                 & = s^2\Delta r_i^2 + s\hbar\delta_{ij} + \Delta p_j^2                                                                                                                         \\
+                                 & = \qty(s + \frac{\hbar\delta_{ij}}{2\Delta r_i^2})^2\Delta r_i^2 - \frac{\hbar^2\delta_{ij}}{4\Delta r_i^2} + \Delta p_j^2 \geq 0
   \end{align}
   $s = \frac{\hbar\delta_{ij}}{2\Delta r_i^2}$ と代入すると
   \begin{align}
@@ -1194,7 +1183,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 
 \section{時間発展のあるシュレーディンガー方程式}
 \begin{align}
-  i\hbar\pdv{t}\ket|\phi(t)> & = \hat{H}\ket|\phi(t)>
+  i\hbar\diffp{}{t}\ket|\phi(t)> & = \hat{H}\ket|\phi(t)>
 \end{align}
 $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完全系をなす。これで展開して代入すると
 \begin{align}
