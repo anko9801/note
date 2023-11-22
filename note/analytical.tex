@@ -12,7 +12,13 @@
 % \usepackage[hyphens]{url}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
-\usepackage{diffcoeff}
+\usepackage[DIF = {
+op-symbol = d,
+op-order-nudge = 1 mu,
+outer-Ldelim = \left . ,
+outer-Rdelim = \right |,
+sub-nudge = 0 mu
+}]{diffcoeff}
 % \usepackage{braket}
 \usepackage{verbatimbox}
 \usepackage{bm}
@@ -28,7 +34,7 @@
 \usepackage{xy}
 \usepackage{xypic}
 %
-\title{}
+\title{解析力学}
 \author{anko9801}
 \makeatletter
 %
@@ -164,6 +170,101 @@
 \tableofcontents
 \clearpage
 
+\section{ニュートン力学の復習}
+\begin{definition}
+  ニュートンの運動の 3 法則
+  \begin{itemize}
+    \item 第 1 法則: 物体が力を受けないとき、物体の運動状態は変化しない。(慣性の法則)
+    \item 第 2 法則: 物体に力が働くとき、力に比例する加速度を持つ。(運動の法則)
+    \item 第 3 法則: 物体 1, 2 の間に力が働くとき、互いに大きさが等しく逆向きとなる。(作用・反作用の法則)
+  \end{itemize}
+\end{definition}
+これらを定式化する。
+\begin{align}
+  m\diff[2]{\rr}{t} = \bm{F}
+\end{align}
+
+例えば
+
+- 電磁気力
+- ばね
+- 垂直抗力
+- 慣性力
+- 外力
+- 重力
+
+
+\section{解析力学}
+ニュートンの運動方程式の書き換えを行う。目的は解きやすくするためと定式化の適用範囲を拡張するためである。
+保存力に関するニュートンの運動方程式
+\begin{align}
+  m\diff[2]{\rr}{t} = -\nabla U
+\end{align}
+
+\subsection{ラグランジュ形式}
+\begin{definition}[ラグランジアン]
+  ラグランジュ形式において、ラグランジアン (Lagrangian) とよばれる物理量が基本的な量となる。
+  \begin{align}
+    L & = \frac{1}{2}m\dot{\rr}^2 - U(\rr)
+  \end{align}
+\end{definition}
+\begin{align}
+  \diffp{L}{\dot\rr} = m\dot\rr, \quad \diffp{L}{\rr} = -\nabla U
+\end{align}
+運動方程式は Euler-Lagrange 方程式とよばれる。
+\begin{align}
+  \frac{\partial L}{\partial \rr} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{\rr}}\right) = 0
+\end{align}
+一般座標 (generalized coordinates) $q_i = q_i(t)$ ($i = 1,2,\ldots,n$) を用いて系がラグランジアン $L = L(q_i, \dot{q}_i)$ で記述される場合、運動方程式は
+\begin{align}
+  \frac{\partial L}{\partial q_i} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) = 0
+\end{align}
+ラグランジアンは座標系による？
+すべての物体は運動方程式を解くことでどう動くかわかる
+保存力を考えているのでポテンシャルが存在するので次のように表現できる。
+\begin{align}
+  \frac{\partial L}{\partial q_i} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) & = -\frac{\partial U}{\partial q_i} - \frac{dp_i}{dt} = -(\nabla U)_i - ma_i
+\end{align}
+\begin{align}
+  dx^\mu = \frac{\partial x^\mu}{\partial x^\nu}dx^\nu
+\end{align}
+ある座標変換に対して作用積分が対称ならばその対称性に対応する保存量が存在する
+
+
+\subsection{ハミルトン形式}
+\begin{definition}[ハミルトニアン]
+  ハミルトニアン (Hamiltonian)
+  \begin{align}
+    H           & = \frac{\pp^2}{2m} + U(\rr) \\
+    H(q_i, p_i) & = \sum_{i}p_i\dot{q}_i - L
+  \end{align}
+\end{definition}
+\begin{align}
+  \diffp{H}{\pp} = \frac{\pp}{m}, \quad \diffp{H}{\rr} = \nabla U
+\end{align}
+ニュートンの運動方程式は $\pp = m\dot\rr$ より
+\begin{align}
+  \diff{\rr}{t} = \diffp{H}{\pp}, \quad \diff{\pp}{t} = -\diffp{H}{\rr}
+\end{align}
+電磁場において $\pp = m\dot\rr$ とはならない。
+
+
+\subsection{変分原理}
+ニュートンの運動の 3 法則の代わりに変分原理 (variational principle) あるいはハミルトンの原理 (Hamilton's principle) と呼ばれる次の原理が存在する。
+\begin{axiom}[変分原理]
+  物体の運動は作用が極値を取るような経路をたどる。
+\end{axiom}
+作用とは
+\begin{align}
+  S[q]                           & = \int_{t_1}^{t_2}L(q(t), \dot{q}(t), t)\ dt                                                           \\
+  \frac{\delta S[q]}{\delta q_i} & = \frac{\partial L}{\partial q_i} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) = 0
+\end{align}
+ボールを投げたときに放物線を描くのはどんな運動もさまざまな軌道の中で等速に近くポテンシャルが高くなるような"ちょうどいい"軌道を選ぶ。
+
+短いスケールではなく全体の動き
+変分原理にトキメキを感じるくらい基礎のように見えたならあなたはセンスがあります。
+
+ただトキメキを感じなければ運動方程式と数学的に同値な表現と思った方がいいです。一般の座標系にしただけで意味がない
 
 \subsection{解析力学の復習：点正準変換}
 ある $N$ 自由度の系の一般化座標を $q_1, \ldots, q_N$ として Lagrange 形式では一般化座標 $q_i$ と一般化速度 $\dot{q}_i$ を用いて表現される. このとき一般化運動量 $p_i$ は次のように定められる.
