@@ -189,162 +189,290 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
 
 \section{相対論的波動方程式}
 \subsection{クライン・ゴルドン方程式}
-
-\begin{theorem}[クライン・ゴルドン方程式]
-  相対論的力学におけるエネルギーと運動量の関係に基づいてローレンツ変換のもとで共変となる相対論的波動方程式を構築する。
+相対論的力学におけるエネルギーと運動量の関係に基づいてローレンツ変換のもとで共変となる相対論的波動方程式を構築する。
+\begin{align}
+  i\hbar\diffp{}{t}\psi(t, \rr) = -\frac{\hbar^2}{2m}\nabla^2\psi(t, \rr)
+\end{align}
+相対論的力学における自由粒子のエネルギーと運動量の関係 $E = \pm\sqrt{(mc^2)^2 + (c\pp)^2}$ より
+\begin{align}
+  i\hbar\diffp{}{t}\psi(x) & = \pm\sqrt{(mc^2)^2 + (c\hat{\pp})^2}\psi(x)
+\end{align}
+となるが
+\begin{enumerate}
+  \item 時間微分と空間微分について非対称であり, ローレンツ変換のもとでの共変性が見えない。
+  \item 実際に, 光速よりも速く情報が伝播しないという, 相対論的な因果律を破る。
+  \item 空間微分が平方根の中に入っているため連続の方程式を導くことができず, 波動関数の確率解釈ができない。
+\end{enumerate}
+上記の波動方程式では, 時間に関して 1 階微分, 空間に関して 2 階微分が平方根の中に入っている. この非対称性を解消するため, 時間微分を両辺に作用させると
+\begin{align}
+  p^\mu & = \ab(\frac{E}{c}, \pp) = \ab(i\hbar\frac{1}{c}\diffp{}{t}, -i\hbar\nabla) = i\hbar\partial^\mu
+\end{align}
+\begin{align}
+  (mc^2)^2 = E^2 - (c\pp)^2 & = c^2p_\mu p^\mu = -(\hbar c)^2\partial_\mu\partial^\mu
+\end{align}
+\begin{align}
+  \ab[\partial_\mu\partial^\mu + \ab(\frac{mc}{\hbar})^2]\psi(x) = 0
+\end{align}
+を得る。これをクライン・ゴルドン方程式と呼ぶ。
+\begin{definition}[クライン・ゴルドン方程式]
   \begin{align}
-    \ab[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0
+    \ab[\partial_\mu\partial^\mu + \ab(\frac{mc}{\hbar})^2]\psi(x) = 0
   \end{align}
-\end{theorem}
-\begin{proof}
-  相対論的力学における自由粒子のエネルギーと運動量の関係 $E = \pm\sqrt{(mc^2)^2 + (c\pp)^2}$ より
-  \begin{align}
-    i\hbar\diffp{}{t}\psi(x) & = \pm\sqrt{(mc^2)^2 + (c\hat{\pp})^2}\psi(x)
-  \end{align}
-  となるが
-  \begin{enumerate}
-    \item 時間微分と空間微分について非対称であり, ローレンツ変換のもとでの共変性が見えない.
-    \item 実際に, 光速よりも速く情報が伝播しないという, 相対論的な因果律を破る.
-    \item 空間微分が平方根の中に入っているため連続の方程式を導くことができず, 波動関数の確率解釈ができない.
-  \end{enumerate}
-  これだと
-  上記の波動方程式では, 時間に関して 1 階微分, 空間に関して 2 階微分が平方根の中に入っている. この非対称性を解消するため, 時間微分を両辺に作用させると
-  \begin{align}
-     & \ab(i\hbar\diffp{}{t})^2\psi(x) = [(mc^2)^2 + (c\hat{\pp})^2]\psi(x) \\
-     & \ab[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0
-  \end{align}
-  を得る。これをクライン・ゴルドン方程式と呼ぶ。
-\end{proof}
-
-\begin{theorem}[連続の方程式]
-  \begin{align}
-    \partial_\mu j^\mu(x) = 0
-  \end{align}
-\end{theorem}
-\begin{proof}
-  クライン・ゴルドン方程式から
-  \begin{align}
-    \psi^*(x)[(\hbar c)^2\partial^2 + (mc^2)^2]\psi(x) = 0 \\
-    \psi(x)[(\hbar c)^2\partial^2 + (mc^2)^2]\psi^*(x) = 0
-  \end{align}
-  が得られるので両辺の差を取って
-  \begin{align}
-    (\hbar c)^2\partial_\mu[\psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)] = 0
-  \end{align}
-  となる。よって
-  \begin{align}
-     & j^\mu(x) := \frac{i\hbar}{2m}[\psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)] \\
-     & \partial_\mu j^\mu(x) = 0
-  \end{align}
-  となる。ただし $\rho(x) = j^0(x)/c$ は非負とは限らないため粒子の存在確率密度と解釈することはできない。
-\end{proof}
+\end{definition}
+クライン・ゴルドン方程式から
+\begin{align}
+  \psi^*(x)\ab[\partial_\mu\partial^\mu + \ab(\frac{mc}{\hbar})^2]\psi(x) = 0 \\
+  \psi(x)\ab[\partial_\mu\partial^\mu + \ab(\frac{mc}{\hbar})^2]\psi^*(x) = 0
+\end{align}
+が得られるので両辺の差を取って
+\begin{align}
+   & \psi^*(x)\partial_\mu\partial^\mu\psi(x) - \psi(x)\partial_\mu\partial^\mu\psi^*(x) = 0 \\
+   & \partial_\mu[\psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)] = 0           \\
+   & \partial_\mu j^\mu(x) = 0
+\end{align}
+連続の方程式が成り立つ。
+\begin{align}
+  j^\mu(x) := \psi^*(x)\partial^\mu\psi(x) - \psi(x)\partial^\mu\psi^*(x)
+\end{align}
+これより保存則が成り立つ。
+となる。ただし $\rho(x) = j^0(x)/c$ は非負とは限らないため粒子の存在確率密度と解釈することはできない。
 
 クライン・ゴルドン方程式では時間に関して 2 階微分を含むため、$j^0(x)$ に時間微分が残り、確率解釈ができなかった。時間に関して 1 階微分のみを含む相対論的波動方程式を構築したい。また共変性を満足するためには空間に関しても 1 階微分のみを含む必要がある。そこで
-\begin{theorem}[ディラック方程式]
-  確率解釈できる相対論的波動方程式を構築する。
-  \begin{align}
-    i\hbar\diffp{}{t}\psi(x) & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
-  \end{align}
-  ただし、$\alpha^i, \beta$ は次を満たす無次元の未知係数である。
-  \begin{align}
-    \lbrace\alpha^i,\alpha^j\rbrace & = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
-  \end{align}
-\end{theorem}
-\begin{proof}
-  次の形となることを仮定する。
-  \begin{align}
-    i\hbar\diffp{}{t}\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)\psi(x)               \\
-                             & = \ab(-i\hbar c\bm{\alpha}\cdot\vnabla + \beta mc^2)\psi(x)
-  \end{align}
-  これがクライン・ゴルドン方程式を満たすことから
-  \begin{align}
-    \ab(i\hbar\diffp{}{t})^2\psi(x) & = \ab(c\alpha^i\hat{p}_i + \beta mc^2)^2\psi(x)                                                                      \\
-                                    & = \ab[c^2\alpha^i\alpha^j\hat{p}_i\hat{p}_j + \beta^2(mc^2)^2 + (\alpha^i\beta + \beta\alpha^i)\hat{p}_i(mc)]\psi(x) \\
-                                    & = [(c\hat{\pp})^2 + (mc^2)^2]\psi(x)
-  \end{align}
-  係数を比較することによって $\alpha^i$ と $\beta$ は次を満たすエルミート行列であることがわかる。
-  \begin{align}
-    \lbrace\alpha^i,\alpha^j\rbrace = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
-  \end{align}
-\end{proof}
 
-これを満たす行列について、例えばディラック表示がある。
+\subsection{ディラック方程式}
+確率解釈できる相対論的波動方程式を構築する。
+
+次の形となることを仮定する。
+ただし、$\alpha^i, \beta$ は次を満たす無次元の未知係数である。
+これをディラック方程式という。
 \begin{align}
-  \alpha^i = \begin{pmatrix}
-               0        & \sigma^i \\
-               \sigma^i & 0
-             \end{pmatrix} = \sigma^i \otimes \tau^1, \qquad
-  \beta = \begin{pmatrix}
-            \sigma^0 & 0         \\
-            0        & -\sigma^0
-          \end{pmatrix} = \sigma^0 \otimes \tau^3
+  i\hbar\diffp{}{t}\psi(x) & = \ab(c\alpha^ip_i + \beta mc^2)\psi(x)
 \end{align}
+これがクライン・ゴルドン方程式を満たすことから
+\begin{align}
+  \ab(i\hbar\diffp{}{t})^2\psi(x) & = \ab(c\alpha^ip_i + \beta mc^2)^2\psi(x)                                                          \\
+                                  & = \ab[c^2\alpha^ip_i\alpha^jp_j + \beta^2(mc^2)^2 + (\alpha^i\beta + \beta\alpha^i)p_i(mc)]\psi(x) \\
+                                  & = [(c\pp)^2 + (mc^2)^2]\psi(x)
+\end{align}
+係数を比較することによって $\alpha^i$ と $\beta$ は次を満たすエルミート行列であることがわかる。
+\begin{align}
+  \lbrace\alpha^i,\alpha^j\rbrace = 2\delta^{ij}, \qquad \beta^2 = 1, \qquad \lbrace\alpha^i,\beta\rbrace = 0 \label{condition}
+\end{align}
+さらにガンマ行列 $\gamma^\mu := (\beta, \beta\bm{\alpha})$ を定義する。
+両辺に左から $\beta/c$ を掛けてディラック方程式は次のようになる。
+\begin{align}
+   & i\hbar\gamma^0\partial_0\psi(x) = \ab(-i\hbar\gamma^i\partial_i + mc)\psi(x) \\
+   & \ab(i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0
+\end{align}
+ガンマ行列の同値な条件は次のようになる。
+\begin{align}
+  (\gamma^0)^\dagger                   & = \beta^\dagger = \beta = \gamma^0                                                                                        \\
+  (\gamma^i)^\dagger                   & = (\beta\alpha^i)^\dagger = \alpha^i\beta = -\beta\alpha^i = -\gamma^i                                                    \\
+  \lbrace\gamma^\mu, \gamma^\nu\rbrace & =
+  \begin{dcases}
+    \beta\alpha^\mu\beta\alpha^\nu + \beta\alpha^\nu\beta\alpha^\mu = -\beta^2(\alpha^\mu\alpha^\nu + \alpha^\nu\alpha^\mu) = -2\delta^{\mu\nu} & (\mu > 0, \nu > 0) \\
+    \beta\beta\alpha^\nu + \beta\alpha^\nu\beta = \beta^2\alpha^\nu - \beta^2\alpha^\nu = 0                                                     & (\mu = 0, \nu > 0) \\
+    2\beta^2 = 2                                                                                                                                & (\mu = \nu = 0)
+  \end{dcases} \\
+                                       & = 2g^{\mu\nu}
+\end{align}
+より $\gamma^0$ はエルミート行列で $\gamma^i$ は反エルミート行列である。$\lbrace\gamma^\mu, \gamma^\nu\rbrace = \lbrace\gamma^\nu, \gamma^\mu\rbrace$ より $\mu \leq \nu$ のときを示せばよい。
 
-\begin{theorem}
-  さらにガンマ行列 $\gamma^\mu := (\beta, \beta\bm{\alpha})$ を定義することでディラック方程式は次のように書ける。
+\begin{definition}[ディラック方程式]
   \begin{align}
-     & (i\hbar\gamma^\mu \partial_\mu - mc)\psi(x) = 0                                                                                 \\
+     & (i\hbar\gamma^\mu \partial_\mu - mc)\psi(x) = 0
+  \end{align}
+  \begin{align}
      & (\gamma^0)^\dagger = \gamma^0, \qquad (\gamma^i)^\dagger = -\gamma^i, \qquad \lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}
   \end{align}
-\end{theorem}
+\end{definition}
+式 \eqref{condition} を満たす行列は例えばディラック表示がある。
+\begin{align}
+  \alpha^i = \sigma^i \otimes \sigma^1 = \begin{pmatrix}
+                                           0        & \sigma^i \\
+                                           \sigma^i & 0
+                                         \end{pmatrix}, \qquad
+  \beta = \sigma^0 \otimes \sigma^3 = \begin{pmatrix}
+                                        \sigma^0 & 0         \\
+                                        0        & -\sigma^0
+                                      \end{pmatrix}
+\end{align}
+ただしパウリ行列 $\bm{\sigma}$ は次のように定義される。
+\begin{align}
+  \sigma_0 = \begin{pmatrix}
+               1 & 0 \\
+               0 & 1
+             \end{pmatrix}, \qquad
+  \sigma_1 = \begin{pmatrix}
+               0 & 1 \\
+               1 & 0
+             \end{pmatrix}, \qquad
+  \sigma_2 = \begin{pmatrix}
+               0 & -i \\
+               i & 0
+             \end{pmatrix}, \qquad
+  \sigma_3 = \begin{pmatrix}
+               1 & 0  \\
+               0 & -1
+             \end{pmatrix}
+\end{align}
+パウリ行列は Hermite 行列 $\sigma_i^\dagger = \sigma_i$ かつユニタリ行列 $\sigma_i^\dagger\sigma_i = \sigma_i\sigma_i^\dagger = I$ で次の性質を満たす。
+\begin{align}
+  \sigma_i\sigma_j & = \delta_{ij}I + i\sum_{k}\varepsilon_{ijk}\sigma_k
+\end{align}
+これより
+\begin{align}
+  (\alpha^i)^\dagger     & = \alpha^i, \qquad \beta^\dagger = \beta, \qquad \beta^2 = (\sigma^0\otimes\sigma^3)^2 = 1                                       \\
+  \{\alpha^i, \alpha^j\} & = \{\sigma^i\otimes\sigma^1, \sigma^j\otimes\sigma^1\} = (\sigma^i\sigma^j + \sigma^j\sigma^i)\otimes(\sigma^1)^2 = 2\delta^{ij} \\
+  \{\alpha^i, \beta\}    & = \{\sigma^i\otimes\sigma^1, \sigma^0\otimes\sigma^3\} = (\sigma^i\sigma^0 - \sigma^0\sigma^i)\otimes(\sigma^1\sigma^3) = 0
+\end{align}
+ガンマ行列についても
+\begin{align}
+  \gamma^0 = \sigma_1, \qquad \gamma^1 = i\sigma_2, \qquad \gamma^5 = -\sigma_3
+\end{align}
+
+\subsection{ディラック方程式の共変性}
+\begin{align}
+  A_\mu(t, \rr) = \ab(\frac{\phi(t, \rr)}{c}, \bm{A}(t, \rr))
+\end{align}
+共変微分 $D_\mu$ を次のように定義する。
+\begin{align}
+  D_\mu := \partial_\mu - \frac{q}{i\hbar}A_\mu(x) = \ab(\frac{1}{c}\diffp{}{t} - \frac{q}{i\hbar}\frac{\phi(t, \rr)}{c} + \frac{q}{i\hbar}\bm{A}(t, \rr))
+\end{align}
+\begin{align}
+  (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
+\end{align}
+まず次の式が成り立つことを確認する。
+\begin{align}
+  D_\mu D_\nu^\dagger & = \ab(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\ab(\partial_\nu + \frac{q}{i\hbar}A_\nu(x))                                                      \\
+                      & = \partial_\mu\partial_\nu + \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu + \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x)
+\end{align}
+よって次のように示せる。
+\begin{align}
+  (\bm{D}\cdot\bm{\sigma})^2 & = \sum_{i,j}(D_i\sigma^i)(D_j\sigma^j)^\dagger                                      \\
+                             & = \sum_{i,j}\ab(\delta^{ij}I + i\sum_{k}\varepsilon^{ijk}\sigma^k)D_iD_j^\dagger    \\
+                             & = \sum_{i}D_i^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^kD_iD_j^\dagger              \\
+                             & = \bm{D}^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^k\frac{q}{i\hbar}\partial_iA_j(x) \\
+                             & = \bm{D}^2 + \frac{q}{\hbar}\bm{\sigma}\cdot(\vnabla\times\bm{A}(x))                \\
+                             & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\cdot\bm{\sigma}
+\end{align}
+
+慣性系 $x^\mu$ と共変微分 $D_\mu$ におけるローレンツ共変性は次のようになる。
+\begin{align}
+  x'^\mu & = \Lambda^\mu_{\ \nu}x^\nu \\
+  D'_\mu & = \Lambda_\mu^{\ \nu}D_\nu
+\end{align}
+波動関数 $\psi(x)$ のローレンツ共変性
+\begin{align}
+  \psi'(x') & = S_\Lambda\psi(x)
+\end{align}
+このときディラック方程式は次のように変換でき、共変性を満たす。
+$S_\Lambda^{-1}\gamma^\mu S_\Lambda = \Lambda_\nu^\mu\gamma^\nu$ を満たすように定めた $S_\Lambda$
+\begin{align}
+  (i\hbar\gamma^\mu D'_\mu - mc)\psi'(x') & = (i\hbar\gamma^\mu \Lambda^\nu_\mu D_\mu - mc)S_\Lambda\psi(x)                           \\
+                                          & = S_\Lambda(i\hbar S_\Lambda^{-1}\gamma^\mu S_\Lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x)   \\
+                                          & = S_\Lambda(i\hbar\Lambda_{\lambda}^{\mu}\gamma^\lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x) \\
+                                          & = S_\Lambda(i\hbar\delta_{\lambda}^\nu\gamma^\lambda D_\mu - mc)\psi(x)                   \\
+                                          & = S_\Lambda(i\hbar\gamma^\nu D_\mu - mc)\psi(x) = 0
+\end{align}
+
+\subsection{無限小変換}
+無限小変換を考える。
+\begin{align}
+  \Lambda_{\ \nu}^\mu = \delta_\nu^\mu + \omega_{\ \nu}^\mu
+\end{align}
+\begin{align}
+  \omega_{\ \nu}^\mu & = \begin{pmatrix}
+                           0             & -\Delta\eta_x   & -\Delta\eta_y   & -\Delta\eta_z   \\
+                           -\Delta\eta_x & 0               & \Delta\theta_z  & -\Delta\theta_y \\
+                           -\Delta\eta_y & -\Delta\theta_z & 0               & \Delta\theta_x  \\
+                           -\Delta\eta_z & \Delta\theta_y  & -\Delta\theta_x & 0
+                         \end{pmatrix}
+\end{align}
+\begin{align}
+  \Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu & = \delta_\nu^\lambda                                                                                                                                        \\
+  \Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu & = (\delta_\nu^\mu + \omega_{\ \nu}^\mu)(\delta^\lambda_\mu + \omega^{\ \lambda}_\mu) = \delta^\lambda_\nu + \omega^{\ \lambda}_\nu + \omega_{\ \nu}^\lambda
+\end{align}
+$\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
+そして $S_\Lambda$ を次のように定義する。
+\begin{align}
+  S_\Lambda = 1 + \omega_{\mu\nu}\Gamma^{\mu\nu}, \qquad S_\Lambda^{-1} = 1 - \omega_{\mu\nu}\Gamma^{\mu\nu}
+\end{align}
+対称と反対称だと $0$ になるから $\Gamma^{\mu\nu}$ は反対称としても構わないが今回は $\Gamma^{\mu\nu} = c\gamma^\mu\gamma^\nu$ とする。
+\begin{align}
+  S_\Lambda^{-1}\gamma^\mu S_\Lambda                                                                                           & = \Lambda^\mu_{\ \nu}\gamma^\nu                                                                                                                                                               \\
+  (1 - \omega_{\kappa\lambda}\Gamma^{\kappa\lambda})\gamma^\mu(1 + \omega_{\kappa\lambda}\Gamma^{\kappa\lambda})               & = (\delta^\mu_\nu + \omega^\mu_{\ \nu})\gamma^\nu                                                                                                                                             \\
+  \gamma^\mu - \omega_{\kappa\lambda}\Gamma^{\kappa\lambda}\gamma^\mu + \omega_{\kappa\lambda}\gamma^\mu\Gamma^{\kappa\lambda} & = \gamma^\mu + \omega^\mu_{\ \nu}\gamma^\nu                                                                                                                                                   \\
+  \omega_{\kappa\lambda}\gamma^\mu\Gamma^{\kappa\lambda} - \omega_{\kappa\lambda}\Gamma^{\kappa\lambda}\gamma^\mu              & = \omega^\mu_{\ \nu}\gamma^\nu                                                                                                                                                                \\
+  c\omega_{\kappa\lambda}\gamma^\mu\gamma^\kappa\gamma^\lambda - c\omega_{\kappa\lambda}\gamma^\kappa\gamma^\lambda\gamma^\mu  & = c\omega_{\kappa\lambda}\gamma^\mu\gamma^\kappa\gamma^\lambda - c\omega_{\kappa\lambda}(2g^{\mu\lambda}\gamma^\kappa - 2g^{\mu\kappa}\gamma^\lambda + \gamma^\mu\gamma^\kappa\gamma^\lambda) \\
+                                                                                                                               & = c(-2\omega_{\kappa}^{\ \mu}\gamma^\kappa + 2\omega^\mu_{\ \lambda}\gamma^\lambda) = 4c\omega_{\ \nu}^{\mu}\gamma^\nu = \omega^\mu_{\ \nu}\gamma^\nu
+\end{align}
+\begin{align}
+  S_\Lambda = 1 + \frac{1}{4}\omega_{\mu\nu}\gamma^\mu\gamma^\nu
+\end{align}
+
+
+
+\subsection{有限ローレンツ変換}
+\begin{align}
+  S_\Lambda & =
+\end{align}
+
+
+
+\subsection{非相対論的極限}
+非相対論的極限 $mc^2\to\infty$ において、シュレーディンガー方程式に帰着する。
+荷電粒子に対するクライン・ゴルドン方程式
+\begin{align}
+  [\hbar^2D^2 + (mc)^2]\psi(x) = 0
+\end{align}
+\begin{align}
+  \psi(x) = e^{-i(mc^2)t/\hbar}\varphi(x)
+\end{align}
+とおくと
+\begin{align}
+  \diffp{\psi}{t} & = \frac{mc^2}{i\hbar}e^{-i(mc^2)t/\hbar}\varphi(x) = \frac{mc^2}{i\hbar}\psi(x)
+\end{align}
+\begin{align}
+  D_\mu & = \partial_\mu - \frac{q}{i\hbar}A_\mu(x) = \frac{1}{i\hbar}\ab(p_\mu - qA_\mu(x)) = \frac{1}{i\hbar}\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x), \pp - q\AA(x)) \\
+  D^2   & = D_\mu D^\mu = -\frac{1}{\hbar^2}\ab[\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 - \ab(\pp - q\AA(x))^2]
+\end{align}
+\begin{align}
+  [\hbar^2D^2 + (mc)^2]\psi(x) & = \ab[(\pp - q\AA(x))^2 - \ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x) \\
+                               & = \ab[(\pp - q\AA(x))^2 - \ab(mc - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x)                          \\
+                               & = \ab[(\pp - q\AA(x))^2 + 2mq\phi(x) - \ab(\frac{q}{c}\phi(x))^2]\psi(x)                           \\
+                               & = 2m\ab[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]\psi(x)
+\end{align}
+非相対論的極限 $mc^2\to\infty$ のとき $\phi(x)$ は時間に依存しないからシュレーディンガー方程式となる。
+\begin{align}
+  i\hbar\diffp{}{t}\psi(x) & = \ab(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\psi(x)
+\end{align}
+(3) 荷電粒子に対するディラック方程式
+\begin{align}
+  (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
+\end{align}
+を用いて, 軸性ベクトル $j_A^\mu(x) := \bar{\psi}(x)\gamma^\mu\gamma^5\psi(x)$ の発散 $\partial_\mu j_A^\mu(x)$ を計算し、微分を含まない形で表せ。
 \begin{proof}
-  ディラック方程式の両辺に $\beta/c$ を掛けると
+  まず次の式が成り立つことを確認する。
   \begin{align}
-    i\hbar\diffp{}{t}\psi(x)        & = \ab(-i\hbar c\alpha^i\partial_i + \beta mc^2)\psi(x) \\
-    i\hbar\gamma^0\partial_0\psi(x) & = \ab(-i\hbar\gamma^i\partial_i + mc)\psi(x)
+    \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
+                               & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
+                               & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
   \end{align}
-  となる。またガンマ行列について
+  よってディラック方程式より次のようになる。
   \begin{align}
-    (\gamma^0)^\dagger & = \beta^\dagger = \beta = \gamma^0                                     \\
-    (\gamma^i)^\dagger & = (\beta\alpha^i)^\dagger = \alpha^i\beta = -\beta\alpha^i = -\gamma^i
+    \partial_\mu j_A^\mu(x) & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                     \\
+                            & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                           \\
+                            & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                            \\
+                            & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                          \\
+                            & = \ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))    \\
+                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
+                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
+                            & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
   \end{align}
-  より $\gamma^0$ はエルミート行列で $\gamma^i$ は反エルミート行列である。$\lbrace\gamma^\mu, \gamma^\nu\rbrace = \lbrace\gamma^\nu, \gamma^\mu\rbrace$ より $\mu \leq \nu$ のときを示せばよい。
-  \begin{align}
-    \lbrace\gamma^\mu, \gamma^\nu\rbrace & =
-    \begin{dcases}
-      \beta\alpha^\mu\beta\alpha^\nu + \beta\alpha^\nu\beta\alpha^\mu = -\beta^2(\alpha^\mu\alpha^\nu + \alpha^\nu\alpha^\mu) = -2\delta^{\mu\nu} & (\mu > 0, \nu > 0) \\
-      \beta\beta\alpha^\nu + \beta\alpha^\nu\beta = \beta^2\alpha^\nu - \beta^2\alpha^\nu = 0                                                     & (\mu = 0, \nu > 0) \\
-      2\beta^2 = 2                                                                                                                                & (\mu = \nu = 0)
-    \end{dcases}
-  \end{align}
-  よって $\lbrace\gamma^\mu, \gamma^\nu\rbrace = 2g^{\mu\nu}$ と書ける。
 \end{proof}
 
-\begin{theorem}[ローレンツ共変性]
-  $S_\Lambda^{-1}\gamma^\mu S_\Lambda = \Lambda_\nu^\mu\gamma^\nu$ を満たすように定めた $S_\Lambda$ に対して次の変換はローレンツ共変性を満たす。
-  \begin{align}
-    x'^\mu = \Lambda^\mu_\nu x^\mu, \qquad D'_\mu = \Lambda_\mu^\nu D_\nu, \qquad \psi'(x') = S_\Lambda\psi(x)
-  \end{align}
-\end{theorem}
-\begin{proof}
-  このときディラック方程式は次のように変換でき、共変性を満たす。
-  \begin{align}
-    (i\hbar\gamma^\mu D'_\mu - mc)\psi'(x) & = (i\hbar\gamma^\mu \Lambda^\nu_\mu D_\mu - mc)S_\Lambda\psi(x)                           \\
-                                           & = S_\Lambda(i\hbar S_\Lambda^{-1}\gamma^\mu S_\Lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x)   \\
-                                           & = S_\Lambda(i\hbar\Lambda_{\lambda}^{\mu}\gamma^\lambda\Lambda_\mu^\nu D_\mu - mc)\psi(x) \\
-                                           & = S_\Lambda(i\hbar\delta_{\lambda}^\nu\gamma^\lambda D_\mu - mc)\psi(x)                   \\
-                                           & = S_\Lambda(i\hbar\gamma^\nu D_\mu - mc)\psi(x) = 0
-  \end{align}
-\end{proof}
 
-\begin{theorem}[無限小変換]
-  \begin{align}
-    \Lambda_{\ \nu}^\mu = \delta_\nu^\mu + \omega_{\ \nu}^\mu
-  \end{align}
-  $\Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu = \delta_\nu^\lambda$ であり
-  \begin{align}
-    \Lambda_{\ \nu}^\mu\Lambda^{\ \lambda}_\mu = (\delta_\nu^\mu + \omega_{\ \nu}^\mu)(\delta^\lambda_\mu + \omega^{\ \lambda}_\mu) = \delta^\lambda_\nu + \omega^{\ \lambda}_\nu + \omega_{\ \nu}^\lambda
-  \end{align}
-  $\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
-  \begin{align}
-    \omega_{\ \nu}^\mu & = \begin{pmatrix}
-                             0             & -\Delta\eta_x   & -\Delta\eta_y   & -\Delta\eta_z   \\
-                             -\Delta\eta_x & 0               & \Delta\theta_z  & -\Delta\theta_y \\
-                             -\Delta\eta_y & -\Delta\theta_z & 0               & \Delta\theta_x  \\
-                             -\Delta\eta_z & \Delta\theta_y  & -\Delta\theta_x & 0
-                           \end{pmatrix}
-  \end{align}
-\end{theorem}
 
 \begin{proposition}
   $\gamma^5$ を次のように定義する。
@@ -415,152 +543,6 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
                                & = v^i\Sigma^i\Sigma^j(v^j)^\dagger   \\
                                & = \delta^{ij}v^i(v^j)^\dagger        \\
                                & = \bm{v}^2
-  \end{align}
-\end{proof}
-
-(5) $\alpha^i, \beta$ の具体例を 1 つ挙げて性質を満たすことを確認せよ。
-\begin{proof}
-  次のディラック表示を用いる。
-  \begin{align}
-    \alpha^i = \begin{pmatrix}
-                 0        & \sigma^i \\
-                 \sigma^i & 0
-               \end{pmatrix}, \qquad
-    \beta = \begin{pmatrix}
-              \sigma^0 & 0         \\
-              0        & -\sigma^0
-            \end{pmatrix}
-  \end{align}
-  このとき $\alpha^i, \beta$ の性質を満たす。
-  \begin{align}
-    (\alpha^i)^\dagger & = \begin{pmatrix}
-                             0        & \sigma^i \\
-                             \sigma^i & 0
-                           \end{pmatrix} = \alpha^i \\
-    \beta^\dagger      & = \begin{pmatrix}
-                             \sigma^0 & 0         \\
-                             0        & -\sigma^0
-                           \end{pmatrix} = \beta
-  \end{align}
-  \begin{align}
-    \lbrace\alpha^i, \alpha^j\rbrace & = \begin{pmatrix}
-                                           0        & \sigma^i \\
-                                           \sigma^i & 0
-                                         \end{pmatrix}
-    \begin{pmatrix}
-      0        & \sigma^j \\
-      \sigma^j & 0
-    \end{pmatrix} +
-    \begin{pmatrix}
-      0        & \sigma^j \\
-      \sigma^j & 0
-    \end{pmatrix}
-    \begin{pmatrix}
-      0        & \sigma^i \\
-      \sigma^i & 0
-    \end{pmatrix}                                                                                                                          \\
-                                     & = (\sigma^i\sigma^j + \sigma^j\sigma^i)\otimes I                                                          \\
-                                     & = \ab((\delta^{ij}I + i\varepsilon^{ijk}\sigma^k) + (\delta^{ji}I + i\varepsilon^{jik}\sigma^k))\otimes I \\
-                                     & = 2\delta^{ij}                                                                                            \\
-    \beta^2                          & = \begin{pmatrix}
-                                           \sigma^0 & 0         \\
-                                           0        & -\sigma^0
-                                         \end{pmatrix}^2 = 1                                                                                    \\
-    \lbrace\alpha^i, \beta\rbrace    & = \begin{pmatrix}
-                                           0        & \sigma^i \\
-                                           \sigma^i & 0
-                                         \end{pmatrix}
-    \begin{pmatrix}
-      \sigma^0 & 0         \\
-      0        & -\sigma^0
-    \end{pmatrix} +
-    \begin{pmatrix}
-      \sigma^0 & 0         \\
-      0        & -\sigma^0
-    \end{pmatrix}
-    \begin{pmatrix}
-      0        & \sigma^i \\
-      \sigma^i & 0
-    \end{pmatrix}                                                                                                                          \\
-                                     & = (\sigma^i\sigma^0 - \sigma^0\sigma^i)\otimes\begin{pmatrix}
-                                                                                       0 & -1 \\
-                                                                                       1 & 0
-                                                                                     \end{pmatrix}                                              \\
-                                     & = 0
-  \end{align}
-\end{proof}
-
-\begin{problem}
-共変微分 $D_\mu$ を次のように定義する。
-\begin{align}
-  D_\mu := \partial_\mu - \frac{q}{i\hbar}A_\mu(x)
-\end{align}
-\end{problem}
-(1) $\bm{D} = (D_1, D_2, D_3)$ に対して
-\begin{align}
-  (\bm{D}\cdot\bm{\sigma})^2 & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\cdot\bm{\sigma}
-\end{align}
-を示せ。
-\begin{proof}
-  まず次の式が成り立つことを確認する。
-  \begin{align}
-    D_\mu D_\nu^\dagger & = \ab(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\ab(\partial_\nu + \frac{q}{i\hbar}A_\nu(x))                                                      \\
-                        & = \partial_\mu\partial_\nu + \frac{q}{i\hbar}\partial_\mu A_\nu(x) - \frac{q}{i\hbar}A_\mu(x)\partial_\nu + \frac{q^2}{\hbar^2}A_\mu(x)A_\nu(x)
-  \end{align}
-  よって次のように示せる。
-  \begin{align}
-    (\bm{D}\cdot\bm{\sigma})^2 & = \sum_{i,j}(D_i\sigma^i)(D_j\sigma^j)^\dagger                                      \\
-                               & = \sum_{i,j}\ab(\delta^{ij}I + i\sum_{k}\varepsilon^{ijk}\sigma^k)D_iD_j^\dagger    \\
-                               & = \sum_{i}D_i^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^kD_iD_j^\dagger              \\
-                               & = \bm{D}^2 + i\sum_{i,j,k}\varepsilon^{ijk}\sigma^k\frac{q}{i\hbar}\partial_iA_j(x) \\
-                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{\sigma}\cdot(\vnabla\times\bm{A}(x))                \\
-                               & = \bm{D}^2 + \frac{q}{\hbar}\bm{B}(x)\cdot\bm{\sigma}
-  \end{align}
-\end{proof}
-
-(2) 荷電粒子に対するクライン・ゴルドン方程式
-\begin{align}
-  [\hbar^2D^2 + (mc)^2]\phi(x) = 0
-\end{align}
-が非相対論的極限 $mc^2\to\infty$ において、シュレーディンガー方程式に帰着することを示せ
-\begin{proof}
-  $A^\mu = (\phi/c, \bm{A})$ であり $\phi(x) = e^{-i(mc^2)t/\hbar}\varphi(x)$ とおくと
-  \begin{align}
-     & [\hbar^2D^2 + (mc)^2]\phi(x) = 0                                                                                                                                                                                                    \\
-     & = \ab[\hbar^2\ab(\partial_\mu - \frac{q}{i\hbar}A_\mu(x))\ab(\partial^\nu - \frac{q}{i\hbar}A^\nu(x)) + (mc)^2]\phi(x)                                                                                                              \\
-     & = \ab[\ab(\hbar^2\partial_\mu\partial^\nu + i\hbar\partial_\mu qA^\nu(x)  + qA_\mu(x)i\hbar\partial^\nu - q^2A_\mu(x)A^\nu(x)) + (mc)^2]\phi(x)                                                                                     \\
-     & = \ab[\ab(\frac{\hbar^2}{c^2}\diffp[2]{t} + \pp^2) + q\ab(\frac{i\hbar}{c^2}\diffp{t}\phi - \pp\cdot\bm{A}(x)) + q\ab(\frac{i\hbar}{c^2}\phi\diffp{t} - \bm{A}(x)\cdot\pp) - q^2\ab(\frac{\phi^2}{c^2} - \bm{A}^2) + (mc)^2]\phi(x) \\
-     & = \ab[\frac{\hbar^2}{c^2}\diffp[2]{t} + q\frac{i\hbar}{c^2}\diffp{t}\phi + q\frac{i\hbar}{c^2}\phi\diffp{t} - q^2\frac{\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                   \\
-     & = \ab[-(mc)^2 + q\frac{i\hbar}{c^2}\diffp{\phi}{t} + 2mq\phi - \frac{q^2\phi^2}{c^2} + (\pp - q\bm{A}(x))^2 + (mc)^2]e^{-i(mc^2)t/\hbar}\varphi(x)                                                                                  \\
-     & = 2m\ab[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]e^{-i(mc^2)t/\hbar}\varphi(x)
-  \end{align}
-  非相対論的極限 $mc^2\to\infty$ のとき $\phi(x)$ は時間に依存しないからシュレーディンガー方程式となる。
-  \begin{align}
-    i\hbar\diffp{t}\phi(x) & = \ab(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\phi(x)
-  \end{align}
-\end{proof}
-(3) 荷電粒子に対するディラック方程式
-\begin{align}
-  (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
-\end{align}
-を用いて, 軸性ベクトル $j_A^\mu(x) := \bar{\psi}(x)\gamma^\mu\gamma^5\psi(x)$ の発散 $\partial_\mu j_A^\mu(x)$ を計算し、微分を含まない形で表せ。
-\begin{proof}
-  まず次の式が成り立つことを確認する。
-  \begin{align}
-    \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
-                               & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
-                               & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
-  \end{align}
-  よってディラック方程式より次のようになる。
-  \begin{align}
-    \partial_\mu j_A^\mu(x) & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                     \\
-                            & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                           \\
-                            & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                            \\
-                            & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                          \\
-                            & = \ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))    \\
-                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
-                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
-                            & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
   \end{align}
 \end{proof}
 
@@ -651,8 +633,7 @@ $\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対�
 
 \end{proof}
 
-\section{2次元時空におけるディラック方程式}
-\begin{problem}
+\subsection{2次元時空におけるディラック方程式}
 2次元時空におけるディラック方程式は次のように考えられる。
 \begin{align}
   (i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0
@@ -665,21 +646,17 @@ $\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対�
 \begin{align}
   (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
 \end{align}
-$\gamma^5$ を $\gamma^0, \gamma^1$ を用いて表わせ。
-\end{problem}
-\begin{proof}
-  カイラリティがガンマ行列の複素数係数多項式で表されるとするとガンマ行列の性質より次のように書ける。
-  \begin{align}
-    \gamma^5 & = \sum_{e_0, e_1}a_{e_0,e_1}(\gamma^0)^{e_0}(\gamma^1)^{e_1} = \alpha_0 + \alpha_1\gamma^0 + \alpha_2\gamma^1 + \alpha_3\gamma^0\gamma^1 & \ab(a_{e_0, e_1}, \alpha_i\in\CC)
-  \end{align}
-  これを代入するとガンマ行列の直交性より
-  \begin{align}
-    (\gamma^5)^\dagger = \gamma^5          & \iff \alpha_0\in\RR, \alpha_1\in\RR, \alpha_2\in i\RR, \alpha_3\in\RR \\
-    \lbrace\gamma^\mu, \gamma^5\rbrace = 0 & \implies \alpha_0 = \alpha_1 = \alpha_2 = 0                           \\
-    (\gamma^5)^2 = 1                       & \implies \alpha_4 = \pm 1
-  \end{align}
-  となる。よって $\gamma^5 = \pm \gamma^0\gamma^1$ となる。ここでは特に $\gamma^5 = \gamma^0\gamma^1$ とする。
-\end{proof}
+カイラリティ $\gamma^5$ がガンマ行列の複素数係数多項式で表されるとするとガンマ行列の性質より次のように書ける。
+\begin{align}
+  \gamma^5 & = \sum_{e_0, e_1}a_{e_0,e_1}(\gamma^0)^{e_0}(\gamma^1)^{e_1} = \alpha_0 + \alpha_1\gamma^0 + \alpha_2\gamma^1 + \alpha_3\gamma^0\gamma^1 & \ab(a_{e_0, e_1}, \alpha_i\in\CC)
+\end{align}
+これを代入するとガンマ行列の直交性より
+\begin{align}
+  (\gamma^5)^\dagger = \gamma^5          & \iff \alpha_0\in\RR, \alpha_1\in\RR, \alpha_2\in i\RR, \alpha_3\in\RR \\
+  \lbrace\gamma^\mu, \gamma^5\rbrace = 0 & \implies \alpha_0 = \alpha_1 = \alpha_2 = 0                           \\
+  (\gamma^5)^2 = 1                       & \implies \alpha_4 = \pm 1
+\end{align}
+となる。よって $\gamma^5 = \pm \gamma^0\gamma^1$ となる。ここでは特に $\gamma^5 = \gamma^0\gamma^1$ とする。
 
 \begin{problem}
 $\gamma_\pm = \dfrac{1 \pm \gamma^5}{2}$ とするとき $(\gamma_+)^a$, $(\gamma_-)^b$, $(\gamma_+)^a(\gamma_-)^b$, $(\gamma_-)^b(\gamma_+)^a$ ($a, b\in\ZZ_{>0}$) を $\gamma_\pm$ を用いて表わせ。
@@ -749,31 +726,6 @@ $m = 0$ の場合に $\psi_-(x) \propto e^{-iEt/\hbar+ipx/\hbar}$ が解とな�
                                           & = \gamma^0(Ec + p)\psi_-(x) = 0
   \end{align}
   となる。よって $Ec = -p$ を満たす。
-\end{proof}
-
-\begin{problem}
-$\gamma^0, \gamma^1, \gamma^5$ を 2 行 2 列の行列とするとき、それらの具体形をパウリ行列を用いて表せ。
-\end{problem}
-\begin{proof}
-  パウリ行列を次のように定義する。
-  \begin{align}
-    \sigma_1 = \begin{pmatrix}
-                 0 & 1 \\
-                 1 & 0 \\
-               \end{pmatrix}, \qquad
-    \sigma_2 = \begin{pmatrix}
-                 0 & -i \\
-                 i & 0  \\
-               \end{pmatrix}, \qquad
-    \sigma_3 = \begin{pmatrix}
-                 1 & 0  \\
-                 0 & -1 \\
-               \end{pmatrix}
-  \end{align}
-  これより次のようにおくとそれぞれの性質を満たす。
-  \begin{align}
-    \gamma^0 = \sigma_1, \qquad \gamma^1 = i\sigma_2, \qquad \gamma^5 = -\sigma_3
-  \end{align}
 \end{proof}
 
 \section{指数関数}

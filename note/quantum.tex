@@ -30,7 +30,7 @@
 \usepackage{xypic}
 %
 \title{量子力学}
-\author{Anko}
+\author{anko9801}
 \makeatletter
 %
 \DeclareMathOperator{\lcm}{lcm}
@@ -180,13 +180,13 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{definition}[波動関数]
   波動方程式を満たす関数 $\psi(\rr, t)\in C^1(\CC)$ を粒子の場とし、これを波動関数 (wave function) という。また $\rho(\rr, t) = |\psi(\rr, t)|^2$ を粒子の確率密度 (probability density) と解釈し、次の規格化条件を満たすように波動関数を定義する。
   \begin{align}
-    \int\rho(\rr, t)\dd{\rr} = 1
+    \int\rho(\rr, t)\dl{\rr} = 1
   \end{align}
 \end{definition}
 \begin{theorem}[Schrödinger の方程式]
   波動関数 $\psi(\rr, t)$ は次の Schrödinger の方程式に従う。
   \begin{align}
-    i\hbar\diffp{}{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+    i\hbar\diffp{}{t}\psi(\rr, t) & = \ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -194,17 +194,18 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \begin{align}
     \frac{k^2}{\omega^2}\pdv[2]{\psi(\rr, t)}{t} & = \nabla^2\psi(\rr, t)
   \end{align}
-  このときダランベールの解より波数ベクトル $\kk$ を用いて波動関数は $f(\kk\vdot\rr - \omega t)$ の重ね合わせとなる。ここでは特に次の関数となると考える。
+  このときダランベールの解より波数ベクトル $\kk$ を用いて波動関数は $f(\kk\vdot\rr - \omega t)$ の重ね合わせであるから次のようにおく。
   \begin{align}
-    \psi(\rr, t) & = \int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk}
+    \psi(\rr, t) & = \int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dl{\kk}
   \end{align}
+  この波動関数に対して微分すると次のようになる。
   \begin{align}
-    \diffp{}{t}\psi(\rr, t) & = \diffp{}{t}\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -i\omega\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -i\omega\psi(\rr, t) \\
-    \nabla^2\psi(\rr, t)    & = \nabla^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -k^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dd{\kk} = -k^2\psi(\rr, t)
+    \diffp{}{t}\psi(\rr, t) & = \diffp{}{t}\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dl{\kk} = -i\omega\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dl{\kk} = -i\omega\psi(\rr, t) \\
+    \nabla^2\psi(\rr, t)    & = \nabla^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dl{\kk} = -k^2\int_{\kk}\tilde{\varphi}(\kk)e^{i(\kk\vdot\rr - \omega t)}\dl{\kk} = -k^2\psi(\rr, t)
   \end{align}
   よって波動方程式は次のようになる。
   \begin{align}
-    i\hbar\diffp{}{t}\psi(\rr, t) & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
+    i\hbar\diffp{}{t}\psi(\rr, t) & = \ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)
   \end{align}
 \end{proof}
 
@@ -213,19 +214,20 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \begin{align}
     \diffp{}{t}\rho(\rr, t) + \vnabla\vdot\bm{j}(\rr, t) = 0
   \end{align}
-  粒子の全存在確率は保存する。
+  つまり粒子の全存在確率は保存する。
 \end{theorem}
 \begin{proof}
   確率密度の時間微分を考えると
   \begin{align}
-    \diffp{}{t}\rho(\rr, t) & = \psi^*(\rr, t)\qty(\diffp{}{t}\psi(\rr, t)) + \qty(\diffp{}{t}\psi^*(\rr, t))\psi(\rr, t)                                                                                              \\
-                            & = \psi^*(\rr, t)\qty(-\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)) + \qty(\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\psi(\rr, t) \\
-                            & = \frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\nabla^2\psi(\rr, t) - \nabla^2\psi^*(\rr, t)\psi(\rr, t))                                                                                         \\
-                            & = \frac{i\hbar}{2m}\vnabla\vdot\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
+     & \quad\ \diffp{}{t}\rho(\rr, t)                                                                                                                                                       \\
+     & = \psi^*(\rr, t)\ab(\diffp{}{t}\psi(\rr, t)) + \ab(\diffp{}{t}\psi^*(\rr, t))\psi(\rr, t)                                                                                            \\
+     & = \psi^*(\rr, t)\ab(-\frac{i}{\hbar}\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)) + \ab(\frac{i}{\hbar}\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\psi(\rr, t) \\
+     & = \frac{i\hbar}{2m}\ab(\psi^*(\rr, t)\nabla^2\psi(\rr, t) - \nabla^2\psi^*(\rr, t)\psi(\rr, t))                                                                                      \\
+     & = \frac{i\hbar}{2m}\vnabla\vdot\ab(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
   \end{align}
   より確率の流れ $\bm{j}(\rr, t)$ を次のように解釈する。
   \begin{align}
-    \bm{j}(\rr, t) & := -\frac{i\hbar}{2m}\qty(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
+    \bm{j}(\rr, t) & := -\frac{i\hbar}{2m}\ab(\psi^*(\rr, t)\vnabla\psi(\rr, t) - \vnabla\psi^*(\rr, t)\psi(\rr, t))
   \end{align}
   これより連続の方程式を満たす。
   \begin{align}
@@ -233,7 +235,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   これは
   \begin{align}
-    \dv{t}\int\rho(\rr, t)\dd{V} & = -\int\vnabla\vdot\bm{j}(\rr, t)\dd{V} = -\lim_{|\rr|\to\infty}\int\bm{j}(\rr, t)\vdot\bm{n}\dd{S} = 0
+    \dv{t}\int\rho(\rr, t)\dl{V} & = -\int\vnabla\vdot\bm{j}(\rr, t)\dl{V} = -\lim_{|\rr|\to\infty}\int\bm{j}(\rr, t)\vdot\bm{n}\dl{S} = 0
   \end{align}
 \end{proof}
 
@@ -241,74 +243,50 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{definition}
   物理量 $F$ に対する期待値を次のように定義する。
   \begin{align}
-    \ev{F} & := \int\psi^*(\rr, t)F\psi(\rr, t)\dd{\rr}
+    \ev{F} & := \int\psi^*(\rr, t)F\psi(\rr, t)\dl{\rr}
   \end{align}
 \end{definition}
-\begin{theorem}
-  このとき以下の物理量の期待値は次のようになる。
-  \begin{align}
-    \ev{\rr} = \ev{\rr}, \qquad \ev{\pp} = \ev{-i\hbar\vnabla}, \qquad m\dv[2]{\ev{\rr}}{t} = - \ev{\vnabla V(\rr, t)}
-  \end{align}
-\end{theorem}
-\begin{proof}
-  \begin{align}
-    \ev{\rr} & = \int\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr} = \int\rr\rho(\rr, t)\dd{\rr}
-  \end{align}
-  \begin{align}
-    \ev{\pp} & = m\dv{\ev{\rr}}{t} = m\dv{t}\int\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                                                                                       \\
-             & = m\int\qty(\psi^*(\rr, t)\rr\diffp{}{t}\psi(\rr, t) + \diffp{}{t}\psi^*(\rr, t)\rr\psi(\rr, t))\dd{\rr}                                                                                                     \\
-             & = -m\int\psi^*(\rr, t)\rr\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t)\dd{\rr} + m\int\frac{i}{\hbar}\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr} \\
-             & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\nabla^2\psi^*(\rr, t)\rr\psi(\rr, t)\dd{\rr}                                                                      \\
-             & = \frac{i\hbar}{2}\int\psi^*(\rr, t)\rr\nabla^2\psi(\rr, t)\dd{\rr} - \frac{i\hbar}{2}\int\psi^*(\rr, t)(\nabla^2\rr\psi(\rr, t))\dd{\rr}                                                                    \\
-             & = -i\hbar\int\psi^*(\rr, t)\vnabla\psi(\rr, t)\dd{\rr}                                                                                                                                                       \\
-             & = \ev{-i\hbar\vnabla}
-  \end{align}
-  \begin{align}
-    m\dv[2]{\ev{\rr}}{t} & = \dv{\ev{\pp}}{t} = -i\hbar\dv{t}\int\psi^*(\rr, t)\vnabla\psi(\rr, t)\dd{\rr}                                                                                                                  \\
-                         & = -\int\psi^*(\rr, t)\vnabla\qty(i\hbar\diffp{}{t}\psi(\rr, t))\dd{\rr} + \int\qty(-i\hbar\diffp{}{t}\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                  \\
-                         & = -\int\psi^*(\rr, t)\vnabla\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi(\rr, t))\dd{\rr} + \int\qty(\qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} \\
-                         & = \frac{\hbar^2}{2m}\int\psi^*(\rr, t)\vnabla\qty(\nabla^2\psi(\rr, t))\dd{\rr} - \int\psi^*(\rr, t)\vnabla\qty(V(\rr)\psi(\rr, t))\dd{\rr}                                                      \\
-                         & - \frac{\hbar^2}{2m}\int\qty(\nabla^2\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr} + \int\qty(V(\rr)\psi^*(\rr, t))\vnabla\psi(\rr, t)\dd{\rr}                                                      \\
-                         & = - \int\psi^*(\rr, t)\vnabla V(\rr, t)\psi(\rr, t)\dd{\rr}                                                                                                                                      \\
-                         & = - \ev{\vnabla V(\rr, t)}
-  \end{align}
-\end{proof}
+まずは運動量の期待値を計算すると次のようになる。
+\begin{align}
+  \ev{\pp} & = m\dv{\ev{\rr}}{t} = m\dv{t}\int\psi^*\rr\psi\dl{\rr} = m\int\ab(\psi^*\rr\diffp{\psi}{t} + \diffp{\psi^*}{t}\rr\psi)\dl{\rr}                                             \\
+           & = -m\int\psi^*\rr\frac{i}{\hbar}\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi\dl{\rr} + m\int\frac{i}{\hbar}\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*\rr\psi\dl{\rr} \\
+           & = \frac{i\hbar}{2}\int\ab(\psi^*\rr\nabla^2\psi - \nabla^2\psi^*\rr\psi)\dl{\rr}                                                                                           \\
+           & = \frac{i\hbar}{2}\int\ab(\psi^*\rr\nabla^2\psi - \psi^*\nabla^2(\rr\psi))\dl{\rr} - \frac{i\hbar}{2}\ab[\nabla\psi^*\rr\psi] + \frac{i\hbar}{2}\ab[\psi^*\nabla(\rr\psi)] \\
+           & = \int\psi^*(-i\hbar\vnabla)\psi\dl{\rr} = \ev{-i\hbar\vnabla}
+\end{align}
+また力の期待値も次のようになる。
+\begin{align}
+  m\dv[2]{\ev{\rr}}{t} & = \dv{\ev{\pp}}{t} = -i\hbar\dv{t}\int\psi^*\vnabla\psi\dl{\rr} = \int\ab(-\psi^*\vnabla\ab(i\hbar\diffp{\psi}{t}) + \ab(-i\hbar\diffp{\psi^*}{t})\vnabla\psi)\dl{\rr} \\
+                       & = -\int\psi^*\vnabla\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi\dl{\rr} + \int\ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\psi^*\vnabla\psi\dl{\rr}                     \\
+                       & = \frac{\hbar^2}{2m}\int\ab(\psi^*\vnabla\ab(\nabla^2\psi) - \ab(\nabla^2\psi^*)\vnabla\psi)\dl{\rr} - \int\psi^*\vnabla V(\rr)\psi\dl{\rr}                            \\
+                       & = - \int\psi^*\vnabla V(\rr)\psi\dl{\rr} = \ev{-\vnabla V}
+\end{align}
+このようなことから位置演算子 $\hat{\rr}$, 運動量演算子 $\hat{\pp}$, ハミルトニアン演算子 $\hat{H}$ を次のように定義する。
+\begin{align}
+  \hat{\rr} := \rr, \qquad \hat{\pp} := -i\hbar\vnabla, \qquad \hat{H} := \frac{\hat{\pp}^2}{2m} + V(\hat{\rr}, t)
+\end{align}
 
-このようなことから物理量に対して演算子を定義する。
-\begin{definition}
-  位置演算子 $\hat{\rr}$、運動量演算子 $\hat{\pp}$、ハミルトニアン $\hat{H}$ を次のように定義する。
+\begin{definition}[エルミート演算子, 固有関数, 固有値]
+  演算子 $\hat{F}$ がエルミート演算子 (Hermite operator) であるとは次の式が成り立つということである。
   \begin{align}
-    \hat{\rr} := \rr, \qquad \hat{\pp} := -i\hbar\vnabla, \qquad \hat{H} := \frac{\hat{\pp}^2}{2m} + V(\hat{\rr}, t)
+    \int\phi^*(\rr, t)\hat{F}\psi(\rr, t)\dl{\rr} = \int(\hat{F}\phi(\rr, t))^*\psi(\rr, t)\dl{\rr}
   \end{align}
-  ただしエルミート演算子であるとする。
-  \begin{align}
-    \int\phi^*(\rr, t)\hat{F}\psi(\rr, t)\dd{\rr} = \int(\hat{F}\phi(\rr, t))^*\psi(\rr, t)\dd{\rr}
-  \end{align}
-  これより期待値は実数である。
-  \begin{align}
-    \hat{H}\psi(\rr) = E\psi(\rr)
-  \end{align}
-\end{definition}
-
-\begin{definition}[固有関数、固有値]
   次のように演算子 $\hat{F}$ に対して定数倍を除いて波動関数が変化しないとき、波動関数 $\psi_f(\rr, t)$ を演算子 $\hat{F}$ の固有関数、定数 $f$ を固有値と呼ぶ。
   \begin{align}
     \hat{F}\psi_f(\rr, t) & = f\psi_f(\rr, t)
   \end{align}
 \end{definition}
-
-\begin{theorem}
-  エルミート演算子 $\hat{F}$ において異なる固有値 $f, f'$ を持つ固有関数 $\psi_f(\rr, t), \psi_{f'}(\rr, t)$ は直交する。
-\end{theorem}
-\begin{proof}
-  エルミート演算子の性質より
-  \begin{align}
-    \int\psi_{f'}^*(\rr, t)\hat{F}\psi_f(\rr, t)  & = \int\qty(\hat{F}\psi_{f'}(\rr, t))^*\psi_f(\rr, t) \\
-    f\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)        & = f'\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)            \\
-    (f - f')\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t) & = 0                                                  \\
-    \int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)         & = 0
-  \end{align}
-\end{proof}
+エルミート演算子 $\hat{F}$ における固有値 $f, f'$ を持つ固有関数 $\psi_f(\rr, t), \psi_{f'}(\rr, t)$ について定義より
+\begin{align}
+  \int\psi_{f'}^*(\rr, t)\hat{F}\psi_f(\rr, t)\dl{\rr}    & = \int\ab(\hat{F}\psi_{f'}(\rr, t))^*\psi_f(\rr, t)\dl{\rr} \\
+  (f - f'^*)\int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)\dl{\rr} & = 0
+\end{align}
+$f = f'$ のとき $f = f^*$ であるからエルミート演算子の固有値は必ず実数となる。
+また $f \neq f'$ のとき
+\begin{align}
+  \int\psi_{f'}^*(\rr, t)\psi_f(\rr, t)\dl{\rr} & = 0
+\end{align}
+となるからエルミート演算子の固有関数は互いに直交する。
 
 \begin{theorem}[不確定性原理]
   ある波動関数においてある2つの物理量の標準偏差の積は一定値以上である。
@@ -323,13 +301,13 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
 
   \begin{align}
-    \int|\Psi(\rr, t)|^2\dd{\rr} & = \int\Psi^*(\rr, t)\Psi(\rr, t)\dd{\rr}                                                                                                                                     \\
-                                 & = \int\psi^*(\rr, t)\ab(s^2(\hat{r}_i - \ev{\hat{r}_i})^2 - is[\hat{r}_i - \ev{\hat{r}_i}, \hat{p}_j - \ev{\hat{p}_j}] + (\hat{p}_j - \ev{\hat{p}_j})^2)\psi(\rr, t)\dd{\rr} \\
+    \int|\Psi(\rr, t)|^2\dl{\rr} & = \int\Psi^*(\rr, t)\Psi(\rr, t)\dl{\rr}                                                                                                                                     \\
+                                 & = \int\psi^*(\rr, t)\ab(s^2(\hat{r}_i - \ev{\hat{r}_i})^2 - is[\hat{r}_i - \ev{\hat{r}_i}, \hat{p}_j - \ev{\hat{p}_j}] + (\hat{p}_j - \ev{\hat{p}_j})^2)\psi(\rr, t)\dl{\rr} \\
                                  & = s^2\ev{(\hat{r}_i - \ev{\hat{r}_i})^2} + s\hbar\delta_{ij} + \ev{(\hat{p}_j - \ev{\hat{p}_j})^2}                                                                           \\
                                  & = s^2\Delta r_i^2 + s\hbar\delta_{ij} + \Delta p_j^2                                                                                                                         \\
-                                 & = \qty(s + \frac{\hbar\delta_{ij}}{2\Delta r_i^2})^2\Delta r_i^2 - \frac{\hbar^2\delta_{ij}}{4\Delta r_i^2} + \Delta p_j^2 \geq 0
+                                 & = \ab(s + \frac{\hbar\delta_{ij}}{2\Delta r_i^2})^2\Delta r_i^2 - \frac{\hbar^2\delta_{ij}}{4\Delta r_i^2} + \Delta p_j^2 \geq 0
   \end{align}
-  $s = \frac{\hbar\delta_{ij}}{2\Delta r_i^2}$ と代入すると
+  $s = -\dfrac{\hbar\delta_{ij}}{2\Delta r_i^2}$ とすると位置と運動量における不確定性原理が求まる。
   \begin{align}
     \Delta r_i\Delta p_j \geq \frac{\hbar}{2}\delta_{ij}
   \end{align}
@@ -338,7 +316,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \section{時間に依存しないポテンシャル}
 ここではポテンシャルが時間に依存せず、シュレーディンガー方程式が時間に依存しないときを考える。時間成分について波動関数は $\psi(\rr, t) = \varphi(\rr)e^{-i\omega t}$ と分けられるからシュレーディンガー方程式は次のように書ける。
 \begin{align}
-  \hbar\omega\varphi(\rr) & = \qty(-\frac{\hbar^2}{2m}\vnabla^2 + V(\rr))\varphi(\rr) \\
+  \hbar\omega\varphi(\rr) & = \ab(-\frac{\hbar^2}{2m}\vnabla^2 + V(\rr))\varphi(\rr) \\
   \hat{H}\varphi(\rr)     & = E\varphi(\rr)
 \end{align}
 
@@ -355,27 +333,22 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \end{align}
 ポテンシャルが空間反転対称性をもつとき
 \begin{align}
-  E\varphi(-\rr) & = \qty(-\frac{\hbar^2}{2m}(-\nabla)^2 + V(-\rr))\varphi(-\rr) \\
-                 & = \qty(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\varphi(-\rr)
+  E\varphi(-\rr) & = \ab(-\frac{\hbar^2}{2m}(-\nabla)^2 + V(-\rr))\varphi(-\rr) \\
+                 & = \ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\varphi(-\rr)
 \end{align}
 より $\varphi(\rr), \varphi(-\rr)$ は解となる。線形従属、線形独立のときを考えると偶関数または奇関数としても一般性は失われない。
 
 \subsection{平面波}
-ポテンシャルが全くないとき平面波となる。
 \begin{proposition}
-  ポテンシャルがないときを考える。
+  ポテンシャルがない $V(x) = 0$ とき波動関数は平面波となる。
   \begin{align}
-    V(x) = 0
-  \end{align}
-  このとき波数 $\kk$ の波動関数は次のようになる。
-  \begin{align}
-    \psi_{\kk}(\rr, t) & = \frac{e^{i(\kk\vdot\rr - \omega_{\kk}t)}}{(2\pi)^{3/2}} \qquad \qty(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+    \psi_{\kk}(\rr, t) & = \frac{e^{i(\kk\vdot\rr - \omega_{\kk}t)}}{(2\pi)^{3/2}} \qquad \ab(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
   \end{align}
 \end{proposition}
 \begin{proof}
   このとき波数 $\kk$ の波動関数は次のようになる。
   \begin{align}
-    \psi_{\kk}(\rr, t) & = Ce^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \qty(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+    \psi_{\kk}(\rr, t) & = Ce^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \ab(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
   \end{align}
   一辺の長さ $L$ の箱の中に閉じ込めるという周期境界条件を考える。
   \begin{align}
@@ -383,21 +356,21 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   また規格化条件より次のようになる。
   \begin{align}
-    \int|\psi_{\kk}(\rr, t)|^2\dd{\rr} = |C|^2L^3 = 1 \iff |C| & = \frac{1}{L^{3/2}}
+    \int|\psi_{\kk}(\rr, t)|^2\dl{\rr} = |C|^2L^3 = 1 \iff |C| & = \frac{1}{L^{3/2}}
   \end{align}
   また正規直交関係式より
   \begin{align}
-    \int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dd{\rr} & = \delta_{\kk\kk'}
+    \int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dl{\rr} & = \delta_{\kk\kk'}
   \end{align}
   一辺の長さが無限大の箱を考えるときディラックのデルタ関数を用いると
   \begin{align}
-    \lim_{L\to\infty}\int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dd{\rr} & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\lim_{L\to\infty}\int e^{i(\kk - \kk')\vdot\rr}\dd{\rr}                                            \\
-                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}\lim_{L\to\infty}\int_{-L/2}^{L/2} e^{i(k_i - k_i')r_i}\dd{r_i}                     \\
+    \lim_{L\to\infty}\int\psi_{\kk'}^*(\rr, t)\psi_{\kk}(\rr, t)\dl{\rr} & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\lim_{L\to\infty}\int e^{i(\kk - \kk')\vdot\rr}\dl{\rr}                                            \\
+                                                                         & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}\lim_{L\to\infty}\int_{-L/2}^{L/2} e^{i(k_i - k_i')r_i}\dl{r_i}                     \\
                                                                          & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}\lim_{L\to\infty}\frac{e^{i(k_i - k_i')L/2} - e^{-i(k_i - k_i')L/2}}{i(k_i - k_i')} \\
                                                                          & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}2\pi\lim_{L\to\infty}\frac{\sin((k_i - k_i')L/2)}{\pi(k_i - k_i')}                  \\
                                                                          & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}\prod_{i=x,y,z}2\pi\delta(k_i - k_i')                                                              \\
                                                                          & = |C|^2e^{-i(\omega_{\kk} - \omega_{\kk'})t}(2\pi)^3\delta(\kk - \kk')                                                                         \\
-                                                                         & = e^{-i(\omega_{\kk} - \omega_{\kk'})t}\delta(\kk - \kk') \qquad \qty(\because |C| = \frac{1}{(2\pi)^{3/2}})                                   \\
+                                                                         & = e^{-i(\omega_{\kk} - \omega_{\kk'})t}\delta(\kk - \kk') \qquad \ab(\because |C| = \frac{1}{(2\pi)^{3/2}})                                    \\
                                                                          & = \delta(\kk - \kk')
   \end{align}
 \end{proof}
@@ -418,20 +391,21 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
                        \frac{1}{\sqrt{L}}\cos(\frac{n\pi}{2L}x) & (n = 1,3,5,\ldots) \\
                        \frac{1}{\sqrt{L}}\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
                      \end{dcases} \\
-    E_n          & = \frac{\hbar^2}{2m}\qty(\frac{n\pi}{2L})^2
+    E_n          & = \frac{\hbar^2}{2m}\ab(\frac{n\pi}{2L})^2
   \end{align}
 \end{proposition}
 \begin{proof}
-  $|x| > L$ においてポテンシャルの深さが無限大となるので粒子は侵入出来ない為に波動関数はゼロとなる。また $|x| < L$ においては次の微分方程式となる。
+  $|x| > L$ においてポテンシャルの深さが無限大となるので粒子は侵入出来ない為に波動関数はゼロとなる。
   \begin{align}
-    -\frac{\hbar^2}{2m}\dv[2]{x}\varphi(x) & = E\varphi(x) & (|x| < L)
+    \varphi(x) = 0 \qquad (|x| > L)
+  \end{align}
+  また $|x| < L$ においては次の微分方程式となる。
+  \begin{align}
+    -\frac{\hbar^2}{2m}\dv[2]{x}\varphi(x) & = E\varphi(x) \qquad (|x| < L)
   \end{align}
   これより波動関数の解は次のようになる。
   \begin{align}
-    \varphi(x) & = \begin{dcases}
-                     0                    & (|x| > L) \\
-                     Ae^{ikx} + Be^{-ikx} & (|x| < L)
-                   \end{dcases} \\
+    \varphi(x) & = Ae^{ikx} + Be^{-ikx}      \\
     E          & = \frac{\hbar^2k^2}{2m} > 0
   \end{align}
   波動関数は連続的につながっていなければならないので
@@ -439,46 +413,43 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
     \varphi(\pm L) = 0 & \iff \begin{cases}
                                 Ae^{ikL} + Be^{-ikL} = 0 \\
                                 Ae^{-ikL} + Be^{ikL} = 0
-                              \end{cases}  \\
-                       & \iff \begin{cases}
-                                Ae^{2ikL} + B = 0 \\
-                                Ae^{-2ikL} + B = 0
-                              \end{cases}         \\
-                       & \iff \begin{cases}
-                                Ae^{2ikL} + B = 0 \\
-                                Ae^{-2ikL} - Ae^{2ikL} = 0
-                              \end{cases} \\
-                       & \iff \begin{cases}
-                                B = -Ae^{2ikL} \\
-                                A(e^{4ikL} - 1) = 0
                               \end{cases}
+    \iff
+    \begin{cases}
+      B = -Ae^{2ikL} \\
+      A(e^{4ikL} - 1) = 0
+    \end{cases}
   \end{align}
   ここで $A = B = 0$ となる解は意味を成さないので排除すると次のように $k$ が離散化される。
   \begin{align}
-    e^{4ikL} = 1 & \iff k = \frac{n\pi}{2L} \qquad (n = 1,2,\cdots)
+    \begin{cases}
+      e^{4ikL} = 1   \\
+      B = -Ae^{2ikL} \\
+    \end{cases}
+     & \iff
+    \begin{dcases}
+      k = \frac{n\pi}{2L} \\
+      B = (-1)^{n+1}A     \\
+    \end{dcases} \qquad (n = 1,2,\cdots)
   \end{align}
-  これより波動関数は次のようになる。
+  これより $|x| < L$ において波動関数は次のように離散化される。
   \begin{align}
-    B = - Ae^{in\pi}                                                & = \begin{cases}
-                                                                          +A & (n = 1,3,5,\ldots) \\
-                                                                          -A & (n = 2,4,6,\ldots)
-                                                                        \end{cases}                        \\
-    \varphi_n(x) = Ae^{i\frac{n\pi}{2L}x} + Be^{-i\frac{n\pi}{2L}x} & = \begin{dcases}
-                                                                          2A\cos(\frac{n\pi}{2L}x)  & (n = 1,3,5,\ldots) \\
-                                                                          2Ai\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
-                                                                        \end{dcases}
+    \varphi_n(x) = Ae^{ikx} + Be^{-ikx} & = \begin{dcases}
+                                              2A\cos(\frac{n\pi}{2L}x)  & (n = 1,3,5,\ldots) \\
+                                              2Ai\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
+                                            \end{dcases}
   \end{align}
-  最後に $A$ を規格化条件
+  最後に規格化条件を適用することで $A$ が決定される。
   \begin{align}
-    \int_{-\infty}^\infty |\varphi_n(x)|^2 = \int_{-L}^L |\varphi_n(x)|^2 = (2A)^2L = 1
+    \int_{-\infty}^\infty |\varphi_n(x)|^2\dl{x} = \int_{-L}^L |\varphi_n(x)|^2\dl{x} = (2A)^2L = 1 \iff 2A = \frac{1}{\sqrt{L}}
   \end{align}
-  より決定すると、固有関数とエネルギー固有値は
+  よって固有関数とエネルギー固有値は
   \begin{align}
     \varphi_n(x) & = \begin{dcases}
                        \frac{1}{\sqrt{L}}\cos(\frac{n\pi}{2L}x) & (n = 1,3,5,\ldots) \\
                        \frac{1}{\sqrt{L}}\sin(\frac{n\pi}{2L}x) & (n = 2,4,6,\ldots)
                      \end{dcases} \\
-    E_n          & = \frac{\hbar^2}{2m}\qty(\frac{n\pi}{2L})^2
+    E_n          & = \frac{\hbar^2}{2m}\ab(\frac{n\pi}{2L})^2
   \end{align}
   のように離散化される。
 \end{proof}
@@ -488,19 +459,30 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proposition}
   立方体中にしか粒子が存在しないようなポテンシャルを考える。
   \begin{align}
-    V(x) & = \begin{cases}
-               0        & (0 < x, y, z < L) \\
+    V(x) & = \begin{cases*}
+               0        & ($0 < x, y, z < L$) \\
                + \infty & (otherwise)
-             \end{cases}
+             \end{cases*}
   \end{align}
   このとき固有関数、固有エネルギーは次のようになる。
   \begin{align}
-    \varphi(x, y, z) & = \qty(\frac{2}{L})^{3/2}\sin(\frac{n_x\pi}{L}x)\sin(\frac{n_y\pi}{L}y)\sin(\frac{n_z\pi}{L}z) \\
-    E                & = \frac{\pi^2\hbar^2}{2mL^2}\qty(n_x^2 + n_y^2 + n_z^2)
+    \varphi(x, y, z) & = \ab(\frac{2}{L})^{3/2}\sin(\frac{n_x\pi}{L}x)\sin(\frac{n_y\pi}{L}y)\sin(\frac{n_z\pi}{L}z) \\
+    E                & = \frac{\pi^2\hbar^2}{2mL^2}\ab(n_x^2 + n_y^2 + n_z^2)
   \end{align}
 \end{proposition}
 \begin{proof}
-  波動関数を $\psi(\rr) = X(x)Y(y)Z(z)$ と変数分離すると剛体壁ポテンシャルと同様に解ける。
+  波動関数を $\varphi(\rr) = X(x)Y(y)Z(z)$ と変数分離する。
+  \begin{align}
+     & -\frac{\hbar^2}{2m}\nabla^2\varphi(\rr) = E\varphi(\rr)                                                       \\
+     & -\frac{\hbar^2}{2m}\ab(\diffp[2]{}{x} + \diffp[2]{}{y} + \diffp[2]{}{z})[X(x)Y(y)Z(z)] = EX(x)Y(y)Z(z)        \\
+     & -\frac{\hbar^2}{2m}\ab(\frac{1}{X}\diff[2]{X}{x} + \frac{1}{Y}\diff[2]{Y}{y} + \frac{1}{Z}\diff[2]{Z}{z}) = E
+  \end{align}
+  各変数に対して独立に考えることで剛体壁ポテンシャルと同様になる。エネルギーを$E = \varepsilon_x + \varepsilon_y + \varepsilon_z$ とおくと
+  \begin{align}
+     & -\frac{\hbar^2}{2m}\frac{1}{X}\diff[2]{X}{x} = \varepsilon_x \\
+     & -\frac{\hbar^2}{2m}\frac{1}{Y}\diff[2]{Y}{y} = \varepsilon_y \\
+     & -\frac{\hbar^2}{2m}\frac{1}{Z}\diff[2]{Z}{z} = \varepsilon_z
+  \end{align}
 \end{proof}
 
 状態 $(n_x, n_y, n_z)$ について基底状態は $(1, 1, 1)$ の状態であり、第 1 励起状態は $(2, 1, 1), (1, 2, 1), (1, 1, 2)$ の 3 つの状態があり、エネルギーの縮退を起こしている。
@@ -565,117 +547,108 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   固有関数と固有エネルギーは次のようになる。
   \begin{align}
-    \psi_n(x) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega x^2}{2\hbar}} \\
-    E_n       & = \hbar\omega\qty(n + \frac{1}{2})
+    \psi_n(x) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\ab(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega x^2}{2\hbar}} \\
+    E_n       & = \ab(n + \frac{1}{2})\hbar\omega
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    H = \frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2
+    \hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2x^2
   \end{align}
-  $\xi = \sqrt{m\omega/\hbar}x$ とおくと
+  位置を無次元量 $\xi = \sqrt{\dfrac{m\omega}{\hbar}}x$ に変換する。
   \begin{align}
-    H\psi(x) & = \qty(-\frac{\hbar^2}{2m}\dv[2]{x} + \frac{1}{2}m\omega^2x^2)\psi(x) \\
-             & = \frac{\hbar\omega}{2}\qty(-\dv[2]{\xi} + \xi^2)\psi(\xi)
+    \hat{H}\psi(x) & = \ab(-\frac{\hbar^2}{2m}\dv[2]{x} + \frac{1}{2}m\omega^2x^2)\psi(x) = \frac{\hbar\omega}{2}\ab(-\dv[2]{\xi} + \xi^2)\psi(\xi) = E\psi(\xi)
   \end{align}
-  より $\epsilon = 2E/\hbar\omega$ とおくと
+  またエネルギーも無次元量 $\epsilon = \dfrac{2}{\hbar\omega}E$ に変換すると
   \begin{align}
-    \psi'' + \qty(\epsilon - \xi^2)\psi(\xi) = 0
+    \psi'' + \ab(\epsilon - \xi^2)\psi(\xi) = 0
   \end{align}
   となる。この解は $\psi(\xi) = X(\xi)e^{\pm\frac{\xi^2}{2}}$ と予測されるのでこれを微分方程式に代入とすると
   \begin{align}
     X'' \pm 2\xi X' + (\epsilon\pm 1)X = 0
   \end{align}
-  よりこの微分方程式の解 $X(\xi)$ はエルミート多項式の定数倍 $cH_n(\xi)$ となる。このとき無限大で発散する $\psi(\xi) = X(\xi)e^{\frac{\xi^2}{2}}$ は不適。
-  // TODO なぜ $+$ の場合を排除できるのかを明確に記す。
+  よりこの微分方程式の解 $X(\xi)$ はエルミート多項式の定数倍 $cH_n(\xi)$ となる。
+  ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義される。
+  \begin{align}
+    H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}
+  \end{align}
+  このとき無限大で発散する $\psi(\xi) = X(\xi)e^{\frac{\xi^2}{2}}$ は不適。
+  TODO: なぜ $+$ の場合を排除できるのかを明確に記す。
   これより $\psi_n(\xi) = cH_n(\xi)e^{-\frac{\xi^2}{2}}$ となる。規格化条件を考えると
   \begin{align}
-    \int_\RR \psi_m^*\psi_n\dd{\xi} & = c^2\int_\RR \qty(H_m(\xi)e^{-\frac{\xi^2}{2}})^*H_n(\xi)e^{-\frac{\xi^2}{2}}\dd{\xi} \\
-                                    & = c^2\int_\RR H_m(\xi)H_n(\xi)e^{-\xi^2}\dd{\xi}                                       \\
-                                    & = 2^nn!\sqrt{\pi}c^2\delta_{m, n}                                                      \\
+    \int_\RR \psi_m^*\psi_n\dl{\xi} & = c^2\int_\RR \ab(H_m(\xi)e^{-\frac{\xi^2}{2}})^*H_n(\xi)e^{-\frac{\xi^2}{2}}\dl{\xi} \\
+                                    & = c^2\int_\RR H_m(\xi)H_n(\xi)e^{-\xi^2}\dl{\xi}                                      \\
+                                    & = 2^nn!\sqrt{\pi}c^2\delta_{m, n}                                                     \\
                                     & = \delta_{m, n}
   \end{align}
   よって次のようになる。
   \begin{align}
-    \psi_n(\xi) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}}                                          \\
-    \psi_n(x)   & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega x^2}{2\hbar}} \\
-    E_n         & = \hbar\omega\qty(n + \frac{1}{2})
+    \psi_n(\xi) & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}}                                        \\
+    \psi_n(x)   & = \sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n\ab(\sqrt{\frac{m\omega}{\hbar}}x)e^{-\frac{m\omega}{2\hbar}x^2} \\
+    E_n         & = \ab(n + \frac{1}{2})\hbar\omega
   \end{align}
 \end{proof}
+
+\begin{align}
+  \Psi_n(q) = \braket<q|n> = \ab(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\ab(\sqrt{\frac{m\omega}{\hbar}}q)
+\end{align}
 
 \begin{definition}
   上昇演算子 $\hat{a}^\dagger$, 下降演算子 $\hat{a}$, 数演算子 $\hat{N}$ を次のように定義する。
   \begin{align}
-    \hat{a}^\dagger & = \frac{1}{\sqrt{2}}\qty(\xi - \dv{\xi}) & \hat{a} & = \frac{1}{\sqrt{2}}\qty(\xi + \dv{\xi}) & \hat{N} & = \hat{a}^\dagger\hat{a}
+    \hat{a}^\dagger & = \frac{1}{\sqrt{2}}\ab(\xi - \dv{\xi}) & \hat{a} & = \frac{1}{\sqrt{2}}\ab(\xi + \dv{\xi}) & \hat{N} & = \hat{a}^\dagger\hat{a}
   \end{align}
 \end{definition}
-
 \begin{proposition}
   上昇・下降演算子により
   \begin{align}
-    \hat{a}^\dagger\psi_n(\xi) & = \sqrt{n+1}\psi_{n+1}(\xi) \\
-    \hat{a}\psi_n(\xi)         & = \sqrt{n}\psi_{n-1}(\xi)   \\
-    \hat{N}\psi_n(\xi)         & = n\psi_n(\xi)
+    \hat{a}^\dagger\psi_n(\xi) & = \sqrt{n+1}\psi_{n+1}(\xi)             \\
+    \hat{a}\psi_n(\xi)         & = \sqrt{n}\psi_{n-1}(\xi)               \\
+    \hat{N}\psi_n(\xi)         & = n\psi_n(\xi)                          \\
+    \hat{H}                    & = \ab(\hat{N} + \frac{1}{2})\hbar\omega
   \end{align}
 \end{proposition}
 \begin{proof}
   これらを波動関数に掛けると
   \begin{align}
-    \hat{a}^\dagger\psi_n(\xi) & = \frac{1}{\sqrt{2}}\qty(\xi - \dv{\xi})\qty(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})   \\
-                               & = \sqrt{\frac{n+1}{2^{n+1}(n+1)!\sqrt{\pi}}}\qty(\xi H_n(\xi) - (H_n'(\xi) - \xi H_n(\xi)))                  \\
-                               & = \sqrt{n+1}\psi_{n+1}(\xi)                                                                                  \\
-    \hat{a}\psi_n(\xi)         & = \frac{1}{\sqrt{2}}\qty(\xi + \dv{\xi})\qty(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})   \\
-                               & = \sqrt{\frac{1}{2^{n-1}(n-1)!\sqrt{\pi}}}\frac{1}{2\sqrt{n}}\qty(\xi H_n(\xi) + (H_n'(\xi) - \xi H_n(\xi))) \\
-                               & = \sqrt{n}\psi_{n-1}(\xi)                                                                                    \\
-    \hat{N}\psi_n(\xi)         & = n\psi_n(\xi)
+    \hat{a}^\dagger\psi_n(\xi) & = \frac{1}{\sqrt{2}}\ab(\xi - \dv{\xi})\ab(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})    \\
+                               & = \sqrt{\frac{n+1}{2^{n+1}(n+1)!\sqrt{\pi}}}\ab(\xi H_n(\xi) - (H_n'(\xi) - \xi H_n(\xi)))                  \\
+                               & = \sqrt{n+1}\psi_{n+1}(\xi)                                                                                 \\
+    \hat{a}\psi_n(\xi)         & = \frac{1}{\sqrt{2}}\ab(\xi + \dv{\xi})\ab(\sqrt{\frac{1}{2^nn!\sqrt{\pi}}}H_n(\xi)e^{-\frac{\xi^2}{2}})    \\
+                               & = \sqrt{\frac{1}{2^{n-1}(n-1)!\sqrt{\pi}}}\frac{1}{2\sqrt{n}}\ab(\xi H_n(\xi) + (H_n'(\xi) - \xi H_n(\xi))) \\
+                               & = \sqrt{n}\psi_{n-1}(\xi)
+  \end{align}
+  となる。この結果を用いて
+  \begin{align}
+    \hat{N}\psi_n(\xi) & = \hat{a}^\dagger\hat{a}\psi_n(\xi) = \sqrt{n}\hat{a}^\dagger\psi_{n-1}(\xi) = n\psi_n(\xi)
+  \end{align}
+  これより
+  \begin{align}
+    \hat{H}\psi_n(\xi) & = \ab(n + \frac{1}{2})\hbar\omega\psi_n(\xi) = \ab(\hat{N} + \frac{1}{2})\hbar\omega\psi_n(\xi)
   \end{align}
   となる。
 \end{proof}
 
 \begin{proposition}
+  上の結果を用いて交換関係は次のようになる。
   \begin{align}
-    [\hat{a}, \hat{a}^\dagger] & = 1                                      \\
-    [\hat{N}, \hat{a}]         & = -\hat{a}^\dagger                       \\
-    [\hat{N}, \hat{a}^\dagger] & = \hat{a}                                \\
-    \hat{H}                    & = \hbar\omega\qty(\hat{N} + \frac{1}{2})
+    [\hat{a}, \hat{a}^\dagger] = 1, \qquad [\hat{N}, \hat{a}] = \hat{a}, \qquad [\hat{N}, \hat{a}^\dagger] = -\hat{a}^\dagger
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    [\hat{a}, \hat{a}^\dagger] & = \hat{a}\hat{a}^\dagger - \hat{a}^\dagger\hat{a}                                                      \\
-                               & = \frac{1}{2}\qty(\qty(\xi + \dv{\xi})\qty(\xi - \dv{\xi}) - \qty(\xi - \dv{\xi})\qty(\xi + \dv{\xi})) \\
-                               & = \frac{1}{2}\qty(\qty(\xi^2 + 1 - \dv[2]{\xi}) - \qty(\xi^2 - 1 - \dv[2]{\xi}))                       \\
-                               & = 1                                                                                                    \\
-    [\hat{N}, \hat{a}]         & = [\hat{a}^\dagger\hat{a}, \hat{a}] =                                                                  \\
-    [\hat{N}, \hat{a}^\dagger] & = \hat{a}                                                                                              \\
+    [\hat{a}, \hat{a}^\dagger] & = \hat{a}\hat{a}^\dagger - \hat{a}^\dagger\hat{a}                                                 \\
+                               & = \frac{1}{2}\ab(\ab(\xi + \dv{\xi})\ab(\xi - \dv{\xi}) - \ab(\xi - \dv{\xi})\ab(\xi + \dv{\xi})) \\
+                               & = \frac{1}{2}\ab(\ab(\xi^2 + 1 - \dv[2]{\xi}) - \ab(\xi^2 - 1 - \dv[2]{\xi}))                     \\
+                               & = 1
+  \end{align}
+  \begin{align}
+    [\hat{N}, \hat{a}]         & = [\hat{a}^\dagger\hat{a}, \hat{a}] = [\hat{a}^\dagger, \hat{a}]\hat{a} = \hat{a}                          \\
+    [\hat{N}, \hat{a}^\dagger] & = [\hat{a}^\dagger\hat{a}, \hat{a}^\dagger] = \hat{a}^\dagger[\hat{a}, \hat{a}^\dagger] = -\hat{a}^\dagger
   \end{align}
 \end{proof}
 
-1次元の空間を運動する粒子が、次の調和振動子の Hamilton 演算子 $\hat{H}$ に従っているとします：
-\begin{align}
-  \hat{H} & = \frac{1}{2m}\hat{p}^2 + \frac{1}{2}m\omega^2\hat{q}^2.
-\end{align}
-ここで、$m$ は粒子の質量であり、$\omega$ は調和振動の角振動数です。また、$\hat{q}$ は粒子の位置座標演算子であり、$\hat{p}$ は運動量演算子です。それらは、次の正準交換関係を満たします：
-\begin{align}
-  [\hat{q}, \hat{p}] = \hat{q}\hat{p} - \hat{p}\hat{q} = i\hbar
-\end{align}
-ここで、$\hbar$ は Planck 定数です。
 
-この 1 次元調和振動子の固有エネルギー $E_h$ と固有状態 $\ket|n>$ は固有方程式
-\begin{align}
-  \hat{H}\ket|n> = E_n\ket|n>
-\end{align}
-を解くことにより定まります。解いた結果は $n = 0, 1, 2, \ldots$ に対して次のとおりです：
-\begin{align}
-  \begin{dcases}
-    E_n        = \qty(n + \frac{1}{2})\hbar\omega \\
-    \Psi_n(q) = \braket<q|n> = \qty(\frac{m\omega}{2^{2n}(n!)^2\pi\hbar})^{\frac{1}{4}}e^{-\frac{m\omega}{2\hbar}q^2}H_n\qty(\sqrt{\frac{m\omega}{\hbar}}q)
-  \end{dcases}.
-\end{align}
-ここで、Hermite 多項式 $H_n(x)$ は次の Rodrigues 公式により定義されます：
-\begin{align}
-  H_n(x) = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}.
-\end{align}
 
 \subsection{3次元調和振動子}
 \begin{proposition}
@@ -685,21 +658,21 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   固有関数、固有エネルギーは次のようになる。
   \begin{align}
-    \psi_{n_1,n_2,n_3}(\rr) & = \prod_{i = 1}^3\sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}\qty(\sqrt{\frac{m\omega}{\hbar}}r_i)e^{-\frac{m\omega r_i^2}{2\hbar}} \\
-    E_{n_1,n_2,n_3}         & = \sum_{i=1}^{3}\hbar\omega\qty(n_i + \frac{1}{2})
+    \psi_{n_1,n_2,n_3}(\rr) & = \prod_{i = 1}^3\sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}\ab(\sqrt{\frac{m\omega}{\hbar}}r_i)e^{-\frac{m\omega r_i^2}{2\hbar}} \\
+    E_{n_1,n_2,n_3}         & = \ab(n_1 + n_2 + n_3 + \frac{3}{2})\hbar\omega
   \end{align}
 \end{proposition}
 \begin{proof}
   波動関数を $\psi(\rr) = X_1(r_1)X_2(r_2)X_3(r_3)$ と変数分離すると1次元調和振動子と同様に解ける。
   \begin{align}
-    E_iX_i(r_i) & = \qty(\frac{\hat{p}_i^2}{2m} + \frac{1}{2}m\omega^2r_i^2)X_i(r_i)                                                           \\
-    X_i(r_i)    & = \sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}(\xi_i)e^{-\frac{\xi_i^2}{2}} & \qty(\xi_i = \sqrt{\frac{m\omega}{\hbar}}r_i) \\
-    E_i         & = \hbar\omega\qty(n_i + \frac{1}{2})
+    E_iX_i(r_i) & = \ab(\frac{\hat{p}_i^2}{2m} + \frac{1}{2}m\omega^2r_i^2)X_i(r_i)                                                           \\
+    X_i(r_i)    & = \sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}(\xi_i)e^{-\frac{\xi_i^2}{2}} & \ab(\xi_i = \sqrt{\frac{m\omega}{\hbar}}r_i) \\
+    E_i         & = \ab(n_i + \frac{1}{2})\hbar\omega
   \end{align}
   より
   \begin{align}
     \psi_{n_1,n_2,n_3}(r_1,r_2,r_3) & = \prod_{i = 1}^3\sqrt{\frac{1}{2^{n_i}n_i!\sqrt{\pi}}}H_{n_i}(\xi_i)e^{-\frac{\xi_i^2}{2}} \\
-    E_{n_1,n_2,n_3}                 & = \sum_{i=1}^{3}\hbar\omega\qty(n_i + \frac{3}{2})
+    E_{n_1,n_2,n_3}                 & = \ab(n_1 + n_2 + n_3 + \frac{3}{2})\hbar\omega
   \end{align}
   となる。
 \end{proof}
@@ -710,15 +683,15 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proposition}
   2次元中心力ポテンシャルのとき、波動関数は $\psi(r, \theta) = R(r)e^{i\mu\theta}$ として $R(r)$ は次の微分方程式を満たす関数である。
   \begin{align}
-    R'' + \frac{1}{r}R' - \qty(\frac{2m(V(r) - E)}{\hbar^2} + \mu^2)R = 0
+    R'' + \frac{1}{r}R' - \ab(\frac{2m(V(r) - E)}{\hbar^2} + \mu^2)R = 0
   \end{align}
 \end{proposition}
 \begin{proof}
   極座標
   \begin{align}
-    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + V(r)                                                                               \\
-            & = -\frac{\hbar^2}{2m}\qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + V(r)                     \\
-    0       & = \qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta} + \frac{2m(E - V(r))}{\hbar^2})\psi(r, \theta)
+    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + V(r)                                                                              \\
+            & = -\frac{\hbar^2}{2m}\ab(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + V(r)                     \\
+    0       & = \ab(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta} + \frac{2m(E - V(r))}{\hbar^2})\psi(r, \theta)
   \end{align}
   波動関数を $\psi(r, \theta) = R(r)\Theta(\theta)$ と変数分離する。
   \begin{align}
@@ -744,7 +717,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   よって波動関数は $\psi(r, \theta) = R(r)e^{i\mu\theta}$ として $R(r)$ は次の微分方程式を満たす関数である。
   \begin{align}
-    R'' + \frac{1}{r}R' + \qty(\frac{2m(E - V(r))}{\hbar^2} - \mu^2)R = 0
+    R'' + \frac{1}{r}R' + \ab(\frac{2m(E - V(r))}{\hbar^2} - \mu^2)R = 0
   \end{align}
 \end{proof}
 
@@ -761,13 +734,13 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proof}
   極座標で2次元等方調和振動子を考える。まず $r$ を無次元化すると
   \begin{align}
-    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + \frac{1}{2}m\omega^2r^2                                                                                                        \\
-            & = -\frac{\hbar^2}{2m}\qty(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + \frac{1}{2}m\omega^2r^2                                              \\
-            & = -\frac{\hbar\omega}{2}\qty(\pdv[2]{\rho} + \frac{1}{\rho}\pdv{\rho} + \frac{1}{\rho^2}\pdv[2]{\theta} - \rho^2)   & \qty(\rho = \sqrt{\frac{m\omega}{\hbar}}r)
+    \hat{H} & = -\frac{\hbar^2}{2m}\laplacian + \frac{1}{2}m\omega^2r^2                                                                                                      \\
+            & = -\frac{\hbar^2}{2m}\ab(\pdv[2]{r} + \frac{1}{r}\pdv{r} + \frac{1}{r^2}\pdv[2]{\theta}) + \frac{1}{2}m\omega^2r^2                                             \\
+            & = -\frac{\hbar\omega}{2}\ab(\pdv[2]{\rho} + \frac{1}{\rho}\pdv{\rho} + \frac{1}{\rho^2}\pdv[2]{\theta} - \rho^2)   & \ab(\rho = \sqrt{\frac{m\omega}{\hbar}}r)
   \end{align}
   波動関数を $\psi(\rho, \theta) = R(\rho)e^{i\mu\theta}$ と変数分離する。
   \begin{align}
-    R'' + \frac{1}{\rho}R' + \qty(\frac{2E}{\hbar\omega} - \rho^2 - \frac{\mu^2}{\rho^2})R = 0
+    R'' + \frac{1}{\rho}R' + \ab(\frac{2E}{\hbar\omega} - \rho^2 - \frac{\mu^2}{\rho^2})R = 0
   \end{align}
   $\rho\to 0$ のとき $R(\rho) = \rho^s$ とおくと $R(\rho) = \rho^{|\mu|}$ が適する。
   \begin{align}
@@ -796,32 +769,32 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proposition}
   3次元中心力ポテンシャルのとき、波動関数は $\psi_{lm}(r, \theta, \phi) = R_l(r)\Theta_{lm}(\theta)\Phi_m(\phi)$ と変数分離するとそれぞれ次のようになる。
   \begin{align}
-    \Phi_m(\phi)                               & = \frac{1}{\sqrt{2\pi}}e^{im\phi}                                                                        & (m\in\ZZ) \\
-    \Theta_{lm}(\theta)                        & = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) & (l\in\ZZ) \\
-    - \frac{\hbar^2}{2\mu r}\dv[2]{r}(rR_l(r)) & + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})rR_l(r) = ErR_l(r)
+    \Phi_m(\phi)                               & = \frac{1}{\sqrt{2\pi}}e^{im\phi}                                                                       & (m\in\ZZ) \\
+    \Theta_{lm}(\theta)                        & = (-1)^{\frac{m + |m|}{2}}\sqrt{\ab(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) & (l\in\ZZ) \\
+    - \frac{\hbar^2}{2\mu r}\dv[2]{r}(rR_l(r)) & + \ab(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})rR_l(r) = ErR_l(r)
   \end{align}
 \end{proposition}
 \begin{proof}
   動径方向のみに依存するポテンシャル $V(r)$ を考える。
   \begin{align}
-    \hat{H} & = -\frac{\hbar^2}{2\mu}\laplacian + V(r)                                                                                                                                                       \\
-            & = -\frac{\hbar^2}{2\mu}\qty(\frac{1}{r^2}\pdv{r}\qty(r^2\pdv{r}) + \frac{1}{r^2\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{r^2\sin^2\theta}\pdv[2]{\phi}) + V(r)            \\
-    0       & = \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi} + \frac{2\mu r^2(E - V(r))}{\hbar^2})\psi(r, \theta, \phi)
+    \hat{H} & = -\frac{\hbar^2}{2\mu}\laplacian + V(r)                                                                                                                                                    \\
+            & = -\frac{\hbar^2}{2\mu}\ab(\frac{1}{r^2}\pdv{r}\ab(r^2\pdv{r}) + \frac{1}{r^2\sin\theta}\pdv{\theta}\ab(\sin\theta\pdv{\theta}) + \frac{1}{r^2\sin^2\theta}\pdv[2]{\phi}) + V(r)            \\
+    0       & = \ab(\pdv{r}\ab(r^2\pdv{r}) + \frac{1}{\sin\theta}\pdv{\theta}\ab(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi} + \frac{2\mu r^2(E - V(r))}{\hbar^2})\psi(r, \theta, \phi)
   \end{align}
   と書ける。波動関数 $\psi(r, \theta, \phi)$ を $\psi(r, \theta, \phi) = R(r)Y(\theta, \phi)$ と変数分離すると定数 $\lambda$ を用いて
   \begin{align}
-     & \qty(\pdv{r}\qty(r^2\pdv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                                                               \\
-     & \qty(\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi)
+     & \ab(\pdv{r}\ab(r^2\pdv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                                                               \\
+     & \ab(\frac{1}{\sin\theta}\pdv{\theta}\ab(\sin\theta\pdv{\theta}) + \frac{1}{\sin^2\theta}\pdv[2]{\phi}) Y(\theta, \phi) = -\lambda Y(\theta, \phi)
   \end{align}
   となる。また $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ と変数分離すると定数 $m$ を用いて
   \begin{align}
-     & \qty(\sin\theta\pdv{\theta}\qty(\sin\theta\pdv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) = m^2\Theta(\theta) \\
+     & \ab(\sin\theta\pdv{\theta}\ab(\sin\theta\pdv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) = m^2\Theta(\theta) \\
      & \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
   \end{align}
   となる。よって次の 3 式を解けばよい。
   \begin{align}
-     & \qty(\dv{r}\qty(r^2\dv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                              \\
-     & \qty(\sin\theta\dv{\theta}\qty(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta)  = m^2\Theta(\theta) \\
+     & \ab(\dv{r}\ab(r^2\dv{r}) + \frac{2\mu r^2(E - V(r))}{\hbar^2})R(r) = \lambda R(r)                              \\
+     & \ab(\sin\theta\dv{\theta}\ab(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta)  = m^2\Theta(\theta) \\
      & \dv[2]{\Phi(\phi)}{\phi} = -m^2\Phi(\phi)
   \end{align}
   まず $\Phi(\phi)$ の一般解は次のようになる。
@@ -838,30 +811,30 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   となる。次に $\Theta(\theta)$ について解く。$z = \cos\theta$ とおくと,
   \begin{align}
-    \qty(\sin\theta\dv{\theta}\qty(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) & = m^2\Theta(\theta) \\
-    \dv{z}\qty((1 - z^2)\dv{\Theta}{z}) + \qty(\lambda - \frac{m^2}{1 - z^2})\Theta(z)          & = 0
+    \ab(\sin\theta\dv{\theta}\ab(\sin\theta\dv{\theta}) + \lambda \sin^2\theta)\Theta(\theta) & = m^2\Theta(\theta) \\
+    \dv{z}\ab((1 - z^2)\dv{\Theta}{z}) + \ab(\lambda - \frac{m^2}{1 - z^2})\Theta(z)          & = 0
   \end{align}
   となる。$m = 0$ において $\Theta(z)$ はルジャンドルの微分方程式を満たす。$\Theta(z)$ をべき展開することで
   \begin{align}
      & (1 - z^2)\Theta'' - 2z\Theta' + \lambda\Theta = 0, \qquad \Theta(z) = \sum_{k = 0}^\infty a_kz^k                          \\
      & (1 - z^2)\sum_{k = 2}^\infty k(k-1)a_kz^{k-2} - 2z\sum_{k = 1}^\infty ka_kz^{k-1} + \lambda\sum_{k = 0}^\infty a_kz^k = 0 \\
-     & \sum_{k = 0}^\infty \qty((k+1)(k+2)a_{k+2} + \qty(\lambda - k(k+1))a_k)z^k + \mathcal{O}(z) = 0                           \\
+     & \sum_{k = 0}^\infty \ab((k+1)(k+2)a_{k+2} + \ab(\lambda - k(k+1))a_k)z^k + \mathcal{O}(z) = 0                             \\
      & a_{k+2} = \frac{k(k+1) - \lambda}{(k+2)(k+1)}a_k
   \end{align}
   となる。よって $z$ について一般に発散しない為には $\lambda = l(l+1)\ (l\in\ZZ_{>0})$ とならければならない。すると $m\neq 0$ のときはルジャンドルの陪微分方程式となる。
   \begin{align}
-    \dv{z}\qty((1 - z^2)\dv{\Theta}{z}) + \qty(l(l+1) - \frac{m^2}{1 - z^2})\Theta(z) & = 0
+    \dv{z}\ab((1 - z^2)\dv{\Theta}{z}) + \ab(l(l+1) - \frac{m^2}{1 - z^2})\Theta(z) & = 0
   \end{align}
   これよりルジャンドルの陪関数 $P_l^m(z)$ と規格化条件から
   \begin{align}
-    \Theta_{lm}(\theta) & = (-1)^{\frac{m + |m|}{2}}\sqrt{\qty(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
-    P_l^m(z)            & = (1 - z^2)^{\frac{m}{2}}\dv[m]{P_l(z)}{z}                                                               \\
-    P_l^{-m}(z)         & = (-1)^m\frac{(l - |m|)!}{(l + |m|)!}P_l^m(z)                                                            \\
+    \Theta_{lm}(\theta) & = (-1)^{\frac{m + |m|}{2}}\sqrt{\ab(l + \frac{1}{2})\frac{(l - |m|)!}{(l + |m|)!}}P_l^{|m|}(\cos\theta) \\
+    P_l^m(z)            & = (1 - z^2)^{\frac{m}{2}}\dv[m]{P_l(z)}{z}                                                              \\
+    P_l^{-m}(z)         & = (-1)^m\frac{(l - |m|)!}{(l + |m|)!}P_l^m(z)                                                           \\
     P_l(z)              & = \frac{1}{2^l}\dv[l]{z}(z^2 - 1)^l
   \end{align}
   と書ける。また $R_l(r)$ については $R_l(r) = \dfrac{\chi_l(r)}{r}$ とおくと
   \begin{align}
-    - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \qty(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)
+    - \frac{\hbar^2}{2\mu r}\dv[2]{r}\chi_l(r) + \ab(V(r) + \frac{l(l+1)\hbar^2}{2\mu r^2})\chi_l(r) = E\chi_l(r)
   \end{align}
   となり, 1 次元のシュレーディンガー方程式に帰着する。
 \end{proof}
@@ -882,8 +855,8 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
 \begin{proof}
   動径方向のシュレーディンガー方程式について $k^2 = \dfrac{2\mu E}{\hbar^2}$, $\xi = kr$ とすると
   \begin{align}
-     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \qty(\frac{2\mu E}{\hbar^2} - \frac{l(l+1)}{r^2})R_l(r) = 0 \\
-     & \dv[2]{\xi}R_l(\xi) + \frac{2}{\xi}\dv{\xi}R_l(\xi) + \qty(1 - \frac{l(l+1)}{\xi^2})R_l(\xi) = 0
+     & \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \ab(\frac{2\mu E}{\hbar^2} - \frac{l(l+1)}{r^2})R_l(r) = 0 \\
+     & \dv[2]{\xi}R_l(\xi) + \frac{2}{\xi}\dv{\xi}R_l(\xi) + \ab(1 - \frac{l(l+1)}{\xi^2})R_l(\xi) = 0
   \end{align}
   となり, 一般解は球ベッセル関数 $j_l(\xi)$ と球ノイマン関数 $n_l(\xi)$ の線形結合で書かれる。
   \begin{align}
@@ -929,7 +902,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
                                              \frac{1}{r}\sqrt{\frac{2}{L}}\cos(\frac{n\pi}{2L}r) & (n: 奇数) \\
                                              \frac{1}{r}\sqrt{\frac{2}{L}}\sin(\frac{n\pi}{2L}r) & (n: 偶数)
                                            \end{dcases} \\
-    E_{n0}                             & = \dfrac{\hbar^2}{2\mu}\qty(\frac{n\pi}{2L})^2
+    E_{n0}                             & = \dfrac{\hbar^2}{2\mu}\ab(\frac{n\pi}{2L})^2
   \end{align}
   $n$ が奇数のときは $r\to 0$ で発散する。これより $n$ が偶数のときに限る。
   \begin{align}
@@ -957,21 +930,21 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   半径成分の波動方程式は次のようになる。
   \begin{align}
-    R_{nl}(x) & = x^{l/2}e^{-x/2}S_n^\alpha(x)                                         \\
-    E         & = \frac{\lambda}{2}\hbar\omega = \qty(2n + l + \frac{3}{2})\hbar\omega
+    R_{nl}(x) & = x^{l/2}e^{-x/2}S_n^\alpha(x)                                        \\
+    E         & = \frac{\lambda}{2}\hbar\omega = \ab(2n + l + \frac{3}{2})\hbar\omega
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E - \frac{1}{2}\mu\omega^2r^2 - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
+    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\ab(E - \frac{1}{2}\mu\omega^2r^2 - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
   \end{align}
   まず $\rho = \sqrt{\dfrac{\mu\omega}{\hbar}}r$ と無次元化する。
   \begin{align}
-    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \qty(\lambda = \frac{2E}{\hbar\omega})
+    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \ab(\lambda + \rho^2 - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \ab(\lambda = \frac{2E}{\hbar\omega})
   \end{align}
   となる。$x = \rho^2$ と変数変換すると
   \begin{align}
-     & x\dv[2]{x}R_l(x) + \frac{3}{2}\dv{x}R_l(x) + \frac{1}{4}\qty(\lambda + x - \frac{l(l+1)}{x})R_l(x) = 0
+     & x\dv[2]{x}R_l(x) + \frac{3}{2}\dv{x}R_l(x) + \frac{1}{4}\ab(\lambda + x - \frac{l(l+1)}{x})R_l(x) = 0
   \end{align}
   となり, 級数展開法より $\rho\to\infty$ で発散しない為には $n$ を非負整数として $\lambda = 4n + 2l + 3$ となる。
   $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-x/2}$, $x^{l/2}$ となるので $R_l(x) = x^{l/2}e^{-x/2}S_n^\alpha(x)$ と分離すると
@@ -990,17 +963,17 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   固有関数と固有エネルギーは次のようになる。
   \begin{align}
-    R_{nl}(\rho) & = \qty(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho) \\
+    R_{nl}(\rho) & = \ab(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho) \\
     E_n          & = - \frac{e^2}{8\pi\epsilon_0a_B}\frac{1}{n^2}
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\qty(E + \frac{e^2}{4\pi\epsilon_0r} - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
+    \dv[2]{r}R_l(r) + \frac{2}{r}\dv{r}R_l(r) + \frac{2\mu}{\hbar^2}\ab(E + \frac{e^2}{4\pi\epsilon_0r} - \frac{l(l+1)\hbar^2}{2\mu r^2})R_l(r) = 0
   \end{align}
   まず $\rho = \alpha r$, $\alpha = 2\sqrt{\dfrac{2\mu|E|}{\hbar^2}}$ と無次元化する。
   \begin{align}
-    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \qty(\frac{1}{4} + \frac{\lambda}{\rho} - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \qty(\lambda = \frac{e^2}{8\pi\epsilon_0E}\sqrt{\dfrac{2\mu|E|}{\hbar^2}})
+    \dv[2]{\rho}R_l(\rho) + \frac{2}{\rho}\dv{\rho}R_l(\rho) + \ab(\frac{1}{4} + \frac{\lambda}{\rho} - \frac{l(l+1)}{\rho^2})R_l(\rho) & = 0 & \ab(\lambda = \frac{e^2}{8\pi\epsilon_0E}\sqrt{\dfrac{2\mu|E|}{\hbar^2}})
   \end{align}
   $\rho\to\infty$, $\rho\to 0$ のときの漸近解はそれぞれ $e^{-\rho/2}$, $\rho^l$ となるので $R_l(\rho) = \rho^le^{-\rho/2}L(\rho)$ と分離すると
   \begin{align}
@@ -1013,7 +986,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
   とかける。よって規格化条件を加えると
   \begin{align}
-    R_{nl}(\rho) = \qty(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho)
+    R_{nl}(\rho) = \ab(\frac{2}{na_0})^{3/2}\sqrt{\frac{(n-l-1)!}{2n((n+l)!)^3}}\rho^le^{-\rho/2}L_{n+l}^{2l+1}(\rho)
   \end{align}
   となり $0\leq l < n$ を満たす。
 \end{proof}
@@ -1069,7 +1042,7 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \begin{align}
     (XY\ket|\alpha>)^\dagger                    & = (X(Y\ket|\alpha>))^\dagger = (\bra<\alpha|Y^\dagger)X^\dagger = \bra<\alpha|Y^\dagger X^\dagger                 \\
     (\ket|\beta>\braket<\alpha|\gamma>)^\dagger & = \braket<\alpha|\gamma>^*\bra<\beta| = \braket<\gamma|\alpha>\bra<\beta| = \bra<\gamma|(\ket|\alpha>\bra<\beta|) \\
-    \bra<\beta|X\ket|\alpha>                    & = \bra<\beta|(X\ket|\alpha>) = \qty{(\bra<\alpha|X^\dagger)\ket|\beta>}^* = \bra<\alpha|X^\dagger\ket|\beta>^*
+    \bra<\beta|X\ket|\alpha>                    & = \bra<\beta|(X\ket|\alpha>) = \ab\{(\bra<\alpha|X^\dagger)\ket|\beta>\}^* = \bra<\alpha|X^\dagger\ket|\beta>^*
   \end{align}
 \end{proof}
 
@@ -1141,14 +1114,14 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   平行移動生成演算子
 \end{definition}
 \begin{align}
-  \mathfrak{J}(\dd{\rr'})\ket|\alpha> = \mathfrak{J}(\dd{\rr'})\int\dd{\rr'}\ket|\rr'>\braket<\rr'|\alpha> = \int\dd{\rr'}\ket|\rr' + \dd{\rr'}>\braket<\rr'|\alpha> = \int\dd{\rr'}\ket|\rr'>\braket<\rr' - \dd{\rr'}|\alpha>
+  \mathfrak{J}(\dl{\rr'})\ket|\alpha> = \mathfrak{J}(\dl{\rr'})\int\dl{\rr'}\ket|\rr'>\braket<\rr'|\alpha> = \int\dl{\rr'}\ket|\rr' + \dl{\rr'}>\braket<\rr'|\alpha> = \int\dl{\rr'}\ket|\rr'>\braket<\rr' - \dl{\rr'}|\alpha>
 \end{align}
 
 \begin{definition}[交換関係・反交換関係]
   2 つの演算子 $\hat{A}$, $\hat{B}$ について交換関係 (commutation relation) $[\hat{A}, \hat{B}]$ と反交換関係 (anticommutation relations) $\lbrace\hat{A}, \hat{B}\rbrace$ は次のように定義する。
   \begin{align}
-    \qty[\hat{A}, \hat{B}] & = \hat{A}\hat{B} - \hat{B}\hat{A} \\
-    \qty{\hat{A}, \hat{B}} & = \hat{A}\hat{B} + \hat{B}\hat{A}
+    \ab[\hat{A}, \hat{B}]   & = \hat{A}\hat{B} - \hat{B}\hat{A} \\
+    \ab\{\hat{A}, \hat{B}\} & = \hat{A}\hat{B} + \hat{B}\hat{A}
   \end{align}
   $[\hat{A}, \hat{B}] = 0$ のとき $\hat{A}$ と $\hat{B}$ は交換可能であるという。このとき $\hat{A}$ の固有状態であり、同時に $\hat{B}$ の固有状態でもある状態を作ることができる。これを同時対角化可能という。
 \end{definition}
@@ -1181,15 +1154,15 @@ TODO: 実験的背景: 電子線を用いた二重スリット実験など
   \end{align}
 \end{proof}
 
-\section{時間発展のあるシュレーディンガー方程式}
+\subsection{時間発展のあるシュレーディンガー方程式}
 \begin{align}
   i\hbar\diffp{}{t}\ket|\phi(t)> & = \hat{H}\ket|\phi(t)>
 \end{align}
 $\hat{H}\ket|\phi_n> = E_n\ket|\phi_n>$ としたとき, $\ket|\phi_n>$ は完全系をなす。これで展開して代入すると
 \begin{align}
-  \ket|\phi(t)>      & = \sum_nc_n(t)\ket|\phi_n>                           & \qty(c_n(t) = \braket<\phi_n|\phi(t)>) \\
-  i\hbar\dv{t}c_n(t) & = E_nc_n(t)                                                                                   \\
-  c_n(t)             & = c_n(0)\exp(-i\frac{E_nt}{\hbar})                                                            \\
+  \ket|\phi(t)>      & = \sum_nc_n(t)\ket|\phi_n>                           & \ab(c_n(t) = \braket<\phi_n|\phi(t)>) \\
+  i\hbar\dv{t}c_n(t) & = E_nc_n(t)                                                                                  \\
+  c_n(t)             & = c_n(0)\exp(-i\frac{E_nt}{\hbar})                                                           \\
   \ket|\phi(t)>      & = \sum_nc_n(0)\exp(-i\frac{E_nt}{\hbar})\ket|\phi_n>
 \end{align}
 となる。
@@ -1330,8 +1303,10 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
   \end{align}
   それぞれの固有状態は $\hat{j}_z$ に対して固有値 $+1, 0, -1$ を持ち、$\hat{\bm{j}}^2$ に対して固有値 $2$ を持つ。そして昇降演算子を用いると固有状態は互いに入れ替わる。
   \begin{align}
-    \hat{j}_+\ket|1, +1> = 0, \qquad \hat{j}_+\ket|1, 0> = \sqrt{2}\ket|1, +1>, \qquad \hat{j}_+\ket|1, -1> = \sqrt{2}\ket|1, 0> \\
-    \hat{j}_-\ket|1, +1> = \sqrt{2}\ket|1, 0>, \qquad \hat{j}_-\ket|1, 0> = \sqrt{2}\ket|1, -1>, \qquad \hat{j}_-\ket|1, -1> = 0
+    \begin{alignedat}{3}
+      \hat{j}_+\ket|1, +1> &= 0, & \hat{j}_+\ket|1, 0> &= \sqrt{2}\ket|1, +1>, \qquad & \hat{j}_+\ket|1, -1> &= \sqrt{2}\ket|1, 0> \\
+      \hat{j}_-\ket|1, +1> &= \sqrt{2}\ket|1, 0>, \quad & \hat{j}_-\ket|1, 0> &= \sqrt{2}\ket|1, -1>, & \hat{j}_-\ket|1, -1> &= 0
+    \end{alignedat}
   \end{align}
 \end{proposition}
 
@@ -1379,19 +1354,19 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
 \begin{proposition}
   $j_1 = 1/2, j_2 = 1/2$ のとき同時固有状態は次のようになる。
   \begin{align}
-    \ket|1, +1>\rangle & = \ket|\uparrow\uparrow>                                                      \\
-    \ket|1, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>) \\
-    \ket|1, -1>\rangle & = \ket|\downarrow\downarrow>                                                  \\
-    \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
+    \ket|1, +1>\rangle & = \ket|\uparrow\uparrow>                                                     \\
+    \ket|1, 0>\rangle  & = \frac{1}{\sqrt{2}}\ab(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>) \\
+    \ket|1, -1>\rangle & = \ket|\downarrow\downarrow>                                                 \\
+    \ket|0, 0>\rangle  & = \frac{1}{\sqrt{2}}\ab(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
   \end{align}
 \end{proposition}
 \begin{proof}
 
   \begin{align}
-    \ket|1, 0>\rangle & = \frac{1}{\sqrt{2}}j_-\ket|1, 1>\rangle = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>)
+    \ket|1, 0>\rangle & = \frac{1}{\sqrt{2}}j_-\ket|1, 1>\rangle = \frac{1}{\sqrt{2}}\ab(\ket|\uparrow\downarrow> + \ket|\downarrow\uparrow>)
   \end{align}
   \begin{align}
-    \ket|0, 0>\rangle & = \frac{1}{\sqrt{2}}\qty(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
+    \ket|0, 0>\rangle & = \frac{1}{\sqrt{2}}\ab(\ket|\uparrow\downarrow> - \ket|\downarrow\uparrow>)
   \end{align}
 \end{proof}
 
@@ -1463,17 +1438,17 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
 \begin{proposition}[パウリ行列の性質]
   エルミート性を満たす。
   \begin{align}
-    \sigma_i^\dagger         & = \sigma_i                                  \\
-    \sigma_i\sigma_j         & = \delta_{ij}I + i\varepsilon_{ijk}\sigma_k \\
-    [\sigma_i, \sigma_j]     & = 2i\varepsilon_{ijk}\sigma_k               \\
-    \qty{\sigma_i, \sigma_j} & = 2\delta_{ij}I
+    \sigma_i^\dagger          & = \sigma_i                                  \\
+    \sigma_i\sigma_j          & = \delta_{ij}I + i\varepsilon_{ijk}\sigma_k \\
+    [\sigma_i, \sigma_j]      & = 2i\varepsilon_{ijk}\sigma_k               \\
+    \ab\{\sigma_i, \sigma_j\} & = 2\delta_{ij}I
   \end{align}
 \end{proposition}
 \begin{proof}
   1, 2 は調べることで成り立つ。
   \begin{align}
-    [\sigma_i, \sigma_j]     & = \sigma_i\sigma_j - \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) - (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2i\varepsilon_{ijk}\sigma_k \\
-    \qty{\sigma_i, \sigma_j} & = \sigma_i\sigma_j + \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) + (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2\delta_{ij}I
+    [\sigma_i, \sigma_j]      & = \sigma_i\sigma_j - \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) - (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2i\varepsilon_{ijk}\sigma_k \\
+    \ab\{\sigma_i, \sigma_j\} & = \sigma_i\sigma_j + \sigma_j\sigma_i = (\delta_{ij}I + i\varepsilon_{ijk}\sigma_k) + (\delta_{ji}I + i\varepsilon_{jik}\sigma_k) = 2\delta_{ij}I
   \end{align}
 \end{proof}
 
@@ -1522,29 +1497,29 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
 \begin{proposition}
   1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket|\phi_n^{(1)}>, \ket|\phi_n^{(2)}>$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
   \begin{align}
-    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                       \\
-    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
+    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                         \\
+    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                             \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\ab|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                    \\
+    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\ab(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\ab(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\ab(E_n^{(0)} - E_m^{(0)})\ab(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proposition}
 \begin{proof}
 
   \begin{align}
-     & (\hat{H} - E_n)\ket|\phi_n> = 0                                                                                                         \\
-     & = \qty(\qty(\hat{H}_0 + \lambda V) - \qty(\sum_{i=0}^{\infty}\lambda^iE_n^{(i)}))\qty(\sum_{i = 0}^{\infty}\lambda^i\ket|\phi_n^{(i)}>) \\
-     & = \sum_{i = 0}^{\infty}\lambda^i\qty(\sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}>)
+     & (\hat{H} - E_n)\ket|\phi_n> = 0                                                                                                     \\
+     & = \ab(\ab(\hat{H}_0 + \lambda V) - \ab(\sum_{i=0}^{\infty}\lambda^iE_n^{(i)}))\ab(\sum_{i = 0}^{\infty}\lambda^i\ket|\phi_n^{(i)}>) \\
+     & = \sum_{i = 0}^{\infty}\lambda^i\ab(\sum_{j+k=i}\ab(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}>)
   \end{align}
   これより各 $\lambda$ の次数について比較して次のようになる。
   \begin{align}
-    \sum_{j+k=i}\qty(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}> = 0
+    \sum_{j+k=i}\ab(\delta_{0j}H_0 + \delta_{1j}V - E_n^{(j)})\ket|\phi_n^{(k)}> = 0
   \end{align}
   ここでは 0, 1, 2 次についてのみ考える。
   \begin{align}
     \begin{dcases}
-      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(0)}> = 0                                     \\
-      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \qty(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
-      \qty(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \qty(V - E_n^{(1)})\ket|\phi_n^{(1)}> - E_n^{(2)}\ket|\phi_n^{(0)}>
+      \ab(E_n^{(0)} - H_0)\ket|\phi_n^{(0)}> = 0                                    \\
+      \ab(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \ab(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
+      \ab(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \ab(V - E_n^{(1)})\ket|\phi_n^{(1)}> - E_n^{(2)}\ket|\phi_n^{(0)}>
     \end{dcases}\label{perturbation}
   \end{align}
   まず 0 次については次のように書ける。
@@ -1554,20 +1529,20 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
   式 \eqref{perturbation} に $\bra<\phi_m^{(0)}|$ を掛けると
   \begin{align}
          & \begin{dcases}
-             \bra<\phi_m^{(0)}|\qty(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|\qty(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
-             \bra<\phi_m^{(0)}|\qty(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|\qty(V - E_n^{(1)})\ket|\phi_n^{(1)}> - \bra<\phi_m^{(0)}|E_n^{(2)}\ket|\phi_n^{(0)}>
-           \end{dcases}        \\
+             \bra<\phi_m^{(0)}|\ab(E_n^{(0)} - H_0)\ket|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|\ab(V - E_n^{(1)})\ket|\phi_n^{(0)}> \\
+             \bra<\phi_m^{(0)}|\ab(E_n^{(0)} - H_0)\ket|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|\ab(V - E_n^{(1)})\ket|\phi_n^{(1)}> - \bra<\phi_m^{(0)}|E_n^{(2)}\ket|\phi_n^{(0)}>
+           \end{dcases}         \\
     \iff & \begin{dcases}
-             \qty(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}> - E_n^{(1)}\delta_{mn} \\
-             \qty(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(1)}> - E_n^{(1)}\braket<\phi_m^{(0)}|\phi_n^{(1)}> - E_n^{(2)}\delta_{mn}
+             \ab(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(1)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}> - E_n^{(1)}\delta_{mn} \\
+             \ab(E_n^{(0)} - E_m^{(0)})\braket<\phi_m^{(0)}|\phi_n^{(2)}> = \bra<\phi_m^{(0)}|V\ket|\phi_n^{(1)}> - E_n^{(1)}\braket<\phi_m^{(0)}|\phi_n^{(1)}> - E_n^{(2)}\delta_{mn}
            \end{dcases}
   \end{align}
   よって 1 次, 2 次の固有値 $E_n^{(1)}, E_n^{(2)}$ と固有状態 $\ket|\phi_n^{(1)}>, \ket|\phi_n^{(2)}>$ は定数 $c_n^{(1)}, c_n^{(2)}$ を用いて次のようになる。
   \begin{align}
-    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                             \\
-    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                 \\
-    E_n^{(2)}          & = \sum_{m\neq n}\frac{\qty|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                       \\
-    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\qty(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\qty(E_n^{(0)} - E_m^{(0)})\qty(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
+    E_n^{(1)}          & = \bra<\phi_n^{(0)}|V\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                                                                                                                         \\
+    \ket|\phi_n^{(1)}> & = \sum_{m\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}}\ket|\phi_m^{(0)}> + c_n^{(1)}\ket|\phi_n^{(0)}>                                                                                                                                                                                                                                                             \\
+    E_n^{(2)}          & = \sum_{m\neq n}\frac{\ab|{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}|^2}{E_n^{(0)} - E_m^{(0)}}                                                                                                                                                                                                                                                                                                    \\
+    \ket|\phi_n^{(2)}> & = c_n^{(1)}\sum_{m\neq n}\ab(\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{E_n^{(0)} - E_m^{(0)}} - E_n^{(1)}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_n^{(0)}>}{\ab(E_n^{(0)} - E_m^{(0)})^2} + \sum_{k\neq n}\frac{\bra<\phi_m^{(0)}|V\ket|\phi_k^{(0)}>\bra<\phi_k^{(0)}|V\ket|\phi_n^{(0)}>}{\ab(E_n^{(0)} - E_m^{(0)})\ab(E_n^{(0)} - E_k^{(0)})})\ket|\phi_m^{(0)}> + c_n^{(2)}\ket|\phi_n^{(0)}>
   \end{align}
 \end{proof}
 
