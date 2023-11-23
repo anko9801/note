@@ -9,77 +9,26 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{ascmac}
-% \usepackage[hyphens]{url}
 \usepackage{physics2}
 \usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
 \usepackage{diffcoeff}
-% \usepackage{braket}
-\usepackage{verbatimbox}
 \usepackage{bm}
 \usepackage{url}
 % \usepackage[dvipdfmx,hiresbb,final]{graphicx}
 \usepackage{hyperref}
 \usepackage{pxjahyper}
 \usepackage{tikz}\usetikzlibrary{cd}
-\usepackage{listings}
 \usepackage{color}
 \usepackage{mathtools}
 \usepackage{xspace}
 \usepackage{xy}
 \usepackage{xypic}
+
 %
 \title{相対論的量子力学}
 \author{anko9801}
 \makeatletter
 %
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Image}{Im}
-\DeclareMathOperator{\ch}{ch}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Log}{Log}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\sgn}{sgn}
-%
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\GG}{\mathbb{G}}
-\newcommand{\TT}{\mathbb{T}}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
-\renewcommand{\AA}{\hat{A}}
-\renewcommand{\BB}{\hat{B}}
-\renewcommand{\AA}{\bm{A}}
-\newcommand{\rr}{\bm{r}}
-\newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
-\newcommand{\calB}{\mathcal{B}}
-\newcommand{\calF}{\mathcal{F}}
-\newcommand{\vnabla}{\mathbf{\nabla}}
-\newcommand{\laplacian}{\nabla^2}
-\newcommand{\ignore}[1]{}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\lt}{<}
-\newcommand{\gt}{>}
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
-\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
-\newcommand\mab[1]{\begin{pmatrix}#1\end{pmatrix}}
-\newcommand\vmab[1]{\begin{vmatrix}#1\end{vmatrix}}
-\numberwithin{equation}{section}
-
-\let\oldcite=\cite
-\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
-
-\let\oldbibitem=\bibitem
-\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
-
 % theorem環境の設定
 % - 冒頭に改行
 % - 末尾にdiamond (amsthm)
@@ -160,6 +109,55 @@
   \qed\endtrivlist\@endpefalse
 }
 \renewcommand\proofname{証明}
+%
+\csname endofdump\endcsname
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\sgn}{sgn}
+%
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\EE}{\bm{E}}
+\newcommand{\BB}{\bm{B}}
+\renewcommand{\AA}{\hat{A}}
+\renewcommand{\BB}{\hat{B}}
+\renewcommand{\AA}{\bm{A}}
+\newcommand{\rr}{\bm{r}}
+\newcommand{\kk}{\bm{k}}
+\newcommand{\pp}{\bm{p}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\vnabla}{\mathbf{\nabla}}
+\newcommand{\laplacian}{\nabla^2}
+\newcommand{\ignore}[1]{}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\lt}{<}
+\newcommand{\gt}{>}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\rot}{\curl}
+\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\newcommand\mab[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\vmab[1]{\begin{vmatrix}#1\end{vmatrix}}
+\numberwithin{equation}{section}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
+
+\let\oldbibitem=\bibitem
+\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
 
 \makeatother
 
@@ -326,9 +324,17 @@ $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ となるので
   \{\alpha^i, \alpha^j\} & = \{\sigma^i\otimes\sigma^1, \sigma^j\otimes\sigma^1\} = (\sigma^i\sigma^j + \sigma^j\sigma^i)\otimes(\sigma^1)^2 = 2\delta^{ij} \\
   \{\alpha^i, \beta\}    & = \{\sigma^i\otimes\sigma^1, \sigma^0\otimes\sigma^3\} = (\sigma^i\sigma^0 - \sigma^0\sigma^i)\otimes(\sigma^1\sigma^3) = 0
 \end{align}
-ガンマ行列についても
+
 \begin{align}
-  \gamma^0 = \sigma_1, \qquad \gamma^1 = i\sigma_2, \qquad \gamma^5 = -\sigma_3
+  i\hbar\diffp{}{t}\psi(x) & = \ab(c\bm{\alpha}\cdot(\pp - q\AA(x)) + \beta mc^2 + q\phi(x))\psi(x) \\
+                           & = \begin{pmatrix}
+                                 +mc^2 + q\phi(x)                 & c\bm{\sigma}\cdot[\pp - q\AA(x)] \\
+                                 c\bm{\sigma}\cdot[\pp - q\AA(x)] & -mc^2 + q\phi(x)
+                               \end{pmatrix}
+  \begin{pmatrix}
+    \psi_+(x) \\
+    \psi_-(x)
+  \end{pmatrix}
 \end{align}
 
 \subsection{ディラック方程式の共変性}
@@ -418,9 +424,44 @@ $\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
   S_\Lambda & =
 \end{align}
 
+\begin{align}
+  \psi'(x') & = \exp\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha} + i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma})\psi(x)
+\end{align}
 
+$\Sigma^i$ を次のように定義する。
+\begin{align}
+  \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
+\end{align}
+\begin{align}
+  (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j = \Sigma^i
+\end{align}
+\begin{align}
+  \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
+\end{align}
+$i = j$ のとき、ある $k, l$ が存在して
+\begin{align}
+  \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{2}\ab(\sum_{a,b}\varepsilon^{iab}\gamma^a\gamma^b)^2                                                                                             \\
+                                   & = -\frac{1}{2}\ab(\gamma^k\gamma^l - \gamma^l\gamma^k)^2                                                                                                     \\
+                                   & = -\frac{1}{2}\ab(\gamma^k\gamma^l\gamma^k\gamma^l - \gamma^k\gamma^l\gamma^l\gamma^k - \gamma^l\gamma^k\gamma^k\gamma^l + \gamma^l\gamma^k\gamma^l\gamma^k) \\
+                                   & = 2
+\end{align}
+$i \neq j$ のとき $a, b, c, d$ のいづれか 2 つ 1 組は同じであるから
+\begin{align}
+  \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}(\varepsilon^{iab}\gamma^a\gamma^b\varepsilon^{jcd}\gamma^c\gamma^d + \varepsilon^{jcd}\gamma^c\gamma^d\varepsilon^{iab}\gamma^a\gamma^b) \\
+                                   & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}\varepsilon^{iab}\varepsilon^{jcd}(1 + (-1)^3)\gamma^a\gamma^b\gamma^c\gamma^d                                                            \\
+                                   & = 0
+\end{align}
+よって $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ である。
+
+$\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
+\begin{align}
+  (\bm{v}\cdot\bm{\Sigma})^2 & = (v^i\Sigma^i)(v^j\Sigma^j)^\dagger = v^i\Sigma^i\Sigma^j(v^j)^\dagger = \delta^{ij}v^i(v^j)^\dagger = \bm{v}^2
+\end{align}
 
 \subsection{非相対論的極限}
+ディラック表示のディラック方程式
+
+
 非相対論的極限 $mc^2\to\infty$ において、シュレーディンガー方程式に帰着する。
 荷電粒子に対するクライン・ゴルドン方程式
 \begin{align}
@@ -431,120 +472,87 @@ $\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
 \end{align}
 とおくと
 \begin{align}
-  \diffp{\psi}{t} & = \frac{mc^2}{i\hbar}e^{-i(mc^2)t/\hbar}\varphi(x) = \frac{mc^2}{i\hbar}\psi(x)
+  \diffp{}{t}\psi(x) & = \frac{mc^2}{i\hbar}e^{-i(mc^2)t/\hbar}\varphi(x) = \frac{mc^2}{i\hbar}\psi(x)
 \end{align}
 \begin{align}
-  D_\mu & = \partial_\mu - \frac{q}{i\hbar}A_\mu(x) = \frac{1}{i\hbar}\ab(p_\mu - qA_\mu(x)) = \frac{1}{i\hbar}\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x), \pp - q\AA(x)) \\
-  D^2   & = D_\mu D^\mu = -\frac{1}{\hbar^2}\ab[\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 - \ab(\pp - q\AA(x))^2]
-\end{align}
-\begin{align}
-  [\hbar^2D^2 + (mc)^2]\psi(x) & = \ab[(\pp - q\AA(x))^2 - \ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x) \\
-                               & = \ab[(\pp - q\AA(x))^2 - \ab(mc - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x)                          \\
-                               & = \ab[(\pp - q\AA(x))^2 + 2mq\phi(x) - \ab(\frac{q}{c}\phi(x))^2]\psi(x)                           \\
-                               & = 2m\ab[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]\psi(x)
+  D_\mu = \partial_\mu - \frac{q}{i\hbar}A_\mu(x) & = \frac{1}{i\hbar}\ab(p_\mu - qA_\mu(x)) = \frac{1}{i\hbar}\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x), \pp - q\AA(x)) \\
+  D^2 = D_\mu D^\mu                               & = -\frac{1}{\hbar^2}\ab[\ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 - \ab(\pp - q\AA(x))^2]                         \\
+  [\hbar^2D^2 + (mc)^2]\psi(x)                    & = \ab[(\pp - q\AA(x))^2 - \ab(\frac{i\hbar}{c}\diffp{}{t} - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x)                              \\
+                                                  & = \ab[(\pp - q\AA(x))^2 - \ab(mc - \frac{q}{c}\phi(x))^2 + (mc)^2]\psi(x)                                                       \\
+                                                  & = \ab[(\pp - q\AA(x))^2 + 2mq\phi(x) - \ab(\frac{q}{c}\phi(x))^2]\psi(x)                                                        \\
+                                                  & = 2m\ab[-\frac{q^2\phi^2}{2mc^2} + \frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi(x)]\psi(x)
 \end{align}
 非相対論的極限 $mc^2\to\infty$ のとき $\phi(x)$ は時間に依存しないからシュレーディンガー方程式となる。
 \begin{align}
   i\hbar\diffp{}{t}\psi(x) & = \ab(\frac{(\pp - q\bm{A}(x))^2}{2m} + q\phi)\psi(x)
 \end{align}
-(3) 荷電粒子に対するディラック方程式
+
+
+
+\subsection{双線型形式の変換性}
+ローレンツ変換 $S_\Lambda$ の中で本義ローレンツ変換 $S_L$ と空間反転 $S_P$
+\begin{align}
+  S_L & = \exp\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha} + i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma}) \\
+  S_P & = \gamma^0
+\end{align}
+\begin{align}
+  S_L^\dagger                 & = \exp\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha} - i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma}) \\
+  \gamma^0S_L^\dagger\gamma^0 & = \exp\ab(+\frac{\bm{\eta}}{2}\cdot\bm{\alpha} - i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma}) \\
+  S_L^{-1}                    & = \exp\ab(+\frac{\bm{\eta}}{2}\cdot\bm{\alpha} - i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma})
+\end{align}
+より $S_L^\dagger S_L \neq 1$ となる。
+\begin{align}
+  \psi^{\prime\dagger}(x')\psi'(x') = \psi^\dagger(x)S_L^\dagger S_L\psi(x) \neq \psi^\dagger(x)\psi(x)
+\end{align}
+\begin{definition}
+  \begin{align}
+    \bar{\psi}(x) := \psi^\dagger(x)\gamma^0
+  \end{align}
+\end{definition}
+\begin{align}
+   & \bar{\psi}'(x') = \psi^{\prime\dagger}(x')\gamma^0 = \psi^\dagger(x)S_L^\dagger\gamma^0 = \psi^\dagger(x)\gamma^0S_L^{-1} = \bar{\psi}(x)S_L^{-1} \\
+   & \bar{\psi}'(x')\psi'(x') = \psi^\dagger(x)S_L^{-1} S_L\psi(x) = \psi^\dagger(x)\psi(x)
+\end{align}
+カイラリティ $\gamma^5$ を次のように定義する。
+\begin{align}
+  \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
+\end{align}
+\begin{align}
+  (\gamma^5)^\dagger                 & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0 = i\gamma^3\gamma^2\gamma^1\gamma^0 = i\gamma^0\gamma^1\gamma^2\gamma^3 = \gamma^5                                        \\
+  (\gamma^5)^2                       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2 = 1                                \\
+  \lbrace\gamma^\mu, \gamma^5\rbrace & = i(\gamma^\mu\gamma^0\gamma^1\gamma^2\gamma^3 + \gamma^0\gamma^1\gamma^2\gamma^3\gamma^\mu) = i((-1)^\mu + (-1)^{3-\mu})\gamma^0\cdots(\gamma^\mu)^2\cdots\gamma^3 = 0
+\end{align}
+
+\begin{align}
+  \bar\psi'(x)\gamma^5\psi'(x) & = \psi^\dagger(x)S_L^{-1}\gamma^5S_L\psi(x) = \psi^\dagger(x)\gamma^5\psi(x)  \\
+  \bar\psi'(x)\gamma^5\psi'(x) & = \psi^\dagger(x)S_P^{-1}\gamma^5S_P\psi(x) = -\psi^\dagger(x)\gamma^5\psi(x)
+\end{align}
+
+荷電粒子に対するディラック方程式
 \begin{align}
   (i\hbar\gamma^\mu D_\mu - mc)\psi(x) = 0
 \end{align}
 を用いて, 軸性ベクトル $j_A^\mu(x) := \bar{\psi}(x)\gamma^\mu\gamma^5\psi(x)$ の発散 $\partial_\mu j_A^\mu(x)$ を計算し、微分を含まない形で表せ。
-\begin{proof}
-  まず次の式が成り立つことを確認する。
-  \begin{align}
-    \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
-                               & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
-                               & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
-  \end{align}
-  よってディラック方程式より次のようになる。
-  \begin{align}
-    \partial_\mu j_A^\mu(x) & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                     \\
-                            & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                           \\
-                            & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                            \\
-                            & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                          \\
-                            & = \ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))    \\
-                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
-                            & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
-                            & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
-  \end{align}
-\end{proof}
-
-
-
-\begin{proposition}
-  $\gamma^5$ を次のように定義する。
-  \begin{align}
-    \gamma^5 := i\gamma^0\gamma^1\gamma^2\gamma^3
-  \end{align}
-  \begin{align}
-    (\gamma^5)^\dagger = \gamma^5, \qquad (\gamma^5)^2 = 1, \qquad \lbrace\gamma^\mu, \gamma^5\rbrace = 0
-  \end{align}
-\end{proposition}
-\begin{proof}
-  \begin{align}
-    (\gamma^5)^\dagger                 & = -i(-\gamma^3)(-\gamma^2)(-\gamma^1)\gamma^0                                                \\
-                                       & = i\gamma^3\gamma^2\gamma^1\gamma^0                                                          \\
-                                       & = i\gamma^0\gamma^1\gamma^2\gamma^3                                                          \\
-                                       & = \gamma^5                                                                                   \\
-    (\gamma^5)^2                       & = -(\gamma^0\gamma^1\gamma^2\gamma^3)(\gamma^0\gamma^1\gamma^2\gamma^3)^\dagger              \\
-                                       & = - (\gamma^0)^2(\gamma^1)^2(\gamma^2)^2(\gamma^3)^2                                         \\
-                                       & = 1                                                                                          \\
-    \lbrace\gamma^\mu, \gamma^5\rbrace & = i(\gamma^\mu\gamma^0\gamma^1\gamma^2\gamma^3 + \gamma^0\gamma^1\gamma^2\gamma^3\gamma^\mu) \\
-                                       & = i((-1)^\mu + (-1)^{3-\mu})\gamma^0\cdots(\gamma^\mu)^2\cdots\gamma^3                       \\
-                                       & = 0
-  \end{align}
-\end{proof}
-
-\begin{proposition}
-  $\Sigma^i$ を次のように定義する。
-  \begin{align}
-    \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
-  \end{align}
-  このとき次の式を示せ。
-  \begin{align}
-    (\Sigma^i)^\dagger = \Sigma^i, \qquad \lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}
-  \end{align}
-\end{proposition}
-\begin{proof}
-  まず $(\Sigma^i)^\dagger = \Sigma^i$ を示す。
-  \begin{align}
-    (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}(\varepsilon^{ijk}\gamma^j\gamma^k)^\dagger \\
-                       & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j           \\
-                       & = -\frac{i}{2}\sum_{j,k}-\varepsilon^{ikj}\gamma^k\gamma^j          \\
-                       & = \Sigma^i
-  \end{align}
-  次に $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ を示す。 \\
-  $i = j$ のとき、ある $k, l$ が存在して
-  \begin{align}
-    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{2}\ab(\sum_{a,b}\varepsilon^{iab}\gamma^a\gamma^b)^2                                                                                             \\
-                                     & = -\frac{1}{2}\ab(\gamma^k\gamma^l - \gamma^l\gamma^k)^2                                                                                                     \\
-                                     & = -\frac{1}{2}\ab(\gamma^k\gamma^l\gamma^k\gamma^l - \gamma^k\gamma^l\gamma^l\gamma^k - \gamma^l\gamma^k\gamma^k\gamma^l + \gamma^l\gamma^k\gamma^l\gamma^k) \\
-                                     & = 2
-  \end{align}
-  $i \neq j$ のとき $a, b, c, d$ のいづれか 2 つ 1 組は同じであるから
-  \begin{align}
-    \lbrace\Sigma^i, \Sigma^j\rbrace & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}(\varepsilon^{iab}\gamma^a\gamma^b\varepsilon^{jcd}\gamma^c\gamma^d + \varepsilon^{jcd}\gamma^c\gamma^d\varepsilon^{iab}\gamma^a\gamma^b) \\
-                                     & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}\varepsilon^{iab}\varepsilon^{jcd}(1 + (-1)^3)\gamma^a\gamma^b\gamma^c\gamma^d                                                            \\
-                                     & = 0
-  \end{align}
-  よって $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ である。
-\end{proof}
-
-(4) $\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
+まず次の式が成り立つことを確認する。
 \begin{align}
-  (\bm{v}\cdot\bm{\Sigma})^2 = \bm{v}^2
+  \gamma^0\gamma^\mu\gamma^5 & = \gamma^0\gamma^0\gamma^5 + \gamma^0\gamma^i\gamma^5 \\
+                             & = \gamma^0\gamma^0\gamma^5 - \gamma^i\gamma^0\gamma^5 \\
+                             & = (\gamma^\mu)^\dagger\gamma^0\gamma^5
 \end{align}
-\begin{proof}
-  \begin{align}
-    (\bm{v}\cdot\bm{\Sigma})^2 & = (v^i\Sigma^i)(v^j\Sigma^j)^\dagger \\
-                               & = v^i\Sigma^i\Sigma^j(v^j)^\dagger   \\
-                               & = \delta^{ij}v^i(v^j)^\dagger        \\
-                               & = \bm{v}^2
-  \end{align}
-\end{proof}
+よってディラック方程式より次のようになる。
+\begin{align}
+   & \partial_\mu j_A^\mu(x)                                                                                                                                                                    \\
+   & = \partial_\mu(\bar{\psi}(x)\gamma^\mu\gamma^5\psi(x))                                                                                                                                     \\
+   & = \partial_\mu(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi(x))                                                                                                                           \\
+   & = (\partial_\mu\psi(x))^\dagger\gamma^0\gamma^\mu\gamma^5\psi(x) + \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\partial_\mu\psi(x)                                                            \\
+   & = (\gamma^\mu\partial_\mu\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5(\gamma^\mu\partial_\mu\psi(x))                                                          \\
+   & = \ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))^\dagger\gamma^0\gamma^5\psi(x) - \psi^\dagger(x)\gamma^0\gamma^5\ab(\frac{1}{i\hbar}\ab(\gamma^\mu qA_\mu(x) + mc)\psi(x))    \\
+   & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)(\gamma^\mu)^\dagger\gamma^0\gamma^5\psi + \psi^\dagger(x)\gamma^0\gamma^5\gamma^\mu \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x)) \\
+   & = -\frac{1}{i\hbar}\ab(qA_\mu(x)(\psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5\psi - \psi^\dagger(x)\gamma^0\gamma^\mu\gamma^5 \psi(x)) + 2mc\psi^\dagger(x)\gamma^0\gamma^5\psi(x))           \\
+   & = -\frac{2mc}{i\hbar}\bar{\psi}(x)\gamma^5\psi(x)
+\end{align}
+
+
 
 \begin{problem}
 中心力ポテンシャル $V(r)$ を持つハミルトニアン $\hat{H} = c\bm{\alpha}\cdot\hat{\pp} + \beta mc^2 + V(r)$ を考える.
@@ -634,6 +642,10 @@ $\bm{\sigma}$ をパウリ行列として、任意のベクトル $\pp$ に対�
 \end{proof}
 
 \subsection{2次元時空におけるディラック方程式}
+ガンマ行列についても
+\begin{align}
+  \gamma^0 = \sigma_1, \qquad \gamma^1 = i\sigma_2, \qquad \gamma^5 = -\sigma_3
+\end{align}
 2次元時空におけるディラック方程式は次のように考えられる。
 \begin{align}
   (i\hbar\gamma^\mu\partial_\mu - mc)\psi(x) = 0
@@ -926,6 +938,7 @@ $\mathcal{Y}_{j, m}^\pm(\theta, \phi)$ が持つ $\hat{\bm{J}}^2$ の固有値�
     2n + 2\times\sum_{n'=1}^{n-1}2(n-n') & = 2n^2
   \end{align}
 \end{proof}
+
 
 \begin{problem}
 電子の静止エネルギーから測った束縛エネルギーの大きさが縮退を除いて 7 番目と 10 番目に大きい準位の主量子数 $n$ と全角運動量 $j$ をそれぞれ答えよ。また、それらの準位の束縛エネルギーの大きさを有効数字 6 桁で求めよ。
