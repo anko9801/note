@@ -1,225 +1,108 @@
 \RequirePackage{plautopatch}
-\documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
-\usepackage{bxpapersize}
-\usepackage[utf8]{inputenc}
-\usepackage{fontenc}
-\usepackage{lmodern}
-\usepackage{otf}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{ascmac}
-% \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
-\usepackage{verbatimbox}
-\usepackage{bm}
-\usepackage{url}
-% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
-\usepackage{hyperref}
-\usepackage{pxjahyper}
-\usepackage{tikz}\usetikzlibrary{cd}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{mathtools}
-\usepackage{xspace}
-\usepackage{xy}
-\usepackage{xypic}
-%
-\title{微分方程式}
-\author{Anko}
-\makeatletter
-%
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Image}{Im}
-\DeclareMathOperator{\ch}{ch}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Log}{Log}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\sgn}{sgn}
-%
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\GG}{\mathbb{G}}
-\newcommand{\TT}{\mathbb{T}}
-\newcommand{\calB}{\mathcal{B}}
-\newcommand{\calF}{\mathcal{F}}
-\newcommand{\ignore}[1]{}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\lt}{<}
-\newcommand{\gt}{>}
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
-\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
+\documentclass[uplatex,diffipdfmx,a4paper,11pt]{jlreq}
+\input{preamble.tex}
 \newcommand{\LL}{\mathcal{L}}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
-\renewcommand{\AA}{\bm{A}}
-\newcommand{\rr}{\bm{r}}
-\newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
 
-\let\oldcite=\cite
-\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
-
-\let\oldbibitem=\bibitem
-\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
-
-% theorem環境の設定
-% - 冒頭に改行
-% - 末尾にdiamond (amsthm)
-\theoremstyle{definition}
-\newcommand*{\newscreentheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{screen}
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-  }{
-    \end{#2}
-    \end{screen}
-  }
-}
-\newcommand*{\newqedtheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-      \renewcommand{\qedsymbol}{\(\diamond\)}
-      \pushQED{\qed}
-  }{
-      \qedhere
-      \popQED
-    \end{#2}
-  }
-}
-\newtheorem{theorem*}{定理}
-
-\newqedtheoremx{theorem}{theorem*}
-\newcommand*\newqedtheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*\newqedtheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
-
-\newtheorem{sctheorem*}{定理}
-\newscreentheoremx{sctheorem}{sctheorem*}
-\newcommand*\newscreentheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*\newscreentheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
-
-%\newtheorem*{definition}{定義}
-%\newtheorem{theorem}{定理}
-%\newtheorem{proposition}[theorem]{命題}
-%\newtheorem{lemma}[theorem]{補題}
-%\newtheorem{corollary}[theorem]{系}
-
-\newqedtheorem{lemma}{補題}
-\newqedtheorem{corollary}{系}
-\newqedtheorem{example}{例}
-\newqedtheorem{proposition}{命題}
-\newqedtheorem{remark}{注意}
-\newqedtheorem{thesis}{主張}
-\newqedtheorem{notation}{記法}
-\newqedtheorem{problem}{問題}
-\newqedtheorem{algorithm}{アルゴリズム}
-
-\newscreentheorem*{definition}{定義}
-
-\renewenvironment{proof}[1][\proofname]{\par
-  \normalfont
-  \topsep6\p@\@plus6\p@ \trivlist
-  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
-}{%
-  \qed\endtrivlist\@endpefalse
-}
-\renewcommand\proofname{証明}
-
-\makeatother
-
+\title{微分方程式}
+\author{anko9801}
 \begin{document}
 \maketitle
 \tableofcontents
 \clearpage
 
-\section{ラプラス変換}
 
-\begin{align}
-  \LL[f(t)] & = \int_0^\infty f(t)e^{-st}\dd{t}
-\end{align}
+\section{ラプラス変換}
+\begin{definition}[ラプラス変換]
+  \begin{align}
+    F(s) = \LL[f(t)]      & = \int_0^\infty f(t)e^{-st}\dl{t}                                     \\
+    f(t) = \LL^{-1}[F(s)] & = \lim_{p\to\infty}\frac{1}{2\pi i}\int_{c-ip}^{c+ip}F(s)e^{st}\dl{s}
+  \end{align}
+\end{definition}
+\begin{theorem}
+  \begin{align}
+    \LL[f'(t)]                 & = s\LL[f(t)] - f(0) \\
+    \LL\ab[\int_0^tf(u)\dl{u}] & =
+  \end{align}
+\end{theorem}
+\begin{proof}
+  テスト
+  \begin{align}
+    \LL[f'(t)]                 & = \int_0^\infty f'(t)e^{-st}\dl{t} = \ab[f(t)e^{-st}]_0^\infty + s\int_0^\infty f(t)e^{-st}\dl{t} = s\LL[f(t)] - f(0) \\
+    \LL\ab[\int_0^tf(u)\dl{u}] & =
+  \end{align}
+\end{proof}
 例えば
 \begin{align}
-  \LL[1]      & = \int_0^\infty e^{-st}\dd{t} = \qty[-\frac{1}{s}e^{-st}]_0^\infty = \frac{1}{s}                                                    \\
-  \LL[t]      & = \int_0^\infty te^{-st}\dd{t} = \qty[-\frac{t}{s}e^{-st}]_0^\infty - \int_0^\infty \qty(-\frac{1}{s}e^{-st})\dd{t} = \frac{1}{s^2} \\
-  \LL[\sin t] & = \int_0^\infty \sin te^{-st}\dd{t} = \int_0^\infty \frac{e^{it} - e^{-it}}{2i}e^{-st}\dd{t}                                        \\
-              & = \frac{1}{2i}\int_0^\infty \qty(e^{-st+it} - e^{-st-it})\dd{t}
+  \LL[1]   & = \int_0^\infty e^{-st}\dl{t} = \ab[\frac{e^{-st}}{-s}]_0^\infty = \frac{1}{s}                                                                                                                                     \\
+  \LL[t]   & = \int_0^\infty te^{-st}\dl{t} = \ab[t\frac{e^{-st}}{-s}]_0^\infty - \ab[\frac{e^{-st}}{(-s)^2}]_0^\infty = \frac{1}{s^2}                                                                                          \\
+  \LL[t^2] & = \int_0^\infty t^2e^{-st}\dl{t} = \ab[t^2\frac{e^{-st}}{-s}]_0^\infty - \ab[2t\frac{e^{-st}}{(-s)^2}]_0^\infty + \ab[2\frac{e^{-st}}{(-s)^3}]_0^\infty = \frac{2}{s^3}                                            \\
+  \LL[t^3] & = \int_0^\infty t^3e^{-st}\dl{t} = \ab[t^3\frac{e^{-st}}{-s}]_0^\infty - \ab[3t^2\frac{e^{-st}}{(-s)^2}]_0^\infty + \ab[6t\frac{e^{-st}}{(-s)^3}]_0^\infty - \ab[6\frac{e^{-st}}{(-s)^4}]_0^\infty = \frac{6}{s^4} \\
+  \LL[t^n] & = \int_0^\infty t^ne^{-st}\dl{t} = \sum_{i = 0}^{n}(-1)^i\ab[\diff[i]{t^n}{t}\frac{e^{-st}}{(-s)^{i+1}}]_0^\infty = \frac{n!}{s^{n+1}}
 \end{align}
 
 \begin{align}
-  \LL^{-1}[f] & = \lim_{p\to\infty}\frac{1}{2\pi i}\int_{c-ip}^{c+ip}f(s)e^{st}\dd{s}
+  \LL[e^{s_0t}] & = \int_0^\infty e^{(s_0-s)t}\dl{t} = \frac{1}{s - s_0}
+\end{align}
+\begin{align}
+  \LL[\sin\omega t] & = \int_0^\infty \sin\omega te^{-st}\dl{t} = \frac{1}{2i}\int_0^\infty \ab(e^{i\omega t} - e^{-i\omega t})e^{-st}\dl{t} \\
+                    & = -\frac{1}{2i}\ab(\frac{1}{i\omega - s} - \frac{1}{-i\omega - s}) = \frac{\omega}{s^2 + \omega^2}                     \\
+  \LL[\cos\omega t] & = \int_0^\infty \cos\omega te^{-st}\dl{t} = \frac{1}{2}\int_0^\infty \ab(e^{i\omega t} + e^{-i\omega t})e^{-st}\dl{t}  \\
+                    & = -\frac{1}{2}\ab(\frac{1}{i\omega - s} + \frac{1}{-i\omega - s}) = \frac{s}{s^2 + \omega^2}
+\end{align}
+\begin{align}
+  \LL[\sinh at] & = \int_0^\infty \sinh ate^{-st}\dl{t} = \frac{1}{2}\int_0^\infty \ab(e^{at} - e^{-at})e^{-st}\dl{t} \\
+                & = -\frac{1}{2}\ab(\frac{1}{a - s} - \frac{1}{-a - s}) = \frac{a}{s^2 - a^2}                         \\
+  \LL[\cosh at] & = \int_0^\infty \cosh ate^{-st}\dl{t} = \frac{1}{2}\int_0^\infty \ab(e^{at} + e^{-at})e^{-st}\dl{t} \\
+                & = -\frac{1}{2}\ab(\frac{1}{a - s} + \frac{1}{-a - s}) = \frac{s}{s^2 - a^2}
+\end{align}
+\begin{align}
+  \LL[\delta(t - a)] & = \int_0^\infty \delta(t - a)e^{-st}\dl{t} = e^{-sa}
 \end{align}
 
 \section{特殊関数}
 \subsection{ガウス積分}
 \begin{theorem}[Gauss 積分]
   \begin{align}
-    \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x} = \sqrt{\frac{\pi}{\alpha}} \qquad (\real a > 0)
+    \int_{-\infty}^{\infty} e^{-\alpha x^2}\dl{x} = \sqrt{\frac{\pi}{\alpha}} \qquad (\real a > 0)
   \end{align}
 \end{theorem}
 \begin{proof}
   まず積分値を $I$ とおく。
   \begin{align}
-    I & := \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x}
+    I & := \int_{-\infty}^{\infty} e^{-\alpha x^2}\dl{x}
   \end{align}
   ここで $I^2$ を変数変換して計算する。
   \begin{align}
-    I^2 & = \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x}\int_{-\infty}^{\infty} e^{-\alpha y^2}\dd{y} \\
-        & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-\alpha(x^2 + y^2)}\dd{x}\dd{y}          \\
-        & = \int_0^{\infty}\int_0^{2\pi}e^{-\alpha r^2}r\dd{\theta}\dd{r}                              \\
-        & = 2\pi\qty[\frac{e^{-\alpha r^2}}{-2\alpha}]_0^{\infty}                                      \\
+    I^2 & = \int_{-\infty}^{\infty} e^{-\alpha x^2}\dl{x}\int_{-\infty}^{\infty} e^{-\alpha y^2}\dl{y} \\
+        & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-\alpha(x^2 + y^2)}\dl{x}\dl{y}          \\
+        & = \int_0^{\infty}\int_0^{2\pi}e^{-\alpha r^2}r\dl{\theta}\dl{r}                              \\
+        & = 2\pi\ab[\frac{e^{-\alpha r^2}}{-2\alpha}]_0^{\infty}                                       \\
         & = \frac{\pi}{\alpha}
   \end{align}
   よって示される。
   \begin{align}
-    \int_{-\infty}^{\infty} e^{-\alpha x^2}\dd{x} = \sqrt{\frac{\pi}{\alpha}}
+    \int_{-\infty}^{\infty} e^{-\alpha x^2}\dl{x} = \sqrt{\frac{\pi}{\alpha}}
   \end{align}
 \end{proof}
 
 \begin{theorem}[Gauss 積分]
   \begin{align}
-     & \int_0^{\infty}x^{2n}e^{-x^2/a^2}\dd{x} = \sqrt{\pi}(2n - 1)!!\frac{a^{2n + 1}}{2^{n+1}} \\
-     & \int_0^{\infty}x^{2n + 1}e^{-x^2/a^2}\dd{x} = \frac{n!}{2}a^{2n + 2}                     \\
-     & \int_{-\infty}^{\infty}e^{-k^2/4}e^{ikx}\dd{k} = 2\sqrt{\pi}e^{-x^2}
+     & \int_0^{\infty}x^{2n}e^{-x^2/a^2}\dl{x} = \sqrt{\pi}(2n - 1)!!\frac{a^{2n + 1}}{2^{n+1}} \\
+     & \int_0^{\infty}x^{2n + 1}e^{-x^2/a^2}\dl{x} = \frac{n!}{2}a^{2n + 2}                     \\
+     & \int_{-\infty}^{\infty}e^{-k^2/4}e^{ikx}\dl{k} = 2\sqrt{\pi}e^{-x^2}
   \end{align}
 \end{theorem}
 \begin{proof}
   \begin{align}
-    \int_0^{\infty} x^{2n}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty} \pdv[n]{\alpha}e^{-\alpha x^2}\dd{x}      \\
-                                                & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty} e^{-\alpha x^2}\dd{x}      \\
-                                                & = (-1)^n\pdv[n]{\alpha}\qty(\frac{1}{2}\sqrt{\frac{\pi}{\alpha}}) \\
+    \int_0^{\infty} x^{2n}e^{-\alpha x^2}\dl{x} & = (-1)^n\int_0^{\infty} \diffp[n]{\alpha}e^{-\alpha x^2}\dl{x}     \\
+                                                & = (-1)^n\diffp[n]{\alpha}\int_0^{\infty} e^{-\alpha x^2}\dl{x}     \\
+                                                & = (-1)^n\diffp[n]{\alpha}\ab(\frac{1}{2}\sqrt{\frac{\pi}{\alpha}}) \\
                                                 & = \sqrt{\pi}\frac{(2n - 1)!!}{2^{n+1}}\alpha^{-(2n + 1)/2}
   \end{align}
   \begin{align}
-    \int_0^{\infty} x^{2n + 1}e^{-\alpha x^2}\dd{x} & = (-1)^n\int_0^{\infty}\pdv[n]{\alpha}xe^{-\alpha x^2}\dd{x} \\
-                                                    & = (-1)^n\pdv[n]{\alpha}\int_0^{\infty}xe^{-\alpha x^2}\dd{x} \\
-                                                    & = (-1)^n\pdv[n]{\alpha}\frac{1}{2\alpha}                     \\
+    \int_0^{\infty} x^{2n + 1}e^{-\alpha x^2}\dl{x} & = (-1)^n\int_0^{\infty}\diffp[n]{}{\alpha}xe^{-\alpha x^2}\dl{x} \\
+                                                    & = (-1)^n\diffp[n]{}{\alpha}\int_0^{\infty}xe^{-\alpha x^2}\dl{x} \\
+                                                    & = (-1)^n\diffp[n]{}{\alpha}\frac{1}{2\alpha}                     \\
                                                     & = \frac{n!}{2}\alpha^{-(n + 1)}
   \end{align}
 \end{proof}
@@ -228,27 +111,27 @@
 \begin{definition}
   複素平面上で $\Re z > 1$ を満たす領域内にある閉曲線 $C$ 上の点 $z$ に対して次の関数は一様収束し正則な関数となる.
   \begin{align}
-    \Gamma(z) := \int_0^\infty t^{z-1}e^{-t}\dd{t}
+    \Gamma(z) := \int_0^\infty t^{z-1}e^{-t}\dl{t}
   \end{align}
 \end{definition}
 
 \begin{proposition}
   \begin{align}
-    \Gamma(z + 1) & = z\Gamma(z), \qquad \Gamma(n + 1) = n!, \qquad \Gamma(1) = 1, \qquad \Gamma\qty(\frac{1}{2}) = \sqrt{\pi}
+    \Gamma(z + 1) & = z\Gamma(z), \qquad \Gamma(n + 1) = n!, \qquad \Gamma(1) = 1, \qquad \Gamma\ab(\frac{1}{2}) = \sqrt{\pi}
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \Gamma(z + 1)           & = \int_0^\infty t^{z}e^{-t}\dd{t}                              \\
-                            & = [-t^{z}e^{-t}]_0^\infty + z\int_0^\infty t^{z-1}e^{-t}\dd{t} \\
-                            & = z\Gamma(z)                                                   \\
-    \Gamma(1)               & = \int_0^\infty e^{-t}\dd{t}                                   \\
-                            & = [-e^{-t}]_0^\infty                                           \\
-                            & = 1                                                            \\
-    \Gamma\qty(\frac{1}{2}) & = \int_0^\infty t^{-1/2}e^{-t}\dd{t}                           \\
-                            & = \int_0^\infty s^{-1}e^{-s^2}2s\dd{s}                         \\
-                            & = 2\int_0^\infty e^{-s^2}\dd{s}                                \\
-                            & = \sqrt{\pi}
+    \Gamma(z + 1)          & = \int_0^\infty t^{z}e^{-t}\dl{t}                              \\
+                           & = [-t^{z}e^{-t}]_0^\infty + z\int_0^\infty t^{z-1}e^{-t}\dl{t} \\
+                           & = z\Gamma(z)                                                   \\
+    \Gamma(1)              & = \int_0^\infty e^{-t}\dl{t}                                   \\
+                           & = [-e^{-t}]_0^\infty                                           \\
+                           & = 1                                                            \\
+    \Gamma\ab(\frac{1}{2}) & = \int_0^\infty t^{-1/2}e^{-t}\dl{t}                           \\
+                           & = \int_0^\infty s^{-1}e^{-s^2}2s\dl{s}                         \\
+                           & = 2\int_0^\infty e^{-s^2}\dl{s}                                \\
+                           & = \sqrt{\pi}
   \end{align}
 \end{proof}
 
@@ -259,12 +142,12 @@
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \Gamma(x) & = \int_0^\infty t^{x - 1}e^{-t}\dd{t}                                                    \\
-              & = \int_0^\infty e^{s(x - 1)}e^{-e^s}e^s\dd{s}                                            \\
-              & = \int_0^\infty e^{sx - e^s}\dd{s}                                                       \\
-              & \approx \int_0^\infty e^{(x\ln x - x) - \frac{x}{2}(s - \ln x)^2}\dd{s} \qquad (x \gg 1) \\
-              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}(s - \ln x)^2}\dd{s}                             \\
-              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}s^2}\dd{s}                                       \\
+    \Gamma(x) & = \int_0^\infty t^{x - 1}e^{-t}\dl{t}                                                    \\
+              & = \int_0^\infty e^{s(x - 1)}e^{-e^s}e^s\dl{s}                                            \\
+              & = \int_0^\infty e^{sx - e^s}\dl{s}                                                       \\
+              & \approx \int_0^\infty e^{(x\ln x - x) - \frac{x}{2}(s - \ln x)^2}\dl{s} \qquad (x \gg 1) \\
+              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}(s - \ln x)^2}\dl{s}                             \\
+              & = x^xe^{-x}\int_0^\infty e^{-\frac{x}{2}s^2}\dl{s}                                       \\
               & = \sqrt{\frac{2\pi}{x}}x^xe^{-x}
   \end{align}
   これより
@@ -284,8 +167,8 @@
 \begin{proposition}[ワイエルシュトラスの公式 (Weierstrass' formula)]
   $\gamma$ はオイラーの定数 (Euler's constant) とする.
   \begin{align}
-    \frac{1}{\Gamma(z)} & = ze^{\gamma z}\prod_{n=1}^{\infty}\qty(1 + \frac{z}{n})e^{-z/n}              \\
-    \gamma              & := \lim_{n\to\infty}\qty(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
+    \frac{1}{\Gamma(z)} & = ze^{\gamma z}\prod_{n=1}^{\infty}\ab(1 + \frac{z}{n})e^{-z/n}              \\
+    \gamma              & := \lim_{n\to\infty}\ab(\sum_{m=1}^{n}\frac{1}{m} - \log n) = 0.577216\cdots
   \end{align}
 \end{proposition}
 
@@ -294,27 +177,27 @@
 \begin{definition}
   ベータ関数 (Beta function)
   \begin{align}
-    B(m, n) := \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dd{t}
+    B(m, n) := \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dl{t}
   \end{align}
 \end{definition}
 
 \begin{proposition}
   \begin{align}
     B(m, n) & = B(n, m)                                                          \\
-    B(m, n) & = 2\int_0^{\pi/2}\sin^{2m - 1}\theta\cos^{2n - 1}\theta\dd{\theta} \\
-    B(m, n) & = \int_0^{\infty}\frac{u^{m-1}}{(1 + u)^{m + n}}\dd{\theta}
+    B(m, n) & = 2\int_0^{\pi/2}\sin^{2m - 1}\theta\cos^{2n - 1}\theta\dl{\theta} \\
+    B(m, n) & = \int_0^{\infty}\frac{u^{m-1}}{(1 + u)^{m + n}}\dl{\theta}
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dd{t}                                                                             \\
-            & = \int_{1}^{0}(1 - s)^{m-1}s^{n-1}(-\dd{t}) \qquad (s = 1 - t)                                                     \\
-            & = \int_{0}^{1}s^{n-1}(1 - s)^{m-1}\dd{t}                                                                           \\
+    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dl{t}                                                                             \\
+            & = \int_{1}^{0}(1 - s)^{m-1}s^{n-1}(-\dl{t}) \qquad (s = 1 - t)                                                     \\
+            & = \int_{0}^{1}s^{n-1}(1 - s)^{m-1}\dl{t}                                                                           \\
             & = B(n, m)                                                                                                          \\
-    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dd{t}                                                                             \\
-            & = \int_{0}^{\pi/2}\sin^{2(m-1)}\theta\cos^{2(n-1)}\theta2\sin\theta\cos\theta\dd{\theta} \qquad (t = \sin^2\theta) \\
-            & = 2\int_0^{\pi/2}\sin^{2m - 1}\theta\cos^{2n - 1}\theta\dd{\theta}                                                 \\
-    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dd{t}                                                                             \\
+    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dl{t}                                                                             \\
+            & = \int_{0}^{\pi/2}\sin^{2(m-1)}\theta\cos^{2(n-1)}\theta2\sin\theta\cos\theta\dl{\theta} \qquad (t = \sin^2\theta) \\
+            & = 2\int_0^{\pi/2}\sin^{2m - 1}\theta\cos^{2n - 1}\theta\dl{\theta}                                                 \\
+    B(m, n) & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dl{t}                                                                             \\
   \end{align}
 \end{proof}
 
@@ -326,11 +209,11 @@
 \end{theorem}
 \begin{proof}
   \begin{align}
-    B(m, n)     & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dd{t}                                                \\
-                & = \qty[\frac{1}{m}t^m(1-t)^{n-1}]_0^1 + \frac{n-1}{m}\int_{0}^{1}t^m(1-t)^{n-2}\dd{t} \\
-                & = \frac{n - 1}{m}B(m + 1, n - 1)                                                      \\
-    B(m, n + 1) & = \frac{n\cdot(n - 1)\cdots 1}{a\cdot(m + 1)\cdots(m + n - 1)}B(m + n, 1)             \\
-                & = \frac{n!}{\prod_{k = 0}^{n-1}(m + k)}\frac{1}{m + n}                                \\
+    B(m, n)     & = \int_{0}^{1}t^{m-1}(1-t)^{n-1}\dl{t}                                               \\
+                & = \ab[\frac{1}{m}t^m(1-t)^{n-1}]_0^1 + \frac{n-1}{m}\int_{0}^{1}t^m(1-t)^{n-2}\dl{t} \\
+                & = \frac{n - 1}{m}B(m + 1, n - 1)                                                     \\
+    B(m, n + 1) & = \frac{n\cdot(n - 1)\cdots 1}{a\cdot(m + 1)\cdots(m + n - 1)}B(m + n, 1)            \\
+                & = \frac{n!}{\prod_{k = 0}^{n-1}(m + k)}\frac{1}{m + n}                               \\
                 & = \frac{n!}{\prod_{k = 0}^{n}(m + k)}
   \end{align}
 \end{proof}
@@ -343,13 +226,13 @@
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \Gamma(m)\Gamma(n) & = \int_0^\infty s^{m-1}e^{-s}\dd{s}\int_0^\infty t^{n-1}e^{-t}\dd{t}                                                                                      \\
-                       & = \int_0^\infty q^{2(m-1)}e^{-q^2}2q\dd{q}\int_0^\infty p^{2(n-1)}e^{-p^2}2p\dd{p}                                   & (s = q^2, t = p^2)                 \\
-                       & = 4\int_0^\infty \int_0^\infty e^{-(q^2 + p^2)}q^{2m-1}p^{2n-1}\dd{p}\dd{q}                                                                               \\
-                       & = 4\int_0^{\frac{\pi}{2}}\int_0^\infty e^{-r^2}r^{2(m + n - 1)}\cos^{2m-1}\theta\sin^{2n-1}\theta r\dd{r}\dd{\theta} & (q = r\cos\theta, p = r\sin\theta) \\
-                       & = 4\int_0^\infty e^{-r^2}r^{2(m + n) - 1}\dd{r}\int_0^{\frac{\pi}{2}}\cos^{2m-1}\theta\sin^{2n-1}\theta\dd{\theta}                                        \\
-                       & = 2\int_0^\infty e^{-R}R^{m + n - 1}r\frac{1}{2r}\dd{R}B(m, n)                                                       & (R = r^2)                          \\
-                       & = \int_0^\infty e^{-R}R^{m + n - 1}\dd{R}B(m, n)                                                                                                          \\
+    \Gamma(m)\Gamma(n) & = \int_0^\infty s^{m-1}e^{-s}\dl{s}\int_0^\infty t^{n-1}e^{-t}\dl{t}                                                                                      \\
+                       & = \int_0^\infty q^{2(m-1)}e^{-q^2}2q\dl{q}\int_0^\infty p^{2(n-1)}e^{-p^2}2p\dl{p}                                   & (s = q^2, t = p^2)                 \\
+                       & = 4\int_0^\infty \int_0^\infty e^{-(q^2 + p^2)}q^{2m-1}p^{2n-1}\dl{p}\dl{q}                                                                               \\
+                       & = 4\int_0^{\frac{\pi}{2}}\int_0^\infty e^{-r^2}r^{2(m + n - 1)}\cos^{2m-1}\theta\sin^{2n-1}\theta r\dl{r}\dl{\theta} & (q = r\cos\theta, p = r\sin\theta) \\
+                       & = 4\int_0^\infty e^{-r^2}r^{2(m + n) - 1}\dl{r}\int_0^{\frac{\pi}{2}}\cos^{2m-1}\theta\sin^{2n-1}\theta\dl{\theta}                                        \\
+                       & = 2\int_0^\infty e^{-R}R^{m + n - 1}r\frac{1}{2r}\dl{R}B(m, n)                                                       & (R = r^2)                          \\
+                       & = \int_0^\infty e^{-R}R^{m + n - 1}\dl{R}B(m, n)                                                                                                          \\
                        & = \Gamma(m + n)B(m, n)
   \end{align}
   これより
@@ -358,7 +241,7 @@
   \end{align}
   \begin{align}
     \Gamma(z)\Gamma(1 - z) & = \Gamma(1)B(z, 1 - z)                \\
-                           & = \int_{0}^{1}t^{z-1}(1-t)^{-z}\dd{t} \\
+                           & = \int_{0}^{1}t^{z-1}(1-t)^{-z}\dl{t} \\
                            & = \frac{\pi}{\sin\pi z}
   \end{align}
 \end{proof}
@@ -373,7 +256,7 @@
 
 \begin{proposition}[Legendre の倍数公式]
   \begin{align}
-    \Gamma(2z) & = \frac{2^{2z}}{2\sqrt{\pi}}\Gamma(z)\Gamma\qty(z + \frac{1}{2})
+    \Gamma(2z) & = \frac{2^{2z}}{2\sqrt{\pi}}\Gamma(z)\Gamma\ab(z + \frac{1}{2})
   \end{align}
 \end{proposition}
 
@@ -387,20 +270,20 @@
 \begin{proof}
   $n$ 次元超球の体積は次のように表現できる。
   \begin{align}
-    V_n(R) = \int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq R^2}\dd{x_1}\dd{x_2}\cdots\dd{x_n}
+    V_n(R) = \int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq R^2}\dl{x_1}\dl{x_2}\cdots\dl{x_n}
   \end{align}
   各 $x_i$ を $R$ 倍することで
   \begin{align}
-    V_n(R) & = \int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq R^2}\dd{x_1}\dd{x_2}\cdots\dd{x_n}  \\
-           & = R^n\int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq 1}\dd{x_1}\dd{x_2}\cdots\dd{x_n} \\
+    V_n(R) & = \int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq R^2}\dl{x_1}\dl{x_2}\cdots\dl{x_n}  \\
+           & = R^n\int_{x_1^2 + x_2^2 + \cdots + x_n^2\leq 1}\dl{x_1}\dl{x_2}\cdots\dl{x_n} \\
            & = R^nV_n(1)
   \end{align}
   これより $V_n(1)$ を求めればよい。$V_n(1)$ と $V_{n-1}(1)$ の関係を求める。
   \begin{align}
-    V_n(1) & = \int_{x_1^2 + x_2^2 + \cdots + x_{n-1}^2\leq 1 - x_n^2}\dd{x_1}\dd{x_2}\cdots\dd{x_n} \\
-           & = V_{n-1}(1)\int_{-1}^1\qty(1 - x_n^2)^{\frac{n-1}{2}}\dd{x_n}                          \\
-           & = 2V_{n-1}(1)\int_0^{\pi/2}\cos^{n}\theta\dd{\theta}                                    \\
-           & = V_{n-1}(1)B\qty(\frac{1}{2}, \frac{n+1}{2})                                           \\
+    V_n(1) & = \int_{x_1^2 + x_2^2 + \cdots + x_{n-1}^2\leq 1 - x_n^2}\dl{x_1}\dl{x_2}\cdots\dl{x_n} \\
+           & = V_{n-1}(1)\int_{-1}^1\ab(1 - x_n^2)^{\frac{n-1}{2}}\dl{x_n}                           \\
+           & = 2V_{n-1}(1)\int_0^{\pi/2}\cos^{n}\theta\dl{\theta}                                    \\
+           & = V_{n-1}(1)B\ab(\frac{1}{2}, \frac{n+1}{2})                                            \\
            & = V_{n-1}(1)\frac{\Gamma(\frac{1}{2})\Gamma(\frac{n+1}{2})}{\Gamma(\frac{n}{2}+1)}      \\
            & = V_{n-1}(1)\sqrt{\pi}\frac{\Gamma(\frac{n+1}{2})}{\Gamma(\frac{n+2}{2})}
   \end{align}
@@ -439,7 +322,7 @@
 \end{definition}
 \begin{proposition}
   \begin{align}
-    e^x         & = \lim_{b\to\infty}{}_2F_1\qty(1,b,1;\frac{x}{b}) \\
+    e^x         & = \lim_{b\to\infty}{}_2F_1\ab(1,b,1;\frac{x}{b}) \\
     \log(1 + x) & = x\cdot{}_2F_1(1,1,2;-x)
   \end{align}
 \end{proposition}
@@ -480,9 +363,9 @@
 \begin{proof}
   定義式の左辺の分母を払って展開すると
   \begin{align}
-    x & = (e^x - 1)\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n                                     \\
-      & = \qty(\sum_{k=1}^{\infty}\frac{x^k}{k!})\qty(\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n) \\
-      & = \sum_{k=1}^{\infty}\sum_{n=0}^{\infty}\frac{B_n}{k!n!}x^{k+n}                     \\
+    x & = (e^x - 1)\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n                                   \\
+      & = \ab(\sum_{k=1}^{\infty}\frac{x^k}{k!})\ab(\sum_{n=0}^{\infty}\frac{B_n}{n!}x^n) \\
+      & = \sum_{k=1}^{\infty}\sum_{n=0}^{\infty}\frac{B_n}{k!n!}x^{k+n}                   \\
       & = \sum_{n=1}^{\infty}\sum_{m=0}^{n-1}\frac{B_n}{(n - m)!m!}x^n.
   \end{align}
   となり両辺の係数を比較することで次のようになる。
@@ -530,7 +413,7 @@
 \begin{proof}
   $s = a + bi\ (a > 1)$ とおく. すると次のようになる.
   \begin{align}
-    |\zeta(s)| & \leq \sum_{n=1}^{\infty}\qty|\frac{1}{n^s}| = \sum_{n=1}^{\infty}\frac{1}{n^a} \approx \int_{1}^{\infty}\dd{x}x^{-a} = \qty[\frac{1}{1 - a}x^{1-a}]_1^\infty < \infty.
+    |\zeta(s)| & \leq \sum_{n=1}^{\infty}\ab|\frac{1}{n^s}| = \sum_{n=1}^{\infty}\frac{1}{n^a} \approx \int_{1}^{\infty}\dl{x}x^{-a} = \ab[\frac{1}{1 - a}x^{1-a}]_1^\infty < \infty.
   \end{align}
   よってゼータ関数 $\zeta(s)$ は一様絶対収束する.
 \end{proof}
@@ -545,7 +428,7 @@
   \begin{align}
     \zeta(s) & = \sum_{n=1}^{\infty}\frac{1}{n^s}                                                                                   \\
              & = \frac{1}{1^s} + \frac{1}{2^s} + \frac{1}{3^s} + \frac{1}{2^{2s}} + \frac{1}{5^s} + \frac{1}{(2\cdot 3)^s} + \cdots \\
-             & = \qty(1 + 2^{-s} + 2^{-2s} + \cdots)\qty(1 + 3^{-s} + 3^{-2s} + \cdots)\qty(1 + 5^{-s} + 5^{-2s} + \cdots)\cdots    \\
+             & = \ab(1 + 2^{-s} + 2^{-2s} + \cdots)\ab(1 + 3^{-s} + 3^{-2s} + \cdots)\ab(1 + 5^{-s} + 5^{-2s} + \cdots)\cdots       \\
              & = \prod_{p:prime}(1 + p^{-s} + p^{-2s} + \cdots)                                                                     \\
              & = \prod_{p:prime}\frac{1}{1 - p^{-s}}.
   \end{align}
@@ -563,7 +446,7 @@
   \end{align}
   これより $\zeta(s)$ の大きさは次のように評価される.
   \begin{align}
-    |\zeta(s)| & = \qty|\prod_{p:prime}\frac{1}{1 - p^{-s}}| \geq \prod_{p:prime}\frac{1}{1 - |p^{-s}|} = \prod_{p:prime}\frac{1}{1 - p^{-a}} > 0.
+    |\zeta(s)| & = \ab|\prod_{p:prime}\frac{1}{1 - p^{-s}}| \geq \prod_{p:prime}\frac{1}{1 - |p^{-s}|} = \prod_{p:prime}\frac{1}{1 - p^{-a}} > 0.
   \end{align}
   よって $\real s > 1$ において $\zeta(s)$ はゼロとならない. つまり次のようになる.
   \begin{align}
@@ -588,24 +471,24 @@
 
 \begin{proposition}
   \begin{align}
-    \Gamma(s)\zeta(s) = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1} \qquad (\real s > 1).
+    \Gamma(s)\zeta(s) = \int_0^\infty\dl{x}\frac{x^{s-1}}{e^x - 1} \qquad (\real s > 1).
   \end{align}
 \end{proposition}
 \begin{proof}
   ガンマ関数の定義式について $x := nx$ と置換積分することで次のように式変形できる.
   \begin{align}
-    \Gamma(s)         & = \int_0^\infty \dd{x}x^{s-1}e^{-x}                     \\
-                      & = \int_0^\infty n\dd{x}\qty(nx)^{s-1}e^{-nx},           \\
+    \Gamma(s)         & = \int_0^\infty \dl{x}x^{s-1}e^{-x}                     \\
+                      & = \int_0^\infty n\dl{x}\ab(nx)^{s-1}e^{-nx},            \\
     \Gamma(s)\zeta(s) & = \sum_{n=1}^{\infty}\frac{\Gamma(s)}{n^s}              \\
-                      & = \sum_{n=1}^{\infty}\int_0^\infty \dd{x}x^{s-1}e^{-nx} \\
-                      & = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+                      & = \sum_{n=1}^{\infty}\int_0^\infty \dl{x}x^{s-1}e^{-nx} \\
+                      & = \int_0^\infty\dl{x}\frac{x^{s-1}}{e^x - 1}.
   \end{align}
 \end{proof}
 
 \begin{proposition}
   この積分値を求める為に複素解析を用いる. 積分路 $C$ を $C = C(\delta) = C_+(\delta) + C_0(\delta) + C_+(\delta)$ として $C_+(\delta)$ は実軸上無限遠から原点から $\delta$ の距離にある点まで, $C_0(\delta)$ は中心を原点とする半径 $\delta$ の円を反時計回りに 1 周し, $C_-(\delta)$ は実軸上原点から $\delta$ の距離にある点から無限遠までを積分する. また次の関数 $I(s; C)$ を定義しておく.
   \begin{align}
-    I(s; C) & := \int_C\dd{z}\frac{z^{s-1}}{e^z - 1}.
+    I(s; C) & := \int_C\dl{z}\frac{z^{s-1}}{e^z - 1}.
   \end{align}
   $0 <\delta < 2\pi$ を満たす範囲で $\delta$ を動かしても積分値は一定である.
   $\real s > 1$ のとき $\delta\to 0$ とすると $C_0(\delta)$ に沿った積分 $I(s;C_0(\delta))$ がゼロになる.
@@ -613,9 +496,9 @@
 \begin{proof}
   被積分関数は $2n\pi\sqrt{-1}$ について 1 位の極がある. これより留数定理から積分路の内部の極の数が変化しないなら積分値は一定である. よって $0 <\delta < 2\pi$ を満たす範囲で $\delta$ を動かしても極の数は変化しないから積分値は一定である.
   \begin{align}
-    |I(s;C_0(\delta))| & = \qty|\int_{C_0(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}|                                                                        \\
-                       & = \qty|\int_0^{2\pi}\delta ie^{i\theta}\dd{\theta}\frac{(\delta e^{i\theta})^{s-1}}{e^{\delta(\cos\theta + i\sin\theta)} - 1}| \\
-                       & \leq \int_0^{2\pi}\dd{\theta}\frac{|\delta^s|}{e^{\delta\cos\theta} - 1}                                                       \\
+    |I(s;C_0(\delta))| & = \ab|\int_{C_0(\delta)}\dl{z}\frac{z^{s-1}}{e^z - 1}|                                                                        \\
+                       & = \ab|\int_0^{2\pi}\delta ie^{i\theta}\dl{\theta}\frac{(\delta e^{i\theta})^{s-1}}{e^{\delta(\cos\theta + i\sin\theta)} - 1}| \\
+                       & \leq \int_0^{2\pi}\dl{\theta}\frac{|\delta^s|}{e^{\delta\cos\theta} - 1}                                                      \\
                        & < |\delta^{s-1}|\pi.
   \end{align}
   これより $\delta\to 0$ のとき積分値 $I(s; C_0(\delta))$ は $0$ となる.
@@ -623,17 +506,17 @@
 
 \begin{proposition}
   \begin{align}
-    I(s; C) & = (e^{2\pi is} - 1)\int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+    I(s; C) & = (e^{2\pi is} - 1)\int_0^\infty\dl{x}\frac{x^{s-1}}{e^x - 1}.
   \end{align}
 \end{proposition}
 \begin{proof}
   Q 17A-10 の考察から $\delta\to 0$ の極限において積分 $I(s; C)$ を考える.
   \begin{align}
-    I(s; C) & = \int_{C(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}                                                                               \\
-            & = \int_{C_- + C_0 + C_+}\dd{z}\frac{z^{s-1}}{e^z - 1}                                                                         \\
-            & = \int_{C_-}\dd{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_0}\dd{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1} \\
-            & = e^{2\pi is}\int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1} + 0 + \int_{C_+}\dd{z}\frac{z^{s-1}}{e^z - 1}                            \\
-            & = (e^{2\pi is} - 1)\int_{0}^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}.
+    I(s; C) & = \int_{C(\delta)}\dl{z}\frac{z^{s-1}}{e^z - 1}                                                                               \\
+            & = \int_{C_- + C_0 + C_+}\dl{z}\frac{z^{s-1}}{e^z - 1}                                                                         \\
+            & = \int_{C_-}\dl{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_0}\dl{z}\frac{z^{s-1}}{e^z - 1} + \int_{C_+}\dl{z}\frac{z^{s-1}}{e^z - 1} \\
+            & = e^{2\pi is}\int_{C_+}\dl{z}\frac{z^{s-1}}{e^z - 1} + 0 + \int_{C_+}\dl{z}\frac{z^{s-1}}{e^z - 1}                            \\
+            & = (e^{2\pi is} - 1)\int_{0}^\infty\dl{x}\frac{x^{s-1}}{e^x - 1}.
   \end{align}
 \end{proof}
 
@@ -645,7 +528,7 @@
 
 (i) 17A-11 より$\real s > 1$ において次が成り立つ.
 \begin{align}
-  \Gamma(s)\zeta(s) & = \int_0^\infty\dd{x}\frac{x^{s-1}}{e^x - 1}                        \\
+  \Gamma(s)\zeta(s) & = \int_0^\infty\dl{x}\frac{x^{s-1}}{e^x - 1}                        \\
                     & = \frac{I(s; C)}{e^{2\pi is} - 1},                                  \\
   \zeta(s)          & = \frac{1}{(e^{2\pi is} - 1)\Gamma(s)}I(s; C) \qquad (\real s > 1).
 \end{align}
@@ -653,7 +536,7 @@
 (ii)
 $I(s; C)$ は次のように定義された.
 \begin{align}
-  I(s; C) & = \int_{C(\delta)}\dd{z}\frac{z^{s-1}}{e^z - 1}.
+  I(s; C) & = \int_{C(\delta)}\dl{z}\frac{z^{s-1}}{e^z - 1}.
 \end{align}
 これは複素平面全体 $s\in\CC$ に対して正則である. よって (i) で求めた式は $\real s > 1$ の条件を取り外すことができ, 解析接続となる.
 
@@ -691,25 +574,25 @@ $I(s; C)$ は次のように定義された.
 
 \begin{theorem}[ロドリグの公式 (Rodrigues's formula)]
   \begin{align}
-    H_n(x) & = (-1)^ne^{x^2}\dv[n]{x}e^{-x^2}
+    H_n(x) & = (-1)^ne^{x^2}\diff[n]{x}e^{-x^2}
   \end{align}
 \end{theorem}
 \begin{proof}
   両辺を $t$ で $n$ 階微分する。
   \begin{align}
-    \pdv[n]{t}(左辺) & = e^{x^2}\pdv[n]{t}e^{-(t - x)^2} = -e^{x^2}\pdv[n]{x}e^{-(t - x)^2} \\
-    \pdv[n]{t}(右辺) & = \sum_{m=n}^{\infty}\frac{1}{(m-n)!}H_{m}(x)t^{m-n}
+    \diffp[n]{t}(左辺) & = e^{x^2}\diffp[n]{t}e^{-(t - x)^2} = -e^{x^2}\diffp[n]{x}e^{-(t - x)^2} \\
+    \diffp[n]{t}(右辺) & = \sum_{m=n}^{\infty}\frac{1}{(m-n)!}H_{m}(x)t^{m-n}
   \end{align}
   $t = 0$ とすると示せる。
   \begin{align}
-    H_{n}(x) = -e^{x^2}\pdv[n]{x}e^{-x^2}
+    H_{n}(x) = -e^{x^2}\diffp[n]{x}e^{-x^2}
   \end{align}
 \end{proof}
 
 \begin{proposition}
   \begin{align}
-    H_n(x) & = \frac{n!}{2\pi i}\int_C\frac{e^{-z^2 + 2zx}}{z^{n+1}}\dd{z}                               \\
-    H_n(x) & = \frac{1}{2\sqrt{\pi}}(-i)^n\int_{-\infty + 2ix}^{\infty + 2ix}e^{-q^2/4}(q + 2ix)^n\dd{q} \\
+    H_n(x) & = \frac{n!}{2\pi i}\int_C\frac{e^{-z^2 + 2zx}}{z^{n+1}}\dl{z}                               \\
+    H_n(x) & = \frac{1}{2\sqrt{\pi}}(-i)^n\int_{-\infty + 2ix}^{\infty + 2ix}e^{-q^2/4}(q + 2ix)^n\dl{q} \\
     H_n(x) & = \sum_{l=0}^{[n/2]}(-1)^l\frac{n!}{(n - 2l)!l!}(2x)^{n - 2l}
   \end{align}
 \end{proposition}
@@ -727,7 +610,7 @@ $I(s; C)$ は次のように定義された.
 
 \begin{theorem}
   \begin{align}
-    \dv[2]{x}f(x) - 2x\dv{x}f(x) + 2nf(x) = 0
+    \diff[2]{x}f(x) - 2x\diff{x}f(x) + 2nf(x) = 0
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -736,7 +619,7 @@ $I(s; C)$ は次のように定義された.
 
 \begin{theorem}
   \begin{align}
-    \int_{-\infty}^\infty H_m(x)H_n(x)e^{-x^2}\dd{x} & = 2^nn!\sqrt{\pi}\delta_{mn}
+    \int_{-\infty}^\infty H_m(x)H_n(x)e^{-x^2}\dl{x} & = 2^nn!\sqrt{\pi}\delta_{mn}
   \end{align}
 \end{theorem}
 \begin{proof}
@@ -758,7 +641,7 @@ $I(s; C)$ は次のように定義された.
 \begin{definition}[ルジャンドルの陪微分方程式]
   ルジャンドルの陪微分方程式
   \begin{align}
-    (1 - x^2)y'' - 2xy' + \qty(n(n + 1) - \frac{m^2}{1 - x^2})y = 0
+    (1 - x^2)y'' - 2xy' + \ab(n(n + 1) - \frac{m^2}{1 - x^2})y = 0
   \end{align}
   これを満たす独立な 2 つの解 $P_n^m(x)$ と $Q_n^m(x)$ を第一種および第二種ルジャンドル陪関数はルジャンドル関数で表される。
 \end{definition}
@@ -786,7 +669,7 @@ $I(s; C)$ は次のように定義された.
 \end{definition}
 \begin{proposition}
   \begin{align}
-    L_n(x)     & = e^x\dv[n]{x}(x^ne^{-x})                            \\
+    L_n(x)     & = e^x\diff[n]{x}(x^ne^{-x})                          \\
     L_n(x)     & = \sum_{l=0}^{n}\frac{(-1)^l(n!)^2}{(l!)^2(n-l)!}x^l \\
     L_{n+1}(x) & = (2n + 1 - x)L_n(x) - n^2L_{n-1}(x)                 \\
     xL_n'(x)   & = nL_n(x) - n^2L_{n-1}(x)                            \\
@@ -802,27 +685,27 @@ $I(s; C)$ は次のように定義された.
 \begin{definition}
   ラプラス方程式 (Laplace equation)
   \begin{align}
-    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+    \diffp[2]{u}{x} + \diffp[2]{u}{y} = 0
   \end{align}
   ポアソン方程式 (Poisson equation)
   \begin{align}
-    \pdv[2]{u}{x} + \pdv[2]{u}{y} = -\rho(x, y)
+    \diffp[2]{u}{x} + \diffp[2]{u}{y} = -\rho(x, y)
   \end{align}
   波動方程式 (wave equation)
   \begin{align}
-    \frac{1}{c^2}\pdv[2]{u}{t} = \pdv[2]{u}{x}
+    \frac{1}{c^2}\diffp[2]{u}{t} = \diffp[2]{u}{x}
   \end{align}
   熱伝導方程式 (heat conduction equation) \\
   $\kappa$ を熱伝導率 (thermal conductivity)
   \begin{align}
-    \pdv{u}{t} & = \kappa\pdv[2]{u}{x} + q(x)
+    \diffp{u}{t} & = \kappa\diffp[2]{u}{x} + q(x)
   \end{align}
 \end{definition}
 
 \begin{proposition}
   ラプラス方程式を満たし
   \begin{align}
-    \pdv[2]{u}{x} + \pdv[2]{u}{y} = 0
+    \diffp[2]{u}{x} + \diffp[2]{u}{y} = 0
   \end{align}
   次の境界条件を満たす関数 $u(x, y)$ を求める。
   \begin{align}

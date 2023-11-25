@@ -421,16 +421,24 @@ $\omega_{\nu\lambda} = -\omega_{\lambda\nu}$ と反対称となる。
 
 \subsection{有限ローレンツ変換}
 \begin{align}
-  S_\Lambda & =
+  N\omega_{\mu\nu} & = Ng_{\mu\lambda}\omega_{\ \nu}^\lambda = \begin{pmatrix}
+                                                                 0      & -\eta_x   & -\eta_y   & -\eta_z   \\
+                                                                 \eta_x & 0         & -\theta_z & \theta_y  \\
+                                                                 \eta_y & \theta_z  & 0         & -\theta_x \\
+                                                                 \eta_z & -\theta_y & \theta_x  & 0
+                                                               \end{pmatrix}
 \end{align}
-
 \begin{align}
-  \psi'(x') & = \exp\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha} + i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma})\psi(x)
+  S_\Lambda & = \lim_{N\to\infty}[1 + \frac{\omega_{\mu\nu}}{4}\gamma^\mu\gamma^\nu]^N = \lim_{N\to\infty}\ab[\exp\ab(\frac{\omega_{\mu\nu}}{4}\gamma^\mu\gamma^\nu)]^N = \exp\ab(\frac{N\omega_{\mu\nu}}{4}\gamma^\mu\gamma^\nu)                \\
+            & = \exp\ab(- \frac{\eta_x}{2}\gamma^0\gamma^1 - \frac{\eta_y}{2}\gamma^0\gamma^2 - \frac{\eta_z}{2}\gamma^0\gamma^3 - \frac{\theta_x}{2}\gamma^2\gamma^3 - \frac{\theta_y}{2}\gamma^3\gamma^1 - \frac{\theta_z}{2}\gamma^1\gamma^2) \\
+            & = \exp\ab(- \frac{\eta_x}{2}\alpha^1 - \frac{\eta_y}{2}\alpha^2 - \frac{\eta_z}{2}\alpha^3 + \frac{\theta_x}{2}\alpha^2\alpha^3 + \frac{\theta_y}{2}\alpha^3\alpha^1 + \frac{\theta_z}{2}\alpha^1\alpha^2)                         \\
+            & = \exp\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha} + i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma})                                                                                                                                           \\
+            & = \ab[\cosh\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha}) - \sinh\ab(-\frac{\bm{\eta}}{2}\cdot\bm{\alpha})] + \exp\ab(i\frac{\bm{\theta}}{2}\cdot\bm{\Sigma})
 \end{align}
-
 $\Sigma^i$ を次のように定義する。
+$\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
 \begin{align}
-  \Sigma^i := \frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^j\gamma^k
+  \Sigma^i := -\frac{i}{2}\sum_{j,k = 1}^{3}\varepsilon^{ijk}\alpha^j\alpha^k = -i(\alpha^2\alpha^3, \alpha^3\alpha^1, \alpha^1\alpha^2)
 \end{align}
 \begin{align}
   (\Sigma^i)^\dagger & = -\frac{i}{2}\sum_{j,k}\varepsilon^{ijk}\gamma^k\gamma^j = \Sigma^i
@@ -451,9 +459,7 @@ $i \neq j$ のとき $a, b, c, d$ のいづれか 2 つ 1 組は同じである�
                                    & = -\frac{1}{4}\sum_{a,b}\sum_{c,d}\varepsilon^{iab}\varepsilon^{jcd}(1 + (-1)^3)\gamma^a\gamma^b\gamma^c\gamma^d                                                            \\
                                    & = 0
 \end{align}
-よって $\lbrace\Sigma^i, \Sigma^j\rbrace = 2\delta^{ij}$ である。
 
-$\bm{\Sigma} = (\Sigma^1, \Sigma^2, \Sigma^3)$ と任意の $\bm{v} = (v^1, v^2, v^3)$ に対して次が成り立つことを示せ。
 \begin{align}
   (\bm{v}\cdot\bm{\Sigma})^2 & = (v^i\Sigma^i)(v^j\Sigma^j)^\dagger = v^i\Sigma^i\Sigma^j(v^j)^\dagger = \delta^{ij}v^i(v^j)^\dagger = \bm{v}^2
 \end{align}
