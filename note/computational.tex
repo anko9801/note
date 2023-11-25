@@ -259,28 +259,109 @@
 \end{definition}
 
 \section{動的システム}
-\begin{definition}[動的システム]
-  入力 $\u(t)$ を状態 $\x(t)$ を持つシステムに入れて出力 $\y(t)$ が出るシステムを考える。
-  状態方程式と出力方程式を次のように定義し、これを解くことを考える。
+\begin{definition}[システム]
+  システムとは入力に対して出力を返す"機能"を持つ対象の総称である。
+  これは次のようにモデル化できる。
+
+  静的システム (static system) とは入力 $\u$ に対して一意の出力 $\y$ を返すシステムである。
+  \begin{align}
+    \y(t) = \bm{f}(\u(t))
+  \end{align}
+  動的システム (dynamic system) とは内部状態 $\x$ を持ち、入力に対して状態が変化し、状態から出力が返されるシステムである。
   \begin{align}
     \diff{\x}{t} & = \bm{f}(\x, \u, t) \\
     \y           & = \bm{g}(\x, t)
   \end{align}
+  第 1 式を状態方程式、第 2 式を出力方程式と呼ぶ。
 \end{definition}
 まず平衡点 $\x_0, \u_0, \y_0$ において展開する。
 \begin{align}
   \dot\x & \approx \diffp{\bm{f}}{\x}[(\x_0, \u_0)]\x + \diffp{\bm{f}}{\u}[(\x_0, \u_0)]\u \\
   \y     & \approx \diffp{\bm{g}}{\x}[\x_0]\x
 \end{align}
-
-
-時間変化しない場合
+これより
 \begin{align}
   \dot\x & = A\x + B\u \\
   \y     & = C\x
 \end{align}
+と定式化できる。
+$\x = T\bm{z}$ とおくと
 \begin{align}
-  y(t) = C\exp(At)\rr_0 + \int_{0}^{t}C\exp(A(t - \tau))Bu(\tau)\dl{\tau}
+  \dot{\bm{z}} & = T^{-1}AT\bm{z} + T^{-1}B\u \\
+  \y           & = CT\bm{z}
 \end{align}
+により $A$ を対角化できる。
+\begin{theorem}
+  \begin{align}
+    \y & = C\exp(A(t - t_0))\x_0 + C\int_{t_0}^{t}\exp(A(t - \tau))B\u(\tau)\dl{\tau}
+  \end{align}
+\end{theorem}
+\begin{proof}
+  まず $\u = 0$ のときの状態方程式は次のように解ける。
+  \begin{align}
+    \dot\x & = A\x                  \\
+    \x     & = \exp(A(t - t_0))\x_0
+  \end{align}
+  これより一般において $\x = \exp(At)\kk$ とおくと
+  \begin{align}
+    \dot\x  & = A\x + \exp(At)\dot\kk = A\x + B\u \\
+    \dot\kk & = \exp(-At)B\u
+  \end{align}
+  この微分方程式を解くと
+  \begin{align}
+    \kk(t) - \kk_0 & = \int_{t_0}^{t}\exp(-A\tau)B\u(\tau)\dl{\tau}             \\
+    \kk            & = \exp(-At_0)\x_0 + \int_{t_0}^{t}\exp(-A\tau)B\u\dl{\tau}
+  \end{align}
+  となる。よって
+  \begin{align}
+    \x & = \exp(A(t - t_0))\x_0 + \int_{t_0}^{t}\exp(A(t - \tau))B\u\dl{\tau}         \\
+    \y & = C\exp(A(t - t_0))\x_0 + C\int_{t_0}^{t}\exp(A(t - \tau))B\u(\tau)\dl{\tau}
+  \end{align}
+\end{proof}
+
+
+
+
+
+\begin{example}[]
+
+\end{example}
+\begin{example}[バネ・マス・ダンパ系]
+  \begin{align}
+    m\ddot y + b\dot y + ky = f
+  \end{align}
+  $x_1 = y := y$, $x_2 := \dot y$, $u = f$
+  \begin{align}
+    \begin{pmatrix}
+      \dot x_1 \\
+      \dot x_2
+    \end{pmatrix}
+                    & = \begin{pmatrix}
+                          0            & 1            \\
+                          -\frac{k}{m} & -\frac{b}{m} \\
+                        \end{pmatrix}
+    \begin{pmatrix}
+      x_1 \\
+      x_2
+    \end{pmatrix} +
+    \begin{pmatrix}
+      0 \\
+      \frac{1}{m}
+    \end{pmatrix}u &
+    y               & = \begin{pmatrix}
+                          1 & 0
+                        \end{pmatrix}
+    \begin{pmatrix}
+      x_1 \\
+      x_2
+    \end{pmatrix}
+  \end{align}
+\end{example}
+\begin{example}[RLC]
+  \begin{align}
+    L\ddot q + R\dot q + \frac{1}{C}q = e_i
+  \end{align}
+\end{example}
+
 
 \end{document}

@@ -1,175 +1,12 @@
 \RequirePackage{plautopatch}
 \documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
-\usepackage{bxpapersize}
-\usepackage[utf8]{inputenc}
-\usepackage{fontenc}
-\usepackage{lmodern}
-\usepackage{otf}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{ascmac}
-% \usepackage[hyphens]{url}
-\usepackage{mhchem}
-\usepackage{siunitx}
-\usepackage{physics2}
-\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
-\usepackage[DIF = {
-op-symbol = d,
-op-order-nudge = 1 mu,
-outer-Ldelim = \left . ,
-outer-Rdelim = \right |,
-sub-nudge = 0 mu
-}]{diffcoeff}
-% \usepackage{braket}
-\usepackage{verbatimbox}
-\usepackage{bm}
-\usepackage{url}
-% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
-\usepackage{hyperref}
-\usepackage{pxjahyper}
-\usepackage{tikz}\usetikzlibrary{cd}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{mathtools}
-\usepackage{xspace}
-\usepackage{xy}
-\usepackage{xypic}
-%
-\title{固体物理学}
-\author{anko9801}
-\makeatletter
-%
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Image}{Im}
-\DeclareMathOperator{\ch}{ch}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Log}{Log}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\sgn}{sgn}
-%
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\GG}{\mathbb{G}}
-\newcommand{\TT}{\mathbb{T}}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
-\renewcommand{\AA}{\bm{A}}
+\input{preamble.tex}
 \newcommand{\R}{\bm{R}}
-\newcommand{\rr}{\bm{r}}
-\newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
+\newcommand{\E}{\mathcal{E}}
 \renewcommand{\aa}{\bm{a}}
 \newcommand{\bb}{\bm{b}}
-\newcommand{\calB}{\mathcal{B}}
-\newcommand{\calF}{\mathcal{F}}
-\newcommand{\ignore}[1]{}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\lt}{<}
-\newcommand{\gt}{>}
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
-\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
-\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
-\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
-\numberwithin{equation}{section}
-
-\let\oldcite=\cite
-\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
-
-\let\oldbibitem=\bibitem
-\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
-
-% theorem環境の設定
-% - 冒頭に改行
-% - 末尾にdiamond (amsthm)
-\theoremstyle{definition}
-\newcommand*{\newscreentheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{screen}
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-  }{
-    \end{#2}
-    \end{screen}
-  }
-}
-\newcommand*{\newqedtheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-      \renewcommand{\qedsymbol}{\(\diamond\)}
-      \pushQED{\qed}
-  }{
-      \qedhere
-      \popQED
-    \end{#2}
-  }
-}
-\newtheorem{theorem*}{定理}[section]
-
-\newqedtheoremx{theorem}{theorem*}
-\newcommand*\newqedtheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*\newqedtheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
-
-\newtheorem{sctheorem*}{定理}[section]
-\newscreentheoremx{sctheorem}{sctheorem*}
-\newcommand*\newscreentheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*\newscreentheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
-
-%\newtheorem*{definition}{定義}
-%\newtheorem{theorem}{定理}
-%\newtheorem{proposition}[theorem]{命題}
-%\newtheorem{lemma}[theorem]{補題}
-%\newtheorem{corollary}[theorem]{系}
-
-\newqedtheorem{lemma}{補題}
-\newqedtheorem{corollary}{系}
-\newqedtheorem{example}{例}
-\newqedtheorem{proposition}{命題}
-\newqedtheorem{remark}{注意}
-\newqedtheorem{thesis}{主張}
-\newqedtheorem{notation}{記法}
-\newqedtheorem{problem}{問題}
-\newqedtheorem{algorithm}{アルゴリズム}
-
-\newscreentheorem*{axiom}{公理}
-\newscreentheorem*{definition}{定義}
-
-\renewenvironment{proof}[1][\proofname]{\par
-  \normalfont
-  \topsep6\p@\@plus6\p@ \trivlist
-  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
-}{%
-  \qed\endtrivlist\@endpefalse
-}
-\renewcommand\proofname{証明}
-
-\makeatother
-
+\title{固体物理学}
+\author{anko9801}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -207,15 +44,14 @@ sub-nudge = 0 mu
 \end{itemize}
 \begin{table}[hbtp]
   \centering
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|c|c|c|c|c|}
     \hline
-    対称性    & 格子条件                                  & 対称性      \\
+    結晶  & 格子条件                                  & 単純   & 面心     & 対称性      \\
     \hline \hline
-    正方格子   & $a = b, \theta = 90$\textdegree       & $C_4, m$ \\
-    直方格子   & $a \neq b, \theta = 90$\textdegree    & $C_2, m$ \\
-    斜方格子   & $a \neq b, \theta \neq 90$\textdegree & $C_2$    \\
-    面心直方格子 & $a \neq b, \theta = 90$\textdegree    & $C_2, m$ \\
-    六方格子   & $\theta = 60$\textdegree              & $C_6$    \\
+    正方晶 & $a = b, \theta = 90$\textdegree       & 正方格子 &        & $C_4, m$ \\
+    直方晶 & $a \neq b, \theta = 90$\textdegree    & 直方格子 & 面心直方格子 & $C_2, m$ \\
+    斜方晶 & $a \neq b, \theta \neq 90$\textdegree & 斜方格子 &        & $C_2$    \\
+    六方晶 & $\theta = 60$\textdegree              & 六方格子 &        & $C_6$    \\
     \hline
   \end{tabular}
   \caption{2 次元 Bravie 格子}
@@ -225,15 +61,15 @@ sub-nudge = 0 mu
   \centering
   \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    結晶系 & 格子条件        & 単純     & 体心     & 面心     & 底心 \\
+    結晶系 & 格子条件                                                                             & 単純     & 体心     & 面心     & 底心     \\
     \hline \hline
-    立方晶 & $a = b = c$ & 単純立方格子 & 体心立方格子 & 面心立方格子 &    \\
-    正方晶 & $a = b = c$ &        &        &        &    \\
-    直方晶 & $a = b = c$ &        &        &        &    \\
-    単斜晶 & $a = b = c$ &        &        &        &    \\
-    三斜晶 & $a = b = c$ &        &        &        &    \\
-    三方晶 & $a = b = c$ &        &        &        &    \\
-    六方晶 & $a = b = c$ &        &        &        &    \\
+    立方晶 & $a = b = c$, $\alpha = \beta = \gamma = 90$\textdegree                           & 単純立方格子 & 体心立方格子 & 面心立方格子 &        \\
+    正方晶 & $a = b \neq c$, $\alpha = \beta = \gamma = 90$\textdegree                        & 単純正方格子 & 体心正方格子 &        &        \\
+    直方晶 & $a \neq b \neq c$, $\alpha = \beta = \gamma = 90$\textdegree                     & 単純直方格子 & 体心直方格子 & 面心直方格子 & 底心直方格子 \\
+    単斜晶 & $a \neq b \neq c$, $\alpha = \gamma = 90$\textdegree, $\beta \neq 90$\textdegree & 単純単斜格子 &        &        & 底心単斜格子 \\
+    三方晶 & $a = b = c$, $\alpha = \beta = \gamma \neq 90$\textdegree                        & 単純三方晶  &        &        &        \\
+    六方晶 & $a = b \neq c$, $\alpha = \beta = 90$\textdegree, $\gamma = 120$\textdegree      & 単純六方晶  &        &        &        \\
+    三斜晶 & $a \neq b \neq c$, $\alpha \neq \beta \neq \gamma$                               & 単純三斜晶  &        &        &        \\
     \hline
   \end{tabular}
   \caption{3 次元 Bravie 格子}
@@ -295,24 +131,27 @@ $[h\ k\ l]$
 
 
 \section{固体における結合}
-\subsection{}
-共有結合
-
-電子に対して陽子は質量が大きい為、陽子は固定されていると考えるのが断熱近似
+\subsection{共有結合 (covalent bond)}
+電子に対して陽子は質量が大きい為、陽子は固定されていると考えて陽子の運動エネルギーを除く。
+これを断熱近似 (adiabatic approximation) という。
 \begin{align}
   \hat{H} & = -\frac{\hbar^2}{2m_e}\nabla^2 - \frac{e^2}{4\pi\varepsilon_0r_1} - \frac{e^2}{4\pi\varepsilon_0r_2} + \frac{e^2}{4\pi\varepsilon_0R}
 \end{align}
 LCAO 法 (linear combination of atomic orbitals method)
 \begin{align}
-  H\varphi_i & = \mathcal{E}\varphi_i        \\
-  \varphi    & = c_1\varphi_1 + c_2\varphi_2
+  \varphi & = c_1\varphi_1 + c_2\varphi_2 \qquad (H\varphi_i = \E\varphi_i)
 \end{align}
+
 \begin{align}
-  H_{ij} & := \int\varphi_i^*\hat{H}\varphi_j\dl{\rr} \\
-  S_{ij} & := \int\varphi_i^*\varphi_j\dl{\rr}
+  \int\varphi_i\hat{H}\varphi\dl{\rr} & = \E\int\varphi_i\varphi\dl{\rr} \\
+  c_jH_{ij}                           & = \E c_jS_{ij}
 \end{align}
-とすると $H_{11} = H_{22}$, $H_{12} = H_{21}$, $S_{11} = S_{22} = 1$, $S_{12} = S_{21}$ となる。
-このとき計算すると次のような
+ただし $j$ で縮約を取り、次のように定義した。
+\begin{align}
+  H_{ij} & := \int\varphi_i^*\hat{H}\varphi_j\dl{\rr} & (H_{11} = H_{22}, H_{12} = H_{21})     \\
+  S_{ij} & := \int\varphi_i^*\varphi_j\dl{\rr}        & (S_{11} = S_{22} = 1, S_{12} = S_{21})
+\end{align}
+このとき次が成り立つ。
 \begin{align}
   \begin{pmatrix}
     H_{11} - S_{11}\mathcal{E} & H_{12} - S_{12}\mathcal{E} \\
@@ -333,12 +172,31 @@ LCAO 法 (linear combination of atomic orbitals method)
 \end{align}
 このとき行列式を考えることで次の式が成り立つ。
 \begin{align}
-  (H_{11} - \mathcal{E})^2 - (H_{12} - S\mathcal{E})^2 & = 0
+  (H_{11} - \mathcal{E})^2 & - (H_{12} - S\mathcal{E})^2 = 0     \\
+  H_{11} - \mathcal{E}     & = \pm (H_{12} - S\mathcal{E})       \\
+  \mathcal{E}_\pm          & = \frac{H_{11} \pm H_{12}}{1 \pm S}
 \end{align}
+これを代入すると
 \begin{align}
-  \mathcal{E}_\pm & = \frac{H_{11} \pm H_{12}}{1 \pm S}                    \\
-  c_1 = c_2       & = \frac{1}{\sqrt{2(1 \pm S)}}                          \\
-  \varphi_\pm     & = \frac{1}{\sqrt{2(1 \pm S)}}(\varphi_1 \pm \varphi_2)
+  \frac{1}{1 \pm S}
+  \begin{pmatrix}
+    \pm H_{11}S \mp H_{12} & H_{12} - SH_{11}       \\
+    H_{12} - SH_{11}       & \pm H_{11}S \mp H_{12} \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    c_1 \\ c_2
+  \end{pmatrix}
+  = 0
+\end{align}
+より $c_2 = \pm c_1$ となる。
+\begin{align}
+  \int|\varphi|^2\dl{\rr} & = \int|c_1\varphi_1 \pm c_1\varphi_2|^2\dl{\rr} = |c_1|^2\int(|\varphi_1|^2 \pm \varphi_1^*\varphi_2 \pm\varphi_2^*\varphi_1 + |\varphi_2|^2)\dl{\rr} \\
+                          & = |c_1|^2(2 \pm 2S) = 1                                                                                                                               \\
+  c_1                     & = \frac{1}{\sqrt{2(1 \pm S)}}
+\end{align}
+よって波動関数は次のように表示できる。
+\begin{align}
+  \varphi_\pm & = \frac{1}{\sqrt{2(1 \pm S)}}(\varphi_1 \pm \varphi_2)
 \end{align}
 
 
