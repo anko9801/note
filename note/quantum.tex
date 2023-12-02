@@ -1550,4 +1550,30 @@ $z$ の正方向に一様な磁場 $B$ があり、時刻 $t = 0$ で傾いた�
   1 次元調和振動子 $\hat{H}_0 = \dfrac{\hat{p}^2}{2m} + \dfrac{1}{2}m\omega^2\hat{x}^2$ に摂動 $\hat{V} = \alpha\hat{x}^2$ を加える。
 \end{proposition}
 
+\section{散乱}
+\subsection{反射と透過}
+左右から入射する $\psi_R, \psi_L$ について
+\begin{align}
+  \psi_R(x)                  & = \begin{dcases}
+                                   e^{ikx} + re^{-ikx} & (x\to-\infty) \\
+                                   te^{ikx}            & (x\to+\infty) \\
+                                 \end{dcases}       \\
+  \psi_L(x)                  & = \begin{dcases}
+                                   t'e^{-ikx}           & (x\to-\infty) \\
+                                   e^{-ikx} + r'e^{ikx} & (x\to+\infty) \\
+                                 \end{dcases}      \\
+  \psi_R^*(x) - r^*\psi_R(x) & = \begin{dcases}
+                                   (1 - |r|^2)e^{-ikx}       & (x\to-\infty) \\
+                                   t^*e^{-ikx} - r^*te^{ikx} & (x\to+\infty) \\
+                                 \end{dcases}
+\end{align}
+\begin{align}
+  J(x)        & = -i\frac{\hbar}{2m}\ab(\psi^*\diff{\psi}{x} - \psi\diff{\psi^*}{x}) \\
+  \diff{J}{x} & = -i\frac{\hbar}{2m}\ab(\psi^*\diff{\psi}{x} - \psi\diff{\psi^*}{x})
+\end{align}
+\begin{align}
+  t' & = \frac{1 - |r|^2}{t^*} \\
+  r' & = -\frac{r^*t}{t^*}
+\end{align}
+
 \end{document}

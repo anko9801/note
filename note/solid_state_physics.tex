@@ -5,6 +5,7 @@
 \newcommand{\E}{\mathcal{E}}
 \renewcommand{\aa}{\bm{a}}
 \newcommand{\bb}{\bm{b}}
+\newcommand{\KK}{\bm{K}}
 \title{固体物理学}
 \author{anko9801}
 \begin{document}
@@ -75,7 +76,6 @@
   \caption{3 次元 Bravie 格子}
   \label{table:3D Bravie}
 \end{table}
-単純立方格子 ($3C_4, 4C_3, 7m$)
 
 周期条件 $f(\rr + \bm{R}_n) = f(\rr)$ を満たす関数 $f(\rr)$ を Fourier 変換すると次のようになる。
 \begin{align}
@@ -89,25 +89,37 @@ $\bm{G}_m$ を 3 次元の逆格子ベクトル (reciprocal lattice vector) と�
 逆格子ベクトルの集合を逆格子空間と呼ぶ。
 Wigner-Seitz 胞の逆格子空間を Brillouin ゾーンという。
 
-例えば単純立方格子の逆格子空間は単純立方格子
-\begin{align}
-  \begin{alignedat}{3}
-    \aa_1 & = a(1, 0, 0) & \bb_1 & = \frac{2\pi}{a}(1, 0, 0) \\
-    \aa_2 & = a(0, 1, 0) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(0, 1, 0) \\
-    \aa_3 & = a(0, 0, 1) & \bb_3 & = \frac{2\pi}{a}(0, 0, 1)
-  \end{alignedat}
-\end{align}
-面心立方格子の逆格子空間は体心立方格子
-\begin{align}
-  \begin{alignedat}{3}
-    \aa_1 & = \frac{a}{2}(0, 1, 1) & \bb_1 & = \frac{2\pi}{a}(-1, 1, 1) \\
-    \aa_2 & = \frac{a}{2}(1, 0, 1) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(1, -1, 1) \\
-    \aa_3 & = \frac{a}{2}(1, 1, 0) & \bb_3 & = \frac{2\pi}{a}(1, 1, -1)
-  \end{alignedat}
-\end{align}
-体心立方格子の逆格子空間は面心立方格子
-\begin{align}
-\end{align}
+\begin{example}[単純立方格子 (simple cubic lattice)]
+  ($3C_4, 4C_3, 7m$)
+  例えば単純立方格子の逆格子空間は単純立方格子
+  \begin{align}
+    \begin{alignedat}{3}
+      \aa_1 & = a(1, 0, 0) & \bb_1 & = \frac{2\pi}{a}(1, 0, 0) \\
+      \aa_2 & = a(0, 1, 0) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(0, 1, 0) \\
+      \aa_3 & = a(0, 0, 1) & \bb_3 & = \frac{2\pi}{a}(0, 0, 1)
+    \end{alignedat}
+  \end{align}
+\end{example}
+\begin{example}[面心立方格子]
+  逆格子空間は体心立方格子
+  \begin{align}
+    \begin{alignedat}{3}
+      \aa_1 & = \frac{a}{2}(0, 1, 1) & \bb_1 & = \frac{2\pi}{a}(-1, 1, 1) \\
+      \aa_2 & = \frac{a}{2}(1, 0, 1) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(1, -1, 1) \\
+      \aa_3 & = \frac{a}{2}(1, 1, 0) & \bb_3 & = \frac{2\pi}{a}(1, 1, -1)
+    \end{alignedat}
+  \end{align}
+\end{example}
+\begin{example}[体心立方格子]
+  逆格子空間は面心立方格子
+  \begin{align}
+    \begin{alignedat}{3}
+      \aa_1 & = \frac{a}{2}(0, 1, 1) & \bb_1 & = \frac{2\pi}{a}(-1, 1, 1) \\
+      \aa_2 & = \frac{a}{2}(1, 0, 1) \quad\implies\quad & \bb_2 & = \frac{2\pi}{a}(1, -1, 1) \\
+      \aa_3 & = \frac{a}{2}(1, 1, 0) & \bb_3 & = \frac{2\pi}{a}(1, 1, -1)
+    \end{alignedat}
+  \end{align}
+\end{example}
 
 \subsection{回折}
 Laue 条件
@@ -120,13 +132,17 @@ $\kk$ と $\kk_0$ のなす角 $2\theta$
   2d\sin\theta     & = \lambda \qquad \ab(|\kk| = \frac{2\pi}{\lambda}, |\bm{G}_m| = \frac{2\pi}{d})
 \end{align}
 これを Bragg の条件という。
-
-\subsection{Miller}
-Miller 指数 (Miller indices)
-$[h\ k\ l]$
 \begin{align}
-  \bm{A} & = h\aa_1 + k\aa_2 + l\aa_3
+  A(\KK) & = \int_a
 \end{align}
+
+\begin{definition}
+  Miller 指数 (Miller indices)
+  $[h\ k\ l]$
+  \begin{align}
+    \bm{A} & = h\aa_1 + k\aa_2 + l\aa_3
+  \end{align}
+\end{definition}
 
 
 
@@ -209,9 +225,7 @@ LCAO 法 (linear combination of atomic orbitals method)
   u_j & = Ae^{ijka}e^{-i\omega t}
 \end{align}
 \begin{align}
-  -M\omega^2 & = -K(2 - e^{-ika} - e^{ika})               \\
-             & = -2K(1 - \cos ka)                         \\
-             & = -4K\sin^2\frac{ka}{2}                    \\
+  -M\omega^2 & = -K(2 - e^{-ika} - e^{ika}) = -2K(1 - \cos ka) = -4K\sin^2\frac{ka}{2} \\
   \omega     & = 2\sqrt{\frac{K}{M}}\ab|\sin\frac{ka}{2}|
 \end{align}
 $\omega$ と $k$ の関係は分散関係 (dispersion relation) と呼ぶ。

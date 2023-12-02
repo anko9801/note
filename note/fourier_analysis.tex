@@ -1,151 +1,10 @@
 \RequirePackage{plautopatch}
 \documentclass[uplatex,dvipdfmx,a4paper,11pt]{jlreq}
-\usepackage{bxpapersize}
-\usepackage[utf8]{inputenc}
-\usepackage{fontenc}
-\usepackage{lmodern}
-\usepackage{otf}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{ascmac}
-% \usepackage[hyphens]{url}
-\usepackage{physics}
-\usepackage{braket}
-\usepackage{verbatimbox}
-\usepackage{bm}
-\usepackage{url}
-% \usepackage[dvipdfmx,hiresbb,final]{graphicx}
-\usepackage{hyperref}
-\usepackage{pxjahyper}
-\usepackage{tikz}\usetikzlibrary{cd}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{mathtools}
-\usepackage{xspace}
-\usepackage{xy}
-\usepackage{xypic}
+\input{preamble.tex}
 %
 \title{フーリエ解析}
 \author{Anko}
-\makeatletter
-%
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Image}{Im}
-\DeclareMathOperator{\ch}{ch}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Log}{Log}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\sgn}{sgn}
-%
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\GG}{\mathbb{G}}
-\newcommand{\TT}{\mathbb{T}}
-\newcommand{\calB}{\mathcal{B}}
-\newcommand{\calF}{\mathcal{F}}
-\newcommand{\ignore}[1]{}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\lt}{<}
-\newcommand{\gt}{>}
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
-\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
 
-\let\oldcite=\cite
-\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
-
-\let\oldbibitem=\bibitem
-\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
-
-% theorem環境の設定
-% - 冒頭に改行
-% - 末尾にdiamond (amsthm)
-\theoremstyle{definition}
-\newcommand*{\newscreentheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{screen}
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-  }{
-    \end{#2}
-    \end{screen}
-  }
-}
-\newcommand*{\newqedtheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-      \renewcommand{\qedsymbol}{\(\diamond\)}
-      \pushQED{\qed}
-  }{
-      \qedhere
-      \popQED
-    \end{#2}
-  }
-}
-\newtheorem{theorem*}{定理}
-
-\newqedtheoremx{theorem}{theorem*}
-\newcommand*\newqedtheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*\newqedtheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
-
-\newtheorem{sctheorem*}{定理}
-\newscreentheoremx{sctheorem}{sctheorem*}
-\newcommand*\newscreentheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*\newscreentheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
-
-%\newtheorem*{definition}{定義}
-%\newtheorem{theorem}{定理}
-%\newtheorem{proposition}[theorem]{命題}
-%\newtheorem{lemma}[theorem]{補題}
-%\newtheorem{corollary}[theorem]{系}
-
-\newqedtheorem{lemma}{補題}
-\newqedtheorem{corollary}{系}
-\newqedtheorem{example}{例}
-\newqedtheorem{proposition}{命題}
-\newqedtheorem{remark}{注意}
-\newqedtheorem{thesis}{主張}
-\newqedtheorem{notation}{記法}
-\newqedtheorem{problem}{問題}
-\newqedtheorem{algorithm}{アルゴリズム}
-
-\newscreentheorem*{definition}{定義}
-
-\renewenvironment{proof}[1][\proofname]{\par
-  \normalfont
-  \topsep6\p@\@plus6\p@ \trivlist
-  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
-}{%
-  \qed\endtrivlist\@endpefalse
-}
-\renewcommand\proofname{証明}
-
-\makeatother
 
 \begin{document}
 \maketitle
@@ -165,7 +24,7 @@
   区間 $[-\pi, \pi]$ において定義された実数値関数 $f(x)$ が連続かつ区分的に $C^1$ 級かつ周期的である ($f(-\pi) = f(\pi)$) ならば $f(x)$ は
   \begin{align}
     f(x) & = \sum_{n\in\ZZ}c_ne^{inx}                          \\
-    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dl{x}
   \end{align}
 \end{definition}
 例
@@ -185,40 +44,40 @@
 
 \begin{proposition}
   \begin{align}
-     & \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} = 0               \\
-     & \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} = \pi\delta_{m,n} \\
-     & \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} = \pi\delta_{m,n} \\
-     & \int_{-\pi}^\pi \cos(nx)\dd{x} = 2\pi\delta_{n,0}        \\
-     & \int_{-\pi}^\pi \sin(nx)\dd{x} = 0
+     & \int_{-\pi}^\pi \sin(mx)\cos(nx)\dl{x} = 0               \\
+     & \int_{-\pi}^\pi \cos(mx)\cos(nx)\dl{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \sin(mx)\sin(nx)\dl{x} = \pi\delta_{m,n} \\
+     & \int_{-\pi}^\pi \cos(nx)\dl{x} = 2\pi\delta_{n,0}        \\
+     & \int_{-\pi}^\pi \sin(nx)\dl{x} = 0
   \end{align}
 \end{proposition}
 \begin{proof}
   \begin{align}
-    \int_{-\pi}^\pi \sin(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\sin(m + n)x + \sin(m - n)x]\dd{x}                           \\
-                                           & = \frac{1}{2}\qty[- \frac{\cos(m + n)x}{m + n} - \frac{\cos(m - n)x}{m - n}]_{-\pi}^\pi        \\
-                                           & = 0                                                                                            \\
-    \int_{-\pi}^\pi \cos(mx)\cos(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x + \cos(m + n)x]\dd{x}                           \\
+    \int_{-\pi}^\pi \sin(mx)\cos(nx)\dl{x} & = \frac{1}{2}\int_{-\pi}^\pi \ab[\sin(m + n)x + \sin(m - n)x]\dl{x}                           \\
+                                           & = \frac{1}{2}\ab[- \frac{\cos(m + n)x}{m + n} - \frac{\cos(m - n)x}{m - n}]_{-\pi}^\pi        \\
+                                           & = 0                                                                                           \\
+    \int_{-\pi}^\pi \cos(mx)\cos(nx)\dl{x} & = \frac{1}{2}\int_{-\pi}^\pi \ab[\cos(m - n)x + \cos(m + n)x]\dl{x}                           \\
                                            & = \begin{dcases}
-                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
-                                                 \frac{1}{2}\qty[x + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                                 \frac{1}{2}\ab[\frac{\sin(m - n)x}{m - n} + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\ab[x + \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
                                                \end{dcases} \\
-                                           & = \pi\delta_{m,n}                                                                              \\
-    \int_{-\pi}^\pi \sin(mx)\sin(nx)\dd{x} & = \frac{1}{2}\int_{-\pi}^\pi \qty[\cos(m - n)x - \cos(m + n)x]\dd{x}                           \\
+                                           & = \pi\delta_{m,n}                                                                             \\
+    \int_{-\pi}^\pi \sin(mx)\sin(nx)\dl{x} & = \frac{1}{2}\int_{-\pi}^\pi \ab[\cos(m - n)x - \cos(m + n)x]\dl{x}                           \\
                                            & = \begin{dcases}
-                                                 \frac{1}{2}\qty[\frac{\sin(m - n)x}{m - n} - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
-                                                 \frac{1}{2}\qty[x - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
+                                                 \frac{1}{2}\ab[\frac{\sin(m - n)x}{m - n} - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi & (m \neq n) \\
+                                                 \frac{1}{2}\ab[x - \frac{\sin(m + n)x}{m + n}]_{-\pi}^\pi                          & (m = n)
                                                \end{dcases} \\
                                            & = \pi\delta_{m,n}
   \end{align}
   \begin{align}
-    \int_{-\pi}^\pi \cos(nx)\dd{x} & = \begin{dcases}
-                                         \qty[\frac{\sin(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
-                                         \qty[x]_{-\pi}^\pi                  & (n = 0)
+    \int_{-\pi}^\pi \cos(nx)\dl{x} & = \begin{dcases}
+                                         \ab[\frac{\sin(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \ab[x]_{-\pi}^\pi                  & (n = 0)
                                        \end{dcases}  \\
-                                   & = 2\pi\delta_{n,0}                                      \\
-    \int_{-\pi}^\pi \sin(nx)\dd{x} & = \begin{dcases}
-                                         \qty[-\frac{\cos(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
-                                         \qty[0]_{-\pi}^\pi                   & (n = 0)
+                                   & = 2\pi\delta_{n,0}                                     \\
+    \int_{-\pi}^\pi \sin(nx)\dl{x} & = \begin{dcases}
+                                         \ab[-\frac{\cos(nx)}{n}]_{-\pi}^\pi & (n \neq 0) \\
+                                         \ab[0]_{-\pi}^\pi                   & (n = 0)
                                        \end{dcases} \\
                                    & = 0
   \end{align}
@@ -227,22 +86,22 @@
 \begin{definition}[$2\pi$ の周期をもつ関数のフーリエ級数]
   \begin{align}
     f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx)) \\
-    a_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\dd{x}                  \\
-    b_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\dd{x}
+    a_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\dl{x}                  \\
+    b_n  & := \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\dl{x}
   \end{align}
 \end{definition}
 
 \begin{definition}[$2\pi$ の周期をもつ関数の複素フーリエ級数]
   \begin{align}
     f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{inx}               \\
-    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x}
+    c_n  & := \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dl{x}
   \end{align}
 \end{definition}
 \begin{proof}
   \begin{align}
-    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx))                                               \\
-         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n}{2}(e^{inx} + e^{-inx}) + \frac{b_n}{2i}(e^{inx} - e^{-inx})) \\
-         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(\frac{a_n - ib_n}{2}e^{inx} + \frac{a_n + ib_n}{2}e^{-inx})             \\
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(nx) + b_n\sin(nx))                                              \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\ab(\frac{a_n}{2}(e^{inx} + e^{-inx}) + \frac{b_n}{2i}(e^{inx} - e^{-inx})) \\
+         & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\ab(\frac{a_n - ib_n}{2}e^{inx} + \frac{a_n + ib_n}{2}e^{-inx})             \\
          & = \sum_{n=-\infty}^{\infty}c_ne^{inx}
   \end{align}
   ただし $c_n$ は次のように定める。
@@ -254,8 +113,8 @@
              \end{dcases}
   \end{align}
   \begin{align}
-    \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dd{x} & = \frac{1}{2\pi}\int_{-\pi}^\pi\sum_{m=-\infty}^{\infty}c_me^{imx}e^{-inx}\dd{x} \\
-                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m\int_{-\pi}^\pi e^{i(m - n)x}\dd{x}  \\
+    \frac{1}{2\pi}\int_{-\pi}^\pi f(x)e^{-inx}\dl{x} & = \frac{1}{2\pi}\int_{-\pi}^\pi\sum_{m=-\infty}^{\infty}c_me^{imx}e^{-inx}\dl{x} \\
+                                                     & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m\int_{-\pi}^\pi e^{i(m - n)x}\dl{x}  \\
                                                      & = \frac{1}{2\pi}\sum_{m=-\infty}^{\infty}c_m 2\pi\delta_{m,n}                    \\
                                                      & = c_n
   \end{align}
@@ -263,15 +122,15 @@
 
 \begin{definition}[一般の周期をもつ関数のフーリエ級数]
   \begin{align}
-    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}\qty(a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l}) \\
-    a_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\cos\frac{n\pi x}{l}\dd{x}                                      \\
-    b_n  & := \frac{1}{l}\int_{-l}^\pi f(x)\sin\frac{n\pi x}{l}\dd{x}
+    f(x) & \sim \frac{a_0}{2} + \sum_{n=1}^{\infty}\ab(a_n\cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L}) \\
+    a_n  & := \frac{1}{L}\int_{-L}^\pi f(x)\cos\frac{n\pi x}{L}\dl{x}                                     \\
+    b_n  & := \frac{1}{L}\int_{-L}^\pi f(x)\sin\frac{n\pi x}{L}\dl{x}
   \end{align}
 \end{definition}
 \begin{definition}[一般の周期をもつ関数の複素フーリエ級数]
   \begin{align}
-    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi}{l}x}         \\
-    c_n  & := \frac{1}{2l}\int_{-l}^l f(x)e^{-i\frac{n\pi}{l}x}\dd{x}
+    f(x) & = \sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi}{L}x}         \\
+    c_n  & := \frac{1}{2L}\int_{-L}^L f(x)e^{-i\frac{n\pi}{L}x}\dl{x}
   \end{align}
 \end{definition}
 
@@ -284,7 +143,7 @@
 \begin{lemma}[コーシーの不等式]
   実数の数列 $\lbrace p_n\rbrace_n, \lbrace q_n\rbrace_n$ について次の不等式が成立する。
   \begin{align}
-    \qty(\sum_{n=1}^{N}p_n^2)\qty(\sum_{n=1}^{N}q_n^2) \geq \qty(\sum_{n=1}^{N}p_nq_n)^2
+    \ab(\sum_{n=1}^{N}p_n^2)\ab(\sum_{n=1}^{N}q_n^2) \geq \ab(\sum_{n=1}^{N}p_nq_n)^2
   \end{align}
 \end{lemma}
 \begin{proof}
@@ -303,4 +162,45 @@
 \begin{proof}
 
 \end{proof}
+
+\begin{theorem}
+  $f(x) = x^n$ を $[-1, 1]$ で Fourier 変換を行うことで $\zeta$ 関数の値がわかる
+\end{theorem}
+\begin{proof}
+  偶関数のとき $f(x) = x^{2n}$ となる。
+  \begin{align}
+    f(x) & = \frac{a_0}{2} + \sum_{n=1}^{\infty}\ab(a_n\cos(n\pi x))
+  \end{align}
+  \begin{align}
+    a_0 & = \int_{-1}^{1}x^{2m}\dl{x} = \frac{2}{2m+1}                               \\
+    a_n & = \int_{-1}^{1}x^{2m}\cos(n\pi x)\dl{x}                                    \\
+        & = 2\int_{0}^{1}x^{2m}\cos(n\pi x)\dl{x}                                    \\
+        & = 2\sum_{k=0}^{2m}(-1)^k\ab[(x^{2m})^{(k)}(\cos(n\pi x))^{(-k-1)}]_{0}^{1}
+  \end{align}
+  $k$ が偶数のとき $\sin(n\pi x)$ があるから $x = 0, 1$ 両方で $0$ となる。
+  また $k \neq 2m$ のとき $x = 0$ で $0$ となる。
+  これより $k$ が奇数 ($2s - 1$) かつ $x = 1$ のときのみを考えればよい。
+  \begin{align}
+    a_n & = -2\sum_{s=1}^{m}\ab[\frac{(2m)!}{(2m - k)!}x^{2m-k}\frac{(-1)^s}{(n\pi)^{k+1}}\cos(n\pi x)]_0^1 \\
+        & = -2\sum_{s=1}^{m}\frac{(2m)!}{(2m - 2s + 1)!}\frac{(-1)^{s + n}}{(n\pi)^{2s}}
+  \end{align}
+  \begin{align}
+    x^{2m} & = \frac{1}{2m+1} - 2\sum_{n=1}^{\infty}\sum_{s=1}^{m}\frac{(2m)!}{(2m - 2s + 1)!}\frac{(-1)^{s + n}}{(n\pi)^{2s}}\cos(n\pi x)
+  \end{align}
+  $m = 1$ のとき
+  \begin{align}
+    x^2 & = \frac{1}{3} + 4\sum_{n=1}^{\infty}(-1)^{n}\frac{\cos(n\pi x)}{(n\pi)^{2}}
+  \end{align}
+  \begin{align}
+    0^2 & = \frac{1}{3} + \frac{4}{\pi^2}\sum_{n=1}^{\infty}(-1)^{n}\frac{1}{n^2} \\
+    1^2 & = \frac{1}{3} + \frac{4}{\pi^2}\sum_{n=1}^{\infty}\frac{1}{n^2}
+  \end{align}
+
+  \begin{align}
+    b_n = \int_{-1}^{1}x^3\sin(n\pi x)\dl{x} =
+  \end{align}
+\end{proof}
+
+
+
 \end{document}
