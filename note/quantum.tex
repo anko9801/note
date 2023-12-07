@@ -165,16 +165,20 @@
 
 \section{量子力学の基礎}
 TODO: 実験的背景: 電子線を用いた二重スリット実験など
-\begin{axiom}[粒子の波動性]
-  すべての粒子は波動性を持つ。
-\end{axiom}
-光子や電子の性質から粒子の性質と対応付ける。
-\begin{definition}[ド・ブロイの関係式]
-  質量 $m$ の粒子の粒子性と波動性は次のように表現できる。
+\begin{axiom}[粒子の波動性 (ド・ブロイの関係式)]
+  すべての粒子は粒子性と波動性を合わせ持つ。
   \begin{align}
-    E & = \hbar\omega = \frac{p^2}{2m} + V(\rr), \qquad p = \hbar k
+    \begin{alignedat}{3}
+      &波を特徴付ける物理量 \qquad &&波数 k,\qquad &&角振動数 \omega \\
+      &粒子を特徴付ける物理量&& 運動量 p,&& エネルギー E
+    \end{alignedat}
   \end{align}
-\end{definition}
+  これらはプランク定数 $\hbar$ を用いて次のような関係が成り立つ。
+  \begin{align}
+    p & = \hbar k     \\
+    E & = \hbar\omega
+  \end{align}
+\end{axiom}
 
 \subsection{波動関数}
 \begin{definition}[波動関数]
@@ -313,42 +317,47 @@ $f = f'$ のとき $f = f^*$ であるからエルミート演算子の固有値
   \end{align}
 \end{proof}
 
-\section{時間に依存しないポテンシャル}
-ここではポテンシャルが時間に依存せず、シュレーディンガー方程式が時間に依存しないときを考える。時間成分について波動関数は $\psi(\rr, t) = \varphi(\rr)e^{-i\omega t}$ と分けられるからシュレーディンガー方程式は次のように書ける。
-\begin{align}
-  \hbar\omega\varphi(\rr) & = \ab(-\frac{\hbar^2}{2m}\vnabla^2 + V(\rr))\varphi(\rr) \\
-  \hat{H}\varphi(\rr)     & = E\varphi(\rr)
-\end{align}
 
+
+\section{時間に依存しないポテンシャル}
+ポテンシャルの性質によって解き方が変わってくる。
+
+ここではポテンシャルが時間に依存せず、Schrödinger 方程式が時間に依存しないときを考える。時間成分について波動関数は $\psi(\rr, t) = \varphi(\rr)e^{-i\omega t}$ と分けられるから Schrödinger 方程式は次のように書ける。
+\begin{align}
+  \hat{H}             & = -\frac{\hbar^2}{2m}\nabla^2 + V(\rr) = \frac{\hat{\pp}^2}{2m} + V(\rr)  \\
+  \hat{H}\psi(\rr, t) & = i\hbar\diffp{}{t}\psi(\rr, t) = \hbar\omega\psi(\rr, t) = E\psi(\rr, t)
+\end{align}
+またポテンシャルが不連続であっても有限ならば波動関数は連続である。
+\begin{align}
+  \lim_{\epsilon\to +0}\nabla\psi(\rr, t)|_{\rr_0}^{\rr_0 + \epsilon} & = \lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}\nabla^2\psi(\rr, t)\dl{\rr}                                                \\
+                                                                      & = -\frac{2m}{\hbar^2}\lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}\underbrace{(E - V(\rr))\psi(\rr, t)}_{有限}\dl{\rr} \to 0
+\end{align}
+ポテンシャルが空間反転対称性をもつとき $\varphi(\rr)$ が Schrödinger 方程式の解ならば $\varphi(-\rr)$ も解となる。
+\begin{align}
+  E\varphi(-\rr) & = \ab(-\frac{\hbar^2}{2m}(-\nabla)^2 + V(-\rr))\varphi(-\rr) = \ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\varphi(-\rr) = \hat{H}\varphi(-\rr)
+\end{align}
+線形従属、線形独立のときを考えると偶関数または奇関数としても一般性は失われない。
 \begin{definition}[エネルギーの縮退]
   基底状態はエネルギーが最小となるパラメータの状態、第 $n$ 励起状態は基底状態の次に $n$ 番目に低いエネルギーの状態である。3 次元系の場合、異なる状態で同じエネルギーを持つことがある。これをエネルギーの縮退という。
 \end{definition}
 
-\subsection{有限ポテンシャル}
-ポテンシャルが有限のとき
-\begin{align}
-  \lim_{\epsilon\to +0}\vnabla\psi(\rr, t)|_{\rr_0}^{\rr_0 + \epsilon} & = \lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}\nabla^2\psi(\rr, t)                        \\
-                                                                       & = -\frac{2m}{\hbar^2}\lim_{\epsilon\to +0}\int_{\rr_0}^{\rr_0 + \epsilon}(E - V(\rr))\psi(\rr, t) \\
-                                                                       & \to 0
-\end{align}
-ポテンシャルが空間反転対称性をもつとき
-\begin{align}
-  E\varphi(-\rr) & = \ab(-\frac{\hbar^2}{2m}(-\nabla)^2 + V(-\rr))\varphi(-\rr) \\
-                 & = \ab(-\frac{\hbar^2}{2m}\nabla^2 + V(\rr))\varphi(-\rr)
-\end{align}
-より $\varphi(\rr), \varphi(-\rr)$ は解となる。線形従属、線形独立のときを考えると偶関数または奇関数としても一般性は失われない。
 
 \subsection{平面波}
 \begin{proposition}
-  ポテンシャルがない $V(x) = 0$ とき波動関数は平面波となる。
+  まずポテンシャルが $V(x) = 0$ のとき固有関数と固有エネルギーは次のようになる。
   \begin{align}
-    \psi_{\kk}(\rr, t) & = \frac{e^{i(\kk\vdot\rr - \omega_{\kk}t)}}{(2\pi)^{3/2}} \qquad \ab(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+    \psi_{\kk}(\rr, t) & = \frac{1}{(2\pi)^{3/2}}e^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \ab(E_{\kk} = \hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
   \end{align}
+  つまり平面波となる。
 \end{proposition}
 \begin{proof}
-  このとき波数 $\kk$ の波動関数は次のようになる。
+  シュレーディンガー方程式は次のようになる。
   \begin{align}
-    \psi_{\kk}(\rr, t) & = Ce^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \ab(\hbar\omega_{\kk} = \frac{\hbar^2k^2}{2m})
+    -\frac{\hbar^2}{2m}\vnabla^2\psi(\rr) = E\psi(\rr)
+  \end{align}
+  これは波動方程式となっているから波数で展開すると
+  \begin{align}
+    \psi_{\kk}(\rr, t) & = Ce^{i(\kk\vdot\rr - \omega_{\kk}t)} \qquad \ab(E_{\kk} = \frac{\hbar^2k^2}{2m})
   \end{align}
   一辺の長さ $L$ の箱の中に閉じ込めるという周期境界条件を考える。
   \begin{align}

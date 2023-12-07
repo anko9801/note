@@ -33,10 +33,10 @@
 \end{proof}
 例えば
 \begin{align}
-  \LL[1]   & = \int_0^\infty e^{-st}\dl{t} = \ab[\frac{e^{-st}}{-s}]_0^\infty = \frac{1}{s}                                                                                                                                     \\
-  \LL[t]   & = \int_0^\infty te^{-st}\dl{t} = \ab[t\frac{e^{-st}}{-s}]_0^\infty - \ab[\frac{e^{-st}}{(-s)^2}]_0^\infty = \frac{1}{s^2}                                                                                          \\
-  \LL[t^2] & = \int_0^\infty t^2e^{-st}\dl{t} = \ab[t^2\frac{e^{-st}}{-s}]_0^\infty - \ab[2t\frac{e^{-st}}{(-s)^2}]_0^\infty + \ab[2\frac{e^{-st}}{(-s)^3}]_0^\infty = \frac{2}{s^3}                                            \\
-  \LL[t^3] & = \int_0^\infty t^3e^{-st}\dl{t} = \ab[t^3\frac{e^{-st}}{-s}]_0^\infty - \ab[3t^2\frac{e^{-st}}{(-s)^2}]_0^\infty + \ab[6t\frac{e^{-st}}{(-s)^3}]_0^\infty - \ab[6\frac{e^{-st}}{(-s)^4}]_0^\infty = \frac{6}{s^4} \\
+  \LL[1]   & = \int_0^\infty e^{-st}\dl{t} = \ab[\frac{e^{-st}}{-s}]_0^\infty = \frac{1}{s}                                                                                           \\
+  \LL[t]   & = \int_0^\infty te^{-st}\dl{t} = \ab[t\frac{e^{-st}}{-s} - \frac{e^{-st}}{(-s)^2}]_0^\infty = \frac{1}{s^2}                                                              \\
+  \LL[t^2] & = \int_0^\infty t^2e^{-st}\dl{t} = \ab[t^2\frac{e^{-st}}{-s} - 2t\frac{e^{-st}}{(-s)^2} + 2\frac{e^{-st}}{(-s)^3}]_0^\infty = \frac{2}{s^3}                              \\
+  \LL[t^3] & = \int_0^\infty t^3e^{-st}\dl{t} = \ab[t^3\frac{e^{-st}}{-s} - 3t^2\frac{e^{-st}}{(-s)^2} + 6t\frac{e^{-st}}{(-s)^3} - 6\frac{e^{-st}}{(-s)^4}]_0^\infty = \frac{6}{s^4} \\
   \LL[t^n] & = \int_0^\infty t^ne^{-st}\dl{t} = \sum_{i = 0}^{n}(-1)^i\ab[\diff[i]{t^n}{t}\frac{e^{-st}}{(-s)^{i+1}}]_0^\infty = \frac{n!}{s^{n+1}}
 \end{align}
 
