@@ -1,0 +1,177 @@
+\documentclass[a4paper,11pt]{jlreq}
+\input{preamble.tex}
+
+\title{プラズマ物理学}
+\author{21B00349 宇佐見大希}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{プラズマ}
+プラズマとは高エネルギー状態で励起・電離し、陽イオンと電子が熱運動している状態のこと。
+
+
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|ccc|}
+    \hline
+    種類   & 質量                 & 電荷           & 力 \\
+    \hline
+    陽イオン & $M \approx 1800m$  & $Z_\sigma e$ &   \\
+    電子   & $m = 511$ \si{keV} & $-e$         &   \\
+    \hline
+  \end{tabular}
+  \caption{}
+  \label{table:particles}
+\end{table}
+\begin{align}
+  \alpha_\sigma = \frac{n_\sigma}{N_\sigma}
+\end{align}
+
+\subsection{散乱断面積}
+
+\begin{align}
+  D = r_1 + r_2
+\end{align}
+\begin{align}
+  \sigma(\chi) = \frac{D^2}{4}
+\end{align}
+\begin{align}
+  \sigma(\chi) = \ab|\frac{b}{\sin b}\diff{b}{\chi}|
+\end{align}
+\begin{align}
+  Q = \int W(\chi)\sigma(\chi)\dl{\Omega} = \int_0^\pi W(\chi)\sigma(\chi)2\pi\sin\chi\dl{\chi}
+\end{align}
+
+\begin{align}
+  \begin{dcases}
+    F_r = m(\ddot{r} - r\dot{\theta}^2) = \frac{q_0q}{r^2} \\
+    F_\theta = \frac{1}{r}\diff{}{t}(mr^2\dot{\theta}) = 0
+  \end{dcases}
+\end{align}
+これらをエネルギー積分することで保存量を見出すことができる。
+\begin{align}
+   & \diff{}{t}(mr^2\dot\theta) = \diff{}{t}L = 0                                                                                                                                                                          \\
+   & m\dot{r}(\ddot{r} - r\dot{\theta}^2) - \frac{q_0q}{r^2}\dot{r} = m\dot{r}\ddot{r} - \frac{L^2}{mr^3}\dot{r} - \frac{q_0q}{r^2}\dot{r} = \diff{}{t}\ab(\frac{1}{2}m\dot{r}^2 + \frac{L^2}{2mr^2} + \frac{q_0q}{r}) = 0
+\end{align}
+これより初期状態において速度 $v_0$, $r\to\infty$ に対して最近接距離 $r_{\min}$ のとき $\dot{r} = 0$ となるから次のように求まる。
+\begin{align}
+  \frac{1}{2}mv_0^2 & = \frac{L_0^2}{2mr_{\min}^2} + \frac{q_0q}{r_{\min}}, \qquad L_0 = mv_0b \\
+  r_{\min}^2        & - \frac{2q_0q}{mv_0^2}r_{\min} - b^2 = 0                                 \\
+  r_{\min}          & = \frac{q_0q}{mv_0^2} + \sqrt{\ab(\frac{q_0q}{mv_0^2})^2 + b^2}
+\end{align}
+
+次の関係式が成り立つ。
+\begin{align}
+  \tan\frac{\chi}{2} & = \frac{q_0q}{bmv_0^2} \\
+  \frac{3}{2}k_BT    & = \frac{1}{2}mv_0^2
+\end{align}
+これを課題 1 の式に代入することで次のような関係式が成り立つ。
+\begin{align}
+  r_{\min} & = \frac{q_0q}{mv_0^2}(1 + \sqrt{1 + \tan^2\frac{\chi}{2}})
+\end{align}
+散乱角を $\chi\ll 1$ とすると $n \sim 10^{20}$ \si{m^{-3}} 温度 $T\sim 10$ \si{keV} より
+\begin{align}
+  r_{\min} = \frac{q_0q}{2mv_0^2} = \frac{q_0q}{2k_BT} = 5.0\times 10^{-5}\si{m}
+\end{align}
+
+
+
+\subsection{Maxwell-Boltzmann 分布}
+統計力学より速度分布関数は熱平衡状態を特徴付ける系の熱速度 $v_t = \sqrt{k_BT/m}$ を用いて次のように書ける。
+\begin{align}
+  f(\bm{v}) & = n\ab(\frac{m}{2\pi k_BT})^{3/2}\exp\ab(-\frac{mv^2/2}{k_BT}) = \frac{n}{(2v_t^2\pi)^{3/2}}\exp\ab(-\frac{v^2}{2v_t^2})
+\end{align}
+これを積分すると
+\begin{align}
+  \int f(\bm{v}; t)\dl{\bm{v}} & = \frac{n}{(2v_t^2\pi)^{3/2}}\int\exp\ab(-\frac{v^2}{2v_t^2})\dl{\bm{v}} = n
+\end{align}
+より任意の物理量 $Q(\bm{v})$ の全速度空間の平均値は次のようになる。
+\begin{align}
+  \langle Q(\bm{v}) \rangle = \int Q(\bm{v})f(\bm{v}; t)\dl{\bm{v}}\bigg/ \int f(\bm{v}; t)\dl{\bm{v}} = \frac{1}{n}\int Q(\bm{v})f(\bm{v}; t)\dl{\bm{v}}
+\end{align}
+$\dl{\bm{v}} = 4\pi v^2\dl{v}$
+\begin{align}
+  \langle 1\rangle                        & = \frac{1}{(2v_t^2\pi)^{3/2}}\int\exp\ab(-\frac{v^2}{2v_t^2})\dl{\bm{v}} = 1                                                  \\
+  \langle q\bm{v}\rangle                  & = \frac{1}{(2v_t^2\pi)^{3/2}}\int q\bm{v}\exp\ab(-\frac{v^2}{2v_t^2})\dl{\bm{v}} = \bm{0}                                     \\
+  \ab\langle \frac{1}{2}mv^2\rangle       & = \frac{1}{(2v_t^2\pi)^{3/2}}\int\frac{1}{2}mv^2\exp\ab(-\frac{v^2}{2v_t^2})\dl{\bm{v}} = \frac{3}{2}mv_t^2 = \frac{3}{2}k_BT \\
+  \ab\langle \frac{1}{2}mv^2\bm{v}\rangle & = \frac{1}{(2v_t^2\pi)^{3/2}}\int\frac{1}{2}mv^2\bm{v}\exp\ab(-\frac{v^2}{2v_t^2})\dl{\bm{v}} = \bm{0}                        \\
+  \langle v^3\rangle                      & = \frac{1}{(2v_t^2\pi)^{3/2}}\int_0^\infty 4\pi v^5\exp\ab(-\frac{v^2}{2v_t^2})\dl{v} = 4\pi\ab(\frac{2v_t^2}{\pi})^{3/2}     \\
+  \langle v^4\rangle                      & = \frac{1}{(2v_t^2\pi)^{3/2}}\int_0^\infty 4\pi v^6\exp\ab(-\frac{v^2}{2v_t^2})\dl{v} = 15v_t^4 = 15\frac{T^2}{m^2}
+\end{align}
+さらに電場が掛かっている状態のとき Boltzmann 分布
+\begin{align}
+  f(\bm{v}, \rr)                 & = n_0\ab(\frac{m}{2\pi k_BT})^{3/2}\exp\ab(-\frac{mv^2/2 + q\varphi(\rr)}{k_BT}) = \frac{n(\rr)}{(2v_t^2\pi)^{3/2}}\exp\ab(-\frac{v^2}{2v_t^2}) \\
+  \int f(\bm{v}, \rr)\dl{\bm{v}} & = n(\rr) = n_0\exp\ab(-\frac{q\varphi(\rr)}{k_BT})
+\end{align}
+速度 $\bm{u}_0 = (0, 0, u_0)$ で移流している温度 $T$ のプラズマは次のように与えられる。
+Debye 長の 2 乗程度大きく個別運動をしつつ、より大きなスケールでは集団振動していることが分かる。
+
+
+\subsection{Debye 遮蔽}
+電⼦は質量が軽い $m \ll 1$ として慣性項を無視、圧力 $p = nT$ を用いて電⼦温度は空間的に⼀様であるとすると
+\begin{align}
+  mn\diff{\bm{v}_e}{t} & = nq\ab(\EE + \frac{1}{c}\bm{v}\times\BB) - \nabla p \\
+  0                    & = -nq\nabla\varphi(\rr) - T\nabla n                  \\
+  n                    & = n_0\exp\ab(-\frac{q\varphi(\rr)}{T})               \\
+  \varphi(\rr)         & = -\frac{T}{q}\ln\ab(\frac{n}{n_0})
+\end{align}
+$q = -e, Ze$ $m = m_e, M$, $Zn_i = n_e$
+\begin{align}
+  \nabla\varphi(\rr) = -\frac{T\nabla n}{nq} = \frac{T\nabla n_e}{n_ee} = -\frac{T\nabla n_i}{n_iZe} \\
+  \delta n_i = - \frac{Ze\varphi}{T_i}n_{i0}
+\end{align}
+ポテンシャルとそれを構築する電荷分布は次のようになる。
+\begin{align}
+  \varphi(\rr) & = \frac{q_0}{r}\exp(-k_dr)                                                                                                    \\
+  \rho(\rr)    & = -\frac{1}{4\pi}\nabla^2 \varphi(\rr) = -\frac{1}{r^2}\diffp{}{r}\ab(r^2\diffp{\varphi}{r}) = -\frac{k_d^2q_0}{r}\exp(-k_dr)
+\end{align}
+これより総電荷は次のようになる。
+\begin{align}
+  \int\rho(\rr)\dl{\rr} & = -k_d^2q_0\int\frac{\exp(-k_dr)}{r}\dl{\rr} = -q_0
+\end{align}
+
+\subsection{プラズマ振動}
+
+
+\section{集団運動と個別運動}
+\begin{align}
+  \rho(\rr, t)  & = \sum_{i}\delta(\rr - \rr_i)                                             \\
+  \rho_{\kk}(t) & = \int\rho(\rr, t)e^{-i\kk\cdot\rr}\dl{\rr} = \sum_{i}e^{-i\kk\cdot\rr_i}
+\end{align}
+\begin{align}
+  \nabla^2\varphi(\rr_i) & = 4\pi e\rho(\rr_i) = 4\pi e\sum_{j \neq i}\delta(\rr_i - \rr_j) = 4\pi e\sum_{j \neq i}\frac{1}{(2\pi)^3}\int e^{i\kk\cdot(\rr_i - \rr_j)}\dl{\kk}        \\
+  \nabla^2\varphi(\rr_i) & = \frac{1}{(2\pi)^3}\int\varphi(\kk)\nabla^2e^{i\kk\cdot\rr_i}\dl{\kk} = \frac{1}{(2\pi)^3}\int(-k^2)\varphi(\kk)e^{i\kk\cdot\rr_i}\dl{\kk}                \\
+  \varphi(\kk)           & = -\frac{4\pi e}{k^2}\sum_{j \neq i}e^{-i\kk\cdot\rr_j}                                                                                                    \\
+  \varphi(\rr)           & = \frac{1}{(2\pi)^3}\int\varphi(\kk)e^{i\kk\cdot\rr}\dl{\kk} = -\frac{4\pi e}{(2\pi)^3}\int\sum_{j \neq i} \frac{1}{k^2}e^{i\kk\cdot(\rr - \rr_j)}\dl{\kk} \\
+                         & = -4\pi e\sum_{\kk}{}'\sum_{j \neq i} \frac{1}{k^2}e^{i\kk\cdot(\rr - \rr_j)}                                                                              \\
+  \nabla\varphi(\rr)     & = -4\pi ei\sum_{\kk}{}'\sum_{j \neq i} \frac{\kk}{k^2}e^{i\kk\cdot(\rr - \rr_j)}
+\end{align}
+\begin{align}
+  \dot{\rho}_{\kk}  & = -i\sum_{i}(\kk\cdot\bm{v}_i)e^{-i\kk\cdot\rr_i}                                                                                                                                            \\
+  \ddot{\rho}_{\kk} & = -\sum_{i}[(\kk\cdot\bm{v}_i)^2 + i\kk\cdot\dot{\bm{v}}_i]e^{-i\kk\cdot\rr_i}                                                                                                               \\
+                    & = -\sum_{i}(\kk\cdot\bm{v}_i)^2e^{-i\kk\cdot\rr_i} - \sum_{i}i\kk\cdot\ab(\frac{e\nabla\varphi(\rr_i)}{m})e^{-i\kk\cdot\rr_i}                                                                \\
+                    & = -\sum_{i}(\kk\cdot\bm{v}_i)^2e^{-i\kk\cdot\rr_i} - \frac{4\pi e^2}{m}\sum_{i}\kk\cdot\ab(\sum_{\bm{q}}{}'\sum_{j\neq i}\frac{\bm{q}}{q^2}e^{i\bm{q}\cdot(\rr - \rr_j)})e^{-i\kk\cdot\rr_i} \\
+                    & = -\sum_{i}(\kk\cdot\bm{v}_i)^2e^{-i\kk\cdot\rr_i} - \frac{4\pi e^2}{m}\sum_{i}\sum_{\bm{q}}{}'\rho_{\bm{q}}\ab(\frac{\kk\cdot\bm{q}}{q^2})e^{-i\kk\cdot\rr_i}e^{i\bm{q}\cdot\rr_i}          \\
+                    & = -\frac{T}{m}k^2\rho_{\kk} - \frac{4\pi e^2}{m}\sum_{\bm{q}}{}'\ab(\frac{\kk\cdot\bm{q}}{q^2})\rho_{\bm{q}}\rho_{\kk - \bm{q}}                                                              \\
+                    & = -\frac{T}{m}k^2\rho_{\kk} - \omega_p^2\rho_{\kk} - \frac{4\pi e^2}{m}\sum_{\bm{q}\neq\kk}{}'\ab(\frac{\kk\cdot\bm{q}}{q^2})\rho_{\bm{q}}\rho_{\kk - \bm{q}}
+\end{align}
+$\kk = \bm{q}$ のとき $\rho_0 = n_0$ であるから
+\begin{align}
+  \ddot\rho_{\kk} + \ab[\omega_p^2 + \frac{3k_BT}{m}k^2]\rho_{\kk} = - \frac{4\pi e^2}{m}\sum_{\bm{q} \neq \kk}^{}{}'\ab(\frac{\bm{k}\cdot\bm{q}}{q^2})\rho_{\bm{q}}\rho_{\bm{k} - \bm{q}}
+\end{align}
+つまり運動方程式において波数 $\bm{q}$ と $\bm{k} - \bm{q}$ の波から波数 $\bm{k}$ の波に相互作用する。
+3 次元ではなく 1 次元であると仮定する以外で係数 3 は消すことが出来なかった。
+
+
+
+\subsection{ガウス積分}
+\begin{align}
+  \int_{-\infty}^{\infty}\exp\ab(-\frac{x^2}{\alpha})\dl{x} = (\alpha\pi)^{1/2}
+\end{align}
+
+
+\end{document}

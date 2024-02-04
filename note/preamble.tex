@@ -15,9 +15,11 @@
 }
 \usepackage{bxpapersize} % A4判サイズを指定する
 \usepackage[utf8]{inputenc}
-\usepackage{fontenc} % フォントエンコーディング指定
+% \usepackage{fontenc} % フォントエンコーディング指定
+\usepackage[no-math]{luatexja-fontspec}
+\usepackage[deluxe,yu-win10]{luatexja-preset}
 \usepackage{lmodern} % Latin Modern フォント
-\usepackage{otf}
+\usepackage{luatexja-otf}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -40,17 +42,15 @@
 \usepackage{url}
 % \usepackage[dvipdfmx,hiresbb,final]{graphicx}
 \usepackage{hyperref} % リンク埋め込み
-\usepackage{pxjahyper}
+% \usepackage{pxjahyper}
 \usepackage{tikz} % グラフや図形を描く
 \usetikzlibrary{cd}
 % \usetikzlibrary{cd, intersections, calc, arrows, positioning, arrows.meta, automata}
-\usepackage{tikz-feynhand}
+\usepackage[compat=1.1.0]{tikz-feynman}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{mathtools}
 \usepackage{xspace}
-\usepackage{xy}
-\usepackage{xypic}
 
 \makeatletter
 %
@@ -85,7 +85,7 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 % \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\lt}{<}
-\newcommand{\gt}{>}
+\renewcommand{\gt}{>}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\rot}{\curl}
 \renewcommand{\angle}[1]{\left\langle #1 \right\rangle}

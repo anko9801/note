@@ -1,0 +1,527 @@
+\documentclass[a4paper,11pt]{jlreq}
+\input{preamble.tex}
+
+\title{素粒子物理学}
+\author{anko9801}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{始めに}
+
+自然単位系で行う。
+エネルギー，長さ
+\begin{align}
+  \hbar c & \approx 200 \si{MeV\cdot fm}  \\
+  c       & \approx 3\times 10^8 \si{m/s}
+\end{align}
+
+\section{素粒子の分類}
+
+素粒子とはそれ以上分割できない、内部構造を持たない粒子である。
+それぞれの素粒子は対応する場のもとで生成・消滅をする。粒子は場の励起状態である。
+実粒子の定常波
+
+実粒子 (on mass shell)
+仮想粒子 (off shell)
+
+粒子加速器を用いて
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|lll|}
+    \hline
+    クォーク   & アップ $u$          & チャーム $c$              & トップ $t$               \\
+           & ダウン $d$          & ストレンジ $s$             & ボトム $b$               \\
+    \hline
+    レプトン   & 電子 $e$           & ミュー粒子 $\mu$           & タウ粒子 $\tau$           \\
+           & 電子ニュートリノ $\nu_e$ & ミュー粒子ニュートリノ $\nu_\mu$ & タウ粒子ニュートリノ $\nu_\tau$ \\
+    \hline
+    ゲージボソン & 光子 $\gamma$      & グルーオン $g$             & $W$ ボソン $Z$ ボソン       \\
+           & ヒッグス粒子 $H$       &                       &                       \\
+    \hline
+  \end{tabular}
+  \caption{素粒子}
+  \label{table:particles}
+\end{table}
+\begin{itemize}
+  \item 物質を構成する粒子: フェルミ粒子
+  \item 力を構成する粒子: ボース粒子
+  \item 粒子に質量を与える場にできる粒子 ヒッグス粒子
+\end{itemize}
+
+対称性から保存する量が作られる。
+\begin{itemize}
+  \item 時間・空間並進対称性 $\to$ エネルギー・運動量
+  \item 方向対称性 $\to$ 角運動量
+  \item ゲージ不変性 $\to$ 電荷保存則
+\end{itemize}
+レプトン数保存
+バリオン数保存
+
+\subsection{レプトン}
+レプトン数
+電子やニュートリノの粒子 $+1$, 反粒子 $-1$
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|lll|}
+    \hline
+               & 電荷   & 質量               & 平均寿命                        \\
+    \hline
+    $\nu_e$    & $0$  & $<2$ \si{eV}     & ?                           \\
+    $\nu_\mu$  & $0$  & $<0.19$ \si{MeV} & ?                           \\
+    $\nu_\tau$ & $0$  & $<18.2$ \si{MeV} & ?                           \\
+    $e$        & $-1$ & $0.511$ \si{MeV} & 安定                          \\
+    $\mu$      & $-1$ & $106$ \si{MeV}   & $2.2$ \si{\mu s}            \\
+    $\tau$     & $-1$ & $1777$ \si{MeV}  & $2.9\times 10^{-13}$ \si{s} \\
+    \hline
+  \end{tabular}
+  \caption{レプトン}
+  \label{table:lepton}
+\end{table}
+
+\subsection{クォーク}
+\begin{itemize}
+  \item スピン
+  \item 電荷
+  \item 慣性質量
+  \item フレーバー (世代) 弱荷電アイソスピン
+  \item カラー クォーク，グルーオン
+\end{itemize}
+
+アイソスピン $I_3$
+ストレンジネス $S$
+ゲルマン・西島の式
+ハイパー電荷 $Y$ を定義して
+\begin{align}
+  Y = B + S \\
+  Q = I_3 + \frac{Y}{2}
+\end{align}
+反粒子はすべてマイナス
+クォーク $+1/3$ 反クォーク $-1/3$
+バリオン $+1$
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|rcccc|}
+    \hline
+        & 質量                 & $Q$    & $I_3$  & $S$  & $B$    \\
+    \hline
+    $u$ & $2.3$ \si{MeV}     & $+2/3$ & $+1/2$ & $0$  & $+1/3$ \\
+    $d$ & $4.8$ \si{MeV}     & $-1/3$ & $-1/2$ & $0$  & $+1/3$ \\
+    $c$ & $1.28$ \si{GeV}    & $+2/3$ & $0$    & $0$  & $+1/3$ \\
+    $s$ & $95\pm 5$ \si{MeV} & $-1/3$ & $0$    & $-1$ & $+1/3$ \\
+    $t$ & $173.5$ \si{GeV}   & $+2/3$ & $0$    & $0$  & $+1/3$ \\
+    $b$ & $4.2$ \si{GeV}     & $-1/3$ & $0$    & $0$  & $+1/3$ \\
+    \hline
+  \end{tabular}
+  \caption{クォーク}
+  \label{table:quark}
+\end{table}
+
+
+\subsection{ハドロン}
+\begin{itemize}
+  \item メソン: クォークと反クォークによるボソン
+  \item バリオン: クォーク 3 つのフェルミオン
+  \item ハイペロン: $S\neq 0$ のバリオン
+\end{itemize}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|ccccc|}
+    \hline
+        & $\bar{d}$                      & $\bar{u}$                & $\bar{s}$     & $\bar{c}$       & $\bar{b}$         \\
+    \hline
+    $d$ & $\pi^0$ (135), $\eta$, $\eta'$ & $\pi^-$                  & $K^0$ (498)   & $D^-$           & $B^0$             \\
+    $u$ & $\pi^+$ (140)                  & $\pi^0$, $\eta$, $\eta'$ & $K^+$ (494)   & $\bar{D^0}$     & $B^+$             \\
+    $s$ & $\bar{K^0}$                    & $K^-$                    & $\eta, \eta'$ & $D_s^-$         & $B_s^0$           \\
+    $c$ & $D^+$                          & $D^0$                    & $D_s^+$       & $J/\psi$ (3097) & $B_c^+$           \\
+    $b$ & $\bar{B^0}$                    & $B^-$                    & $\bar{B_s^0}$ & $B_c^-$         & $\Upsilon$ (9460) \\
+    \hline
+  \end{tabular}
+  \caption{メソンとその質量 (スピン 0, 1)}
+  \label{table:meson}
+\end{table}
+
+$(u\bar{u} - d\bar{d})/\sqrt{2}$
+$\eta^0, \eta^{0'} = c_1(u\bar{u} + d\bar{d}) + c_2(s\bar{s})$
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|ccccl|}
+    \hline
+    $S = 1/2$ & 構成    & $I_3$  & $S$ & 質量               & 備考                            \\
+    \hline
+    $p$       & $uud$ & $+1/2$ & $0$ & $938.3$ \si{MeV} & 安定                            \\
+    $n$       & $udd$ & $-1/2$ & $0$ & $939.6$ \si{MeV} & $n \to p + e^- + \bar{\nu_e}$ \\
+    \hline
+  \end{tabular}
+  \caption{バリオン}
+  \label{table:baryon}
+\end{table}
+
+
+\subsection{ゲージボソン}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|ccccc|}
+    \hline
+           & 強さ         & 媒介粒子       & スピン & 質量      & 理論        \\
+    \hline
+    強い相互作用 & $~0.1$     & グルーオン      & 1   & 0       & QCD       \\
+    電磁相互作用 & $1/137$    & 光子         & 1   & 0       & QED (GWS) \\
+    弱い相互作用 & $10^{-5}$  & $W\pm,	Z0$ & 1   & 100 GeV & GWS       \\
+    重力相互作用 & $10^{-38}$ & 重力子        & 2   & 0       & 一般相対論     \\
+    \hline
+  \end{tabular}
+  \caption{ゲージボソン}
+  \label{table:guage}
+\end{table}
+
+
+\subsection{ファインマン・ダイアグラム}
+エネルギー損失
+陽子全体
+パウリの排他律
+弱い相互作用
+\begin{align}
+     & K^0(d\bar{s}) \to \pi^+(u\bar{d}) + \pi^-(d\bar{u})   &
+     & \quad K^+(u\bar{s}) \to \mu^+ + \nu_\mu               &
+     & \quad \pi^+(u\bar d) \to \mu^+ + \nu_\mu
+  \\
+     & \feynmandiagram [layered layout, horizontal=a to b] {
+  c -- [anti fermion] f2 [particle=\(\bar d\)],
+  c -- [fermion] f3 [particle=\(u\)],
+  b -- [boson, edge label'=\(W^+\)] c,
+  a [particle=\(\bar s\)] -- [anti fermion] b -- [anti fermion] f1 [particle=\(\bar u\)],
+  }; &
+     & \feynmandiagram [horizontal=a to b] {
+  i1 [particle=\(u\)] -- [fermion] a -- [fermion] i2 [particle=\(\bar s\)],
+  a -- [photon, edge label=\(W^+\)] b,
+  f1 [particle=\(\mu^{+}\)] -- [fermion] b -- [fermion] f2 [particle=\(\nu_\mu\)],
+  }; &
+     & \feynmandiagram [horizontal=a to b] {
+  i1 [particle=\(u\)] -- [fermion] a -- [fermion] i2 [particle=\(\bar d\)],
+  a -- [photon, edge label=\(W^+\)] b,
+  f1 [particle=\(\mu^{+}\)] -- [fermion] b -- [fermion] f2 [particle=\(\nu_\mu\)],
+  };
+\end{align}
+\begin{align}
+     & K^0(d\bar{s}) \to \pi^+(u\bar{d}) + \pi^-(d\bar{u})   &
+     & \quad n \to p + e^- + \bar{\nu_e}
+  \\
+     & \feynmandiagram [layered layout, horizontal=a to b] {
+  a [particle=\(\mu^{-}\)] -- [fermion] b -- [fermion] f1 [particle=\(\nu_{\mu}\)],
+  b -- [boson, edge label'=\(W^{-}\)] c,
+  c -- [anti fermion] f2 [particle=\(\overline \nu_{e}\)],
+  c -- [fermion] f3 [particle=\(e^{-}\)],
+  }; &
+     & \feynmandiagram [layered layout, horizontal=a to b] {
+  a [particle=\(d\)] -- [fermion] b -- [fermion] f1 [particle=\(u\)],
+  b -- [boson, edge label'=\(W^{-}\)] c,
+  c -- [anti fermion] f2 [particle=\(\overline \nu_{e}\)],
+  c -- [fermion] f3 [particle=\(e^{-}\)],
+  };
+\end{align}
+\begin{align}
+  e^-e^+ \to \mu^-\mu^+
+\end{align}
+\begin{center}
+  \feynmandiagram [horizontal=a to b] {
+  i1 [particle=\(e^{-}\)] -- [fermion] a -- [fermion] i2 [particle=\(e^{+}\)],
+  a -- [photon, edge label=\(\gamma\)] b,
+  f1 [particle=\(\mu^{+}\)] -- [fermion] b -- [fermion] f2 [particle=\(\mu^{-}\)],
+  };
+\end{center}
+\begin{center}
+
+\end{center}
+\begin{equation}
+  \feynmandiagram [inline=(d.base), horizontal=d to b] {
+  a -- [fermion] b -- [fermion] c,
+  b -- [boson] d [particle=\(\gamma\)],
+  };
+  = i g_{e} \gamma^{\mu}
+\end{equation}
+
+弱い相互作用
+FCNC
+バーテックス（頂点）
+
+
+
+\section{加速器と検出器}
+
+\subsection{散乱断面積と加速器}
+素粒子・原子核の研究でしたいこと
+\begin{itemize}
+  \item 新しい粒子を調べる
+  \item 粒子の構造を調べる
+\end{itemize}
+調べる方法
+\begin{itemize}
+  \item 粒子の崩壊によって放出される粒子を観測する
+  \item 高エネルギーの粒子を衝突させ、発生する粒子を観測
+\end{itemize}
+実験を決定付ける量
+\begin{itemize}
+  \item 断面積 \\
+        ある事象の起こりやすさを面積で表したもの
+  \item Luminosity $L$ \\
+        加速器がどのくらいの強度で粒子衝突ができるかの指標 [個 \si{cm^{-2}sec^{-1}}]
+  \item エネルギー $E$ \\
+        衝突のエネルギーによって発生する頻度，
+        即ち 断面積 が変わる， 両方を上げるのは技術的チャレンジ
+\end{itemize}
+\begin{align}
+  m\ddot\rr & = q\dot\rr\times\BB                            \\
+  \rr(s)    & = \rr_0(s) + x(s)\bm{e}_x(s) + y(s)\bm{e}_y(s)
+\end{align}
+加速器が多段必要
+\begin{itemize}
+  \item 静電型加速器 (\sim 100 \si{keV})
+  \item 線形加速器 (100\sim 200 \si{MeV})
+  \item シンクロトロン (\si{GeV} \sim \si{TeV})
+\end{itemize}
+シンクロトロン放射 (制動輻射) によるエネルギー損失はエネルギー/質量の 4 乗に比例する。
+\begin{align}
+  \Delta E = \frac{4\pi}{3}\frac{\alpha\beta^3}{R}\ab(\frac{E}{m})^4\hbar c
+\end{align}
+これより陽子衝突型の到達エネルギーは電子衝突型より一桁高い。
+一方で陽子は内部構造がある為に電子衝突型の方が精密測定に向く。
+\begin{itemize}
+  \item 陽子
+  \item 電子
+\end{itemize}
+\begin{itemize}
+  \item 固定標的型
+  \item 衝突型
+\end{itemize}
+
+
+
+\subsection{粒子の検出}
+電磁シャワー
+カスケード・シャワー
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|cccl|}
+    \hline
+    粒子                  & 電荷  & 飛跡検出 & 物質中では    & 備考                             \\
+    \hline
+    光子                  & $0$ & 不可   & 電磁シャワー   & 対生成で $\gamma \to e^-e^+$ を放出   \\
+    電子                  & 荷電  & 可能   & 電磁シャワー   & 電子が曲がることによる制動放射で $\gamma$ 線を放射 \\
+    $\mu$               & 荷電  & 可能   & 透過力が強い   &                                \\
+    $\pi^\pm, K^\pi, p$ & 荷電  & 可能   & ハドロンシャワー &                                \\
+    ニュートリノ              & $0$ & 不可   & なし       &                                \\
+    \hline
+  \end{tabular}
+  \caption{観測する粒子}
+  \label{table:measure}
+\end{table}
+
+ガンマ線と物質の相互作用
+\begin{itemize}
+  \item 光電吸収 \\
+        $\gamma$ 線の全エネルギーが束縛電子を電離する。束縛エネルギー分引かれた
+  \item コンプトン散乱 \\
+        $\gamma$ 線と自由電子の散乱
+  \item 電子対生成 \\
+        物質中電場の中で運動量保存するように $\gamma \to e^+e^-$
+\end{itemize}
+吸収係数 $\mu$, 変換長 $X_p = \mu^{-1}$, 放射長 $X_0$
+荷電粒子が物質中に入ると電磁相互作用で電離する。Bethe-Bloch
+\begin{align}
+  -\frac{1}{\rho}\diff{E}{x} = D\frac{Z}{A}\ab(\frac{z}{\beta})^2\ab(\ln\ab(\frac{2mc^2\gamma^2\beta^2}{I}) - \beta^2 - \frac{\delta}{2})
+\end{align}
+PDF (Parton Distribution Function)
+\begin{align}
+  \sigma(ee\to\mu\mu) = \frac{4}{3}\frac{\pi\alpha^2}{s}Q_e^2Q_\mu^2
+\end{align}
+
+
+\begin{itemize}
+  \item カロリーメータ吸収させてエネルギーを測る
+  \item 磁場で曲げて運動量
+  \item 通過時間 (Time of Flight)
+  \item 粒子種の同定 ($M$)
+\end{itemize}
+
+
+気体の圧力 に反比例 ( :移動度)
+• の電場内で 程度
+電子に較べて非常に遅い
+• 電子のドリフト速度も上式に従う
+高電場では 一定値 になる（例：数 ）
+
+閉殻である希ガスの気体を円筒形容器に詰めて高電圧を印加する。
+$1/r$ に比例する電場
+電子なだれ
+電子イオン対生成
+- 30 eV/pair
+印加電圧によって動作モードが変わる。
+\begin{itemize}
+  \item 比例計数領域: 比例
+  \item ストリーマー領域: 線形でない増幅率が高く高頻度下でも使える
+  \item ガイガーミュラー領域: 同じ大きさの信号、高頻度は苦手
+\end{itemize}
+
+拡散：ガス中では 熱エネルギー による運動により時間とともに広がる
+
+
+
+
+\section{素粒子の理論}
+\subsection{散乱断面積}
+素過程 $A + B \to C + D$ において入射流束 $F_i$ と断面積 $\dl{\sigma}$ の積は遷移確率 $T_{if}$ と終状態数 $N_f$ の積と一致する。
+\begin{align}
+  F_i\dl{\sigma} & = T_{if}N_f
+\end{align}
+衝突の重心系から見ると $p_i = |\pp_A| = |\pp_B|$, $p_f = |\pp_C| = |\pp_D|$
+\begin{align}
+  W      & = \sqrt{s} = E_A + E_B = E_C + E_D = \sqrt{p_C^2 + m_C^2} + \sqrt{p_D^2 + m_D^2} \\
+  \bm{0} & = \pp_A + \pp_B = \pp_C + \pp_D
+\end{align}
+Fermi の黄金律より終状態密度 $\rho_f = \diff{N}{E}$ 不変振幅 $M_{if} = \bra<f|V\ket|i>$
+\begin{align}
+  W & = \frac{2\pi}{\hbar}|\bra<f|V\ket|i>|^2\diff{N}{E} = \frac{2\pi}{\hbar}|M_{if}|^2\rho_f
+\end{align}
+\begin{align}
+  T_{if} & = (2\pi)^4\delta^{(4)}(p_A + p_B - p_C - p_D)|M_{if}|^2                                     \\
+  N_f    & = \frac{\dl{\pp_C}}{(2\pi)^3}\frac{1}{2E_C} \cdot \frac{\dl{\pp_D}}{(2\pi)^3}\frac{1}{2E_D} \\
+  F_i    & = v_in_An_B = \ab(\frac{p_i}{E_A} - \frac{-p_i}{E_B})(2E_A)(2E_B) = 4Wp_i
+\end{align}
+これより散乱断面積
+\begin{align}
+  \frac{F_i\dl{\sigma}}{|M_{if}|^2} & = \frac{T_{if}N_f}{|M_{if}|^2} = \frac{1}{(2\pi)^2}\frac{\dl{\pp_C}}{2E_C}\frac{\dl{\pp_D}}{2E_D}\delta^{(4)}(p_A + p_B - p_C - p_D) \\
+                                    & = \frac{1}{16\pi^2}\frac{\dl{\pp_C}}{E_CE_D}\delta(W - E_C - E_D)                                                                    \\
+                                    & = \frac{1}{16\pi^2}\frac{p_C^2\dl{p_C}\dl{\Omega}}{E_CE_D}\delta(W - E_C - E_D)                                                      \\
+                                    & = \frac{1}{16\pi^2}\frac{p_C\dl{W}\dl{\Omega}}{W}\delta(W - E_C - E_D)                                                               \\
+                                    & = \frac{p_f\dl{\Omega}}{16\pi^2W}
+\end{align}
+\begin{align}
+  \diff{\sigma}{\Omega} & = \frac{|M_{if}|^2}{64\pi^2s}\frac{p_f}{p_i}
+\end{align}
+\begin{itemize}
+  \item 重心系エネルギーの 2 乗に反比例する
+  \item 不変振幅の 2 乗
+\end{itemize}
+
+\begin{align}
+  |\mathcal{M}_{fi}|^2 & = \ab|(ie\bar\psi\gamma^\mu\psi)\ab(\frac{g_{\mu\nu}}{q^2})(ie\bar\psi\gamma^\nu\psi)|^2 \\
+                       & = 2(4\pi\alpha)^2\frac{t^2 + u^2}{s^2}
+\end{align}
+\begin{align}
+  \diff{\sigma}{\Omega} & = \frac{|M_{fi}|^2}{64\pi^2s}\frac{p_f}{p_i} = \frac{32\pi^2\alpha^2}{64\pi^2 s}\frac{t^2 + u^2}{s^2} = \frac{\alpha^2}{2s}\frac{t^2 + u^2}{s^2}
+\end{align}
+\begin{align}
+  p_i = p_f = |\kk| = |\pp|
+\end{align}
+
+
+\subsection{寿命と崩壊幅}
+$E = E_0 - i\Gamma/2$ とおくと
+\begin{align}
+  |\psi(t)|^2 = |\psi_0 e^{-iEt}|^2 = |\psi_0 e^{-i(E_0 - i\Gamma/2)t}|^2 = |\psi_0|^2e^{-\Gamma t}
+\end{align}
+波動関数をフーリエ変換すると
+\begin{align}
+  \chi(E) & = \frac{1}{\sqrt{2\pi}}\int_0^\infty \dl{t}\psi(t)e^{iEt}                   \\
+          & = \frac{\psi_0}{\sqrt{2\pi}}\int_0^\infty \dl{t}e^{i(E - E_0 + i\Gamma/2)t} \\
+          & = \frac{\psi_0}{\sqrt{2\pi}}\frac{1}{i(E - E_0 + i\Gamma/2)}
+\end{align}
+Breit-Wigner の式
+\begin{align}
+  \frac{|\chi(E)|^2}{|\chi(E_0)|^2} = \frac{\Gamma^2/4}{(E - E_0)^2 + \Gamma^2/4}
+\end{align}
+よりエネルギーに対して $E = E_0$ で最大で半値幅 $\Gamma$ のグラフとなる。
+
+この $\Gamma$ を崩壊幅という。平均寿命 $\tau$ との不確定性原理を適用することで
+\begin{align}
+  \Delta E\cdot \Delta t \sim \Gamma \cdot \tau = \hbar
+\end{align}
+
+\begin{align}
+  \tau \sim 10^{-8} [\si{sec}] (弱い相互作用) \\
+  \tau \sim 10^{-23} [\si{sec}] (強い相互作用)
+\end{align}
+
+\subsection{}
+\begin{align}
+  e^+e^- \to Q\bar Q \to hadrons
+\end{align}
+1/s
+共鳴ピーク
+定数倍
+
+
+\subsection{場の量子論}
+Klein-Gordon 方程式
+\begin{align}
+  p^\mu              & = \ab(\frac{E}{c}, \pp)                            \\
+  i\hbar\partial^\mu & = \ab(i\hbar\frac{1}{c}\diffp{}{t}, -i\hbar\nabla)
+\end{align}
+\begin{align}
+  \ab()\psi = 0
+\end{align}
+ボソンとなる。
+
+スピン半整数のとき Dirac 方程式に従う場で、フェルミオンとなる
+\begin{align}
+  (i\gamma^\mu\partial_\mu - m)\varphi = 0
+\end{align}
+負エネルギー解
+\fbox{Dirac の空孔理論}
+Dirac の海
+\begin{itemize}
+  \item ボソンには適用できない
+  \item 無限個の電子の質量の問題
+\end{itemize}
+\fbox{時間を逆行する粒子}
+
+
+\subsection{QED}
+微細構造定数
+\begin{align}
+  \alpha & = \frac{e^2}{4\pi\varepsilon_0\hbar c} = \frac{e^2}{4\pi} \approx \frac{1}{137.02}
+\end{align}
+
+$E$ 大 (短波長)
+電子＋ニュートリノ
+
+バーテックス(頂点)
+\begin{center}
+  \feynmandiagram [vertical'=a to b] {
+  i1 [particle=\(e^{+}\)]
+  -- [fermion, momentum=\(p_3\)] a
+  -- [fermion, momentum=\(p_1\)] f1 [particle=\(e^{+}\)],
+  a -- [photon, edge label=\(\gamma\), momentum'=\(q\)] b,
+  i2 [particle=\(e^{-}\)]
+  -- [fermion, momentum=\(p_2\)] b
+  -- [fermion, momentum=\(p_4\)] f2 [particle=\(e^{-}\)],
+  };
+\end{center}
+\begin{align}
+  q = p_1 - p_3 = p_4 - p_2
+\end{align}
+これより運動量保存則を満たす
+\begin{align}
+  p_1 + p_2 = p_3 + p_4
+\end{align}
+\begin{align}
+  q^2 = (p_1 - p_3)^2 = 2(m^2 - p_1\cdot p_3) = 2(m^2 - E^2 + |\pp|^2\cos\theta) < 2(m^2 - E^2 + |\pp|^2) = 0
+\end{align}
+
+
+
+\subsection{強い相互作用}
+hadrons
+
+Mandelstam
+近似は 高エネルギー
+
+
+\end{document}

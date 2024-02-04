@@ -1,163 +1,8 @@
-\RequirePackage{plautopatch}
-\documentclass[uplatex,diffipdfmx,a4paper,11pt]{jlreq}
-\usepackage{bxpapersize}
-\usepackage[utf8]{inputenc}
-\usepackage{fontenc}
-\usepackage{lmodern}
-\usepackage{otf}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{ascmac}
-% \usepackage[hyphens]{url}
-\usepackage{physics2}
-\usephysicsmodule{ab, ab.braket, doubleprod, diagmat, xmat}
-\usepackage{diffcoeff}
-\usepackage{verbatimbox}
-\usepackage{bm}
-\usepackage{url}
-\usepackage{siunitx}
-% \usepackage[diffipdfmx,hiresbb,final]{graphicx}
-\usepackage{hyperref}
-\usepackage{pxjahyper}
-\usepackage{tikz}\usetikzlibrary{cd}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{mathtools}
-\usepackage{xspace}
-\usepackage{xy}
-\usepackage{xypic}
-%
+\documentclass[a4paper,11pt]{jlreq}
+\input{preamble.tex}
+
 \title{統計力学}
 \author{anko9801}
-\makeatletter
-%
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Image}{Im}
-\DeclareMathOperator{\ch}{ch}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Log}{Log}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\sgn}{sgn}
-%
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\GG}{\mathbb{G}}
-\newcommand{\TT}{\mathbb{T}}
-\newcommand{\calB}{\mathcal{B}}
-\newcommand{\calF}{\mathcal{F}}
-\newcommand{\ignore}[1]{}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-% \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\lt}{<}
-\newcommand{\gt}{>}
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\rot}{\curl}
-\renewcommand{\angle}[1]{\left\langle #1 \right\rangle}
-\newcommand{\EE}{\bm{E}}
-\newcommand{\BB}{\bm{B}}
-\renewcommand{\AA}{\bm{A}}
-\newcommand{\rr}{\bm{r}}
-\newcommand{\kk}{\bm{k}}
-\newcommand{\pp}{\bm{p}}
-\newcommand\mqty[1]{\begin{pmatrix}#1\end{pmatrix}}
-\newcommand\vmqty[1]{\begin{vmatrix}#1\end{vmatrix}}
-\numberwithin{equation}{section}
-
-\let\oldcite=\cite
-\renewcommand\cite[1]{\hyperlink{#1}{\oldcite{#1}}}
-
-\let\oldbibitem=\bibitem
-\renewcommand{\bibitem}[2][]{\label{#2}\oldbibitem[#1]{#2}}
-
-% theorem環境の設定
-% - 冒頭に改行
-% - 末尾にdiamond (amsthm)
-\theoremstyle{definition}
-\newcommand*{\newscreentheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{screen}
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-  }{
-    \end{#2}
-    \end{screen}
-  }
-}
-\newcommand*{\newqedtheoremx}[2]{
-  \newenvironment{#1}[1][]{
-    \begin{#2}[##1]
-      \leavevmode
-      \newline
-      \renewcommand{\qedsymbol}{\(\diamond\)}
-      \pushQED{\qed}
-  }{
-      \qedhere
-      \popQED
-    \end{#2}
-  }
-}
-\newtheorem{theorem*}{定理}[section]
-
-\newqedtheoremx{theorem}{theorem*}
-\newcommand*\newqedtheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*\newqedtheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newqedtheoremx{#1}{#1*}
-}
-\newcommand*{\newqedtheorem}{\@ifstar{\newqedtheorem@starred}{\newqedtheorem@unstarred}}
-
-\newtheorem{sctheorem*}{定理}
-\newscreentheoremx{sctheorem}{sctheorem*}
-\newcommand*\newscreentheorem@unstarred[2]{%
-  \newtheorem{#1*}[theorem*]{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*\newscreentheorem@starred[2]{%
-  \newtheorem*{#1*}{#2}
-  \newscreentheoremx{#1}{#1*}
-}
-\newcommand*{\newscreentheorem}{\@ifstar{\newscreentheorem@starred}{\newscreentheorem@unstarred}}
-
-%\newtheorem*{definition}{定義}
-%\newtheorem{theorem}{定理}
-%\newtheorem{proposition}[theorem]{命題}
-%\newtheorem{lemma}[theorem]{補題}
-%\newtheorem{corollary}[theorem]{系}
-
-\newqedtheorem{lemma}{補題}
-\newqedtheorem{corollary}{系}
-\newqedtheorem{example}{例}
-\newqedtheorem{proposition}{命題}
-\newqedtheorem{remark}{注意}
-\newqedtheorem{thesis}{主張}
-\newqedtheorem{notation}{記法}
-\newqedtheorem{problem}{問題}
-\newqedtheorem{algorithm}{アルゴリズム}
-
-\newscreentheorem*{axiom}{公理}
-\newscreentheorem*{definition}{定義}
-
-\renewenvironment{proof}[1][\proofname]{\par
-  \normalfont
-  \topsep6\p@\@plus6\p@ \trivlist
-  \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces\quad\par
-}{%
-  \qed\endtrivlist\@endpefalse
-}
-\renewcommand\proofname{証明}
-
-\makeatother
 
 \begin{document}
 \maketitle
@@ -205,7 +50,7 @@
 \end{proof}
 
 \begin{definition}
-  あるエネルギー $E$ のときに実現可能な量子状態数を $W(E)$ とおき、その対数を取ったものをエントロピー $S(E)$ という。
+  あるエネルギー $E$ のときに実現可能な量子状態数を $W(E)$ とおく。また状態の対数を取ったものをエントロピー $S(E)$ とする。
   \begin{align}
     S(E) & = k_B\log W(E)                     \\
     k_B  & = 1.380658\times 10^{-23} \si{J/K}
@@ -232,10 +77,10 @@
   \end{align}
   またエントロピーは Stirling の公式 $\log n! \approx n(\log n - 1)$ を用いて
   \begin{align}
-    S(E) & = k_B\log W(E)                                                                    \\
-         & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                          \\
-         & \approx k_B\ab((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))          \\
-         & = k_BN\ab(\ab(1 + \frac{M}{N})\log(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
+    S(E) & = k_B\log W(E)                                                                       \\
+         & = k_B\log\frac{(M + N - 1)!}{(N - 1)!M!}                                             \\
+         & \approx k_B\ab((N + M)(\log(N + M) - 1) - N(\log N - 1) - M(\log M - 1))             \\
+         & = k_BN\ab(\ab(1 + \frac{M}{N})\log\ab(1 + \frac{M}{N}) - \frac{M}{N}\log\frac{M}{N})
   \end{align}
 \end{proof}
 
@@ -311,7 +156,7 @@
 \section{ミクロカノニカル分布}
 \subsection{ミクロカノニカルアンサンブル}
 \begin{axiom}[等重率の原理]
-  孤立した物理系 $X$ において、外部から指定されたある狭いエネルギー範囲 $[U - ∆U, U]$ に固有エネルギー $E_i$ が属するような微視的なエネルギー固有状態 $\ket{\phi_i}$ のひとつひとつが実現される等しい確からしさを持っている。
+  孤立した物理系 $X$ において、外部から指定されたある狭いエネルギー範囲 $[U - \Delta U, U]$ に固有エネルギー $E_i$ が属するような微視的なエネルギー固有状態 $\ket{\phi_i}$ のひとつひとつが実現される等しい確からしさを持っている。
 \end{axiom}
 エネルギーの低い順にエネルギーシェル $E$ から $E + \Delta E$ までの中の状態を 1 つのグループでまとめてラベル付けする。
 \begin{align}
@@ -364,10 +209,10 @@
 \begin{theorem}[Maxwell の関係式]
   $C^2$ 級の関数において偏微分は交換できるから次の関係式を満たす。
   \begin{align}
-    \diffp{U}{S,V} & = \ab(\diffp{T}{V})_S = -\ab(\diffp{p}{S})_V  \\
-    \diffp{H}{S,p} & = \ab(\diffp{T}{p})_S = \ab(\diffp{V}{S})_p   \\
-    \diffp{F}{T,V} & = -\ab(\diffp{S}{V})_T = -\ab(\diffp{p}{T})_V \\
-    \diffp{G}{T,p} & = -\ab(\diffp{S}{p})_T = \ab(\diffp{V}{T})_p
+    \diffp{U}{S,V} = \ab(\diffp{T}{V})_S  & = -\ab(\diffp{p}{S})_V \\
+    \diffp{H}{S,p} = \ab(\diffp{T}{p})_S  & = \ab(\diffp{V}{S})_p  \\
+    \diffp{F}{T,V} = -\ab(\diffp{S}{V})_T & = -\ab(\diffp{p}{T})_V \\
+    \diffp{G}{T,p} = -\ab(\diffp{S}{p})_T & = \ab(\diffp{V}{T})_p
   \end{align}
 \end{theorem}
 
@@ -399,20 +244,20 @@
 ある温度の環境の中で理想気体や
 \subsection{ミクロカノニカル分布からカノニカル分布へ}
 
+Helmholtz 自由エネルギーを計算して、後は熱力学の公式を用いて計算しましたが、
 \begin{definition}
-  $\beta = \dfrac{1}{k_BT}$
   \begin{align}
-    Z(\beta) & = \sum_{i}e^{-\beta E_i}
+    p_i & = \frac{e^{-\beta E_i}}{\sum_{i}e^{-\beta E_i}} \qquad \ab(\beta = \dfrac{1}{k_BT})
   \end{align}
 \end{definition}
 
 \begin{theorem}
   \begin{align}
-    p & = \frac{e^{-\beta E_i}}{Z(\beta)}                                                           \\
-    F & = -k_BT\ln Z                                                                                \\
-    S & = -\diffp{F}{T} = k_B\beta^2\diffp{F}{\beta}                                                \\
-    U & = -T^2\diffp{}{T}\ab(\frac{F}{T}) = -\diffp{}{\beta}\ln Z(\beta) = \diffp{}{\beta}(\beta F) \\
-    C & = -\beta\diffp{S}{\beta} = k_B\beta^2\diffp[2]{}{\beta}\ln Z(\beta) = F
+    Z & = \sum_{i}e^{-\beta E_i}                                                                                         \\
+    F & = -k_BT\ln Z                                                                                                     \\
+    S & = -\diffp{F}{T} = k_B\beta^2\diffp{F}{\beta} = k_B\ln Z - k_B\beta\frac{1}{Z}\diffp{Z}{\beta}                    \\
+    U & = -T^2\diffp{}{T}\ab(\frac{F}{T}) = -\diffp{}{\beta}\ln Z(\beta) = \diffp{}{\beta}(\beta F)                      \\
+    C & = \diffp{U}{T} = -k_B\beta^2\diffp{U}{\beta} = -\beta\diffp{S}{\beta} = k_B\beta^2\diffp[2]{}{\beta}\ln Z(\beta)
   \end{align}
 \end{theorem}
 
@@ -423,114 +268,75 @@
   \end{align}
 \end{theorem}
 
+
 \subsection{二準位系}
-絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする：
+絶対温度 $T$ の熱浴に系 $X$ が浸けられている状態として、系 $X$ の Hamilton 演算子 $\hat{h}_X$ の固有状態は $\ket{\varphi_1}$ と $\ket{\varphi_2}$ の 2 つだけであり、$\ket{\varphi_1}$ の固有エネルギーは $E_1$ であり、$\ket{\varphi_2}$ の固有エネルギーは $E_2$ であるとする
 \begin{align}
   \hat{h}_X\ket{\varphi_i} & = E_i\ket{\varphi_i} \qquad (i = 1, 2)。
 \end{align}
 ただし $0 < E_1 < E_2$ $\beta = 1/k_BT$ とする。
-
-\begin{theorem}[1個の二準位系]
-  二準位系における熱力学的量を考える。低温の漸近領域 ($\beta(E_2 - E_1) \gg 1$, $\beta E_1 \gg 1$) と高温の漸近領域 ($\beta(E_2 - E_1) \ll 1$, $\beta E_1 \ll 1$) は次のようになる。
+\begin{lemma}
+  低温・高温極限における近似は次のようなものが挙げられる。$x \to 0$
+  低温の漸近領域 ($\beta(E_2 - E_1) \gg 1$, $\beta E_1 \gg 1$) と高温の漸近領域 ($\beta(E_2 - E_1) \ll 1$, $\beta E_1 \ll 1$)
   \begin{align}
-    Z(\beta) & = e^{-\beta E_1} + e^{-\beta E_2}                                                                                                          \\
-             & = \begin{dcases}
-                   e^{-\frac{E_1}{k_BT}} \to 0      & (低温) \\
-                   2 - \frac{E_1 + E_2}{k_BT} \to 2 & (高温)
-                 \end{dcases}                                                                                                  \\
-    F        & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                     \\
-             & = \begin{dcases}
-                   E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}} \to E_1  & (低温) \\
-                   \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty & (高温)
-                 \end{dcases}                                                                                    \\
-    S        & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}) \\
-             & = \begin{dcases}
-                   k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0          & (低温) \\
-                   k_B\ab(\ln 2 - \frac{1}{4}\ab(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 & (高温)
-                 \end{dcases}                                                     \\
-    U        & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                            \\
-             & = \begin{dcases}
-                   E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     & (低温) \\
-                   \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) & (高温)
-                 \end{dcases}                                        \\
-    C        & = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                                           \\
-             & = \begin{dcases}
-                   k_B\ab(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 & (低温) \\
-                   \frac{k_B}{4}\ab(\frac{E_2 - E_1}{k_BT})^2 \to 0                  & (高温)
-                 \end{dcases}
+    \frac{1}{1 + x} & \approx 1 - x \\
+    \ln(1 + x)      & \approx x     \\
+    e^x             & \approx 1 + x
   \end{align}
-  TODO: グラフ
+\end{lemma}
+\begin{theorem}
+  二準位系における熱力学的量は次のようなグラフとなる。
 \end{theorem}
 \begin{proof}
-  $x \to 0$ において $(1 + x)^{-1} \approx 1 - x$, $e^x \approx 1 + x$ と近似できる。
   \begin{align}
-    Z(\beta) & = \sum_{i} e^{-\beta E_i} = e^{-\beta E_1} + e^{-\beta E_2} \\
-             & = e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)})                \\
-             & \approx \begin{dcases}
-                         e^{-\frac{E_1}{k_BT}}                 \\
-                         (1 - \beta E_1)(2 -\beta (E_2 - E_1)) \\
-                       \end{dcases}               \\
-             & = \begin{dcases}
-                   e^{-\frac{E_1}{k_BT}} \to 0      & (低温) \\
-                   2 - \frac{E_1 + E_2}{k_BT} \to 2 & (高温)
-                 \end{dcases}
+    Z     & = e^{-\beta E_1} + e^{-\beta E_2} = \begin{dcases}
+                                                  e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) \approx e^{-\beta E_1} \to 0                                       & (低温) \\
+                                                  e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) \to 2 & (高温)
+                                                \end{dcases} \\
+    \ln Z & = \ln (e^{-\beta E_1} + e^{-\beta E_2}) \approx \begin{dcases}
+                                                              -\beta E_1 + e^{-\beta(E_2 - E_1)}   & (低温) \\
+                                                              \ln 2 - \frac{1}{2}\beta (E_1 + E_2) & (高温)
+                                                            \end{dcases}                                                                                                             \\
+    F     & = -k_BT\ln Z \approx \begin{dcases}
+                                   E_1 - \frac{1}{\beta}e^{-\beta (E_2 - E_1)} \to E_1 \\
+                                   \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty      \\
+                                 \end{dcases}                                                                                                                                       \\
+    S     & = k_B\ln(e^{-\beta E_1} + e^{-\beta E_2}) + k_B\beta\frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                                              \\
+    U     & = F + TS = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}
   \end{align}
   \begin{align}
-    F & = -k_BT\ln Z(\beta)                                                                                                                                                                \\
-      & = -\frac{1}{\beta}\ln(e^{-\beta E_1} + e^{-\beta E_2})                                                                                                                             \\
+    U & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                                                                              \\
       & = \begin{dcases}
-            -\frac{1}{\beta}\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) \\
-            -\frac{1}{\beta}\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)})
+            \frac{E_1 + E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}} \\
+            \frac{E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}
           \end{dcases} \\
-      & \approx \begin{dcases}
-                  E_1 - \frac{1}{\beta}e^{-\beta (E_2 - E_1)} \approx E_1 - k_BTe^{-\frac{E_2 - E_1}{k_BT}} \to E_1 \\
-                  \frac{1}{2}(E_1 + E_2) - k_BT\ln 2 \to -\infty                                                    \\
-                \end{dcases}
-  \end{align}
-  \begin{align}
-    S & = - \ab(\diffp{F}{T})_{V,N} = - \ab(\diffp{F}{\beta}\diffp{\beta}{T})_{V,N} = k_B\beta^2\ab(\diffp{F}{\beta})_{V,N}                                                                                                                                                                                                                                                                   \\
-      & = k_B\beta^2\ab(\frac{1}{\beta^2}\ln(e^{-\beta E_1} + e^{-\beta E_2}) - \frac{1}{\beta}\frac{-E_1e^{-\beta E_1} - E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                \\
-      & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})                                                                                                                                                                                                                                            \\
       & = \begin{dcases}
-            k_B\ab(\ln e^{-\beta E_1}(1 + e^{-\beta (E_2 - E_1)}) + \frac{\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}})                                                                                                                                                   \\
-            k_B\ab(\ln e^{-\frac{1}{2}\beta (E_1 + E_2)}(e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}) + \frac{\beta E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + \beta E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}}) \\
-          \end{dcases} \\
-      & \approx
-    \begin{dcases}
-      k_B\ab(-\beta E_1 + e^{-\beta (E_2 - E_1)} + (\beta E_1 + \beta E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)}))                                \\
-      k_B\ab(\ln 2 - \frac{1}{2}\beta (E_1 + E_2) + \frac{\beta}{2}\ab(E_1\ab(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\ab(1 - \frac{1}{2}\beta (E_2 - E_1)))) \\
-    \end{dcases}                                                                                                                                                                                                                        \\
-      & \approx
-    \begin{dcases}
-      k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0          \\
-      k_B\ab(\ln 2 - \frac{1}{4}\ab(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 \\
-    \end{dcases}
-  \end{align}
-  \begin{align}
-    U & = F + TS                                                                                                                                                                                      \\
-      & = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}                                                                                                               \\
-      & = \begin{dcases}
-            \frac{E_1 + E_2e^{-\beta (E_2 - E_1)}}{1 + e^{-\beta (E_2 - E_1)}}                                                                                      \\
-            \frac{E_1e^{\frac{1}{2}\beta (E_2 - E_1)} + E_2e^{-\frac{1}{2}\beta (E_2 - E_1)}}{e^{\frac{1}{2}\beta (E_2 - E_1)} + e^{-\frac{1}{2}\beta (E_2 - E_1)}} \\
-          \end{dcases} \\
-      & \approx \begin{dcases}
-                  (E_1 + E_2e^{-\beta (E_2 - E_1)})(1 - e^{-\beta (E_2 - E_1)})                                       \\
-                  \frac{1}{2}\ab(E_1\ab(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\ab(1 - \frac{1}{2}\beta (E_2 - E_1))) \\
-                \end{dcases}                                                                             \\
+            \ab(E_1 + E_2e^{-\beta (E_2 - E_1)})\ab(1 - e^{-\beta (E_2 - E_1)}) \\
+            \frac{1}{2}\ab(E_1\ab(1 + \frac{1}{2}\beta (E_2 - E_1)) + E_2\ab(1 - \frac{1}{2}\beta (E_2 - E_1)))
+          \end{dcases}                                                                                                            \\
       & \approx \begin{dcases}
                   E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}} \to E_1                                     \\
                   \frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT} \to \frac{1}{2}(E_1 + E_2) \\
                 \end{dcases}
   \end{align}
   \begin{align}
-    C & = \diffp{U}{T} = \diffp{U}{\beta}\diffp{\beta}{T} = -k_B\beta^2\diffp{U}{\beta}                                                                                                 \\
-      & = -k_B\beta^2\diffp{\beta}\ab(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}})                                                                                   \\
-      & = -k_B\beta^2\frac{E_2(E_1 - E_2)e^{\beta(E_1 - E_2)}(1 + e^{\beta(E_1 - E_2)}) - (E_1 + E_2e^{\beta(E_1 - E_2)})(E_1 - E_2)e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} \\
-      & = k_B\beta^2\frac{(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2} = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2             \\
+    S & \approx \begin{dcases}
+                  k_B\ab(-\beta E_1 + e^{-\beta(E_2 - E_1)}) + k_B\beta\ab(E_1 + (E_2 - E_1)e^{- \frac{E_2 - E_1}{k_BT}})              \\
+                  k_B\ab(\ln 2 - \frac{1}{2}(E_1 + E_2)) + k_B\beta\ab(\frac{1}{2}(E_1 + E_2) - \frac{1}{4}\frac{(E_2 - E_1)^2}{k_BT}) \\
+                \end{dcases} \\
+      & = \begin{dcases}
+            k_B \frac{E_2 - E_1}{k_BT}e^{- \frac{E_2 - E_1}{k_BT}} \to 0          & (低温) \\
+            k_B\ab(\ln 2 - \frac{1}{4}\ab(\frac{E_2 - E_1}{k_BT})^2) \to k_B\ln 2 & (高温)
+          \end{dcases}
+  \end{align}
+  \begin{align}
+    C & = -k_B\beta^2\diffp{U}{\beta} = -k_B\beta^2\diffp{}{\beta}\ab(\frac{E_1 + E_2e^{\beta(E_1 - E_2)}}{1 + e^{\beta(E_1 - E_2)}}) \\
+      & = k_B\frac{\beta^2(E_2 - E_1)^2e^{\beta(E_1 - E_2)}}{(1 + e^{\beta(E_1 - E_2)})^2}                                            \\
+      & = k_B\ab(\frac{\frac{1}{2}\beta(E_2 - E_1)}{\cosh\frac{1}{2}\beta(E_2 - E_1)})^2                                              \\
       & = \begin{dcases}
             k_B\ab(\frac{\beta(E_2 - E_1)}{1 + e^{-\beta(E_2 - E_1)}})^2e^{-\beta(E_2 - E_1)} \\
             k_B\ab(\frac{\beta(E_2 - E_1)}{e^{\frac{1}{2}\beta(E_2 - E_1)} + e^{-\frac{1}{2}\beta(E_2 - E_1)}})^2
-          \end{dcases}                                                          \\
+          \end{dcases}        \\
       & \approx \begin{dcases}
                   k_B\ab(\frac{E_2 - E_1}{k_BT})^2e^{-\frac{E_2 - E_1}{k_BT}} \to 0 \\
                   \frac{k_B}{4}\ab(\frac{E_2 - E_1}{k_BT})^2 \to 0
@@ -546,30 +352,21 @@
   $F = E - TS$ の最小化を考える。低温極限でエントロピーを上げるよりエネルギーが低いものを選んだ方がエネルギーが得となる為に固有エネルギーの低い状態に集まる。高温極限でエントロピーを増大させるとエネルギーが得となる為に半々となる。
 \end{proof}
 
-\begin{itembox}[l]{Q 15-2.}
-  Q 15-1.では Helmholtz 自由エネルギーを計算して、後は熱力学の公式を用いて計算しましたが、今回は正準集団の理論における固有状態の実現確率を与える確率関数 $p_\beta^{正準}(i)\ (i = 1, 2)$ を計算して、内部エネルギー $u$ とエントロピー $s$ を求める。
-\end{itembox}
+今回は正準集団の理論における固有状態の実現確率を与える確率関数 $p_\beta(i)\ (i = 1, 2)$ を計算して、内部エネルギー $u$ とエントロピー $s$ を求める。
 まず確率関数 $p_\beta(i)$ は定義より次のようになる。
 \begin{align}
-  p_\beta(i) & = \frac{e^{-\beta E_i}}{z(\beta)}.
+  p_\beta(i) & = \frac{e^{-\beta E_i}}{z(\beta)}
 \end{align}
 内部エネルギー $u$ はエネルギーの平均を取ることで分かる。
 \begin{align}
-  u & = \sum_i E_ip_\beta^{正準}(i) = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}.
+  u & = \sum_i E_ip_\beta(i) = \frac{E_1e^{-\beta E_1} + E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}
 \end{align}
-比熱も Q15-1.と同様に求まる。
-
 エントロピー $s$ は Shannon のエントロピーの公式に代入することで求まる。
 \begin{align}
-  s & = -k_B\sum_{i = 1,2}p_\beta^{正準}(i)\ln p_\beta^{正準}(i)                                                                                      \\
-    & = -k_B\sum_{i = 1,2}\frac{e^{-\beta E_i}}{z(\beta)}(- \ln z(\beta) - \beta E_i)                                                             \\
-    & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}}).
+  s & = -k_B\sum_{i = 1,2}p_\beta(i)\ln p_\beta(i)                                                                                               \\
+    & = -k_B\sum_{i = 1,2}\frac{e^{-\beta E_i}}{z(\beta)}(- \ln z(\beta) - \beta E_i)                                                            \\
+    & = k_B\ab(\ln(e^{-\beta E_1} + e^{-\beta E_2}) + \frac{\beta E_1e^{-\beta E_1} + \beta E_2e^{-\beta E_2}}{e^{-\beta E_1} + e^{-\beta E_2}})
 \end{align}
-
-\begin{itembox}[l]{Q 15-7.}
-  比熱について解析せよ。
-\end{itembox}
-
 まず比熱について次のように定義した関数 $\phi(x)$ を用いて表される。
 \begin{align}
   \phi(x) & := \frac{x}{\cosh x}                                                             \\
@@ -578,7 +375,7 @@
 \end{align}
 ここで $x\geq 0$ の範囲において $\phi(x)$ が極大となる $x = x_0$ の値を考える。
 \begin{align}
-       & \left.\diff{\phi}{x}\right|_{x = x_0} = 0        \\
+       & \diff{\phi}{x}[x = x_0] = 0                      \\
   \iff & \frac{\cosh x_0 - x_0\sinh x_0}{\cosh^2 x_0} = 0 \\
   \iff & x_0\tanh x_0 = 1                                 \\
   \iff & x_0 = 1.199678640257734\ldots
@@ -592,79 +389,64 @@
 
 低温、高温で比熱が 0 となる理由は比熱が $C = \diff{E}{T}$ であることより Q15-3, Q15-4 よりエネルギーの確率が極限的に定数となることから比熱は 0 となることが分かる。
 
+
+
 \subsection{調和振動子系の統計力学}
+固体における原子の熱振動について考える。各原子が格子点への復元力により独立に単振動しているものと近似するとき，系のハミルトニアンは以下のように書くことができる。
+\begin{align}
+  H = \sum_{i=1}^{N}\ab[\frac{1}{2m}p_i^2 + \frac{1}{2}m\omega^2x_i^2]
+\end{align}
+ここで, $i$ 番目の原子の格子点からの変位を $x_i$ とし, $p_i$ はそれに共役な運動量である。また, $m$ は原子の質量, $\omega$ は角振動数, $N$ は原子数である。温度を $T$, ボルツマン定数を $k_B$ として以下の問に答えよ。 \\
+
+(1) 原子の運動が量子力学的な場合, この系の分配関数を求めよ。ここで, 以下のハミルトニアンで与えられる質量 $m$, 角振動数 $\omega$ の 1 次元調和振動子
+\begin{align}
+  H = \frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2
+\end{align}
+のエネルギー準位が
+\begin{align}
+  E_n = \ab(n + \frac{1}{2})\hbar\omega \qquad (n = 0, 1, 2, \ldots)
+\end{align}
+で表されることを用いてもよい。 \\
+低温$\beta\hbar\omega \gg 1$
 
 \begin{theorem}
-  \begin{align}
-    z(\beta) & = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega}                                                                     \\
-    f        & = \frac{1}{\beta}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega)                                                        \\
-    s        & = k_B\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-    u        & = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                           \\
-    c        & = k_B\ab(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2
-  \end{align}
+  調和振動子系のグラフ
 \end{theorem}
 \begin{proof}
-  低温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $e^x \approx 1 + x$, $(1 + x)^{-1} \approx 1 - x$ と近似できることを用いる。
-  高温の漸近領域において Q 16-1 の結果は次のように近似できる。ただし、$x\to 0$ のとき $\ln(1 + x) \approx x$ と近似できることとテイラー展開を用いる。
   \begin{align}
-    z(\beta) & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\ab(n + \frac{1}{2})\hbar\omega} = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} \\
-             & = \begin{dcases}
-                   \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
-                   \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} \\
-                 \end{dcases}                                                                                                                                                \\
-             & \approx \begin{dcases}
-                         e^{-\frac{\hbar\omega}{2k_BT}} \to 0                                                                                \\
-                         \frac{1 - \frac{1}{2}\beta\hbar\omega}{\beta\hbar\omega} \approx \frac{k_BT}{\hbar\omega} - \frac{1}{2} \to +\infty \\
-                       \end{dcases}
+    z & = \sum_{i = 0}^{\infty}e^{-\beta E_i} = \sum_{i = 0}^{\infty}e^{-\beta\ab(n + \frac{1}{2})\hbar\omega} = \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} \\
+    f & = \frac{1}{\beta}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) = \frac{1}{2}\hbar\omega + \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega})                                                                                       \\
+    u & = -\frac{1}{z}\diffp{z}{\beta} = \ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                 \\
+    s & = -k_B\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) + k_B\beta\frac{1}{2}\hbar\omega\coth \frac{1}{2}\beta\hbar\omega                                                                                                         \\
+      & = - k_B\ln\ab(1 - e^{-\beta\hbar\omega}) + k_B\beta\frac{\hbar\omega}{e^{\beta\hbar\omega} - 1}                                                                                                                            \\
+    c & = \diffp{u}{T} = -k_B\beta^2\diffp{u}{\beta} = k_B\ab(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2 = k_B\ab(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2
   \end{align}
   \begin{align}
-    f & = -k_BT\ln z(\beta)                                                                                                                                               \\
-      & = -\frac{1}{\beta}\ln \frac{e^{-\frac{1}{2}\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}} = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega \\
-      & = -\frac{1}{\beta}\ln \frac{1}{2\sinh \frac{1}{2}\beta\hbar\omega} = \frac{1}{\beta}\ln(2\sinh \frac{1}{2}\beta\hbar\omega)                                       \\
-      & \approx \begin{dcases}
-                  \frac{1}{\beta}(-e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega       \\
-                  \frac{1}{\beta}\ab(\ln \beta\hbar\omega + \frac{1}{2}\beta\hbar\omega) \\
-                \end{dcases}                                                                                    \\
-      & \approx \begin{dcases}
-                  \frac{1}{2}\hbar\omega - k_BTe^{-\frac{\hbar\omega}{k_BT}} \to \frac{1}{2}\hbar\omega \\
-                  -k_BT\ln\frac{k_BT}{\hbar\omega} \to - \infty                                         \\
-                \end{dcases}
+    \sinh x           & = x + \frac{x^3}{3!} + \frac{x^5}{5!} + \cdots          \\
+    \coth x           & = \frac{1}{x} + \frac{x}{3} - \frac{x^3}{45} + \cdots   \\
+    \frac{1}{\sinh x} & = \frac{1}{x} - \frac{x}{6} + \frac{7x^3}{360} - \cdots
   \end{align}
   \begin{align}
-    s & = - \ab(\diffp{f}{T})_{V,N} = k_B\beta^2\ab(\diffp{f}{\beta})_{V,N}                                                                                                                                              \\
-      & = k_B\beta^2\ab(-\frac{1}{\beta^2}\ln(1 - e^{-\beta\hbar\omega}) + \frac{\hbar\omega}{\beta(1 - e^{-\beta\hbar\omega})})                                                                                         \\
-      & = k_B\beta^2\ab(-\frac{1}{\beta^2}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{\frac{1}{2}\hbar\omega\cosh \frac{1}{2}\beta\hbar\omega}{\beta\sinh \frac{1}{2}\beta\hbar\omega})                           \\
-      & = k_B\ab(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1}) = k_B\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-      & \approx \begin{dcases}
+    s & \approx \begin{dcases}
                   k_B\ab(e^{-\beta\hbar\omega} + \beta\hbar\omega e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega})) \\
                   k_B\ab(-\ln\beta\hbar\omega + 1)                                                                  \\
-                \end{dcases}                                                                                                        \\
+                \end{dcases}                                                  \\
       & \approx \begin{dcases}
                   k_B\frac{\hbar\omega}{k_BT}e^{- \frac{\hbar\omega}{k_BT}} \to 0 \\
                   k_B\ln\frac{k_BT}{\hbar\omega} \to +\infty                      \\
-                \end{dcases}
-  \end{align}
-  \begin{align}
-    u & = f + Ts                                                                                                                                                                                   \\
-      & = \frac{1}{\beta}\ln(1 - e^{-\beta\hbar\omega}) + \frac{1}{2}\hbar\omega + \frac{1}{\beta}\ab(-\ln(1 - e^{-\beta\hbar\omega}) + \frac{\beta\hbar\omega}{e^{\beta\hbar\omega} - 1})         \\
-      & = \frac{1}{\beta}\ln\ab(2\sinh \frac{1}{2}\beta\hbar\omega) + \frac{1}{\beta}\ab(-\ln\ab(2\sinh\frac{1}{2}\beta\hbar\omega) + \frac{1}{2}\beta\hbar\omega\coth\frac{1}{2}\beta\hbar\omega) \\
-      & = \ab(\frac{1}{2} + \frac{1}{e^{\beta\hbar\omega} - 1})\hbar\omega = \frac{1}{2}\hbar\omega\coth\frac{1}{2}\beta\hbar\omega                                                                \\
-      & \approx \begin{dcases}
+                \end{dcases}                                                                                    \\
+    u & \approx \begin{dcases}
                   \ab(\frac{1}{2} + e^{-\beta\hbar\omega}(1 + e^{-\beta\hbar\omega}))\hbar\omega                                        \\
                   \frac{1}{2}\hbar\omega\ab(\ab(\frac{\beta\hbar\omega}{2})^{-1} + \frac{1}{3}\ab(\frac{\beta\hbar\omega}{2}) + \cdots) \\
-                \end{dcases}                                                              \\
+                \end{dcases}                              \\
       & \approx \begin{dcases}
                   \frac{1}{2}\hbar\omega + e^{-\beta\hbar\omega}\hbar\omega \to \frac{1}{2}\hbar\omega \\
                   k_BT\ab(1 + \frac{1}{12}\ab(\frac{\hbar\omega}{k_BT})^{2} + \cdots) \to +\infty      \\
-                \end{dcases}
-  \end{align}
-  \begin{align}
-    c & = \diffp{u}{T} = -k_B\beta^2\diffp{u}{\beta} = -k_B\beta^2\ab(-\frac{\hbar\omega e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega} - 1)^2})\hbar\omega                              \\
-      & = k_B\ab(\beta\hbar\omega\frac{e^{\frac{1}{2}\beta\hbar\omega}}{e^{\beta\hbar\omega} - 1})^2 = k_B\ab(\frac{\frac{1}{2}\beta\hbar\omega}{\sinh\frac{1}{2}\beta\hbar\omega})^2 \\
-      & \approx \begin{dcases}
+                \end{dcases}                                                              \\
+    c & \approx \begin{dcases}
                   k_B\ab(\beta\hbar\omega(e^{-\frac{1}{2}\beta\hbar\omega})(1 + e^{-\beta\hbar\omega}))^2                                             \\
                   k_B\ab(\frac{\beta\hbar\omega}{2}\ab(\ab(\frac{\beta\hbar\omega}{2})^{-1} - \frac{1}{6}\ab(\frac{\beta\hbar\omega}{2}) + \cdots))^2 \\
-                \end{dcases}                                                                               \\
+                \end{dcases}                                                            \\
       & \approx \begin{dcases}
                   k_B\ab(\frac{\hbar\omega}{k_BT})^2e^{-\frac{\hbar\omega}{k_BT}} \to 0 \\
                   k_B\ab(1 - \frac{1}{24}\ab(\frac{\hbar\omega}{k_BT}) + \cdots)^2 = k_B\ab(1 - \frac{1}{12}\ab(\frac{\hbar\omega}{k_BT}) + \cdots) \to k_B
